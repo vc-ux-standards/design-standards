@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labels, descriptions, hints and placeholders · Design Decisions</title>
+<title>Descriptions and placeholders · Design Decisions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,69 +28,78 @@
 
       <header class="masthead">
         <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Forms</span></div>
-        <h1>Labels, descriptions,<br>hints and placeholders</h1>
+        <h1>Descriptions and<br>placeholders</h1>
         <p class="lead prose" style="margin-top:1.5rem;">
-          Four different tools get treated as interchangeable, and the most fragile one — placeholder text — often ends up doing the most important job: naming the field. This record sets out what each does and when not to reach for it. Draft: argue with it, don't cite it yet.
+          A field carries two optional pieces of text around its input: a description above it, and a placeholder inside it. They are not the same slot — one persists and one disappears the instant the user types — and treating them as interchangeable is how essential guidance ends up in the one place it cannot survive. This record sets out what each carries, and when a field needs neither. Draft: argue with it, don't cite it yet.
         </p>
 
         <div class="context">
           <span class="k">Our context</span>
           <p>
-            VC forms carry consequential fields — NPIs, value-set IDs, attribution windows — where an unlabelled or unexplained field is a real error risk. A label that vanishes on the first keystroke, or guidance buried in grey placeholder, costs analysts accuracy. The four pieces of field text need clear jobs.
+            VC forms carry consequential, domain-specific fields — NPIs, value-set OIDs, attribution windows, measurement periods — where a misread field is a real error for the analysts and admins filling them in. The system gives each field exactly two optional text slots and no third: a <strong>description</strong> above the input and a <strong>placeholder</strong> inside it. <strong>There is no hint line below the input.</strong> That constraint is the whole decision. Format and constraint guidance that other systems tuck under the field has only one safe home here — the description — because the placeholder vanishes the moment the user types, reads as already-filled, and is not reliably announced to assistive technology.
           </p>
         </div>
 
         <div class="rulecard">
           <span class="k">The rule (provisional)</span>
           <p>
-            <strong>Placeholder text is never a label.</strong> Every field gets a persistent, visible <strong>label</strong>; a <strong>description</strong> above the input when it needs explaining; an <strong>inline hint</strong> below for a format or constraint. Use <strong>placeholder</strong> rarely, only as a faint example — never for the field's name or anything essential.
+            Put anything the user must read to fill the field correctly — what it means, why we ask, and its format or constraints — in the <strong>description</strong> above the input, where it stays put and is announced. Use the <strong>placeholder</strong> for at most a faint <em>example</em> of a well-formed value, never for a name, an instruction, or anything essential. The deciding question for each piece of text is whether it must survive the user typing: if it must, it is a description; if losing it costs nothing, it can be a placeholder; and if the field is self-evident, it gets neither.
           </p>
         </div>
       </header>
 
-      <!-- 01 THE FOUR TOOLS -->
+      <!-- 01 QUICK REFERENCE -->
       <section>
-        <span class="secnum">01 / The four tools</span>
-        <h2>Four jobs, four different pieces of text</h2>
+        <span class="secnum">01 / Quick reference</span>
+        <h2>One axis decides it: does the text survive typing?</h2>
         <p class="prose">
-          Each piece of field text does one job and sits in one place. Get the job right and the field explains itself; reach for the wrong one — especially the placeholder — and the field becomes a guessing game.
+          The two slots differ on a single axis, and every other difference follows from it: whether the text is still there once the user starts typing. The description is permanent; the placeholder is not. Read the table down that axis — what a slot can safely carry is set by whether it disappears.
         </p>
 
-        <table class="tbl tri">
+        <table class="tbl">
           <thead>
-            <tr><th>Tool</th><th>Its job · where it sits</th><th>When not to use it</th></tr>
+            <tr>
+              <th></th>
+              <th class="colh"><span class="th-h">Placeholder · inside</span></th>
+              <th class="colv"><span class="th-v">Description · above</span></th>
+            </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Visible label</th>
-              <td data-l="Job">Names the field. Always present, above the input, and stays put. Programmatically tied to the input.</td>
-              <td data-l="Not">Never optional. There is no field without one.</td>
+              <th scope="row">Persistence</th>
+              <td data-l="Placeholder">Gone the instant the user types. Returns only if they clear the field.</td>
+              <td data-l="Description">Always visible, before, during and after typing.</td>
             </tr>
             <tr>
-              <th scope="row">Description / help text</th>
-              <td data-l="Job">Explains what's expected or why we ask. Sits between the label and the input, so it's read before typing.</td>
-              <td data-l="Not">Don't use for a simple format rule — that's a hint. Don't pad obvious fields with it.</td>
+              <th scope="row">When it's read</th>
+              <td data-l="Placeholder">Only while the field is empty; skipped once focused.</td>
+              <td data-l="Description">A standing reference the user can re-check at any point.</td>
             </tr>
             <tr>
-              <th scope="row">Inline hint</th>
-              <td data-l="Job">States a format or constraint — "10-digit NPI", "max 200 characters". Sits just below the input.</td>
-              <td data-l="Not">Don't hide essential meaning here, and never put it in the placeholder where it vanishes.</td>
+              <th scope="row">Accessibility</th>
+              <td data-l="Placeholder">Not a reliable accessible name; its grey often fails contrast.</td>
+              <td data-l="Description">Tied to the input with <code>aria-describedby</code> and announced.</td>
             </tr>
             <tr>
-              <th scope="row">Placeholder</th>
-              <td data-l="Job">At most a faint <em>example</em> of a value, shown inside the empty input. Optional, and skippable.</td>
-              <td data-l="Not">Never the label. Never essential info. Never instructions. It disappears on input and reads as filled-in.</td>
+              <th scope="row">What it carries</th>
+              <td data-l="Placeholder">At most a faint example of a well-formed value. Nothing essential.</td>
+              <td data-l="Description">Meaning, the why, and the format or constraints.</td>
+            </tr>
+            <tr>
+              <th scope="row">Default</th>
+              <td data-l="Placeholder">Leave empty unless an example removes real doubt.</td>
+              <td data-l="Description">Add it whenever the field isn't self-evident.</td>
             </tr>
           </tbody>
         </table>
       </section>
 
-      <!-- 02 THE RULE: PLACEHOLDER IS NOT A LABEL -->
+      <!-- 02 IN PRACTICE -->
       <section>
-        <span class="secnum">02 / The rule</span>
-        <h2>A placeholder is not a label</h2>
+        <span class="secnum">02 / The pattern in practice</span>
+        <h2>Put the guidance where it survives</h2>
         <p class="prose">
-          This is the rule worth tattooing on the form. A label inside the placeholder looks clean in a mockup and breaks in use: it <strong>disappears the moment the user types</strong>, so anyone who pauses, gets interrupted, or comes back to check loses the name of the field. It <strong>fails accessibility</strong> — placeholder text isn't a reliable accessible name, fails WCAG 3.3.2 (Labels or Instructions), and its grey colour usually fails contrast. And a filled-looking field reads as already-answered, so it gets skipped.
+          The common failure is loading the placeholder with the work the description should do: the format, the instruction, the thing the analyst actually needs. It looks complete in a static mockup and breaks the moment anyone types. Watch the difference on a field where the format matters — a 10-digit NPI. The placeholder itself already signals which slot is which: it is the faintest text in the field, the system telling you it is disposable.
         </p>
 
         <div class="compare">
@@ -100,15 +109,16 @@
               <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Add provider</span></div>
               <div class="formdemo">
                 <div class="fld">
-                  <input class="inp" type="text" placeholder="Provider NPI" aria-label="(placeholder used as label — avoid)">
+                  <label class="lbl" for="a-npi">Provider NPI</label>
+                  <input class="inp w-phone" id="a-npi" type="text" placeholder="Enter the 10-digit NPI">
                 </div>
                 <div class="fld">
-                  <input class="inp" type="text" value="Riverside Medical Group">
+                  <label class="lbl" for="a-npi2">Group NPI</label>
+                  <input class="inp w-phone" id="a-npi2" type="text" value="1043285791">
                 </div>
-                <p class="note" style="margin-top:0.2rem;">Once the second field is typed into, its label is gone — was it the legal name, the billing name, the group? The first field's name only survives because it's still empty.</p>
               </div>
             </div>
-            <p class="note">Placeholders carry the field names. The filled field has no visible label at all, and a screen reader may announce nothing. This is the pattern to reject in review.</p>
+            <p class="note">The only statement of the format lives in the placeholder. The instant the analyst types — as in the second field — it's gone, and anyone returning to check the value sees no guidance at all.</p>
           </div>
           <div class="stage use">
             <span class="judge"><span class="d"></span>Use</span>
@@ -116,26 +126,24 @@
               <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Add provider</span></div>
               <div class="formdemo">
                 <div class="fld">
-                  <label class="lbl" for="np-npi">Provider NPI</label>
-                  <input class="inp w-phone" id="np-npi" type="text" placeholder="10 digits">
+                  <label class="lbl" for="b-npi">Provider NPI</label>
+                  <p class="help" id="b-npi-d">The 10-digit National Provider Identifier for the billing provider.</p>
+                  <input class="inp w-phone" id="b-npi" type="text" placeholder="1043285791" aria-describedby="b-npi-d">
                 </div>
                 <div class="fld">
-                  <label class="lbl" for="np-name">Legal name</label>
-                  <input class="inp w-line" id="np-name" type="text" value="Riverside Medical Group">
+                  <label class="lbl" for="b-npi2">Group NPI</label>
+                  <p class="help" id="b-npi2-d">The organisation's NPI, if it bills as a group.</p>
+                  <input class="inp w-phone" id="b-npi2" type="text" value="1043285791" aria-describedby="b-npi2-d">
                 </div>
               </div>
             </div>
-            <p class="note">Visible labels that persist. The placeholder, where used, only shows a faint example of the format — the field still reads correctly once filled and once typed into.</p>
+            <p class="note">Format and meaning sit in the description, which stays put and is announced. The placeholder shows only the shape of a valid value, so nothing is lost when it disappears.</p>
           </div>
         </div>
-      </section>
 
-      <!-- 03 EACH TOOL IN PRACTICE -->
-      <section>
-        <span class="secnum">03 / Each tool in practice</span>
-        <h2>Description, hint and placeholder, done right</h2>
+        <h3 style="margin-top:2.5rem;">Don't ask the placeholder to do work it can't</h3>
         <p class="prose">
-          With the label settled, the other three earn their place only when they add something the label can't. Description for the why, hint for the format, placeholder for an optional example.
+          Even when it isn't carrying instructions, a placeholder earns its place rarely. Two patterns to avoid: a placeholder that merely repeats the label, which adds nothing and clutters the empty field; and an example so complete it reads as a value the user has already entered and may leave untouched. When an example genuinely helps, make it unmistakably an example — a truncated sample of the format, not a plausible whole answer.
         </p>
 
         <div class="compare">
@@ -145,15 +153,16 @@
               <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
               <div class="formdemo">
                 <div class="fld">
-                  <input class="inp" type="text" placeholder="Enter the value set OID, e.g. 2.16.840.1.113883...">
+                  <label class="lbl" for="c-period">Measurement period</label>
+                  <input class="inp w-code" id="c-period" type="text" placeholder="Measurement period">
                 </div>
                 <div class="fld">
-                  <label class="lbl" for="ms-period">Measurement period <span class="opt">(this is the window the measure is calculated over, defined as the start and end dates for the reporting year, see the contract)</span></label>
-                  <input class="inp" id="ms-period" type="text" value="2026">
+                  <label class="lbl" for="c-oid">Value set OID</label>
+                  <input class="inp w-line" id="c-oid" type="text" placeholder="2.16.840.1.113883.3.464.1003.103.12.1001">
                 </div>
               </div>
             </div>
-            <p class="note">Essential instructions stuffed into a placeholder that will vanish; and a description crammed into the label so it can't be skimmed. Each piece of text is in the wrong slot.</p>
+            <p class="note">The first placeholder just echoes the label. The second is a complete, real-looking OID — an analyst skimming the form can read it as already filled in and move on, submitting a value they never chose.</p>
           </div>
           <div class="stage use">
             <span class="judge"><span class="d"></span>Use</span>
@@ -161,35 +170,77 @@
               <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
               <div class="formdemo">
                 <div class="fld">
-                  <label class="lbl" for="ms-oid">Value set OID</label>
-                  <p class="help">The identifier for the code list this measure draws from. Find it in the value set authority centre.</p>
-                  <input class="inp w-line" id="ms-oid" type="text" placeholder="2.16.840.1.113883…">
-                  <p class="hint">Dotted OID, no spaces.</p>
+                  <label class="lbl" for="d-period">Measurement period</label>
+                  <p class="help" id="d-period-d">Reporting year the measure is calculated over (YYYY).</p>
+                  <input class="inp w-code" id="d-period" type="text" aria-describedby="d-period-d">
                 </div>
                 <div class="fld">
-                  <label class="lbl" for="ms-year">Measurement period</label>
-                  <input class="inp w-code" id="ms-year" type="text" value="2026">
-                  <p class="hint">Reporting year (YYYY).</p>
+                  <label class="lbl" for="d-oid">Value set OID</label>
+                  <p class="help" id="d-oid-d">The identifier for the code list this measure draws from. Find it in the value set authority centre.</p>
+                  <input class="inp w-line" id="d-oid" type="text" placeholder="2.16.840.1.113883…" aria-describedby="d-oid-d">
                 </div>
               </div>
             </div>
-            <p class="note">Label names it, description (above the input) explains it, hint (below) gives the format, and the placeholder is a faint, skippable example. Four jobs, four slots.</p>
+            <p class="note">The echoing placeholder is dropped — the label is enough. The OID keeps an example, but a truncated one that can only read as a hint of the format, never as a finished value.</p>
           </div>
         </div>
       </section>
 
-      <!-- 04 REJECT IN REVIEW -->
+      <!-- 03 REASONING -->
       <section>
-        <span class="secnum">04 / Reject in review</span>
-        <h2>The labelling anti-patterns</h2>
+        <span class="secnum">03 / The reasoning</span>
+        <h2>Four forces, all pointing the same way</h2>
+        <p class="prose">
+          The division isn't a style preference. Four pressures act on every field, and for our consequential, domain-heavy forms they all push guidance into the description and keep the placeholder to a bare example.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <div class="n">1</div>
+            <h3>Permanence decides ownership</h3>
+            <p>The description persists; the placeholder evaporates on focus. So the rule writes itself: anything the user must still see while typing, or when they return to verify a value, belongs in the description. The placeholder can only hold what is safe to lose.</p>
+          </div>
+          <div class="principle">
+            <div class="n">2</div>
+            <h3>No hint slot, so the description owns format</h3>
+            <p>Other systems put a format rule in a hint below the input. We have no such line. That leaves the description as the only persistent home for "10-digit NPI" or "reporting year, YYYY" — a format dropped into the vanishing placeholder is worse than no format at all.</p>
+          </div>
+          <div class="principle">
+            <div class="n">3</div>
+            <h3>A placeholder is an example, not an instruction</h3>
+            <p>It is greyed, ephemeral, and routinely read as a pre-filled value. The only thing it can safely carry is a sample of the answer's shape — and even then, only when the shape is hard to describe in words alone.</p>
+          </div>
+          <div class="principle">
+            <div class="n">4</div>
+            <h3>Restraint keeps the signal</h3>
+            <p>Most fields need neither slot. Padding an obvious field with a description, or echoing its label in a placeholder, is noise that trains users to stop reading the text on the fields that genuinely need it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 WHEN TO LEAVE THEM OUT -->
+      <section>
+        <span class="secnum">04 / When to leave them out</span>
+        <h2>The default for both is nothing</h2>
+        <p class="prose">
+          A description earns its place by saying something the label can't. A placeholder earns its place by showing a shape that words would labour to describe. When neither is true, ship the field with its label alone — an empty description and an empty placeholder are the right answer far more often than designers reach for them.
+        </p>
+
         <div class="prose">
+          <p><strong>Leave them out when</strong></p>
+          <ul class="clean cool">
+            <li>The label already determines the answer beyond doubt — a person's first name, an email, a plainly named date. No description.</li>
+            <li>The format is obvious or the field is forgiving. Don't manufacture a constraint to fill the description.</li>
+            <li>An example would only repeat the label, or there is no single representative value to show. No placeholder.</li>
+            <li>The value's shape is self-evident from the label and width. The placeholder adds clutter, not clarity.</li>
+          </ul>
+
+          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
           <ul class="clean anti">
-            <li><strong>Placeholder as the label.</strong> Any field whose name lives only in the placeholder. Add a visible, persistent label.</li>
-            <li><strong>Essential information in a placeholder.</strong> Format rules, instructions or constraints that vanish on input. Move them to a hint or description.</li>
-            <li><strong>Label and placeholder saying the same thing.</strong> "Email" with placeholder "Email" adds nothing; either drop the placeholder or make it a genuine example.</li>
-            <li><strong>A description crammed into the label.</strong> Long explanatory text belongs in help text between the label and the input, not in the label itself.</li>
-            <li><strong>Vague labels.</strong> "Name", "Date", "Value" with no qualifier on a domain field. Say which name, which date, which value.</li>
-            <li><strong>Hint hidden until error.</strong> A format that's only revealed after the user gets it wrong. Show the constraint up front as a hint.</li>
+            <li>Essential information — a format, an instruction, a constraint — living only in the placeholder, where it vanishes on input.</li>
+            <li>A placeholder that echoes its label, or one so complete it reads as a value the user has already entered.</li>
+            <li>A description that merely restates the label instead of adding meaning, the why, or a format.</li>
+            <li>Format guidance deferred to a placeholder because "there's nowhere else" — there is: the description. We have no hint line, so the description is where it goes.</li>
           </ul>
         </div>
       </section>
@@ -197,45 +248,52 @@
       <!-- 05 PRECEDENT -->
       <section>
         <span class="secnum">05 / What the standards say</span>
-        <h2>"Don't use placeholders" is the consensus</h2>
+        <h2>Persistent helper text, placeholder demoted</h2>
         <p class="prose">
-          The accessibility standard and the major design systems are unusually aligned here: a visible label is required, and placeholder text is explicitly discouraged as a stand-in. Links are in the references.
+          The accessibility standard and the major design systems converge: guidance belongs in persistent helper text, and the placeholder is at best an optional example, never the carrier of meaning. The systems differ only on where the persistent text sits — and ours sits above the input, in the description. Links are in the references.
         </p>
 
         <div class="systems">
           <div class="syscard lead">
-            <div class="src">W3C · WCAG — the standard</div>
-            <h3>Labels or instructions are required</h3>
-            <p>Success Criterion 3.3.2 (Labels or Instructions) requires that labels or instructions are provided when content requires user input. Placeholder text alone does not satisfy it — it isn't a reliable accessible name, and its low-contrast grey commonly fails 1.4.3 as well.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>visible label required</span>
-          </div>
-
-          <div class="syscard">
-            <div class="src">GOV.UK Design System</div>
-            <h3>Do not use placeholder text</h3>
-            <p>GOV.UK's guidance is blunt: do not use placeholder text in place of a label or hint. It disappears when users start typing, can be mistaken for a pre-filled value, has poor contrast, and is not consistently announced by assistive technology. Use a label, and a separate hint where needed.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>no placeholder labels</span>
+            <div class="src">GOV.UK Design System — closest precedent</div>
+            <h3>Don't use placeholders; use persistent hint text</h3>
+            <p>GOV.UK is blunt: do not use placeholder text in place of a label or hint, because it disappears on input, is mistaken for a pre-filled value, has poor contrast, and isn't consistently announced. Format and examples go in hint text — which in their layout sits with the label, above the input. That is precisely our description slot.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>guidance above the input</span>
           </div>
 
           <div class="syscard">
             <div class="src">Nielsen Norman Group</div>
             <h3>Placeholders in form fields are harmful</h3>
-            <p>NN/g's testing shows placeholder-as-label increases errors and cognitive load: users forget what the field was, can't check their answer, and skip fields that look filled. The recommendation is a persistent label, with any example shown outside the field.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>persistent label</span>
+            <p>NN/g's testing shows placeholder-as-guidance increases errors and cognitive load: users forget what was asked, can't verify their answer, and skip fields that look filled. Keep any guidance persistent, and show examples outside the field rather than inside it.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>keep guidance persistent</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">W3C · WCAG — the standard</div>
+            <h3>Instructions must be available, not ephemeral</h3>
+            <p>Success Criterion 3.3.2 (Labels or Instructions) requires that instructions are provided when content needs input. Guidance that exists only in a placeholder fails it — it is not a reliable accessible name, and its low-contrast grey commonly fails 1.4.3 as well.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>3.3.2 instructions</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">IBM · Carbon — closest to our world</div>
+            <h3>Assistive text holds the guidance</h3>
+            <p>Carbon, the system built for data-heavy enterprise products, keeps field guidance in persistent assistive text and treats the placeholder as an optional example only — never the home for essential information. That is the same division we draw, with the persistent text moved to the description above the input.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>persistent assistive text</span>
           </div>
 
           <div class="syscard">
             <div class="src">MDN · web standards</div>
-            <h3>Tie the label, describe the rest</h3>
-            <p>MDN documents the mechanics this rule depends on: a <code>&lt;label&gt;</code> associated with its control via <code>for</code>/<code>id</code>, and supplementary description or hint text linked with <code>aria-describedby</code> — not the placeholder — so assistive tech announces it.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>label + aria-describedby</span>
+            <h3>Describe via aria-describedby, not the placeholder</h3>
+            <p>MDN documents the mechanics this rule depends on: supplementary description text linked to the input with <code>aria-describedby</code> is announced by assistive tech, whereas the <code>placeholder</code> attribute is not a dependable accessible name. The description is the slot that actually reaches every user.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>aria-describedby</span>
           </div>
 
           <div class="syscard">
             <div class="src">Synthesis</div>
             <h3>The pattern for forms like ours</h3>
-            <p>For consequential, domain-heavy fields, the standard is unambiguous: a visible persistent label on every field, description and hint where they earn their place, and the placeholder demoted to an optional example. VC should follow it.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>label always, placeholder rarely</span>
+            <p>For a two-slot system with no hint line, the field is unanimous: the description is the persistent helper that carries meaning and format, and the placeholder is a demoted, optional example. VC should follow it, and keep the placeholder empty by default.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>description carries, placeholder shows</span>
           </div>
         </div>
       </section>
@@ -243,15 +301,15 @@
       <!-- 06 RECO -->
       <section>
         <span class="secnum">06 / Recommendation for VC</span>
-        <h2>Label everything; placeholder is an example, never a name</h2>
+        <h2>Guidance in the description; the placeholder is only an example</h2>
         <div class="reco">
           <h3>The house rule (provisional)</h3>
           <ul class="clean cool">
-            <li><strong>Every field has a visible, persistent label</strong> tied to its input. No exceptions, including search and single-field forms.</li>
-            <li><strong>Add a description above the input</strong> when the field needs explaining or carries consequence; keep it out of the label.</li>
-            <li><strong>Add an inline hint below the input</strong> for a format or constraint, shown up front rather than only on error.</li>
-            <li><strong>Use placeholders rarely</strong>, and only as a faint, skippable example of a value — never the label, never essential information, never instructions.</li>
-            <li><strong>Reject in review</strong> any field whose name or required guidance lives only in placeholder text.</li>
+            <li><strong>Put anything the user must read to fill the field right in the description above the input</strong> — meaning, the why, format and constraints — where it persists and is announced via <code>aria-describedby</code>.</li>
+            <li><strong>Use the placeholder only as a faint, skippable example</strong> of a well-formed value, and only when an example removes real doubt about the value's shape. Truncate it so it can't be read as a finished entry.</li>
+            <li><strong>Default both off.</strong> A self-evident field ships with its label alone; an empty description and placeholder is usually correct.</li>
+            <li><strong>Never put the field's name, an instruction, or essential information in the placeholder.</strong> It disappears on input and isn't reliably announced.</li>
+            <li><strong>We have no hint line below the input</strong>, so never defer format guidance to a vanishing placeholder — the description is its only home.</li>
           </ul>
         </div>
       </section>
@@ -261,10 +319,11 @@
         <span class="secnum">07 / References</span>
         <h2>Sources</h2>
         <ul class="clean refs prose" style="margin-top:1rem;">
-          <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html">W3C WCAG — Understanding SC 3.3.2: Labels or Instructions</a> (labels or instructions required for user input).</li>
-          <li><a href="https://design-system.service.gov.uk/components/text-input/">GOV.UK Design System — Text input</a> and <a href="https://design-system.service.gov.uk/get-started/labels-legends-hints/">labels, legends and hint text</a> (do not use placeholder text in place of a label or hint).</li>
-          <li><a href="https://www.nngroup.com/articles/form-design-placeholders/">Nielsen Norman Group — Placeholders in Form Fields Are Harmful</a> (placeholder-as-label increases errors and cognitive load).</li>
-          <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">MDN — The Label element</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby">aria-describedby</a> (associate the label; link description/hint via aria-describedby, not the placeholder).</li>
+          <li><a href="https://design-system.service.gov.uk/components/text-input/">GOV.UK Design System — Text input</a> and <a href="https://design-system.service.gov.uk/get-started/labels-legends-hints/">labels, legends and hint text</a> (do not use placeholder text; put guidance in persistent hint text with the label).</li>
+          <li><a href="https://www.nngroup.com/articles/form-design-placeholders/">Nielsen Norman Group — Placeholders in Form Fields Are Harmful</a> (placeholders disappear, raise cognitive load, and read as filled; keep guidance persistent).</li>
+          <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html">W3C WCAG — Understanding SC 3.3.2: Labels or Instructions</a> (instructions required for user input; placeholder-only guidance does not satisfy it).</li>
+          <li><a href="https://carbondesignsystem.com/components/text-input/usage/">IBM Carbon — Text input usage</a> (persistent helper/assistive text for guidance; placeholder as an optional example only).</li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby">MDN — aria-describedby</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder">the placeholder attribute</a> (describe the field via aria-describedby; placeholder is not a dependable accessible name).</li>
         </ul>
       </section>
 
