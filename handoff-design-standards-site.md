@@ -51,7 +51,7 @@ Identical markup on every page:
 - Top nav: site title linking to the index, plus the page's category eyebrow (e.g. "Component usage · Steppers").
 - The source file already has a record masthead pattern: `.rechead` with a status badge (`.status.adopted` / `.status.draft`) plus eyebrow, then the `<h1>`. **Reuse that exact markup and CSS as the page header — do not invent a new metadata strip.** Extend the status set to Draft / Adopted / Superseded in CSS (Superseded styling: muted, like Draft but grey).
 - Content area constrained to the measure; demos may break out wider.
-- Footer: reuse the existing `.globalfoot` ("Value Connect · UX decision records · Internal · Verify against the live component library before build.").
+- Footer: reuse the existing `.globalfoot` ("VC · UX decision records · Internal · Verify against the live component library before build.").
 
 ### 3. `records/_template.html`
 

@@ -1,6 +1,6 @@
-# Design Decisions — Value Connect
+# Design Decisions — VC
 
-The design decision record and standards reference for Value Connect. Plain HTML and CSS, no JavaScript, no build step, no framework — deliberately. The site is 10–20 pages, optimised for durability and zero maintenance. It works opened straight from disk (`index.html`) and published on GitHub Pages.
+The design decision record and standards reference for VC. Plain HTML and CSS, no JavaScript, no build step, no framework — deliberately. The site is 10–20 pages, optimised for durability and zero maintenance. It works opened straight from disk (`index.html`) and published on GitHub Pages.
 
 The visual language (OKLCH paper/ink palette, Source Serif 4 / Hanken Grotesk / IBM Plex Mono, 64ch measure) is canonical and lives in the two stylesheets. Do not redesign it.
 
