@@ -95,8 +95,9 @@ writing; new copy should be indistinguishable in register.
 - **State the rule, then the deciding question.** "Default to X. Reserve Y for…
   The deciding question is…"
 - **Indian/British spelling** — organise, colour, prioritise, behaviour.
-- **Prose over bullets** inside records; flowing sentences with commas, not
-  fragment lists. Bold the load-bearing terms sparingly.
+- **Bold the load-bearing terms sparingly.** Where a rule enumerates a small,
+  parallel set of choices, a tight `ul.clean` list scans better than a dense
+  paragraph; keep the surrounding context and lead as prose.
 - **No clinical disclaimers, no "as an AI", no filler.** Insight per sentence.
 
 ## Before you finish

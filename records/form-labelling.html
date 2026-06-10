@@ -30,21 +30,24 @@
         <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Forms</span></div>
         <h1>Descriptions and<br>placeholders</h1>
         <p class="lead prose" style="margin-top:1.5rem;">
-          A field carries two optional pieces of text around its input: a description above it, and a placeholder inside it. They are not the same slot — one persists and one disappears the instant the user types — and treating them as interchangeable is how essential guidance ends up in the one place it cannot survive. This record sets out what each carries, and when a field needs neither.
+          A field carries two optional slots: a description above the input, and a placeholder inside it. One persists; the other vanishes the instant the user types. Treating them as interchangeable is how essential guidance lands in the one place it can't survive. This record sets out what each carries, and when a field needs neither.
         </p>
 
         <div class="context">
           <span class="k">Our context</span>
           <p>
-            VC forms carry consequential, domain-specific fields — NPIs, value-set OIDs, attribution windows, measurement periods — where a misread field is a real error for the analysts and admins filling them in. The system gives each field exactly two optional text slots and no third: a <strong>description</strong> above the input and a <strong>placeholder</strong> inside it. <strong>There is no hint line below the input.</strong> That constraint is the whole decision. Format and constraint guidance that other systems tuck under the field has only one safe home here — the description — because the placeholder vanishes the moment the user types, reads as already-filled, and is not reliably announced to assistive technology.
+            VC forms carry consequential fields — NPIs, value-set OIDs, attribution windows — where a misread is a real error for the analysts and admins filling them in. The system gives each field exactly two text slots and no third: a <strong>description</strong> above the input and a <strong>placeholder</strong> inside it. <strong>There is no hint line below.</strong> That constraint is the whole decision.
           </p>
         </div>
 
         <div class="rulecard">
           <span class="k">The rule (provisional)</span>
-          <p>
-            Put anything the user must read to fill the field correctly — what it means, why we ask, and its format or constraints — in the <strong>description</strong> above the input, where it stays put and is announced. Use the <strong>placeholder</strong> for at most a faint <em>example</em> of a well-formed value, never for a name, an instruction, or anything essential. The deciding question for each piece of text is whether it must survive the user typing: if it must, it is a description; if losing it costs nothing, it can be a placeholder; and if the field is self-evident, it gets neither.
-          </p>
+          <p>Sort each piece of text by one test — must it survive the user typing?</p>
+          <ul class="clean">
+            <li><strong>Must survive</strong> → the <strong>description</strong> above the input: what it means, why we ask, its format and constraints. It persists and is announced.</li>
+            <li><strong>Loses nothing</strong> → the <strong>placeholder</strong>: at most a faint <em>example</em> of a well-formed value, never a name, an instruction, or anything essential. It disappears on the first keystroke and isn't reliably read aloud.</li>
+            <li><strong>Self-evident field</strong> → neither.</li>
+          </ul>
         </div>
       </header>
 
