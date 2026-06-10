@@ -200,7 +200,7 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .rechead{ display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; margin-bottom:1rem; }
 
 /* Status badges. Lifecycle: Draft → Adopted → Superseded. */
-.status{ display:inline-flex; align-items:center; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; line-height:1; }
+.status{ display:inline-flex; align-items:center; vertical-align:middle; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; line-height:1; }
 .status .d{ width:0.5em; height:0.5em; border-radius:50%; }
 .status.adopted{ background:color-mix(in oklch, var(--ok) 16%, transparent); color:var(--ok-ink); } .status.adopted .d{ background:var(--ok); }
 .status.proposed{ background:var(--warm-soft); color:oklch(0.42 0.14 45); } .status.proposed .d{ background:var(--warm); }
