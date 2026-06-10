@@ -47,9 +47,11 @@ section{ padding:clamp(2.5rem,6vw,4.5rem) 0; border-top:1px solid var(--rule); }
 .tag{ display:inline-flex; align-items:center; gap:0.4em; font-family:"IBM Plex Mono", monospace; font-size:0.68rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; padding:0.28em 0.62em; border-radius:2px; line-height:1; }
 .tag.h{ background:var(--warm-soft); color:oklch(0.42 0.14 45); }
 .tag.v{ background:var(--cool-soft); color:oklch(0.40 0.10 235); }
+.tag.n{ background:var(--paper-3); color:var(--ink-2); }
 .tag .dot{ width:0.5em; height:0.5em; border-radius:50%; }
 .tag.h .dot{ background:var(--warm); }
 .tag.v .dot{ background:var(--cool); }
+.tag.n .dot{ background:var(--ink-3); }
 
 .context{ border:1px solid var(--rule-strong); background:var(--paper-2); border-radius:4px; padding:1.4rem 1.5rem; max-width:54rem; margin-top:2rem; }
 .context .k{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
@@ -232,3 +234,59 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .compare .stage.use .judge{ background:color-mix(in oklch, var(--ok) 16%, transparent); color:var(--ok-ink); }
 .compare .stage.use .judge .d{ background:var(--ok); border-radius:50%; }
 @media (max-width:760px){ .compare{ grid-template-columns:1fr; } }
+
+/* ---------- Container mockups: modal, full page, side panel ----------
+   Additive demo primitives in the .appframe idiom, used by the modal-vs-page
+   record to show each container rather than describe it. Token-driven only. */
+
+/* Faux page that a container sits on or over. */
+.screen{ position:relative; min-height:248px; }
+.pagehead{ display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding:1rem 1.4rem; border-bottom:1px solid var(--rule); }
+.pagehead .crumb{ font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3); }
+.pagehead h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 18; font-weight:600; font-size:1.18rem; margin:0.3rem 0 0; line-height:1.1; }
+.pagehead .acts{ display:flex; gap:0.5rem; }
+
+/* Faux list rows for a main view behind a modal or beside a drawer. */
+.faux-list{ padding:0.4rem 1.4rem 1.1rem; }
+.listrow{ display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:0.9rem; padding:0.62rem 0.2rem; border-bottom:1px solid var(--rule); font-size:0.84rem; color:var(--ink-2); }
+.listrow .nm{ color:var(--ink); }
+.listrow .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; color:var(--ink-3); font-feature-settings:"tnum" 1; }
+.listrow .pill{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.22em 0.5em; border-radius:2px; background:var(--paper-3); color:var(--ink-3); }
+.listrow.sel{ background:color-mix(in oklch, var(--cool) 8%, transparent); border-radius:4px; }
+.listrow.sel .nm{ font-weight:600; }
+
+/* Modal: scrim over the page, centred dialog. */
+.scrim{ position:absolute; inset:0; background:color-mix(in oklch, var(--ink) 34%, transparent); display:grid; place-items:center; padding:1.4rem; }
+.dialog{ width:min(360px, 94%); background:var(--paper); border:1px solid var(--rule-strong); border-radius:8px; overflow:hidden; box-shadow:0 16px 48px oklch(0.2 0.01 80 / 0.32); }
+.dialog .dlg-head{ padding:1.15rem 1.3rem 0.2rem; }
+.dialog .dlg-head h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 16; font-weight:600; font-size:1.12rem; margin:0; }
+.dialog .dlg-body{ padding:0.55rem 1.3rem 1.1rem; font-size:0.88rem; color:var(--ink-2); line-height:1.5; }
+.dialog .dlg-body p{ margin:0; }
+.dialog .dlg-foot{ display:flex; justify-content:flex-end; gap:0.5rem; padding:0.85rem 1.3rem; border-top:1px solid var(--rule); background:var(--paper-2); }
+
+/* Full page: section nav rail beside a multi-section canvas. */
+.pagebody{ display:flex; min-height:210px; }
+.secnav{ flex:0 0 34%; max-width:208px; border-right:1px solid var(--rule); padding:1.1rem 0.7rem; min-width:0; }
+.secnav .nav-i{ font-size:0.84rem; color:var(--ink-3); padding:0.42rem 0.7rem; border-radius:5px; border-left:3px solid transparent; margin-bottom:0.1rem; }
+.secnav .nav-i.on{ color:var(--ink); font-weight:500; background:color-mix(in oklch, var(--ink) 5%, transparent); border-left-color:var(--ink); }
+.pagecanvas{ flex:1 1 auto; padding:1.3rem 1.5rem; min-width:0; }
+.pagecanvas h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 16; font-weight:600; font-size:1.1rem; margin:0 0 0.2rem; }
+.pagecanvas .sub{ font-size:0.82rem; color:var(--ink-3); margin:0 0 1rem; }
+.fieldgrid{ display:grid; grid-template-columns:1fr 1fr; gap:0 1.3rem; }
+
+/* Side panel: main view stays visible, drawer slides in from the right. */
+.dsplit{ display:flex; min-height:248px; }
+.dmain{ flex:1 1 auto; min-width:0; }
+.dmain .pagehead{ padding-top:0.9rem; padding-bottom:0.9rem; }
+.drawer{ flex:0 0 47%; max-width:340px; border-left:1px solid var(--rule-strong); background:var(--paper); box-shadow:-10px 0 28px oklch(0.2 0.01 80 / 0.07); padding:1.25rem 1.4rem; min-width:0; }
+.drawer .dh{ display:flex; align-items:flex-start; justify-content:space-between; gap:0.8rem; margin-bottom:0.9rem; }
+.drawer .dh h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 16; font-weight:600; font-size:1.06rem; margin:0; }
+.drawer .x{ font-family:"IBM Plex Mono",monospace; font-size:0.9rem; color:var(--ink-3); line-height:1; }
+
+@media (max-width:680px){
+  .pagebody, .dsplit{ flex-wrap:wrap; }
+  .secnav{ flex-basis:100%; max-width:none; border-right:none; border-bottom:1px solid var(--rule); display:flex; gap:0.3rem; flex-wrap:wrap; }
+  .secnav .nav-i{ border-left:none; }
+  .fieldgrid{ grid-template-columns:1fr; }
+  .drawer{ flex-basis:100%; max-width:none; border-left:none; border-top:1px solid var(--rule-strong); box-shadow:none; }
+}
