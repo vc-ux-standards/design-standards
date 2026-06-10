@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Value Connect · Design Decisions</title>
+<title>VC Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,11 +20,12 @@
     --error:        oklch(0.545 0.165 28);
     --error-soft:   oklch(0.930 0.045 30);
 
-    /* Doc wayfinding only, not part of the component spec. */
-    --warm:         oklch(0.555 0.150 45);
-    --warm-soft:    oklch(0.930 0.040 58);
-    --cool:         oklch(0.520 0.095 235);
-    --cool-soft:    oklch(0.935 0.030 235);
+    /* Brand accent — Optum Orange #FF612B. */
+    --warm:         oklch(0.705 0.195 42);
+    --warm-soft:    oklch(0.930 0.045 55);
+    /* Interactive — Optum Interaction Blue ~#0F68B2. */
+    --cool:         oklch(0.525 0.115 245);
+    --cool-soft:    oklch(0.930 0.035 240);
 
     --measure: 64ch;
     --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -64,8 +65,8 @@
   p{ margin:0 0 1.1rem; }
   strong{ font-weight:600; color:var(--ink); }
   em{ font-style:italic; }
-  a{ color:var(--warm); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--warm) 35%, transparent); }
-  a:hover{ border-bottom-color:var(--warm); }
+  a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--cool) 35%, transparent); }
+  a:hover{ border-bottom-color:var(--cool); }
   .lead{ font-size:1.22rem; line-height:1.55; color:var(--ink); }
   @media (max-width:640px){ .lead{ font-size:1.12rem; } }
 
@@ -223,7 +224,7 @@
   }
   .brand{ display:block; text-decoration:none; border:none; margin-bottom:0.6rem; }
   .brand:hover{ border:none; }
-  .brand .wm{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 18; font-weight:600; font-size:1.08rem; line-height:1.1; color:var(--ink); display:block; }
+  .brand .wm{ font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:1.08rem; letter-spacing:-0.01em; line-height:1.1; color:var(--warm); display:block; }
   .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); margin-top:0.4rem; display:block; }
 
   ul.nav{ list-style:none; margin:0; padding:0; }
@@ -284,8 +285,8 @@
 <div class="app">
   <aside class="sidebar">
     <a class="brand" href="#home">
-      <span class="wm">Value Connect</span>
-      <span class="sub">Design Decisions</span>
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
     </a>
     <nav>
       <ul class="nav">
@@ -301,10 +302,10 @@
       <article id="home" class="record active" data-title="Overview">
         <div class="recordwrap home">
           <header class="masthead" style="padding-bottom:1.5rem;">
-            <span class="eyebrow">Value Connect · UX decision records</span>
+            <span class="eyebrow">VC · UX decision records</span>
             <h1>Design decisions</h1>
             <p class="lead prose" style="margin-top:1.4rem;">
-              A set of decision records for the recurring interface questions in Value Connect. Each one states what we do, why, and what the major design systems do, so a contested choice gets settled by pointing at the record rather than relitigating it in every review.
+              A set of decision records for the recurring interface questions in VC. Each one states what we do, why, and what the major design systems do, so a contested choice gets settled by pointing at the record rather than relitigating it in every review.
             </p>
             <p class="prose" style="color:var(--ink-2); font-size:0.95rem;">
               Status shows how settled each record is.
@@ -342,13 +343,13 @@
     <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <span class="eyebrow">Component usage · Steppers</span></div>
     <h1>When to use a vertical<br>versus a horizontal stepper</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
-      We ship both orientations. This sets out which to reach for, and why, anchored to what Value Connect actually is: an enterprise configuration tool. The short version is that most of our stepper usage should be vertical, and the reason is specific to our workflows, not a general style preference.
+      We ship both orientations. This sets out which to reach for, and why, anchored to what VC actually is: an enterprise configuration tool. The short version is that most of our stepper usage should be vertical, and the reason is specific to our workflows, not a general style preference.
     </p>
 
     <div class="context">
       <span class="k">Our context</span>
       <p>
-        Value Connect sits in population health and value-based care, the same enterprise market as <strong>Arcadia</strong> and <strong>Innovaccer</strong>. The users are analysts, care managers and configuration admins working on large desktop monitors. The work is long, server-backed configuration: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement. Step content lives in a working canvas, never inline, and mobile use is negligible. Since the canvas holds the content for both orientations, the inline-versus-canvas question decides nothing for us. What decides it is <strong>scale, per-step status, and the freedom to retune out of order</strong>.
+        VC sits in population health and value-based care, the same enterprise market as <strong>Arcadia</strong> and <strong>Innovaccer</strong>. The users are analysts, care managers and configuration admins working on large desktop monitors. The work is long, server-backed configuration: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement. Step content lives in a working canvas, never inline, and mobile use is negligible. Since the canvas holds the content for both orientations, the inline-versus-canvas question decides nothing for us. What decides it is <strong>scale, per-step status, and the freedom to retune out of order</strong>.
       </p>
     </div>
 
@@ -618,14 +619,14 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For an enterprise, desktop, analyst-facing configuration tool with long flows and step-level status, the field points one way: a vertical rail by default, horizontal kept to short linear wizards. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>vertical default for Value Connect</span>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>vertical default for VC</span>
       </div>
     </div>
   </section>
 
   <!-- 06 RECO -->
   <section>
-    <span class="secnum">06 / Recommendation for Value Connect</span>
+    <span class="secnum">06 / Recommendation for VC</span>
     <h2>Make the vertical rail the default</h2>
     <div class="reco">
       <h3>The house rule</h3>
@@ -673,7 +674,7 @@
             </p>
             <div class="context">
               <span class="k">Our context</span>
-              <p>The same as everywhere in Value Connect: desktop, analyst and admin users, long server-backed configuration with content that lives in a canvas. That sends most heavy work to full pages, leaves modals for short interruptions, and makes the side panel the tool for work that has to sit beside the main view.</p>
+              <p>The same as everywhere in VC: desktop, analyst and admin users, long server-backed configuration with content that lives in a canvas. That sends most heavy work to full pages, leaves modals for short interruptions, and makes the side panel the tool for work that has to sit beside the main view.</p>
             </div>
             <div class="rulecard">
               <span class="k">The rule (provisional)</span>
@@ -710,7 +711,7 @@
         </div>
       </article>
       <footer class="globalfoot">
-        <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+        <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
       </footer>
   </main>
 </div>
@@ -726,7 +727,7 @@
     links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
     var r = document.getElementById(id);
     var t = r && r.getAttribute('data-title');
-    document.title = (t && t !== 'Overview' ? t + ' · ' : '') + 'Value Connect Design Decisions';
+    document.title = (t && t !== 'Overview' ? t + ' · ' : '') + 'VC Design Standards';
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', function(){ show(location.hash.replace('#','')); });

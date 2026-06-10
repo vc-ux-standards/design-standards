@@ -11,11 +11,12 @@
   --error:        oklch(0.545 0.165 28);
   --error-soft:   oklch(0.930 0.045 30);
 
-  /* Doc wayfinding only, not part of the component spec. */
-  --warm:         oklch(0.555 0.150 45);
-  --warm-soft:    oklch(0.930 0.040 58);
-  --cool:         oklch(0.520 0.095 235);
-  --cool-soft:    oklch(0.935 0.030 235);
+  /* Brand accent — Optum Orange #FF612B. */
+  --warm:         oklch(0.705 0.195 42);
+  --warm-soft:    oklch(0.930 0.045 55);
+  /* Interactive — Optum Interaction Blue ~#0F68B2. */
+  --cool:         oklch(0.525 0.115 245);
+  --cool-soft:    oklch(0.930 0.035 240);
 
   --measure: 64ch;
   --gutter: clamp(1.25rem, 4vw, 3rem);

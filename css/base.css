@@ -35,8 +35,8 @@ h3{ font-size:clamp(1.18rem, 2vw, 1.38rem); font-weight:600; font-variation-sett
 p{ margin:0 0 1.1rem; }
 strong{ font-weight:600; color:var(--ink); }
 em{ font-style:italic; }
-a{ color:var(--warm); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--warm) 35%, transparent); }
-a:hover{ border-bottom-color:var(--warm); }
+a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--cool) 35%, transparent); }
+a:hover{ border-bottom-color:var(--cool); }
 .lead{ font-size:1.22rem; line-height:1.55; color:var(--ink); }
 @media (max-width:640px){ .lead{ font-size:1.12rem; } }
 
@@ -190,7 +190,7 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .topnav .inner{ max-width:62rem; margin:0 auto; padding:0.85rem var(--gutter); display:flex; align-items:baseline; justify-content:space-between; gap:0.5rem 1.5rem; flex-wrap:wrap; }
 .topnav .brand{ text-decoration:none; border:none; display:inline-flex; align-items:baseline; gap:0.8rem; flex-wrap:wrap; }
 .topnav .brand:hover{ border:none; }
-.topnav .brand .wm{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 18; font-weight:600; font-size:1.05rem; line-height:1.1; color:var(--ink); }
+.topnav .brand .wm{ font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:-0.01em; line-height:1.1; color:var(--warm); }
 .topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); }
 
 .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
