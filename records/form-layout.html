@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
 <header class="topnav">
   <div class="inner">
     <a class="brand" href="../index.html">
-      <span class="wm">Value Connect</span>
+      <span class="wm">VC</span>
       <span class="sub">Design Decisions</span>
     </a>
     <span class="eyebrow">Standards · Forms</span>
@@ -36,14 +36,14 @@
         <div class="context">
           <span class="k">Our context</span>
           <p>
-            Designers lay out on <strong>1400px artboards</strong> and, with the whole width to fill, let the form sprawl the full page and default to one input per row stretched the full measure — a 90s-web shape. The result reads as a wall of identical full-width boxes regardless of whether the field holds a ZIP code or a paragraph. Value Connect is a desktop, analyst- and admin-facing configuration tool with a persistent navigation sidebar of about <strong>200px</strong> on every page, and steppers on the longer flows, so the question of where the form column sits relative to that chrome comes up constantly. The fix is not responsive trickery — it is placing the form in a capped column and sizing each field to its content.
+            Designers lay out on <strong>1400px artboards</strong> and, with the whole width to fill, let the form sprawl the full page and default to one input per row stretched the full measure — a 90s-web shape. The result reads as a wall of identical full-width boxes regardless of whether the field holds a ZIP code or a paragraph. VC is a desktop, analyst- and admin-facing configuration tool with a persistent navigation sidebar of about <strong>200px</strong> on every page, and steppers on the longer flows, so the question of where the form column sits relative to that chrome comes up constantly. The fix is not responsive trickery — it is placing the form in a capped column and sizing each field to its content.
           </p>
         </div>
 
         <div class="rulecard">
           <span class="k">The rule (provisional)</span>
           <p>
-            Put every form in a single column capped at <strong>640px (40rem)</strong>, <strong>centred</strong> in the content area — never stretched across the page. The canvas around it can be any width; the column is not. Then size every input to the <strong>content it holds</strong>, not the column: a date, a code, an amount or a day is never full width. One column by default, a second only for genuinely paired fields; labels above their inputs; a consistent spacing rhythm so a long form stays scannable.
+            Size the layout to the task, never to the artboard. A <strong>sequential form</strong> — setup, onboarding, a short flow — sits in a single column capped at <strong>640px (40rem)</strong>, centred in the content area. A <strong>dense record</strong> an analyst edits all day — dozens of related fields — earns a structured, grouped grid sized to its content, the way data-heavy systems like Carbon are built. Underneath either one the rule is the same: size every input to the <strong>content it holds</strong>, not the column or the canvas — a date, code, amount or day is never full width — with labels above their inputs and a consistent spacing rhythm. The artboard is workspace, not form width.
           </p>
         </div>
       </header>
@@ -51,9 +51,9 @@
       <!-- 01 PAGE PLACEMENT -->
       <section>
         <span class="secnum">01 / Page placement</span>
-        <h2>Put the form in a 640px column</h2>
+        <h2>Place the form by its task, not the artboard</h2>
         <p class="prose">
-          The first decision is where the form lives on the page, before a single field. A form that fills the page width is the same mistake as a field that fills its row, one level up: lines run past 90 characters, the eye loses the left edge on the return sweep, and the page reads as a wall. Put every form in a single column capped at <strong>640px (40rem)</strong> and hold it there. Below that, a shorter form can be narrower; never wider.
+          The first decision is where the form lives on the page, before a single field. The failure to avoid is the same at every scale: a form stretched to fill the page width, the way a field stretched to fill its row reads as a wall — lines run past 90 characters and the eye loses the left edge on the return sweep. What replaces it depends on the task. A <strong>sequential form</strong> belongs in a single column capped at <strong>640px (40rem)</strong>, held there however wide the screen gets — the case the comparison below shows. A <strong>dense record</strong> an analyst edits daily belongs in a structured, grouped grid sized to its content (see §04). Neither one fills the artboard.
         </p>
 
         <div class="compare">
@@ -154,7 +154,7 @@
           <tbody>
             <tr><th scope="row">Day / short integer</th><td data-l="Max width">≈ 5ch (~45px)</td><td data-l="Why">One or two digits. A wider box invites a wrong value.</td></tr>
             <tr><th scope="row">Code / PIN / ZIP (4–6 digit)</th><td data-l="Max width">≈ 7ch (~60px)</td><td data-l="Why">Fixed-length token; the box should look fixed-length too.</td></tr>
-            <tr><th scope="row">Date (DD/MM/YYYY)</th><td data-l="Max width">≈ 12ch (~110px)</td><td data-l="Why">Ten characters plus separators. Never edge to edge.</td></tr>
+            <tr><th scope="row">Date (MM/DD/YYYY)</th><td data-l="Max width">≈ 12ch (~110px)</td><td data-l="Why">Ten characters plus separators. Never edge to edge.</td></tr>
             <tr><th scope="row">Currency / amount</th><td data-l="Max width">≈ 12ch (~110px)</td><td data-l="Why">A few digits and a decimal; align these right in tables.</td></tr>
             <tr><th scope="row">Phone</th><td data-l="Max width">≈ 16ch (~145px)</td><td data-l="Why">Holds a formatted number with country code.</td></tr>
             <tr><th scope="row">Name (first / last)</th><td data-l="Max width">≈ 24ch (~215px)</td><td data-l="Why">Comfortable for most single names; two of these pair into a row.</td></tr>
@@ -186,11 +186,11 @@
                 </div>
                 <div class="fld">
                   <span class="lbl">Date of service</span>
-                  <input class="inp" type="text" value="14/03/2026" aria-label="Date of service">
+                  <input class="inp" type="text" value="03/14/2026" aria-label="Date of service">
                 </div>
                 <div class="fld">
                   <span class="lbl">Co-pay amount</span>
-                  <input class="inp" type="text" value="₹250" aria-label="Co-pay amount">
+                  <input class="inp" type="text" value="$250" aria-label="Co-pay amount">
                 </div>
               </div>
             </div>
@@ -207,11 +207,11 @@
                 </div>
                 <div class="fld">
                   <span class="lbl">Date of service</span>
-                  <input class="inp w-date" type="text" value="14/03/2026" aria-label="Date of service">
+                  <input class="inp w-date" type="text" value="03/14/2026" aria-label="Date of service">
                 </div>
                 <div class="fld">
                   <span class="lbl">Co-pay amount</span>
-                  <input class="inp w-amount" type="text" value="₹250" aria-label="Co-pay amount">
+                  <input class="inp w-amount" type="text" value="$250" aria-label="Co-pay amount">
                 </div>
               </div>
             </div>
@@ -223,9 +223,9 @@
       <!-- 04 COLUMNS -->
       <section>
         <span class="secnum">04 / One column versus two</span>
-        <h2>Single column, with paired fields the only exception</h2>
+        <h2>Columns for structure, not to fill space</h2>
         <p class="prose">
-          A single column gives one unambiguous path down the form, which is faster to complete and harder to misread. Two columns exist to fill the artboard, and they break the reading path: the eye zig-zags and skips fields. Use a second column <strong>only</strong> for fields that are genuinely paired and short — first and last name, city and state, start and end date — and never split one logical field across two columns.
+          A single column gives one unambiguous path down the form: in a sequential flow it is faster to complete and harder to misread. The failure is the <em>arbitrary</em> second column — unrelated fields paired across a gutter to use up the artboard, so the eye zig-zags, skips fields, and reads relationships that don't exist. In a sequential form, use a second column <strong>only</strong> for fields that are genuinely paired and short — first and last name, city and state, start and end date — and never split one logical field across two columns.
         </p>
 
         <div class="compare">
@@ -240,7 +240,7 @@
                   <div class="fld"><span class="lbl">Specialty</span><input class="inp" type="text" value="Internal medicine" aria-label="Specialty"></div>
                   <div class="fld"><span class="lbl">Email</span><input class="inp" type="text" value="contracts@riverside.example" aria-label="Email"></div>
                   <div class="fld"><span class="lbl">Tax ID</span><input class="inp" type="text" value="36-7711204" aria-label="Tax ID"></div>
-                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="01/04/2026" aria-label="Effective date"></div>
+                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="04/01/2026" aria-label="Effective date"></div>
                 </div>
               </div>
             </div>
@@ -256,13 +256,17 @@
                 <div class="fld"><span class="lbl">Specialty</span><input class="inp w-name" type="text" value="Internal medicine" aria-label="Specialty"></div>
                 <div class="formgrid">
                   <div class="fld"><span class="lbl">Tax ID</span><input class="inp" type="text" value="36-7711204" aria-label="Tax ID"></div>
-                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="01/04/2026" aria-label="Effective date"></div>
+                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="04/01/2026" aria-label="Effective date"></div>
                 </div>
               </div>
             </div>
             <p class="note">One column, one path. Only the two short, related fields at the end share a row. Each input is sized to its content, not stretched to a half-width cell.</p>
           </div>
         </div>
+
+        <p class="prose" style="margin-top:2.5rem;">
+          Density is the exception that earns the grid. A record an analyst opens dozens of times a day — a provider or contract with twenty-plus fields — is slower to scan in one tall column than in a <strong>structured</strong> grid: deliberate column groups, related fields together, each still sized to its content. That is not the artboard-filling two-column this section warns against; it is the dense-record regime from §01, and it is what systems built for data-heavy work (§08) actually do. The test is whether the second column carries <em>structure</em> or merely fills <em>space</em>.
+        </p>
       </section>
 
       <!-- 05 GROUPING, LABELS, SPACING -->
@@ -282,7 +286,7 @@
               <div class="formdemo bad">
                 <div class="fld row"><span class="lbl inline">Contract name</span><input class="inp" type="text" value="MSSP 2026" aria-label="Contract name"></div>
                 <div class="fld row"><span class="lbl inline">Start date</span><input class="inp" type="text" value="01/01/2026" aria-label="Start date"></div>
-                <div class="fld row"><span class="lbl inline">End date</span><input class="inp" type="text" value="31/12/2026" aria-label="End date"></div>
+                <div class="fld row"><span class="lbl inline">End date</span><input class="inp" type="text" value="12/31/2026" aria-label="End date"></div>
                 <div class="fld row"><span class="lbl inline">Primary contact</span><input class="inp" type="text" value="A. Rao" aria-label="Primary contact"></div>
                 <div class="fld row"><span class="lbl inline">Contact email</span><input class="inp" type="text" value="a.rao@org.example" aria-label="Contact email"></div>
                 <div class="fld row"><span class="lbl inline">Attribution model</span><input class="inp" type="text" value="Prospective" aria-label="Attribution model"></div>
@@ -300,7 +304,7 @@
                   <div class="fld"><span class="lbl">Contract name</span><input class="inp w-line" type="text" value="MSSP 2026" aria-label="Contract name"></div>
                   <div class="formgrid">
                     <div class="fld"><span class="lbl">Start date</span><input class="inp" type="text" value="01/01/2026" aria-label="Start date"></div>
-                    <div class="fld"><span class="lbl">End date</span><input class="inp" type="text" value="31/12/2026" aria-label="End date"></div>
+                    <div class="fld"><span class="lbl">End date</span><input class="inp" type="text" value="12/31/2026" aria-label="End date"></div>
                   </div>
                 </fieldset>
                 <fieldset class="fgroup">
@@ -413,23 +417,23 @@
       <!-- 07 MULTI-STEP SCANNABILITY -->
       <section>
         <span class="secnum">07 / Keeping long forms scannable</span>
-        <h2>One concept per step, the column held narrow</h2>
+        <h2>One concept per step; each step laid out to its task</h2>
         <p class="prose">
-          The placement and width rules carry into long, multi-step forms. Break the work into steps of one concept each, keep the same 640px column inside every step, and let the stepper — not a wall of fields — carry the sense of progress. When a step itself runs long, the named groups from §05 are the seams to scan by.
+          The placement and width rules carry into long, multi-step forms — applied per step, not flattened across all of them. Break the work into steps of one concept each, lay out each step to its own task (a sequential step in a capped column, a dense record in a structured grid, per §01 and §04), and let the stepper — not a wall of fields — carry the sense of progress. A multi-step flow is not automatically sequential: a step can be a dense record. When a step itself runs long, the named groups from §05 are the seams to scan by.
         </p>
 
         <div class="prose">
           <p><strong>For a long or multi-step form</strong></p>
           <ul class="clean cool">
-            <li>Hold the 640px column inside every step; the canvas around it can be wide, the column is not.</li>
-            <li>One concept per step — details, then population, then logic — rather than one giant scroll.</li>
+            <li>Lay out each step to its task — a sequential step in a single ~640px column, a dense record in a structured grid. Don't force one shape on every step; the canvas around either can be wide.</li>
+            <li>One concept per step rather than one giant scroll.</li>
             <li>Group fields within a step under headings; the group is the unit a user scans for.</li>
             <li>Keep field widths content-sized inside steps too; consistency across steps is what makes the whole flow feel calm.</li>
           </ul>
 
           <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
           <ul class="clean anti">
-            <li>A form that fills the page, or a column that grows with the viewport instead of staying capped at 640px.</li>
+            <li>A form that fills the page, or a sequential-form column that grows with the viewport instead of staying capped at 640px.</li>
             <li>A form column jammed against the chrome or stretched full width, rather than centred in the content area with balanced margins.</li>
             <li>Any input sized by the artboard rather than its content — the full-width date, code or amount.</li>
             <li>A second column used to fill width, pairing fields that aren't related.</li>
@@ -443,7 +447,7 @@
         <span class="secnum">08 / What the major design systems say</span>
         <h2>A capped single column is the convention</h2>
         <p class="prose">
-          This is not a house preference. The systems and research that production forms are built on converge on the same moves: hold the form to a readable column, prefer a single column, and size inputs to their content. Links are in the references.
+          This is not a house preference. The systems and research that production forms are built on converge on the moves that matter: never let the form fill the artboard, size inputs to their content, and choose column count by the task — a single column for sequential flows, a structured grid for dense records. Links are in the references.
         </p>
 
         <div class="systems">
@@ -478,32 +482,36 @@
           <div class="syscard">
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>Consistent spacing and field sizing</h3>
-            <p>Carbon, the system for data-heavy enterprise products, specifies form field widths and a consistent vertical spacing scale between fields and groups rather than stretching inputs to the container. It is the nearest match to Value Connect's density and confirms the rhythm in §05.</p>
+            <p>Carbon, the system for data-heavy enterprise products, specifies form field widths and a consistent vertical spacing scale, and lays dense records out in structured multi-column grids rather than one tall column. It is the nearest match to VC's density — the authority for the dense-record regime — and it confirms the rhythm in §05.</p>
             <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>fixed widths, spacing scale</span>
           </div>
 
           <div class="syscard">
             <div class="src">Synthesis</div>
             <h3>The pattern for forms like ours</h3>
-            <p>For a desktop, analyst-facing configuration tool, the field points one way: a single 640px column, centred in the content area, inputs sized to their content, labels above, fields gathered into named groups, choices stacked. The artboard width is workspace, not form width.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>capped column, content-sized fields</span>
+            <p>The systems split cleanly by task. For a sequential flow the consumer-form research holds: a single ~640px column, centred, choices stacked. For the dense records an analyst edits daily, Carbon's stance holds: a structured, grouped grid sized to content. Both agree on what matters everywhere — inputs sized to their content, labels above, fields in named groups — and both reject the form that fills the artboard.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>task-fit width, content-sized fields</span>
           </div>
         </div>
       </section>
 
       <!-- 09 RECO -->
       <section>
-        <span class="secnum">09 / Recommendation for Value Connect</span>
-        <h2>One 640px column, centred; size to content</h2>
+        <span class="secnum">09 / Recommendation</span>
+        <h2>Size the layout to the task; size every field to its content</h2>
+        <p class="prose">
+          One rule with two branches, not two rules. The decision is a single question asked once per screen — <em>is this a sequential flow or a dense record?</em> A uniform "640px, always" is easier to police in review, but it makes the analyst's daily record-editing slower, and that trade isn't worth it. Branch on the task once, then everything below applies to both.
+        </p>
         <div class="reco">
           <h3>The house rule (provisional)</h3>
           <ul class="clean cool">
-            <li><strong>Put the form in a single column capped at 640px (40rem)</strong>, centred in the content area — the space beside the sidebar, below or beside a stepper. Never full-page, never jammed against the chrome.</li>
-            <li><strong>Size every input to its content</strong>, using the §02 table as the ceiling. A code, day, date or amount is never full width.</li>
-            <li><strong>One column by default.</strong> A second column only for short, genuinely paired fields; never split one logical field, never two-column to fill space.</li>
+            <li><strong>Never let the form fill the artboard.</strong> The canvas is workspace; the form is sized to its task. This is the one non-negotiable.</li>
+            <li><strong>Sequential flows → a single column capped at 640px (40rem)</strong>, centred in the content area — beside the sidebar, below or beside a stepper. Never jammed against the chrome.</li>
+            <li><strong>Dense records → a structured, grouped grid</strong> sized to its content groups, the Carbon-aligned case. Columns must carry structure, not fill space; never split one logical field, never pair unrelated fields to use up width.</li>
+            <li><strong>Size every input to its content</strong> in either layout, using the §02 table as the ceiling. A code, day, date or amount is never full width.</li>
             <li><strong>Labels above inputs</strong>, gathered into named groups, with the spacing rhythm of §05 (≈6 / 22 / 44px).</li>
             <li><strong>Stack choice controls.</strong> Radios and short checkbox sets one per line; past ~7 checkboxes, split into two columns or group under sub-headings.</li>
-            <li><strong>In long flows, one concept per step</strong>, the same 640px column and content-sized fields inside each step; let the stepper carry progress.</li>
+            <li><strong>In long flows, one concept per step</strong>, content-sized fields inside each step; let the stepper carry progress.</li>
           </ul>
         </div>
       </section>
@@ -525,7 +533,7 @@
   </article>
 
   <footer class="globalfoot">
-    <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
   </footer>
 </main>
 

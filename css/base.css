@@ -240,8 +240,9 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .formdemo{ padding:1.4rem 1.55rem; }
 .formdemo.lede{ padding-top:1.55rem; }
 
-/* The single form column, capped no matter how wide the canvas/artboard is. */
-.formcol{ max-width:34rem; }
+/* The single form column for sequential forms, capped at 640px (40rem) to match
+   the stated rule, no matter how wide the canvas/artboard is. */
+.formcol{ max-width:40rem; }
 
 /* A field block: label, optional help, the control, optional hint. */
 .fld{ margin:0 0 1.35rem; }                 /* field → field rhythm (~22px) */
