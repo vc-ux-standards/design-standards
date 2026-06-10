@@ -25,25 +25,32 @@
 <main>
   <article id="modal-vs-page" class="record">
     <div class="recordwrap">
+
       <header class="masthead">
-        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Layout · Containers</span></div>
+        <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <span class="eyebrow">Layout · Containers</span></div>
         <h1>Modal, full page,<br>or side panel</h1>
         <p class="lead prose" style="margin-top:1.4rem;">
-          A first pass, pending the precedent and sourcing work the stepper record already has. The rule and the table below are provisional, meant to be argued with, not cited yet.
+          Three containers, one decision: does the task need brief and total attention, is it a workspace in its own right, or does it run alongside the main work. Get that reading right and the container picks itself. The persistent error is reaching for a modal because it feels lightweight, then loading it with a multi-step form it was never built to hold.
         </p>
+
         <div class="context">
           <span class="k">Our context</span>
-          <p>The same as everywhere in VC: desktop, analyst and admin users, long server-backed configuration with content that lives in a canvas. That sends most heavy work to full pages, leaves modals for short interruptions, and makes the side panel the tool for work that has to sit beside the main view.</p>
+          <p>The same as everywhere in VC: desktop, analyst and admin users, long server-backed configuration with content that lives in a working canvas. That sends most heavy work to <strong>full pages</strong>, leaves <strong>modals</strong> for short interruptions, and makes the <strong>side panel</strong> the tool for work that has to sit beside the main view. Mobile use is negligible, so none of this is decided by small viewports.</p>
         </div>
+
         <div class="rulecard">
-          <span class="k">The rule (provisional)</span>
-          <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt: a confirmation, a quick create, a decision the user has to resolve before continuing. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to. Use a <strong>side panel</strong> when the task supports the main view and that context needs to stay visible. The deciding question is whether the task needs brief and total attention, is a workspace in its own right, or runs alongside the main work.</p>
+          <span class="k">The rule</span>
+          <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt: a confirmation, a destructive check, a one or two field create, a decision the user has to resolve before continuing. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to, and that deserves its own URL. Use a <strong>side panel</strong> when the task supports the main view and that context needs to stay visible. If a modal grows past about four fields or starts to scroll, it has outgrown the container: promote it.</p>
         </div>
       </header>
 
+      <!-- 01 QUICK REFERENCE -->
       <section>
-        <span class="secnum">01 / Quick reference (draft)</span>
+        <span class="secnum">01 / Quick reference</span>
         <h2>Pick the container by the task</h2>
+        <p class="prose">
+          Run the task through these five dimensions. Length and the need to keep the view behind it do most of the deciding; linkability settles the rest.
+        </p>
         <table class="tbl tri">
           <thead><tr><th></th><th>Modal</th><th>Full page</th><th>Side panel</th></tr></thead>
           <tbody>
@@ -56,17 +63,315 @@
         </table>
       </section>
 
+      <!-- 02 IN PRACTICE -->
       <section>
-        <span class="secnum">02 / Reasoning (draft)</span>
-        <h2>Why the task decides, not the visual weight</h2>
-        <p class="prose">The common error is reaching for a modal because it feels lightweight, then loading it with a multi-step form that needs scrolling, validation, and the context the modal has hidden behind it. A modal removes the page behind it, so anything that needs that context, or runs long enough that the user loses their place, belongs on a full page or in a side panel. The reverse error is sending a one-line confirmation to a full page and throwing away the user's place in their work. Match the container to the shape of the task: brief and blocking, a workspace, or a companion to the main view.</p>
+        <span class="secnum">02 / The three in practice</span>
+        <h2>What each container does to the page</h2>
+        <p class="prose">
+          The difference is not visual weight, it is what happens to the work behind. A modal removes it and demands a decision. A full page replaces it with a workspace. A side panel leaves it in place and works beside it. Each mockup below is the right task in the right container.
+        </p>
+
+        <div class="demo">
+          <div class="cap">
+            <span class="name">Publish measure set · short blocking decision</span>
+            <span class="tag h"><span class="dot"></span>Modal</span>
+          </div>
+          <div class="appframe">
+            <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Quality measures</span></div>
+            <div class="screen">
+              <div class="pagehead">
+                <div><div class="crumb">Library / Quality measures</div><h4>Quality measures</h4></div>
+                <div class="acts"><span class="btn g">Filter</span><span class="btn p">New measure</span></div>
+              </div>
+              <div class="faux-list">
+                <div class="listrow"><span class="nm">30-day readmission</span><span class="meta">v4 · 2 owners</span><span class="pill">Draft</span></div>
+                <div class="listrow"><span class="nm">HbA1c poor control</span><span class="meta">v2 · 1 owner</span><span class="pill">Published</span></div>
+                <div class="listrow"><span class="nm">Breast cancer screening</span><span class="meta">v1 · 3 owners</span><span class="pill">Draft</span></div>
+              </div>
+              <div class="scrim">
+                <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+                  <div class="dlg-head"><h4 id="dlg-t">Publish measure set?</h4></div>
+                  <div class="dlg-body"><p>Publishing locks the 3 draft measures and makes them available to all contracts. You can unpublish later.</p></div>
+                  <div class="dlg-foot"><span class="btn g">Cancel</span><span class="btn p">Publish</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="note">One decision, two actions, nothing to scroll. The modal blocks the list behind it precisely because the user must resolve this before doing anything else, then returns to exactly where they were. This is the whole job of a modal.</p>
+        </div>
+
+        <div class="demo" style="margin-top:2.5rem;">
+          <div class="cap">
+            <span class="name">Define cohort · a configuration session</span>
+            <span class="tag n"><span class="dot"></span>Full page</span>
+          </div>
+          <div class="appframe">
+            <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">app.vc / cohorts / new</span></div>
+            <div class="pagehead">
+              <div><div class="crumb">Cohorts / New cohort</div><h4>Define cohort</h4></div>
+              <div class="acts"><span class="btn g">Save draft</span><span class="btn p">Continue</span></div>
+            </div>
+            <div class="pagebody">
+              <div class="secnav">
+                <div class="nav-i on">Population</div>
+                <div class="nav-i">Inclusion criteria</div>
+                <div class="nav-i">Value sets</div>
+                <div class="nav-i">Attribution</div>
+                <div class="nav-i">Review</div>
+              </div>
+              <div class="pagecanvas">
+                <h4>Population</h4>
+                <p class="sub">The denominator the cohort draws from, before criteria.</p>
+                <div class="fieldgrid">
+                  <div><div class="fieldlabel">Source registry</div><div class="field"></div></div>
+                  <div><div class="fieldlabel">Index event</div><div class="field"></div></div>
+                  <div><div class="fieldlabel">Lookback window</div><div class="field s"></div></div>
+                  <div><div class="fieldlabel">Continuous enrolment</div><div class="field s"></div></div>
+                </div>
+                <div class="btnrow"><span class="btn g">Back</span><span class="btn p">Save and continue</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="note">A real session: five sections, its own URL in the address bar, navigable within and returned to. The page replaces the view because the work deserves the full surface. Forcing this into a modal would mean scrolling, lost context, and no link to share or reopen.</p>
+        </div>
+
+        <div class="demo" style="margin-top:2.5rem;">
+          <div class="cap">
+            <span class="name">Inspect contract · work beside the list</span>
+            <span class="tag v"><span class="dot"></span>Side panel</span>
+          </div>
+          <div class="appframe">
+            <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Contracts</span></div>
+            <div class="dsplit">
+              <div class="dmain">
+                <div class="pagehead">
+                  <div><div class="crumb">Network / Contracts</div><h4>Contracts</h4></div>
+                </div>
+                <div class="faux-list">
+                  <div class="listrow"><span class="nm">Mercy ACO · MSSP</span><span class="meta">FY26</span><span class="pill">Active</span></div>
+                  <div class="listrow sel"><span class="nm">Valley Health · MA</span><span class="meta">FY26</span><span class="pill">Active</span></div>
+                  <div class="listrow"><span class="nm">Coastal IPA · Commercial</span><span class="meta">FY25</span><span class="pill">Renewing</span></div>
+                  <div class="listrow"><span class="nm">Summit Care · MSSP</span><span class="meta">FY26</span><span class="pill">Active</span></div>
+                </div>
+              </div>
+              <div class="drawer" role="complementary" aria-label="Contract detail">
+                <div class="dh"><h4>Valley Health · MA</h4><span class="x">×</span></div>
+                <div class="fieldlabel">Attribution model</div>
+                <div class="field"></div>
+                <div class="fieldlabel">Risk arrangement</div>
+                <div class="field s"></div>
+                <div class="fieldlabel">Effective period</div>
+                <div class="field"></div>
+                <div class="btnrow"><span class="btn g">Close</span><span class="btn p">Save</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="note">The contracts list stays visible and usable while the analyst inspects and edits one record beside it. The panel keeps the row selected and the context in view, so comparing the detail against the rest of the list is one glance, not a round trip through a modal or a separate page.</p>
+        </div>
       </section>
 
+      <!-- 03 REASONING -->
       <section>
-        <span class="secnum">03 / Precedent and recommendation</span>
-        <h2>To be completed</h2>
-        <p class="prose">This record still needs the precedent pass that makes it persuasive: what Carbon, Material, Atlassian and the rest say about dialogs, full-page flows, and side panels or drawers, sourced and quoted the way the stepper record is, then a house recommendation in the same format. Treat everything above as a working draft.</p>
+        <span class="secnum">03 / The reasoning</span>
+        <h2>Four forces behind the rule</h2>
+        <p class="prose">
+          The choice is structural, not a matter of taste. Four pressures decide it, and for our configuration work they sort the three containers cleanly.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <div class="n">1</div>
+            <h3>A modal removes the page behind it</h3>
+            <p>The defining property of a modal is that it blocks everything else and demands resolution. That is exactly right for a confirmation or a destructive check, where the point is to stop the user and make them decide. It is exactly wrong when the task needs the context the modal has just hidden, or when the user has to refer back to the data underneath while they work.</p>
+          </div>
+          <div class="principle">
+            <div class="n">2</div>
+            <h3>Length and scrolling break a modal</h3>
+            <p>A modal is a fixed, centred box. Load it with a multi-section form and it scrolls inside its own frame, hides its own buttons, and traps validation errors out of view. Our configuration flows are long and validation-heavy by nature. Past about four fields, or the first scrollbar, the task has outgrown the container and belongs on a full page or in a side panel.</p>
+          </div>
+          <div class="principle">
+            <div class="n">3</div>
+            <h3>Linkability favours a full page</h3>
+            <p>A builder is something users share, bookmark, deep-link into, and reopen in a second tab to compare. A modal has no URL and no history entry; close it and the state is gone. Anything a colleague might need to link to, or the user might need to return to tomorrow, wants its own address, which only a full page gives it.</p>
+          </div>
+          <div class="principle">
+            <div class="n">4</div>
+            <h3>A side panel keeps the main view as reference</h3>
+            <p>Much of our work is inspect-and-edit against a list or a chart: open a contract beside the contracts table, tune a value beside the result it changes. A side panel keeps that main view in place so the comparison stays in sight. A modal would cover the very thing the user is checking against; a full page would throw away their place in the list.</p>
+          </div>
+        </div>
       </section>
+
+      <!-- 04 EDGE CASES -->
+      <section>
+        <span class="secnum">04 / Edge cases and anti-patterns</span>
+        <h2>Where to draw the line in review</h2>
+        <p class="prose">
+          The single most common mistake is a long form crammed into a modal. The same flow, given a full page, stops fighting its container.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">New cohort</span></div>
+              <div class="screen" style="min-height:auto;">
+                <div class="scrim" style="position:static; padding:1.2rem;">
+                  <div class="dialog" style="width:100%;">
+                    <div class="dlg-head"><h4>Define cohort</h4></div>
+                    <div class="dlg-body" style="max-height:150px; overflow:hidden; position:relative;">
+                      <div class="fieldlabel">Source registry</div><div class="field"></div>
+                      <div class="fieldlabel">Index event</div><div class="field"></div>
+                      <div class="fieldlabel">Lookback window</div><div class="field"></div>
+                      <div class="fieldlabel">Inclusion criteria</div><div class="field"></div>
+                      <div style="position:absolute; left:0; right:0; bottom:0; height:46px; background:linear-gradient(transparent, var(--paper));"></div>
+                    </div>
+                    <div class="dlg-foot"><span class="btn g">Cancel</span><span class="btn p">Continue</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="note">Twelve fields across five sections, scrolling inside a centred box, validation errors hidden below the fold, no URL to share. The container is fighting the task.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">app.vc / cohorts / new</span></div>
+              <div class="pagehead" style="padding:0.8rem 1.1rem;">
+                <div><div class="crumb">Cohorts / New</div><h4 style="font-size:1.02rem;">Define cohort</h4></div>
+              </div>
+              <div class="pagebody" style="min-height:auto;">
+                <div class="secnav" style="padding:0.9rem 0.6rem;">
+                  <div class="nav-i on">Population</div>
+                  <div class="nav-i">Criteria</div>
+                  <div class="nav-i">Value sets</div>
+                  <div class="nav-i">Review</div>
+                </div>
+                <div class="pagecanvas" style="padding:1rem 1.2rem;">
+                  <div class="fieldlabel">Source registry</div><div class="field"></div>
+                  <div class="fieldlabel">Index event</div><div class="field"></div>
+                  <div class="btnrow"><span class="btn p">Save and continue</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="note">Sections become navigation, the form gets the full surface, errors surface in place, and the flow has a URL to share and return to. The container fits the task.</p>
+          </div>
+        </div>
+
+        <div class="prose" style="margin-top:2.5rem;">
+          <p><strong>Reach for a modal only when</strong></p>
+          <ul class="clean">
+            <li>The task is a single decision, a destructive confirm, or a create with one or two fields.</li>
+            <li>The user must resolve it before continuing, and blocking the page is the point.</li>
+            <li>There are at most two actions, and nothing needs to scroll.</li>
+          </ul>
+
+          <p style="margin-top:2rem;"><strong>Default to a full page when</strong> (most of our heavy work)</p>
+          <ul class="clean cool">
+            <li>The flow is multi-section or long enough to be a real session: cohort and measure builders, risk-model and attribution setup, contract arrangement, data mapping.</li>
+            <li>The user navigates within it and returns to it, and it should be linkable, bookmarkable and revisitable.</li>
+            <li>The work deserves the full surface rather than a centred box.</li>
+          </ul>
+
+          <p style="margin-top:2rem;"><strong>Use a side panel when</strong></p>
+          <ul class="clean cool">
+            <li>The task supports the main view and that context must stay visible: inspect a record beside a list, edit a value beside the chart it changes.</li>
+            <li>The work is focused and short to medium, and is safe to treat as transient.</li>
+          </ul>
+
+          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+          <ul class="clean anti">
+            <li>A multi-step or multi-section form inside a modal. Promote it to a full page; if it must stay over the current context, a side panel.</li>
+            <li>A modal that scrolls, or hides its own action buttons below the fold. That is the signal it has outgrown the container.</li>
+            <li>Stacked modals, or a modal opening another modal, especially for a destructive path. Resolve one decision at a time.</li>
+            <li>A side panel hosting a primary multi-section workspace. If it is the main task, not a companion to one, it is a full page.</li>
+            <li>A full page for a one-line confirmation. That throws away the user's place in their work for no reason; that is what a modal is for.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 05 PRECEDENT -->
+      <section>
+        <span class="secnum">05 / What the major design systems say</span>
+        <h2>The enterprise convention, not a house opinion</h2>
+        <p class="prose">
+          The systems enterprise data products are built on converge on the same logic: modals interrupt and should stay short, complexity escalates to a full page, and a panel beside the main view is the tool for context-bound work. Carbon, IBM's system for data-heavy products, is the closest match to our world and the most explicit about the ladder. Links are in the references.
+        </p>
+
+        <div class="systems">
+          <div class="syscard lead">
+            <div class="src">IBM · Carbon — closest to our world</div>
+            <h3>A complexity ladder from modal to full page</h3>
+            <p>Carbon tells teams to use modals sparingly because they interrupt the workflow, and lays out an explicit format ladder for create and edit flows: modal, then side panel, then tearsheet, then full page, escalating with complexity. The summary it uses is that a modal is for a decision point and a tearsheet is for a process. Heavy, multi-step configuration lands at the full-page end, which is exactly where our builders sit.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Google · Material 3</div>
+            <h3>Escalate to full screen for complex tasks</h3>
+            <p>Material calls dialogs purposefully interruptive and says to use them sparingly. Its rule for length is direct: reach for a full-screen dialog for complex tasks that group a series of inputs together before they can be saved. That is our multi-section builder, and Material sends it out of the modal.</p>
+            <span class="verdict tag n"><span class="dot"></span>full screen for complex, batched tasks</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Ant Design vs Atlassian — the drawer split</div>
+            <h3>The one genuine disagreement, and why we side with Ant</h3>
+            <p>Ant keeps a Drawer so users can act without leaving the current page and stay in the context of the main task, its answer for heavier subtasks and forms. Atlassian is going the other way, deprecating its Drawer in favour of Modal. The split is about whether a product has a stable need to work beside the main view. Ours does, in every inspect-beside-a-list surface, so we keep the side panel.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>drawer preserves context</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Shopify · Polaris</div>
+            <h3>Don't put complex forms in a modal</h3>
+            <p>Polaris is the bluntest: do not use modals to display complex forms or large amounts of information; modals are focused, carry no more than two actions, and are temporary rather than persistent. Anything that needs to live on in the UI belongs on a page, not in an overlay.</p>
+            <span class="verdict tag h" style="background:var(--warm-soft);"><span class="dot"></span>focused, ≤ 2 actions, temporary</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Nielsen Norman Group</div>
+            <h3>Overlays interrupt; pages are linkable</h3>
+            <p>NN/g's research is that modal overlays interrupt the user and block the content behind them, costs that are only justified when relevance and importance are high. Their recommendation for heavier content is to present it as a page instead, which also makes it easier to bookmark and share links, the linkability point in plain evidence.</p>
+            <span class="verdict tag n"><span class="dot"></span>page over overlay for heavy content</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Synthesis</div>
+            <h3>The pattern for tools like ours</h3>
+            <p>For an enterprise, desktop, analyst-facing configuration tool, the field points one way: the full page is the default for builders and setup, the side panel carries context-bound inspect-and-edit, and the modal is reserved for short blocking decisions. Our usage should follow it.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>page default · panel for context · modal for decisions</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 RECO -->
+      <section>
+        <span class="secnum">06 / Recommendation for VC</span>
+        <h2>Make the full page the default for real work</h2>
+        <div class="reco">
+          <h3>The house rule</h3>
+          <ul class="clean cool">
+            <li><strong>The full page is the default</strong> for builders and setup: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement, data mapping. These are long, multi-section, linkable and revisitable, which is what a page is for.</li>
+            <li><strong>The side panel carries work that supports the main view</strong>: inspecting a record beside a list, editing a detail beside the chart it changes. Use it when the underlying context must stay visible, and treat its state as transient.</li>
+            <li><strong>The modal is reserved for a short blocking decision</strong>: a confirmation, a destructive check, a one or two field create. At most two actions, no scrolling, no steps.</li>
+            <li><strong>Promote a modal the moment it grows</strong>. Past about four fields or the first scrollbar, move it to a side panel if it must stay over the current context, or a full page if it is a session in its own right.</li>
+            <li><strong>No stacked modals.</strong> One blocking decision at a time; if a path needs a second decision, sequence it, do not layer it.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- REFS -->
+      <section>
+        <span class="secnum">07 / References</span>
+        <h2>Sources</h2>
+        <ul class="clean refs prose" style="margin-top:1rem;">
+          <li><a href="https://carbondesignsystem.com/components/modal/usage/">IBM Carbon — Modal usage</a> and <a href="https://carbondesignsystem.com/community/patterns/create-flows/">Create flows pattern</a> (use modals sparingly; the modal → side panel → tearsheet → full page ladder; a modal is for a decision point, a tearsheet for a process).</li>
+          <li><a href="https://m3.material.io/components/dialogs/guidelines">Material 3 — Dialogs</a> (dialogs are purposefully interruptive; use a full-screen dialog for complex tasks that batch a series of inputs before saving).</li>
+          <li><a href="https://ant.design/components/drawer">Ant Design — Drawer</a> (act without leaving the current page, within the context of the main task) and <a href="https://atlassian.design/components/drawer">Atlassian — Drawer</a> (deprecated in favour of Modal).</li>
+          <li><a href="https://polaris-react.shopify.com/components/overlays/modal">Shopify Polaris — Modal</a> (don't use modals for complex forms or large amounts of information; focused, no more than two actions, temporary not persistent).</li>
+          <li><a href="https://www.nngroup.com/articles/modal-nonmodal-dialog/">NN/g — Modal &amp; nonmodal dialogs</a> and <a href="https://www.nngroup.com/articles/overuse-of-overlays/">The overuse of overlays</a> (overlays interrupt and block context; present heavy content as a page, which is also easier to bookmark and share).</li>
+        </ul>
+      </section>
+
     </div>
   </article>
 
