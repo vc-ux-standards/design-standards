@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form layout on wide artboards · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">Value Connect</span>
+      <span class="sub">Design Decisions</span>
+    </a>
+    <span class="eyebrow">Standards · Forms</span>
+  </div>
+</header>
+
+<main>
+  <article id="form-layout" class="record">
+    <div class="recordwrap">
+
+      <header class="masthead">
+        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Forms</span></div>
+        <h1>Form layout on<br>wide artboards</h1>
+        <p class="lead prose" style="margin-top:1.5rem;">
+          A 1400px artboard is a canvas, not a form width. This record sets where a form sits on the page and how wide each field should be, so a form stops sprawling across the whole screen and a date stops stretching a thousand pixels edge to edge. Draft: argue with the numbers, don't cite them yet.
+        </p>
+
+        <div class="context">
+          <span class="k">Our context</span>
+          <p>
+            Designers lay out on <strong>1400px artboards</strong> and, with the whole width to fill, let the form sprawl the full page and default to one input per row stretched the full measure — a 90s-web shape. The result reads as a wall of identical full-width boxes regardless of whether the field holds a ZIP code or a paragraph. Value Connect is a desktop, analyst- and admin-facing configuration tool with a persistent navigation sidebar of about <strong>200px</strong> on every page, and steppers on the longer flows, so the question of where the form column sits relative to that chrome comes up constantly. The fix is not responsive trickery — it is placing the form in a capped column and sizing each field to its content.
+          </p>
+        </div>
+
+        <div class="rulecard">
+          <span class="k">The rule (provisional)</span>
+          <p>
+            Put every form in a single column capped at <strong>640px (40rem)</strong>, <strong>centred</strong> in the content area — never stretched across the page. The canvas around it can be any width; the column is not. Then size every input to the <strong>content it holds</strong>, not the column: a date, a code, an amount or a day is never full width. One column by default, a second only for genuinely paired fields; labels above their inputs; a consistent spacing rhythm so a long form stays scannable.
+          </p>
+        </div>
+      </header>
+
+      <!-- 01 PAGE PLACEMENT -->
+      <section>
+        <span class="secnum">01 / Page placement</span>
+        <h2>Put the form in a 640px column</h2>
+        <p class="prose">
+          The first decision is where the form lives on the page, before a single field. A form that fills the page width is the same mistake as a field that fills its row, one level up: lines run past 90 characters, the eye loses the left edge on the return sweep, and the page reads as a wall. Put every form in a single column capped at <strong>640px (40rem)</strong> and hold it there. Below that, a shorter form can be narrower; never wider.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="pg">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="canvas">
+                  <div class="form full">
+                    <span class="w">100% — full page width</span>
+                    <i></i><i></i><i></i><i class="s"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="note">The form fills the page. Labels and inputs run the full width, lines get too long to track, and there is no stable column to scan down.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="pg">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="canvas">
+                  <div class="form">
+                    <span class="w">640px column</span>
+                    <i></i><i></i><i></i><i class="s"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="note">A 640px column, centred in the content area, with the page width as breathing room. The form reads as one calm path regardless of how wide the screen gets.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2.5rem;">Where the column sits: centred in the content area</h3>
+        <p class="prose">
+          Centre the column in the content area — the space that remains after any chrome. One rule for every screen: the column keeps balanced margins on both sides, so the form reads as the deliberate centre of attention rather than something shoved against an edge. The two extremes the hero shows are what it must not do: stretch to fill the width, or sit jammed against the chrome with all the empty space dumped on one side.
+        </p>
+
+        <h3 style="margin-top:2.5rem;">With page chrome: sidebar and steppers</h3>
+        <p class="prose">
+          Our pages carry chrome — the ~200px navigation sidebar on every page, and a stepper on the longer flows. The rule doesn't change: the 640px column sits <strong>centred in the content area</strong> — the space that remains beside or below whatever chrome precedes it. The stepper's own orientation is a separate decision; see <a href="stepper-orientation.html">Stepper orientation</a>.
+        </p>
+        <div class="scenes">
+          <div class="scene">
+            <div class="pg">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="side"><i></i><i></i><i></i><i></i></div>
+                <div class="canvas"><div class="form"><span class="w">640px</span><i></i><i></i><i class="s"></i></div></div>
+              </div>
+            </div>
+            <div class="sh">Persistent sidebar (~200px)</div>
+            <p class="note">The column is centred in the content area beside the sidebar, with balanced margins on both sides.</p>
+          </div>
+          <div class="scene">
+            <div class="pg">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="side"><i></i><i></i><i></i><i></i></div>
+                <div class="rail"><s><i></i></s><s><i></i></s><s><i></i></s><s><i></i></s></div>
+                <div class="canvas"><div class="form"><span class="w">640px</span><i></i><i></i><i class="s"></i></div></div>
+              </div>
+            </div>
+            <div class="sh">Vertical stepper rail</div>
+            <p class="note">Sidebar, then the stepper rail, then the column centred in the canvas beside them.</p>
+          </div>
+          <div class="scene">
+            <div class="pg">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="side"><i></i><i></i><i></i><i></i></div>
+                <div class="canvas col">
+                  <div class="hstep"><s></s><s></s><s></s><s></s></div>
+                  <div class="hbody"><div class="form"><span class="w">640px</span><i></i><i></i><i class="s"></i></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="sh">Horizontal stepper on top</div>
+            <p class="note">The stepper spans the top of the content area; the column sits centred below it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 QUICK REFERENCE -->
+      <section>
+        <span class="secnum">02 / Quick reference</span>
+        <h2>Maximum input width by field type</h2>
+        <p class="prose">
+          Inside that column, width signals expected length: a field sized to its content tells the user how much to type before they read the label. Cap each input near the longest realistic value, not the column. Widths below are maximums in <code>ch</code> (character widths) with an approximate pixel size at our field font.
+        </p>
+
+        <table class="tbl tri">
+          <thead>
+            <tr><th>Field type</th><th>Max width</th><th>Why that size</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Day / short integer</th><td data-l="Max width">≈ 5ch (~45px)</td><td data-l="Why">One or two digits. A wider box invites a wrong value.</td></tr>
+            <tr><th scope="row">Code / PIN / ZIP (4–6 digit)</th><td data-l="Max width">≈ 7ch (~60px)</td><td data-l="Why">Fixed-length token; the box should look fixed-length too.</td></tr>
+            <tr><th scope="row">Date (DD/MM/YYYY)</th><td data-l="Max width">≈ 12ch (~110px)</td><td data-l="Why">Ten characters plus separators. Never edge to edge.</td></tr>
+            <tr><th scope="row">Currency / amount</th><td data-l="Max width">≈ 12ch (~110px)</td><td data-l="Why">A few digits and a decimal; align these right in tables.</td></tr>
+            <tr><th scope="row">Phone</th><td data-l="Max width">≈ 16ch (~145px)</td><td data-l="Why">Holds a formatted number with country code.</td></tr>
+            <tr><th scope="row">Name (first / last)</th><td data-l="Max width">≈ 24ch (~215px)</td><td data-l="Why">Comfortable for most single names; two of these pair into a row.</td></tr>
+            <tr><th scope="row">Email</th><td data-l="Max width">≈ 30ch (~270px)</td><td data-l="Why">Most addresses fit; the rest scroll within the field.</td></tr>
+            <tr><th scope="row">Address line / org name</th><td data-l="Max width">≈ 40ch (~360px)</td><td data-l="Why">Longer free text, but still well short of the column.</td></tr>
+            <tr><th scope="row">Free text / textarea</th><td data-l="Max width">the full 640px column</td><td data-l="Why">Readable line length; the column already caps it.</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Sizes are maximums, not targets — a field may be narrower. The principle, not the exact pixel, is the rule: a fixed-length value gets a fixed-looking box, free text gets a readable line, and nothing is sized by the artboard.</p>
+      </section>
+
+      <!-- 03 FIELD WIDTH -->
+      <section>
+        <span class="secnum">03 / Field width</span>
+        <h2>Size the box to the value</h2>
+        <p class="prose">
+          The headline failure: every input stretched the full width, so a five-digit code and a date each get a box wide enough for a sentence. It looks tidy in a mockup and reads as noise in use. Match the box to the longest realistic value instead.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Eligibility check</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <span class="lbl">Member ZIP</span>
+                  <input class="inp" type="text" value="60601" aria-label="Member ZIP">
+                </div>
+                <div class="fld">
+                  <span class="lbl">Date of service</span>
+                  <input class="inp" type="text" value="14/03/2026" aria-label="Date of service">
+                </div>
+                <div class="fld">
+                  <span class="lbl">Co-pay amount</span>
+                  <input class="inp" type="text" value="₹250" aria-label="Co-pay amount">
+                </div>
+              </div>
+            </div>
+            <p class="note">Three short values, three full-width boxes. The ZIP gets a box ten times the size it needs; nothing about the field hints at what it holds.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Eligibility check</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <span class="lbl">Member ZIP</span>
+                  <input class="inp w-code" type="text" value="60601" aria-label="Member ZIP">
+                </div>
+                <div class="fld">
+                  <span class="lbl">Date of service</span>
+                  <input class="inp w-date" type="text" value="14/03/2026" aria-label="Date of service">
+                </div>
+                <div class="fld">
+                  <span class="lbl">Co-pay amount</span>
+                  <input class="inp w-amount" type="text" value="₹250" aria-label="Co-pay amount">
+                </div>
+              </div>
+            </div>
+            <p class="note">Each box is sized to its value: ~7ch for the ZIP, ~12ch for the date and amount. The form now reads as three distinct, scannable fields.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 COLUMNS -->
+      <section>
+        <span class="secnum">04 / One column versus two</span>
+        <h2>Single column, with paired fields the only exception</h2>
+        <p class="prose">
+          A single column gives one unambiguous path down the form, which is faster to complete and harder to misread. Two columns exist to fill the artboard, and they break the reading path: the eye zig-zags and skips fields. Use a second column <strong>only</strong> for fields that are genuinely paired and short — first and last name, city and state, start and end date — and never split one logical field across two columns.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Provider record</span></div>
+              <div class="formdemo bad">
+                <div class="formgrid">
+                  <div class="fld"><span class="lbl">Legal name</span><input class="inp" type="text" value="Riverside Medical Group" aria-label="Legal name"></div>
+                  <div class="fld"><span class="lbl">NPI</span><input class="inp" type="text" value="1043285791" aria-label="NPI"></div>
+                  <div class="fld"><span class="lbl">Specialty</span><input class="inp" type="text" value="Internal medicine" aria-label="Specialty"></div>
+                  <div class="fld"><span class="lbl">Email</span><input class="inp" type="text" value="contracts@riverside.example" aria-label="Email"></div>
+                  <div class="fld"><span class="lbl">Tax ID</span><input class="inp" type="text" value="36-7711204" aria-label="Tax ID"></div>
+                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="01/04/2026" aria-label="Effective date"></div>
+                </div>
+              </div>
+            </div>
+            <p class="note">Unrelated fields forced into two columns to fill the width. There is no single path; the eye crosses the gutter and back, and pairings imply relationships that don't exist.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Provider record</span></div>
+              <div class="formdemo">
+                <div class="fld"><span class="lbl">Legal name</span><input class="inp w-line" type="text" value="Riverside Medical Group" aria-label="Legal name"></div>
+                <div class="fld"><span class="lbl">NPI</span><input class="inp w-phone" type="text" value="1043285791" aria-label="NPI"></div>
+                <div class="fld"><span class="lbl">Specialty</span><input class="inp w-name" type="text" value="Internal medicine" aria-label="Specialty"></div>
+                <div class="formgrid">
+                  <div class="fld"><span class="lbl">Tax ID</span><input class="inp" type="text" value="36-7711204" aria-label="Tax ID"></div>
+                  <div class="fld"><span class="lbl">Effective date</span><input class="inp" type="text" value="01/04/2026" aria-label="Effective date"></div>
+                </div>
+              </div>
+            </div>
+            <p class="note">One column, one path. Only the two short, related fields at the end share a row. Each input is sized to its content, not stretched to a half-width cell.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 GROUPING, LABELS, SPACING -->
+      <section>
+        <span class="secnum">05 / Grouping, labels and spacing rhythm</span>
+        <h2>Make structure visible</h2>
+        <p class="prose">
+          A long form needs visible structure: related fields gathered under a heading, labels sitting directly above their inputs, and a spacing rhythm that ties each label to its field while separating one group from the next. Top-aligned labels scan fastest and survive long or translated text; a flat, even spacing with no grouping turns the form into an undifferentiated list.
+        </p>
+        <p class="prose">The rhythm, in three steps: <strong>label → input ≈ 6px</strong> (they belong together), <strong>field → field ≈ 22px</strong>, <strong>group → group ≈ 44px</strong> (double the inter-field gap, plus a heading).</p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Contract setup</span></div>
+              <div class="formdemo bad">
+                <div class="fld row"><span class="lbl inline">Contract name</span><input class="inp" type="text" value="MSSP 2026" aria-label="Contract name"></div>
+                <div class="fld row"><span class="lbl inline">Start date</span><input class="inp" type="text" value="01/01/2026" aria-label="Start date"></div>
+                <div class="fld row"><span class="lbl inline">End date</span><input class="inp" type="text" value="31/12/2026" aria-label="End date"></div>
+                <div class="fld row"><span class="lbl inline">Primary contact</span><input class="inp" type="text" value="A. Rao" aria-label="Primary contact"></div>
+                <div class="fld row"><span class="lbl inline">Contact email</span><input class="inp" type="text" value="a.rao@org.example" aria-label="Contact email"></div>
+                <div class="fld row"><span class="lbl inline">Attribution model</span><input class="inp" type="text" value="Prospective" aria-label="Attribution model"></div>
+              </div>
+            </div>
+            <p class="note">Labels crammed left at a fixed width, every field the same flat distance apart, no grouping. Six fields read as one undifferentiated list, and long labels would clip against the input.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Contract setup</span></div>
+              <div class="formdemo">
+                <fieldset class="fgroup">
+                  <span class="glabel">Contract</span>
+                  <div class="fld"><span class="lbl">Contract name</span><input class="inp w-line" type="text" value="MSSP 2026" aria-label="Contract name"></div>
+                  <div class="formgrid">
+                    <div class="fld"><span class="lbl">Start date</span><input class="inp" type="text" value="01/01/2026" aria-label="Start date"></div>
+                    <div class="fld"><span class="lbl">End date</span><input class="inp" type="text" value="31/12/2026" aria-label="End date"></div>
+                  </div>
+                </fieldset>
+                <fieldset class="fgroup">
+                  <span class="glabel">Primary contact</span>
+                  <div class="fld"><span class="lbl">Name</span><input class="inp w-name" type="text" value="A. Rao" aria-label="Contact name"></div>
+                  <div class="fld"><span class="lbl">Email</span><input class="inp w-email" type="text" value="a.rao@org.example" aria-label="Contact email"></div>
+                </fieldset>
+              </div>
+            </div>
+            <p class="note">Two named groups, labels above their inputs, paired dates sharing a row. The spacing rhythm — tight label-to-input, comfortable between fields, generous between groups — makes the structure legible at a glance.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 CHOICE CONTROLS -->
+      <section>
+        <span class="secnum">06 / Choice controls</span>
+        <h2>Radios and checkboxes: stack them</h2>
+        <p class="prose">
+          Choice controls follow the same single-column logic as fields. Stack options vertically so they share a left edge and read as one set; reserve horizontal and multi-column layouts for the few cases that earn them. The number of options decides the shape.
+        </p>
+
+        <h3>Four radio buttons → one per line</h3>
+        <p class="prose">A small, mutually exclusive set wants every option visible at once. Stack the radios vertically; don't lay them in a row, and don't bury a short, important choice inside a dropdown.</p>
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Attribution</span></div>
+              <div class="formdemo">
+                <span class="lbl" style="display:block; margin-bottom:0.55rem;">Attribution model</span>
+                <div class="choices inline">
+                  <span class="choice on"><span class="mk radio"></span>Prospective</span>
+                  <span class="choice"><span class="mk radio"></span>Retrospective</span>
+                  <span class="choice"><span class="mk radio"></span>Voluntary alignment</span>
+                  <span class="choice"><span class="mk radio"></span>Not attributed</span>
+                </div>
+              </div>
+            </div>
+            <p class="note">Inline radios with real labels wrap unevenly and mis-pair control to text; the set stops reading as one group, and the options no longer line up for comparison.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Attribution</span></div>
+              <div class="formdemo">
+                <span class="lbl" style="display:block; margin-bottom:0.55rem;">Attribution model</span>
+                <div class="choices">
+                  <span class="choice on"><span class="mk radio"></span>Prospective</span>
+                  <span class="choice"><span class="mk radio"></span>Retrospective</span>
+                  <span class="choice"><span class="mk radio"></span>Voluntary alignment</span>
+                  <span class="choice"><span class="mk radio"></span>Not attributed</span>
+                </div>
+              </div>
+            </div>
+            <p class="note">One per line, markers aligned on a single left edge. Every option is visible and the eye can compare them top to bottom.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2.5rem;">Ten checkboxes → group or split into columns</h3>
+        <p class="prose">A long set is where a single vertical list turns into a scroll. Past about seven options, break into two columns read top-to-bottom, or — better, when the options fall into categories — group them under sub-headings. Add a select-all when the set is acted on together.</p>
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure set</span></div>
+              <div class="formdemo">
+                <span class="lbl" style="display:block; margin-bottom:0.55rem;">Included measures</span>
+                <div class="choices inline">
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
+                  <span class="choice"><span class="mk"></span>BP control</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
+                  <span class="choice"><span class="mk"></span>Colorectal screening</span>
+                  <span class="choice"><span class="mk"></span>Statin therapy</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
+                  <span class="choice"><span class="mk"></span>Depression screen</span>
+                  <span class="choice"><span class="mk"></span>Fall risk</span>
+                  <span class="choice"><span class="mk"></span>Med reconciliation</span>
+                  <span class="choice"><span class="mk"></span>Tobacco screen</span>
+                </div>
+              </div>
+            </div>
+            <p class="note">Ten boxes wrapped across rows: reading order is gone, the eye can't tell row from column, and a checked box near an unrelated label invites mis-selection.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure set</span></div>
+              <div class="formdemo">
+                <span class="lbl" style="display:block; margin-bottom:0.55rem;">Included measures</span>
+                <div class="choices cols2">
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
+                  <span class="choice"><span class="mk"></span>BP control</span>
+                  <span class="choice"><span class="mk"></span>Depression screen</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
+                  <span class="choice"><span class="mk"></span>Fall risk</span>
+                  <span class="choice"><span class="mk"></span>Colorectal screening</span>
+                  <span class="choice"><span class="mk"></span>Med reconciliation</span>
+                  <span class="choice"><span class="mk"></span>Statin therapy</span>
+                  <span class="choice"><span class="mk"></span>Tobacco screen</span>
+                </div>
+              </div>
+            </div>
+            <p class="note">Two columns, each read straight down, on a clear left edge per column. Past ~7 boxes this beats one long scroll; when the options have categories, group them under sub-headings instead.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 MULTI-STEP SCANNABILITY -->
+      <section>
+        <span class="secnum">07 / Keeping long forms scannable</span>
+        <h2>One concept per step, the column held narrow</h2>
+        <p class="prose">
+          The placement and width rules carry into long, multi-step forms. Break the work into steps of one concept each, keep the same 640px column inside every step, and let the stepper — not a wall of fields — carry the sense of progress. When a step itself runs long, the named groups from §05 are the seams to scan by.
+        </p>
+
+        <div class="prose">
+          <p><strong>For a long or multi-step form</strong></p>
+          <ul class="clean cool">
+            <li>Hold the 640px column inside every step; the canvas around it can be wide, the column is not.</li>
+            <li>One concept per step — details, then population, then logic — rather than one giant scroll.</li>
+            <li>Group fields within a step under headings; the group is the unit a user scans for.</li>
+            <li>Keep field widths content-sized inside steps too; consistency across steps is what makes the whole flow feel calm.</li>
+          </ul>
+
+          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+          <ul class="clean anti">
+            <li>A form that fills the page, or a column that grows with the viewport instead of staying capped at 640px.</li>
+            <li>A form column jammed against the chrome or stretched full width, rather than centred in the content area with balanced margins.</li>
+            <li>Any input sized by the artboard rather than its content — the full-width date, code or amount.</li>
+            <li>A second column used to fill width, pairing fields that aren't related.</li>
+            <li>Radios or checkboxes laid in a row, or a long checkbox set left as one ungrouped scroll.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 08 PRECEDENT -->
+      <section>
+        <span class="secnum">08 / What the major design systems say</span>
+        <h2>A capped single column is the convention</h2>
+        <p class="prose">
+          This is not a house preference. The systems and research that production forms are built on converge on the same moves: hold the form to a readable column, prefer a single column, and size inputs to their content. Links are in the references.
+        </p>
+
+        <div class="systems">
+          <div class="syscard lead">
+            <div class="src">GOV.UK Design System — closest precedent</div>
+            <h3>Match the input to the content</h3>
+            <p>GOV.UK gives every text input a set of width-override classes — both fixed character widths (2, 3, 4, 5, 10, 20 characters) and fluid fractions (full, three-quarters, one-half, one-third, one-quarter) — and the guidance is explicit: make the size of an input proportionate to the information it requires. A field for a few digits should be visibly small.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>size to content</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Baymard Institute — checkout research</div>
+            <h3>Single column completes faster</h3>
+            <p>Baymard's large-scale form usability testing finds multi-column layouts cause users to misinterpret field relationships and skip fields, and recommends a single-column flow for the main path, reserving side-by-side fields for short, clearly related pairs. A single column gives one reading path.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>single column</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Typographic measure</div>
+            <h3>Line length caps the column</h3>
+            <p>Readable line length tops out around 50–75 characters; past that the eye struggles to find the start of the next line. A form column much wider than ~640px pushes labels and help text beyond that measure, which is the ceiling behind the 640px cap — the same logic that bounds body text bounds a form.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>~640px column</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Nielsen Norman Group · Luke Wroblewski</div>
+            <h3>Labels above; small sets as radios</h3>
+            <p>Eye-tracking work popularised by Wroblewski's <em>Web Form Design</em> and echoed by NN/g shows top-aligned labels are fastest to scan, and that a small set of mutually exclusive options belongs in a vertical list of radios — visible at once — rather than a dropdown that hides them.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>top labels, stacked radios</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">IBM · Carbon — closest to our world</div>
+            <h3>Consistent spacing and field sizing</h3>
+            <p>Carbon, the system for data-heavy enterprise products, specifies form field widths and a consistent vertical spacing scale between fields and groups rather than stretching inputs to the container. It is the nearest match to Value Connect's density and confirms the rhythm in §05.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>fixed widths, spacing scale</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Synthesis</div>
+            <h3>The pattern for forms like ours</h3>
+            <p>For a desktop, analyst-facing configuration tool, the field points one way: a single 640px column, centred in the content area, inputs sized to their content, labels above, fields gathered into named groups, choices stacked. The artboard width is workspace, not form width.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>capped column, content-sized fields</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 RECO -->
+      <section>
+        <span class="secnum">09 / Recommendation for Value Connect</span>
+        <h2>One 640px column, centred; size to content</h2>
+        <div class="reco">
+          <h3>The house rule (provisional)</h3>
+          <ul class="clean cool">
+            <li><strong>Put the form in a single column capped at 640px (40rem)</strong>, centred in the content area — the space beside the sidebar, below or beside a stepper. Never full-page, never jammed against the chrome.</li>
+            <li><strong>Size every input to its content</strong>, using the §02 table as the ceiling. A code, day, date or amount is never full width.</li>
+            <li><strong>One column by default.</strong> A second column only for short, genuinely paired fields; never split one logical field, never two-column to fill space.</li>
+            <li><strong>Labels above inputs</strong>, gathered into named groups, with the spacing rhythm of §05 (≈6 / 22 / 44px).</li>
+            <li><strong>Stack choice controls.</strong> Radios and short checkbox sets one per line; past ~7 checkboxes, split into two columns or group under sub-headings.</li>
+            <li><strong>In long flows, one concept per step</strong>, the same 640px column and content-sized fields inside each step; let the stepper carry progress.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- REFS -->
+      <section>
+        <span class="secnum">10 / References</span>
+        <h2>Sources</h2>
+        <ul class="clean refs prose" style="margin-top:1rem;">
+          <li><a href="https://design-system.service.gov.uk/components/text-input/">GOV.UK Design System — Text input</a> (fixed-character and fluid width override classes; make input size proportionate to the content).</li>
+          <li><a href="https://baymard.com/blog/avoid-multi-column-forms">Baymard Institute — Avoid multi-column forms</a> (single-column flow completes faster; reserve side-by-side fields for short related pairs).</li>
+          <li><a href="https://www.nngroup.com/articles/form-design-placeholders/">Nielsen Norman Group — Form design</a> and Luke Wroblewski, <a href="https://www.lukew.com/ff/entry.asp?1502">Web Application Form Design</a> (top-aligned labels scan fastest; stacked radios for small mutually exclusive sets).</li>
+          <li><a href="https://design-system.service.gov.uk/components/radios/">GOV.UK — Radios</a> and <a href="https://design-system.service.gov.uk/components/checkboxes/">Checkboxes</a> (stack options; one option per line for the main case).</li>
+          <li><a href="https://carbondesignsystem.com/components/form/usage/">IBM Carbon — Form usage</a> (field width and vertical spacing guidance for dense enterprise forms).</li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
