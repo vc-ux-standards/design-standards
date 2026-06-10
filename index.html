@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     PATTERN INDEX — hand-maintained.
+     To add a record: duplicate records/_template.html, fill in
+     its TODOs, then add one <a class="dircard"> below under the
+     right category section (add a new section if the category is
+     new). That is the only wiring. No build step.
+============================================================ -->
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Value Connect · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <span class="wm">Value Connect</span>
+      <span class="sub">Design Decisions</span>
+    </a>
+    <span class="eyebrow">Overview</span>
+  </div>
+</header>
+
+<main>
+  <article id="home" class="record">
+    <div class="recordwrap">
+      <header class="masthead" style="padding-top:2.6rem; padding-bottom:1.5rem;">
+        <span class="eyebrow">Value Connect · UX decision records</span>
+        <h1>Design decisions</h1>
+        <p class="lead prose" style="margin-top:1.4rem;">
+          A set of decision records for the recurring interface questions in Value Connect. Each one states what we do, why, and what the major design systems do, so a contested choice gets settled by pointing at the record rather than relitigating it in every review.
+        </p>
+        <p class="prose" style="color:var(--ink-2); font-size:0.95rem;">
+          Status shows how settled each record is.
+          <span class="status draft"><span class="d"></span>Draft</span> is being written,
+          <span class="status adopted"><span class="d"></span>Adopted</span> is the house rule, and
+          <span class="status superseded"><span class="d"></span>Superseded</span> has been replaced by a newer record.
+        </p>
+      </header>
+
+      <section>
+        <span class="secnum">Component usage</span>
+        <div class="dirgrid">
+          <a class="dircard" href="records/stepper-orientation.html">
+            <span class="status adopted"><span class="d"></span>Adopted</span>
+            <div class="dt">Stepper orientation</div>
+            <div class="dr">Vertical rail by default; horizontal only for short, linear, page-swapping wizards.</div>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <span class="secnum">Layout</span>
+        <div class="dirgrid">
+          <a class="dircard" href="records/modal-vs-page.html">
+            <span class="status draft"><span class="d"></span>Draft</span>
+            <div class="dt">Modal, full page, or side panel</div>
+            <div class="dr">Modal interrupts for a short task; full page for a workspace; side panel for work beside the main view.</div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

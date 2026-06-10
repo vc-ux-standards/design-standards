@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Value Connect · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:        oklch(0.976 0.006 85);
+    --paper-2:      oklch(0.948 0.008 85);
+    --paper-3:      oklch(0.930 0.010 85);
+    --ink:          oklch(0.235 0.012 80);
+    --ink-2:        oklch(0.455 0.012 80);
+    --ink-3:        oklch(0.620 0.010 80);
+    --rule:         oklch(0.880 0.008 80);
+    --rule-strong:  oklch(0.820 0.009 80);
+    --error:        oklch(0.545 0.165 28);
+    --error-soft:   oklch(0.930 0.045 30);
+
+    /* Doc wayfinding only, not part of the component spec. */
+    --warm:         oklch(0.555 0.150 45);
+    --warm-soft:    oklch(0.930 0.040 58);
+    --cool:         oklch(0.520 0.095 235);
+    --cool-soft:    oklch(0.935 0.030 235);
+
+    --measure: 64ch;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(120% 80% at 50% -10%, oklch(0.985 0.008 85) 0%, transparent 60%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-size:18px;
+    line-height:1.62;
+    font-feature-settings:"kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  @media (max-width:640px){ body{ font-size:17px; } }
+
+  .wrap{ max-width:min(72rem, 92vw); margin:0 auto; padding:0 var(--gutter); }
+  .prose{ max-width:var(--measure); }
+
+  h1,h2,h3{
+    font-family:"Source Serif 4", Georgia, "Times New Roman", serif;
+    font-weight:600;
+    font-variation-settings:"opsz" 28;
+    letter-spacing:-0.01em; line-height:1.13; color:var(--ink);
+  }
+  h1{ font-size:clamp(2.4rem, 6.5vw, 4.1rem); font-weight:560; font-variation-settings:"opsz" 32; letter-spacing:-0.015em; line-height:1.08; }
+  h2{ font-size:clamp(1.7rem, 3.4vw, 2.35rem); margin:0 0 0.5rem; }
+  h3{ font-size:clamp(1.18rem, 2vw, 1.38rem); font-weight:600; font-variation-settings:"opsz" 18; line-height:1.22; }
+
+  .eyebrow{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.16em; color:var(--ink-3); }
+  p{ margin:0 0 1.1rem; }
+  strong{ font-weight:600; color:var(--ink); }
+  em{ font-style:italic; }
+  a{ color:var(--warm); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--warm) 35%, transparent); }
+  a:hover{ border-bottom-color:var(--warm); }
+  .lead{ font-size:1.22rem; line-height:1.55; color:var(--ink); }
+  @media (max-width:640px){ .lead{ font-size:1.12rem; } }
+
+  header.masthead{ padding:clamp(3.5rem,9vw,7rem) 0 2.5rem; }
+  section{ padding:clamp(2.5rem,6vw,4.5rem) 0; border-top:1px solid var(--rule); }
+  .secnum{ font-family:"IBM Plex Mono", monospace; font-size:0.72rem; letter-spacing:0.14em; color:var(--ink-3); display:block; margin-bottom:0.9rem; }
+
+  .tag{ display:inline-flex; align-items:center; gap:0.4em; font-family:"IBM Plex Mono", monospace; font-size:0.68rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; padding:0.28em 0.62em; border-radius:2px; line-height:1; }
+  .tag.h{ background:var(--warm-soft); color:oklch(0.42 0.14 45); }
+  .tag.v{ background:var(--cool-soft); color:oklch(0.40 0.10 235); }
+  .tag .dot{ width:0.5em; height:0.5em; border-radius:50%; }
+  .tag.h .dot{ background:var(--warm); }
+  .tag.v .dot{ background:var(--cool); }
+
+  .context{ border:1px solid var(--rule-strong); background:var(--paper-2); border-radius:4px; padding:1.4rem 1.5rem; max-width:54rem; margin-top:2rem; }
+  .context .k{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
+  .context p{ margin:0.5rem 0 0; font-size:1.0rem; color:var(--ink-2); }
+  .context p strong{ color:var(--ink); }
+
+  .rulecard{ margin-top:1.5rem; border:1px solid var(--rule-strong); border-left:3px solid var(--ink); background:var(--paper-2); padding:1.5rem 1.6rem; max-width:54rem; }
+  .rulecard .k{ font-family:"IBM Plex Mono", monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
+  .rulecard p{ margin:0.5rem 0 0; font-size:1.06rem; }
+
+  .tbl{ width:100%; border-collapse:collapse; margin-top:1.5rem; font-size:0.98rem; }
+  .tbl th, .tbl td{ text-align:left; vertical-align:top; padding:0.85rem 1rem; border-bottom:1px solid var(--rule); }
+  .tbl thead th{ border-bottom:1.5px solid var(--rule-strong); }
+  .tbl tbody th{ font-weight:500; color:var(--ink-2); width:24%; font-family:"Hanken Grotesk",sans-serif; }
+  .tbl .colh, .tbl .colv{ width:38%; }
+  .th-h, .th-v{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; }
+  .th-h{ color:oklch(0.42 0.14 45); }
+  .th-v{ color:oklch(0.40 0.10 235); }
+  .tbl tr td:nth-child(2){ background:color-mix(in oklch, var(--warm-soft) 30%, transparent); }
+  .tbl tr td:nth-child(3){ background:color-mix(in oklch, var(--cool-soft) 35%, transparent); }
+  @media (max-width:720px){
+    .tbl, .tbl tbody, .tbl tr, .tbl td, .tbl th{ display:block; width:100%!important; }
+    .tbl thead{ display:none; }
+    .tbl tr{ margin-bottom:1.4rem; border:1px solid var(--rule); }
+    .tbl td, .tbl th{ border:none; border-bottom:1px solid var(--rule); }
+    .tbl tbody th{ background:var(--paper-3); font-weight:600; color:var(--ink); }
+    .tbl td::before{ content:attr(data-l); font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:0.25rem; }
+  }
+
+  /* ---------- App-frame demos ---------- */
+  .demo{ margin-top:1.75rem; }
+  .demo .cap{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:0.85rem; }
+  .demo .cap .name{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.08em; color:var(--ink-2); }
+  .demo .note{ font-size:0.82rem; color:var(--ink-3); margin:0.9rem 0 0; line-height:1.45; max-width:60ch; }
+
+  .appframe{ border:1px solid var(--rule-strong); border-radius:6px; overflow:hidden; background:var(--paper); box-shadow:0 1px 2px oklch(0.2 0.01 80 / 0.04), 0 8px 24px oklch(0.2 0.01 80 / 0.05); }
+  .appbar{ display:flex; align-items:center; gap:0.5rem; padding:0.55rem 0.85rem; background:var(--paper-3); border-bottom:1px solid var(--rule); }
+  .appbar .d{ width:8px; height:8px; border-radius:50%; background:var(--rule-strong); }
+  .appbar .t{ margin-left:0.4rem; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.06em; color:var(--ink-3); }
+
+  .step-circle{ flex:0 0 auto; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-family:"IBM Plex Mono",monospace; font-size:0.8rem; font-weight:500; font-feature-settings:"tnum" 1; background:var(--paper); color:var(--ink-3); border:1.5px solid var(--rule-strong); transition:all .2s ease; }
+  .step.done  .step-circle{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .step.current .step-circle{ background:var(--paper); color:var(--ink); border:2px solid var(--ink); box-shadow:0 0 0 4px color-mix(in oklch, var(--ink) 10%, transparent); }
+  .step.error .step-circle{ background:var(--paper); color:var(--error); border:2px solid var(--error); }
+  .step.done .step-circle svg{ width:13px; height:13px; }
+  .step-label{ font-size:0.86rem; line-height:1.25; }
+  .step.done .step-label, .step.current .step-label{ color:var(--ink); font-weight:500; }
+  .step.error .step-label{ color:var(--ink); font-weight:500; }
+  .step:not(.done):not(.current):not(.error) .step-label{ color:var(--ink-3); }
+
+  /* Horizontal: top bar + canvas */
+  .h-bar{ display:flex; align-items:flex-start; padding:1.3rem 1.4rem; border-bottom:1px solid var(--rule); }
+  .h-bar .step{ display:flex; flex-direction:column; align-items:center; gap:0.55rem; text-align:center; flex:1 1 0; min-width:0; }
+  .h-bar .conn{ flex:1 1 auto; height:1.5px; background:var(--rule-strong); margin-top:13px; min-width:0.5rem; }
+  .h-bar .conn.done{ background:var(--ink); }
+  .h-bar .step-label{ max-width:9ch; }
+
+  /* Vertical: side rail + canvas */
+  .v-split{ display:flex; }
+  .v-rail{ flex:0 0 40%; max-width:300px; border-right:1px solid var(--rule); padding:1.3rem 0.6rem 1.3rem 1.3rem; }
+  .railstepper{ display:flex; flex-direction:column; }
+  .railstepper .step{ display:grid; grid-template-columns:28px 1fr; column-gap:0.8rem; padding:0.55rem 0.7rem; border-radius:5px; border-left:3px solid transparent; }
+  .railstepper .step.current{ background:color-mix(in oklch, var(--ink) 5%, transparent); border-left-color:var(--ink); }
+  .railstepper .rail{ display:flex; flex-direction:column; align-items:center; }
+  .railstepper .conn{ width:1.5px; flex:1 1 auto; background:var(--rule-strong); min-height:0.6rem; margin:0.3rem 0; }
+  .railstepper .conn.done{ background:var(--ink); }
+  .railstepper .body{ padding-bottom:0.15rem; }
+  .railstepper .step-label{ font-size:0.9rem; }
+  .railstepper .desc{ font-size:0.76rem; color:var(--ink-3); margin-top:0.1rem; line-height:1.35; }
+  .railstepper .desc.err{ color:var(--error); }
+  .railstepper .ph{ font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3); padding:0.9rem 0.7rem 0.35rem; }
+  .railstepper .ph:first-child{ padding-top:0; }
+
+  .v-canvas{ flex:1 1 auto; padding:1.6rem 1.7rem; min-width:0; }
+  .v-canvas h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 16; font-weight:600; font-size:1.15rem; margin:0 0 0.3rem; }
+  .v-canvas .sub{ font-size:0.84rem; color:var(--ink-3); margin:0 0 1.1rem; }
+
+  .h-canvas{ padding:1.6rem 1.7rem; }
+  .h-canvas h4{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 16; font-weight:600; font-size:1.1rem; margin:0 0 1rem; }
+
+  .field{ height:32px; border:1px solid var(--rule-strong); border-radius:3px; background:var(--paper-2); margin:0.55rem 0; }
+  .field.s{ width:55%; }
+  .field.lbl{ position:relative; }
+  .fieldlabel{ font-size:0.72rem; color:var(--ink-2); margin-top:0.6rem; }
+  .btnrow{ display:flex; gap:0.5rem; margin-top:1.1rem; }
+  .btn{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; letter-spacing:0.05em; padding:0.45rem 0.85rem; border-radius:3px; border:1px solid var(--ink); }
+  .btn.p{ background:var(--ink); color:var(--paper); }
+  .btn.g{ background:transparent; color:var(--ink); border-color:var(--rule-strong); }
+
+  @media (max-width:680px){
+    .v-rail{ flex-basis:48%; }
+    .v-canvas{ display:none; }
+    .v-rail{ border-right:none; flex-basis:100%; max-width:none; }
+  }
+
+  .principles{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.6rem 2.5rem; margin-top:1.5rem; }
+  @media (max-width:760px){ .principles{ grid-template-columns:1fr; } }
+  .principle .n{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 40; font-weight:600; font-size:2.2rem; color:var(--ink-3); line-height:1; }
+  .principle h3{ margin:0.5rem 0 0.4rem; }
+  .principle p{ font-size:0.96rem; margin:0; color:var(--ink-2); }
+
+  ul.clean{ list-style:none; padding:0; margin:1rem 0 0; max-width:var(--measure); }
+  ul.clean li{ position:relative; padding-left:1.5rem; margin-bottom:0.85rem; font-size:0.98rem; }
+  ul.clean li::before{ content:""; position:absolute; left:0; top:0.62em; width:6px; height:6px; background:var(--warm); border-radius:50%; }
+  ul.clean.cool li::before{ background:var(--cool); }
+  ul.clean.anti li::before{ background:var(--error); border-radius:1px; }
+
+  .systems{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.1rem; margin-top:1.5rem; }
+  @media (max-width:760px){ .systems{ grid-template-columns:1fr; } }
+  .syscard{ border:1px solid var(--rule); border-radius:4px; padding:1.25rem 1.3rem; background:var(--paper-2); }
+  .syscard.lead{ border-color:var(--ink); }
+  .syscard .src{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:0.5rem; }
+  .syscard h3{ font-size:1.06rem; margin:0 0 0.55rem; font-variation-settings:"opsz" 14; }
+  .syscard p{ font-size:0.89rem; margin:0; color:var(--ink-2); line-height:1.5; }
+  .syscard .verdict{ display:inline-block; margin-top:0.7rem; font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.06em; padding:0.28em 0.6em; border-radius:2px; }
+
+  .reco{ border:1px solid var(--ink); background:var(--paper-2); border-radius:4px; padding:1.75rem 1.8rem; max-width:60rem; }
+  .reco h3{ margin-top:0; }
+  .reco ul.clean{ margin-top:0.5rem; }
+
+  .refs{ font-size:0.84rem; color:var(--ink-2); }
+  .refs li{ margin-bottom:0.5rem; }
+  footer{ border-top:1px solid var(--rule); padding:2.5rem 0 4rem; }
+  footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.06em; color:var(--ink-3); }
+
+  .vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+  @media print{
+    body{ background:#fff; }
+    section, header.masthead, .appframe{ break-inside:avoid; }
+    a{ border:none; color:var(--ink); }
+  }
+
+  /* ============ Handbook shell ============ */
+  :root{ --ok:oklch(0.560 0.095 150); --ok-ink:oklch(0.420 0.085 150); }
+
+  .app{ display:flex; align-items:flex-start; }
+  .sidebar{
+    flex:0 0 256px; width:256px; position:sticky; top:0; height:100vh;
+    overflow-y:auto; border-right:1px solid var(--rule); background:var(--paper);
+    padding:1.7rem 1.1rem; z-index:20;
+  }
+  .brand{ display:block; text-decoration:none; border:none; margin-bottom:0.6rem; }
+  .brand:hover{ border:none; }
+  .brand .wm{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 18; font-weight:600; font-size:1.08rem; line-height:1.1; color:var(--ink); display:block; }
+  .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); margin-top:0.4rem; display:block; }
+
+  ul.nav{ list-style:none; margin:0; padding:0; }
+  ul.nav .navhead{ font-family:"IBM Plex Mono",monospace; font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); padding:1.1rem 0.6rem 0.45rem; }
+  ul.nav a{ display:flex; align-items:center; gap:0.6rem; padding:0.5rem 0.6rem; border-radius:5px; border:none; font-size:0.9rem; color:var(--ink-2); text-decoration:none; line-height:1.25; }
+  ul.nav a:hover{ background:var(--paper-2); color:var(--ink); border:none; }
+  ul.nav a.active{ background:color-mix(in oklch, var(--ink) 7%, transparent); color:var(--ink); font-weight:600; }
+  ul.nav a .st{ flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:var(--ink-3); }
+  ul.nav a .st.adopted{ background:var(--ok); }
+  ul.nav a .st.proposed{ background:var(--warm); }
+  ul.nav a .st.contested{ background:var(--error); }
+  ul.nav a .st.draft{ background:var(--ink-3); }
+
+  .content{ flex:1 1 auto; min-width:0; }
+  .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
+  .record header.masthead{ padding-top:2.6rem; padding-bottom:2rem; }
+  .rechead{ display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; margin-bottom:1rem; }
+
+  /* no-JS: stack records with separators */
+  .record + .record{ border-top:8px solid var(--paper-3); }
+  /* JS: route to one record */
+  .js .record{ display:none; }
+  .js .record.active{ display:block; }
+  .js .record + .record{ border-top:none; }
+
+  .status{ display:inline-flex; align-items:center; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; line-height:1; }
+  .status .d{ width:0.5em; height:0.5em; border-radius:50%; }
+  .status.adopted{ background:color-mix(in oklch, var(--ok) 16%, transparent); color:var(--ok-ink); } .status.adopted .d{ background:var(--ok); }
+  .status.proposed{ background:var(--warm-soft); color:oklch(0.42 0.14 45); } .status.proposed .d{ background:var(--warm); }
+  .status.contested{ background:var(--error-soft); color:var(--error); } .status.contested .d{ background:var(--error); }
+  .status.draft{ background:var(--paper-3); color:var(--ink-3); } .status.draft .d{ background:var(--ink-3); }
+
+  .dirgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.5rem; }
+  .dircard{ display:block; border:1px solid var(--rule-strong); border-radius:6px; padding:1.3rem 1.4rem; background:var(--paper-2); text-decoration:none; }
+  .dircard:hover{ background:var(--paper-3); border-color:var(--ink-3); }
+  .dircard .dt{ font-family:"Source Serif 4",serif; font-weight:600; font-variation-settings:"opsz" 16; font-size:1.12rem; color:var(--ink); margin:0.6rem 0 0.4rem; }
+  .dircard .dr{ font-size:0.9rem; color:var(--ink-2); line-height:1.45; }
+
+  .tbl.tri td{ background:transparent !important; }
+  .tbl.tri thead th{ font-family:"IBM Plex Mono",monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-2); font-weight:600; }
+
+  .globalfoot{ border-top:1px solid var(--rule); max-width:62rem; margin:1rem auto 0; padding:2rem var(--gutter) 3rem; }
+
+  @media (max-width:900px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:sticky; top:0; width:auto; height:auto; flex-basis:auto; border-right:none; border-bottom:1px solid var(--rule); padding:0.8rem 1rem; }
+    .brand{ margin-bottom:0.7rem; }
+    ul.nav{ display:flex; gap:0.3rem; overflow-x:auto; }
+    ul.nav .navhead{ display:none; }
+    ul.nav a{ white-space:nowrap; }
+    .dirgrid{ grid-template-columns:1fr; }
+  }
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="#home">
+      <span class="wm">Value Connect</span>
+      <span class="sub">Design Decisions</span>
+    </a>
+    <nav>
+      <ul class="nav">
+        <li class="navhead">Records</li>
+        <li><a href="#home"><span class="st"></span>Overview</a></li>
+        <li><a href="#stepper-orientation"><span class="st adopted"></span>Stepper orientation</a></li>
+        <li><a href="#modal-vs-page"><span class="st draft"></span>Modal vs full page</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="content">
+
+      <article id="home" class="record active" data-title="Overview">
+        <div class="recordwrap home">
+          <header class="masthead" style="padding-bottom:1.5rem;">
+            <span class="eyebrow">Value Connect · UX decision records</span>
+            <h1>Design decisions</h1>
+            <p class="lead prose" style="margin-top:1.4rem;">
+              A set of decision records for the recurring interface questions in Value Connect. Each one states what we do, why, and what the major design systems do, so a contested choice gets settled by pointing at the record rather than relitigating it in every review.
+            </p>
+            <p class="prose" style="color:var(--ink-2); font-size:0.95rem;">
+              Status shows how settled each record is.
+              <span class="status adopted"><span class="d"></span>Adopted</span> is the house rule,
+              <span class="status proposed"><span class="d"></span>Proposed</span> awaits sign-off,
+              <span class="status contested"><span class="d"></span>Contested</span> is still under debate, and
+              <span class="status draft"><span class="d"></span>Draft</span> is being written.
+            </p>
+          </header>
+          <section style="border-top:1px solid var(--rule);">
+            <span class="secnum">The records</span>
+            <div class="dirgrid">
+              <a class="dircard" href="#stepper-orientation">
+                <span class="status adopted"><span class="d"></span>Adopted</span>
+                <div class="dt">Stepper orientation</div>
+                <div class="dr">Vertical rail by default; horizontal only for short, linear, page-swapping wizards.</div>
+              </a>
+              <a class="dircard" href="#modal-vs-page">
+                <span class="status draft"><span class="d"></span>Draft</span>
+                <div class="dt">Modal, full page, or side panel</div>
+                <div class="dr">Modal interrupts for a short task; full page for a workspace; side panel for work beside the main view.</div>
+              </a>
+            </div>
+            <p class="note" style="margin-top:1.6rem; font-size:0.82rem; color:var(--ink-3); max-width:60ch;">
+              This is a single self-contained file. With scripting on, the left list switches records and each has its own deep link, like <code style="font-family:'IBM Plex Mono',monospace; font-size:0.92em;">#modal-vs-page</code>. With scripting off, every record stacks into one long document you can scroll. To add a record, see the comment in the page source.
+            </p>
+          </section>
+        </div>
+      </article>
+      <article id="stepper-orientation" class="record" data-title="Stepper orientation">
+        <div class="recordwrap">
+
+
+  <header class="masthead">
+    <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <span class="eyebrow">Component usage · Steppers</span></div>
+    <h1>When to use a vertical<br>versus a horizontal stepper</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      We ship both orientations. This sets out which to reach for, and why, anchored to what Value Connect actually is: an enterprise configuration tool. The short version is that most of our stepper usage should be vertical, and the reason is specific to our workflows, not a general style preference.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        Value Connect sits in population health and value-based care, the same enterprise market as <strong>Arcadia</strong> and <strong>Innovaccer</strong>. The users are analysts, care managers and configuration admins working on large desktop monitors. The work is long, server-backed configuration: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement. Step content lives in a working canvas, never inline, and mobile use is negligible. Since the canvas holds the content for both orientations, the inline-versus-canvas question decides nothing for us. What decides it is <strong>scale, per-step status, and the freedom to retune out of order</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        Default to a <strong>vertical stepper in a left rail</strong>, with step content in the canvas beside it. It fits our long, domain-heavy configuration flows: it scales past five steps, shows a name, a one-line description and a status for every step at once, and lets users jump back to retune a section. Reserve a <strong>horizontal stepper</strong> for a short, strictly linear wizard of about three to five steps with terse labels, where each step is its own page and a compact overview at the top of the canvas is all that is needed.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>Decide on the flow, not the page</h2>
+    <p class="prose">
+      Run the flow through these dimensions. For our product most answers land in the vertical column, because our flows are long, our labels are domain phrases, and our steps carry status that the user needs to see.
+    </p>
+
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="colh"><span class="th-h">Horizontal</span></th>
+          <th class="colv"><span class="th-v">Vertical (rail)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Step count</th>
+          <td data-l="Horizontal">2 to 5. The bar divides its width by the count, so it caps quickly.</td>
+          <td data-l="Vertical">6 or more, or grouped into named phases. Added steps cost height, which scrolls.</td>
+        </tr>
+        <tr>
+          <th scope="row">Label and description</th>
+          <td data-l="Horizontal">One to two words only. No room for a description.</td>
+          <td data-l="Vertical">Full domain titles plus a one-line description per step.</td>
+        </tr>
+        <tr>
+          <th scope="row">Per-step status</th>
+          <td data-l="Horizontal">A number or a tick. No room for an error or helper message.</td>
+          <td data-l="Vertical">Complete, current, not started and error states, all visible at once.</td>
+        </tr>
+        <tr>
+          <th scope="row">Navigation</th>
+          <td data-l="Horizontal">Forward-leaning, linear. Back-and-forth is cramped.</td>
+          <td data-l="Vertical">Every step a clickable target; retuning out of order is one click.</td>
+        </tr>
+        <tr>
+          <th scope="row">Placement</th>
+          <td data-l="Horizontal">A chrome strip at the top of the canvas, often in a modal.</td>
+          <td data-l="Vertical">A persistent left rail beside the working canvas.</td>
+        </tr>
+        <tr>
+          <th scope="row">Best fit in our app</th>
+          <td data-l="Horizontal">Short create, publish or confirm tasks.</td>
+          <td data-l="Vertical">Cohort builders, measure and risk-model config, contract setup.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 LIVE -->
+  <section>
+    <span class="secnum">02 / The two in practice</span>
+    <h2>What each one is good at, in our UI</h2>
+    <p class="prose">
+      Both are the same component family with the same states. The difference is what the layout can carry. The horizontal bar gives a compact overview of a short, linear task; the vertical rail is a navigation map of a long configuration session, with status visible for every step.
+    </p>
+
+    <div class="demo">
+      <div class="cap">
+        <span class="name">Create value-based contract · short linear wizard</span>
+        <span class="tag h"><span class="dot"></span>Horizontal</span>
+      </div>
+      <div class="appframe">
+        <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">New contract</span></div>
+        <div class="h-bar" role="list" aria-label="Contract setup progress">
+          <div class="step done" role="listitem">
+            <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="vh">completed</span></div>
+            <div class="step-label">Details</div>
+          </div>
+          <div class="conn done"></div>
+          <div class="step current" role="listitem" aria-current="step">
+            <div class="step-circle">2<span class="vh">current step</span></div>
+            <div class="step-label">Attribution</div>
+          </div>
+          <div class="conn"></div>
+          <div class="step" role="listitem"><div class="step-circle">3</div><div class="step-label">Measures</div></div>
+          <div class="conn"></div>
+          <div class="step" role="listitem"><div class="step-circle">4</div><div class="step-label">Review</div></div>
+        </div>
+        <div class="h-canvas">
+          <h4>Attribution</h4>
+          <div class="fieldlabel">Attribution model</div>
+          <div class="field s"></div>
+          <div class="fieldlabel">Attribution window</div>
+          <div class="field"></div>
+          <div class="btnrow"><span class="btn g">Back</span><span class="btn p">Continue</span></div>
+        </div>
+      </div>
+      <p class="note">Four terse, ordered steps. The bar is a glanceable progress strip; the form fills the canvas below. This is the right shape for a focused, page-swapping task, often in a modal.</p>
+    </div>
+
+    <div class="demo" style="margin-top:2.5rem;">
+      <div class="cap">
+        <span class="name">Configure quality measure · long config session</span>
+        <span class="tag v"><span class="dot"></span>Vertical rail</span>
+      </div>
+      <div class="appframe">
+        <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Quality measure: 30-day readmission</span></div>
+        <div class="v-split">
+          <div class="v-rail">
+            <div class="railstepper" role="list" aria-label="Measure configuration">
+              <div class="step done" role="listitem">
+                <div class="rail"><div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="conn done"></div></div>
+                <div class="body"><div class="step-label">Measure details</div><div class="desc">Name, steward, reporting period</div></div>
+              </div>
+              <div class="step done" role="listitem">
+                <div class="rail"><div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="conn"></div></div>
+                <div class="body"><div class="step-label">Population</div><div class="desc">Denominator and index event</div></div>
+              </div>
+              <div class="step current" role="listitem" aria-current="step">
+                <div class="rail"><div class="step-circle">3</div><div class="conn"></div></div>
+                <div class="body"><div class="step-label">Numerator logic</div><div class="desc">Readmission criteria and value sets</div></div>
+              </div>
+              <div class="step error" role="listitem">
+                <div class="rail"><div class="step-circle">!<span class="vh">has errors</span></div><div class="conn"></div></div>
+                <div class="body"><div class="step-label">Exclusions</div><div class="desc err">2 value sets need attention</div></div>
+              </div>
+              <div class="step" role="listitem">
+                <div class="rail"><div class="step-circle">5</div><div class="conn"></div></div>
+                <div class="body"><div class="step-label">Risk adjustment</div><div class="desc">Methodology and covariates</div></div>
+              </div>
+              <div class="step" role="listitem">
+                <div class="rail"><div class="step-circle">6</div></div>
+                <div class="body"><div class="step-label">Review and publish</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="v-canvas">
+            <h4>Numerator logic</h4>
+            <p class="sub">Define what counts as a readmission within the measurement window.</p>
+            <div class="fieldlabel">Qualifying event value set</div>
+            <div class="field"></div>
+            <div class="fieldlabel">Readmission window (days)</div>
+            <div class="field s"></div>
+            <div class="fieldlabel">Care setting</div>
+            <div class="field"></div>
+            <div class="btnrow"><span class="btn g">Back</span><span class="btn p">Save and continue</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Six steps, domain labels, a description per step, and a visible error on Exclusions, all while the form occupies the canvas. The rail stays put as a map of the session and lets the analyst jump back to Population after previewing results. Group flows beyond six or seven steps into named phases in the rail rather than stretching the component.</p>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Four forces, all pointing the same way for us</h2>
+    <p class="prose">
+      The decision is structural, not aesthetic. Four pressures act on our flows in particular, and for configuration work they all favour the vertical rail.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Scale against domain labels</h3>
+        <p>Our step names are domain terms: risk adjustment methodology, attribution window, numerator logic. A horizontal bar divides its width by the step count and truncates phrases like these by the third step, and our flows routinely run past the five-step ceiling a bar can hold. Vertical gives each step the full measure and scrolls when it needs to.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>Name, description and status, at once</h3>
+        <p>Configuration steps are rarely self-explanatory. Each wants a one-line description, and each carries a state the admin must see: complete, in progress, not started, or complete with errors. Only the vertical rail shows all of that for every step simultaneously. A horizontal bar shows a number and a word, and hides which sections are still invalid.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>A persistent map, not a thin strip</h3>
+        <p>In a left rail the vertical stepper is a map of the whole process that stays beside the canvas during a long session. This is the enterprise convention, and the system built for data-heavy products, IBM Carbon, places the progress indicator in side panels and tearsheets for exactly this. A horizontal bar is a thinner top-of-page overview that suits a short page-swapping wizard, not a configuration session.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Non-linear retuning</h3>
+        <p>Configuration is iterative: define a cohort, preview the population, go back and adjust the criteria, check again. An interactive vertical rail makes every step a clickable target with its current status, so jumping back is one click. A horizontal bar makes back-and-forth cramped and gives no per-step status to navigate by.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 EDGE CASES -->
+  <section>
+    <span class="secnum">04 / Edge cases and anti-patterns</span>
+    <h2>Where to draw the line in review</h2>
+
+    <div class="prose">
+      <p><strong>Reach for horizontal only when</strong></p>
+      <ul class="clean">
+        <li>The flow is short (three to five steps), strictly linear, and each step is its own page.</li>
+        <li>Labels are one to two words, with no description or per-step status to convey.</li>
+        <li>It is a focused, self-contained task, usually in a modal: a quick create, publish or confirm.</li>
+        <li>A compact progress overview at the top of the canvas is all the wayfinding the task needs.</li>
+      </ul>
+
+      <p style="margin-top:2rem;"><strong>Default to vertical when</strong> (most of our surfaces)</p>
+      <ul class="clean cool">
+        <li>The flow has six or more steps, or groups into named phases.</li>
+        <li>Step names are domain phrases that need a description and a visible status.</li>
+        <li>Admins will revisit and retune steps out of order across a session.</li>
+        <li>The stepper should persist as a navigation map in a left rail beside the canvas.</li>
+      </ul>
+
+      <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+      <ul class="clean anti">
+        <li>Horizontal scrolling, or a horizontal bar that wraps to two lines, to fit the steps. Switch to a vertical rail and, past six or seven steps, group into phases.</li>
+        <li>Hiding step status. In a configuration tool, which sections still have errors is operational information the admin needs at a glance; surface complete, error and not-started states in the rail.</li>
+        <li>A stepper used for non-sequential navigation. Peer sections with no required order are tabs, not a stepper.</li>
+        <li>Contorting a horizontal bar for narrow widths. With negligible mobile use, do not compromise the desktop pattern; our only constrained contexts are side panels and split inspectors, which the vertical rail already fits.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 PRECEDENT -->
+  <section>
+    <span class="secnum">05 / What the major design systems say</span>
+    <h2>The enterprise convention, not a house opinion</h2>
+    <p class="prose">
+      The systems that enterprise data products are built on converge on the same logic: vertical scales with steps, labels and status and reads more easily; horizontal is for short wizards where one step depends on the last. Carbon, IBM's system for data-heavy products, is the closest match to our world and the clearest on the rail pattern. Links are in the references.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest to our world</div>
+        <h3>Vertical for readability, placed in a side panel</h3>
+        <p>Carbon's guidance is to arrange the progress indicator vertically when possible because it reads more easily, and it explicitly places the component on full pages, in modals, in side panels and in tearsheets. It defines complete, current, not-started and error states, and an interactive mode that lets users navigate to any step, the exact behaviours a configuration rail needs.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>vertical, side panel, status, interactive</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Google · Material / Angular Material</div>
+        <h3>Horizontal eats width and risks a second scroll axis</h3>
+        <p>Material reserves horizontal for flows where a later step depends on an earlier one. Angular's implementation note is the operative reason to avoid it at scale: horizontal steppers take significantly more horizontal space and can introduce a second scrolling dimension, which makes content harder to consume.</p>
+        <span class="verdict tag h" style="background:var(--warm-soft);"><span class="dot"></span>horizontal only for dependent steps</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Atlassian Design System</div>
+        <h3>Short labels, and cap the steps</h3>
+        <p>Progress tracker labels stay to one or two words on a single line. Beyond six steps, Atlassian advises simplifying or breaking the task into multiple flows rather than stretching the component, which is the basis for grouping our longer flows into phases.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>short labels, group past 6</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Ant Design — enterprise React</div>
+        <h3>Vertical is the variant that carries descriptions</h3>
+        <p>Ant ships horizontal, vertical and navigation variants. The vertical direction is the one that holds a per-step description, which is the layout our domain steps require.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>vertical for descriptions</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">MUI · Material UI</div>
+        <h3>Horizontal for dependent wizards</h3>
+        <p>Horizontal is well suited when the contents of one step depend on an earlier step, the short page-swapping wizard where the bar tracks position and the work happens in the region below. That is our horizontal case, and only that.</p>
+        <span class="verdict tag h" style="background:var(--warm-soft);"><span class="dot"></span>horizontal for short wizards</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For an enterprise, desktop, analyst-facing configuration tool with long flows and step-level status, the field points one way: a vertical rail by default, horizontal kept to short linear wizards. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>vertical default for Value Connect</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 RECO -->
+  <section>
+    <span class="secnum">06 / Recommendation for Value Connect</span>
+    <h2>Make the vertical rail the default</h2>
+    <div class="reco">
+      <h3>The house rule</h3>
+      <ul class="clean cool">
+        <li><strong>Vertical, in a left rail beside the canvas, is the default</strong> for configuration and setup: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement, data mapping. These flows are long, domain-labelled, status-bearing and iterative, which is what the rail is built for.</li>
+        <li><strong>Horizontal is reserved</strong> for the short top-level wizard: three to five terse, strictly linear steps, each its own page, usually in a modal. A quick create, publish or confirm.</li>
+        <li><strong>Group any flow beyond six or seven steps into named phases</strong> in the rail rather than stretching either component.</li>
+        <li><strong>Always surface per-step status, including the error state</strong>, in the rail. In a configuration tool that is operational information, not decoration.</li>
+        <li><strong>Treat mobile as out of scope</strong> for steppers. Do not compromise the desktop pattern for a viewport we do not serve; the vertical rail already handles our only narrow context, the side panel.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <section>
+    <span class="secnum">07 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/components/progress-indicator/usage/">IBM Carbon — Progress indicator usage</a> (arrange vertically when possible; full page, modal, side panel and tearsheet placement; complete, current, not-started and error states; interactive navigation).</li>
+      <li><a href="https://github.com/angular/components/blob/main/src/material/stepper/stepper.md">Angular Material — Stepper</a> and <a href="https://m1.material.io/components/steppers.html">Material Design — Steppers</a> (horizontal takes more width and risks a second scroll axis; reserve it for dependent steps).</li>
+      <li><a href="https://atlassian.design/components/progress-tracker">Atlassian — Progress tracker</a> and <a href="https://developer.atlassian.com/platform/forge/ui-kit/components/progress-tracker/">Forge UI Kit notes</a> (one to two word labels; reconsider or split beyond six steps).</li>
+      <li><a href="https://ant.design/components/steps/">Ant Design — Steps</a> (vertical direction carries per-step descriptions).</li>
+      <li><a href="https://mui.com/material-ui/react-stepper/">MUI — Stepper</a> (horizontal when one step's contents depend on an earlier step).</li>
+    </ul>
+  </section>
+
+          </div>
+      </article>
+
+      <!-- ============================================================
+           HOW TO ADD A DECISION RECORD
+           1. Copy one <article class="record" id="slug" data-title="Name"> ... </article> block.
+           2. Give it a unique id (the slug becomes its #deep-link).
+           3. Add a matching <li><a href="#slug">...</a></li> in the sidebar nav,
+              and a <a class="dircard" href="#slug"> card in the #home directory.
+           That is the only wiring. No build step.
+      ============================================================ -->
+      <article id="modal-vs-page" class="record" data-title="Modal vs full page">
+        <div class="recordwrap">
+          <header class="masthead">
+            <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Layout · Containers</span></div>
+            <h1>Modal, full page,<br>or side panel</h1>
+            <p class="lead prose" style="margin-top:1.4rem;">
+              A first pass, pending the precedent and sourcing work the stepper record already has. The rule and the table below are provisional, meant to be argued with, not cited yet.
+            </p>
+            <div class="context">
+              <span class="k">Our context</span>
+              <p>The same as everywhere in Value Connect: desktop, analyst and admin users, long server-backed configuration with content that lives in a canvas. That sends most heavy work to full pages, leaves modals for short interruptions, and makes the side panel the tool for work that has to sit beside the main view.</p>
+            </div>
+            <div class="rulecard">
+              <span class="k">The rule (provisional)</span>
+              <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt: a confirmation, a quick create, a decision the user has to resolve before continuing. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to. Use a <strong>side panel</strong> when the task supports the main view and that context needs to stay visible. The deciding question is whether the task needs brief and total attention, is a workspace in its own right, or runs alongside the main work.</p>
+            </div>
+          </header>
+
+          <section>
+            <span class="secnum">01 / Quick reference (draft)</span>
+            <h2>Pick the container by the task</h2>
+            <table class="tbl tri">
+              <thead><tr><th></th><th>Modal</th><th>Full page</th><th>Side panel</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Task length</th><td data-l="Modal">Seconds to a minute.</td><td data-l="Full page">Minutes; a real session.</td><td data-l="Side panel">Short to medium, supporting the main view.</td></tr>
+                <tr><th scope="row">Keep the view behind?</th><td data-l="Modal">No; it blocks and demands resolution.</td><td data-l="Full page">No; it replaces the view.</td><td data-l="Side panel">Yes; the main view stays visible and usable.</td></tr>
+                <tr><th scope="row">Content volume</th><td data-l="Modal">One decision or a few fields.</td><td data-l="Full page">Multi-section, tables, long forms.</td><td data-l="Side panel">A focused detail or a quick edit.</td></tr>
+                <tr><th scope="row">Linkable, revisitable?</th><td data-l="Modal">No.</td><td data-l="Full page">Yes; it has its own URL.</td><td data-l="Side panel">Sometimes; treat as transient.</td></tr>
+                <tr><th scope="row">Typical use here</th><td data-l="Modal">Confirm publish, quick create, destructive confirm.</td><td data-l="Full page">Cohort and measure builders, contract setup.</td><td data-l="Side panel">Inspect a record, edit detail beside a list or chart.</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <span class="secnum">02 / Reasoning (draft)</span>
+            <h2>Why the task decides, not the visual weight</h2>
+            <p class="prose">The common error is reaching for a modal because it feels lightweight, then loading it with a multi-step form that needs scrolling, validation, and the context the modal has hidden behind it. A modal removes the page behind it, so anything that needs that context, or runs long enough that the user loses their place, belongs on a full page or in a side panel. The reverse error is sending a one-line confirmation to a full page and throwing away the user's place in their work. Match the container to the shape of the task: brief and blocking, a workspace, or a companion to the main view.</p>
+          </section>
+
+          <section>
+            <span class="secnum">03 / Precedent and recommendation</span>
+            <h2>To be completed</h2>
+            <p class="prose">This record still needs the precedent pass that makes it persuasive: what Carbon, Material, Atlassian and the rest say about dialogs, full-page flows, and side panels or drawers, sourced and quoted the way the stepper record is, then a house recommendation in the same format. Treat everything above as a working draft.</p>
+          </section>
+        </div>
+      </article>
+      <footer class="globalfoot">
+        <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+      </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var records = [].slice.call(document.querySelectorAll('.record'));
+  var links = [].slice.call(document.querySelectorAll('ul.nav a[href^="#"]'));
+  var ids = records.map(function(r){ return r.id; });
+  function show(id){
+    if(!id || ids.indexOf(id) < 0){ id = 'home'; }
+    records.forEach(function(r){ r.classList.toggle('active', r.id === id); });
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+    var r = document.getElementById(id);
+    var t = r && r.getAttribute('data-title');
+    document.title = (t && t !== 'Overview' ? t + ' · ' : '') + 'Value Connect Design Decisions';
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.replace('#','')); });
+  show(location.hash.replace('#',''));
+  // external links open in a new tab so the handbook keeps its place
+  [].slice.call(document.querySelectorAll('a[href^="http"]')).forEach(function(a){
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+})();
+</script>
+
+</body>
+</html>

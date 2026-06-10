@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     HOW TO ADD A DECISION RECORD
+     1. Duplicate this file. Name it after the record slug,
+        e.g. records/form-layout.html.
+     2. Fill in every TODO below.
+     3. Add one <a class="dircard"> entry for it in ../index.html,
+        under the right category section.
+     That is the only wiring. No build step.
+============================================================ -->
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- TODO: page title — "Record name · Design Decisions" -->
+<title>Record name · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">Value Connect</span>
+      <span class="sub">Design Decisions</span>
+    </a>
+    <!-- TODO: category eyebrow, e.g. "Standards · Forms" — must match the rechead eyebrow below -->
+    <span class="eyebrow">Category · Topic</span>
+  </div>
+</header>
+
+<main>
+  <!-- TODO: id — the record slug, same as this file's name -->
+  <article id="record-slug" class="record">
+    <div class="recordwrap">
+
+      <header class="masthead">
+        <div class="rechead">
+          <!-- TODO: status — class and label must match: draft / adopted / superseded -->
+          <span class="status draft"><span class="d"></span>Draft</span>
+          <!-- TODO: category eyebrow, e.g. "Component usage · Steppers" -->
+          <span class="eyebrow">Category · Topic</span>
+        </div>
+        <!-- TODO: record title; use <br> to control the line break if needed -->
+        <h1>Record title</h1>
+        <!-- TODO: one-paragraph summary of the decision -->
+        <p class="lead prose" style="margin-top:1.5rem;">
+          What this record decides, in two or three sentences.
+        </p>
+
+        <div class="context">
+          <span class="k">Our context</span>
+          <!-- TODO: the product context that drives this decision -->
+          <p>Who the users are, what the work is, and which constraints decide this question for Value Connect.</p>
+        </div>
+
+        <div class="rulecard">
+          <span class="k">The rule</span>
+          <!-- TODO: the house rule, stated plainly. Mark "(provisional)" in the <span class="k"> while Draft. -->
+          <p>Use <strong>X</strong> when… Use <strong>Y</strong> when… The deciding question is…</p>
+        </div>
+      </header>
+
+      <!-- Sections are numbered with the .secnum pattern: "01 / Name", "02 / Name", … -->
+      <section>
+        <span class="secnum">01 / Quick reference</span>
+        <!-- TODO: section heading -->
+        <h2>Decide by these dimensions</h2>
+        <!-- TODO: body copy; keep paragraphs inside .prose for the measure -->
+        <p class="prose">How to use the table or rules below.</p>
+        <!-- TODO: optional comparison table — copy a .tbl from an existing record -->
+      </section>
+
+      <section>
+        <span class="secnum">02 / The pattern in practice</span>
+        <!-- TODO: section heading -->
+        <h2>Good and bad, side by side</h2>
+        <p class="prose"><!-- TODO: what the comparison shows --></p>
+
+        <!-- TODO: good/bad demo. Stages sit side by side on desktop, stack on mobile.
+             Put any generic demo markup (.appframe etc.) inside each stage. -->
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Screen name</span></div>
+              <!-- TODO: the anti-pattern demo -->
+            </div>
+            <p class="note"><!-- TODO: why this is wrong --></p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Screen name</span></div>
+              <!-- TODO: the recommended demo -->
+            </div>
+            <p class="note"><!-- TODO: why this is right --></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <span class="secnum">03 / The reasoning</span>
+        <!-- TODO: section heading -->
+        <h2>Why the rule points this way</h2>
+        <p class="prose"><!-- TODO: the forces behind the decision; for a grid of numbered
+             principles, copy .principles from the stepper record --></p>
+      </section>
+
+      <section>
+        <span class="secnum">04 / Precedent and recommendation</span>
+        <!-- TODO: what the major design systems say (copy .systems/.syscard from the
+             stepper record), then the house recommendation (.reco). Until that pass is
+             done, keep the heading "To be completed" and say what is missing. -->
+        <h2>To be completed</h2>
+        <p class="prose"></p>
+      </section>
+
+      <!-- TODO: references — keep only if the precedent section cites sources
+      <section>
+        <span class="secnum">05 / References</span>
+        <h2>Sources</h2>
+        <ul class="clean refs prose" style="margin-top:1rem;">
+          <li><a href="https://example.com">System — Component guidance</a> (what it says).</li>
+        </ul>
+      </section>
+      -->
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

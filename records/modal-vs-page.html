@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modal, full page, or side panel · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">Value Connect</span>
+      <span class="sub">Design Decisions</span>
+    </a>
+    <span class="eyebrow">Layout · Containers</span>
+  </div>
+</header>
+
+<main>
+  <article id="modal-vs-page" class="record">
+    <div class="recordwrap">
+      <header class="masthead">
+        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Layout · Containers</span></div>
+        <h1>Modal, full page,<br>or side panel</h1>
+        <p class="lead prose" style="margin-top:1.4rem;">
+          A first pass, pending the precedent and sourcing work the stepper record already has. The rule and the table below are provisional, meant to be argued with, not cited yet.
+        </p>
+        <div class="context">
+          <span class="k">Our context</span>
+          <p>The same as everywhere in Value Connect: desktop, analyst and admin users, long server-backed configuration with content that lives in a canvas. That sends most heavy work to full pages, leaves modals for short interruptions, and makes the side panel the tool for work that has to sit beside the main view.</p>
+        </div>
+        <div class="rulecard">
+          <span class="k">The rule (provisional)</span>
+          <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt: a confirmation, a quick create, a decision the user has to resolve before continuing. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to. Use a <strong>side panel</strong> when the task supports the main view and that context needs to stay visible. The deciding question is whether the task needs brief and total attention, is a workspace in its own right, or runs alongside the main work.</p>
+        </div>
+      </header>
+
+      <section>
+        <span class="secnum">01 / Quick reference (draft)</span>
+        <h2>Pick the container by the task</h2>
+        <table class="tbl tri">
+          <thead><tr><th></th><th>Modal</th><th>Full page</th><th>Side panel</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Task length</th><td data-l="Modal">Seconds to a minute.</td><td data-l="Full page">Minutes; a real session.</td><td data-l="Side panel">Short to medium, supporting the main view.</td></tr>
+            <tr><th scope="row">Keep the view behind?</th><td data-l="Modal">No; it blocks and demands resolution.</td><td data-l="Full page">No; it replaces the view.</td><td data-l="Side panel">Yes; the main view stays visible and usable.</td></tr>
+            <tr><th scope="row">Content volume</th><td data-l="Modal">One decision or a few fields.</td><td data-l="Full page">Multi-section, tables, long forms.</td><td data-l="Side panel">A focused detail or a quick edit.</td></tr>
+            <tr><th scope="row">Linkable, revisitable?</th><td data-l="Modal">No.</td><td data-l="Full page">Yes; it has its own URL.</td><td data-l="Side panel">Sometimes; treat as transient.</td></tr>
+            <tr><th scope="row">Typical use here</th><td data-l="Modal">Confirm publish, quick create, destructive confirm.</td><td data-l="Full page">Cohort and measure builders, contract setup.</td><td data-l="Side panel">Inspect a record, edit detail beside a list or chart.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <span class="secnum">02 / Reasoning (draft)</span>
+        <h2>Why the task decides, not the visual weight</h2>
+        <p class="prose">The common error is reaching for a modal because it feels lightweight, then loading it with a multi-step form that needs scrolling, validation, and the context the modal has hidden behind it. A modal removes the page behind it, so anything that needs that context, or runs long enough that the user loses their place, belongs on a full page or in a side panel. The reverse error is sending a one-line confirmation to a full page and throwing away the user's place in their work. Match the container to the shape of the task: brief and blocking, a workspace, or a companion to the main view.</p>
+      </section>
+
+      <section>
+        <span class="secnum">03 / Precedent and recommendation</span>
+        <h2>To be completed</h2>
+        <p class="prose">This record still needs the precedent pass that makes it persuasive: what Carbon, Material, Atlassian and the rest say about dialogs, full-page flows, and side panels or drawers, sourced and quoted the way the stepper record is, then a house recommendation in the same format. Treat everything above as a working draft.</p>
+      </section>
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">Value Connect · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

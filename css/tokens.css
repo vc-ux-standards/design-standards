@@ -1,0 +1,24 @@
+/* Design tokens — extracted verbatim from design-decisions.html. */
+:root{
+  --paper:        oklch(0.976 0.006 85);
+  --paper-2:      oklch(0.948 0.008 85);
+  --paper-3:      oklch(0.930 0.010 85);
+  --ink:          oklch(0.235 0.012 80);
+  --ink-2:        oklch(0.455 0.012 80);
+  --ink-3:        oklch(0.620 0.010 80);
+  --rule:         oklch(0.880 0.008 80);
+  --rule-strong:  oklch(0.820 0.009 80);
+  --error:        oklch(0.545 0.165 28);
+  --error-soft:   oklch(0.930 0.045 30);
+
+  /* Doc wayfinding only, not part of the component spec. */
+  --warm:         oklch(0.555 0.150 45);
+  --warm-soft:    oklch(0.930 0.040 58);
+  --cool:         oklch(0.520 0.095 235);
+  --cool-soft:    oklch(0.935 0.030 235);
+
+  --measure: 64ch;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+:root{ --ok:oklch(0.560 0.095 150); --ok-ink:oklch(0.420 0.085 150); }
