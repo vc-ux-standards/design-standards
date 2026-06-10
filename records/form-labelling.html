@@ -56,7 +56,7 @@
         <span class="secnum">01 / Quick reference</span>
         <h2>One axis decides it: does the text survive typing?</h2>
         <p class="prose">
-          The two slots differ on a single axis, and every other difference follows from it: whether the text is still there once the user starts typing. The description is permanent; the placeholder is not. Read the table down that axis — what a slot can safely carry is set by whether it disappears.
+          <strong>One axis decides it: is the text still there once the user types?</strong> The description is permanent; the placeholder is not — and every other difference follows. Read the table down that axis: what a slot can safely carry is set by whether it disappears.
         </p>
 
         <table class="tbl">
@@ -102,7 +102,7 @@
         <span class="secnum">02 / The pattern in practice</span>
         <h2>Put the guidance where it survives</h2>
         <p class="prose">
-          The common failure is loading the placeholder with the work the description should do: the format, the instruction, the thing the analyst actually needs. It looks complete in a static mockup and breaks the moment anyone types. Watch the difference on a field where the format matters — a 10-digit NPI. The placeholder itself already signals which slot is which: it is the faintest text in the field, the system telling you it is disposable.
+          <strong>The common failure is loading the placeholder with the work the description should do</strong> — the format, the instruction, the thing the analyst actually needs. It looks complete in a static mockup and breaks the moment anyone types. Watch the difference on a field where format matters — a 10-digit NPI. The placeholder's faint grey is the system telling you it's disposable.
         </p>
 
         <div class="compare">
@@ -146,7 +146,7 @@
 
         <h3 style="margin-top:2.5rem;">Don't ask the placeholder to do work it can't</h3>
         <p class="prose">
-          Even when it isn't carrying instructions, a placeholder earns its place rarely. Two patterns to avoid: a placeholder that merely repeats the label, which adds nothing and clutters the empty field; and an example so complete it reads as a value the user has already entered and may leave untouched. When an example genuinely helps, make it unmistakably an example — a truncated sample of the format, not a plausible whole answer.
+          <strong>A placeholder earns its place rarely, even without instructions.</strong> Two patterns to avoid: one that merely repeats the label (clutter, no information); and an example so complete it reads as a value already entered and gets left untouched. When an example genuinely helps, make it unmistakably an example — a truncated sample of the format, not a plausible whole answer.
         </p>
 
         <div class="compare">
@@ -194,29 +194,29 @@
         <span class="secnum">03 / The reasoning</span>
         <h2>Four forces, all pointing the same way</h2>
         <p class="prose">
-          The division isn't a style preference. Four pressures act on every field, and for our consequential, domain-heavy forms they all push guidance into the description and keep the placeholder to a bare example.
+          <strong>The division isn't a style preference.</strong> Four pressures act on every field, and for our consequential, domain-heavy forms they all push guidance into the description and keep the placeholder to a bare example.
         </p>
 
         <div class="principles">
           <div class="principle">
             <div class="n">1</div>
             <h3>Permanence decides ownership</h3>
-            <p>The description persists; the placeholder evaporates on focus. So the rule writes itself: anything the user must still see while typing, or when they return to verify a value, belongs in the description. The placeholder can only hold what is safe to lose.</p>
+            <p><strong>The description persists; the placeholder evaporates on focus.</strong> So the rule writes itself: anything the user must still see while typing, or when they return to verify a value, belongs in the description. The placeholder can only hold what is safe to lose.</p>
           </div>
           <div class="principle">
             <div class="n">2</div>
             <h3>No hint slot, so the description owns format</h3>
-            <p>Other systems put a format rule in a hint below the input. We have no such line. That leaves the description as the only persistent home for "10-digit NPI" or "reporting year, YYYY" — a format dropped into the vanishing placeholder is worse than no format at all.</p>
+            <p><strong>We have no hint line below the input — so the description owns format.</strong> That leaves it the only persistent home for "10-digit NPI" or "reporting year, YYYY"; a format dropped into the vanishing placeholder is worse than none at all.</p>
           </div>
           <div class="principle">
             <div class="n">3</div>
             <h3>A placeholder is an example, not an instruction</h3>
-            <p>It is greyed, ephemeral, and routinely read as a pre-filled value. The only thing it can safely carry is a sample of the answer's shape — and even then, only when the shape is hard to describe in words alone.</p>
+            <p><strong>A placeholder is greyed, ephemeral, and routinely read as a pre-filled value.</strong> The only thing it can safely carry is a sample of the answer's shape — and even then, only when that shape is hard to describe in words alone.</p>
           </div>
           <div class="principle">
             <div class="n">4</div>
             <h3>Restraint keeps the signal</h3>
-            <p>Most fields need neither slot. Padding an obvious field with a description, or echoing its label in a placeholder, is noise that trains users to stop reading the text on the fields that genuinely need it.</p>
+            <p><strong>Most fields need neither slot.</strong> Padding an obvious field with a description, or echoing its label in a placeholder, is noise — it trains users to stop reading the text on the fields that genuinely need it.</p>
           </div>
         </div>
       </section>

@@ -51,3 +51,4 @@ Each record carries a status badge in its masthead (`.rechead`) and on its index
 - No JavaScript. The only permitted exception is a small inline script scoped to a single demo that genuinely needs it to demonstrate an interaction (none so far).
 - No inline `<style>` blocks; pages link `css/tokens.css` and `css/base.css`. A single demo may carry scoped styles if it genuinely needs them.
 - Good/bad comparisons use the `.compare` block (`.stage.avoid` / `.stage.use`): side by side on desktop, stacked on narrow viewports.
+- Write to be scanned: lead every block with its claim, one idea per block, `ul.clean` for parallel sets. The full copy standard is CLAUDE.md → "Write to be scanned".

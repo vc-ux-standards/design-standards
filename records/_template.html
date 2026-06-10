@@ -47,20 +47,22 @@
         </div>
         <!-- TODO: record title; use <br> to control the line break if needed -->
         <h1>Record title</h1>
-        <!-- TODO: one-paragraph summary of the decision -->
+        <!-- TODO: summary of the decision in one or two short sentences. Lead with the
+             decision itself — a reader should get it from the first line. See CLAUDE.md
+             "Write to be scanned". -->
         <p class="lead prose" style="margin-top:1.5rem;">
-          What this record decides, in two or three sentences.
+          What this record decides, said first and plainly.
         </p>
 
         <div class="context">
           <span class="k">Our context</span>
-          <!-- TODO: the product context that drives this decision. Keep to ~2 sentences: compress the shared VC backdrop to a clause, then name the one constraint that decides this question. Don't re-recite the user roster or re-derive the reasoning — the numbered sections show that. -->
+          <!-- TODO: the product context that drives this decision. Keep to ~2 sentences: compress the shared VC backdrop to a clause, then front-load the one constraint that decides this question (bold it). Don't re-recite the user roster or re-derive the reasoning — the numbered sections show that. -->
           <p>Which constraint decides this question for VC.</p>
         </div>
 
         <div class="rulecard">
           <span class="k">The rule</span>
-          <!-- TODO: the house rule, stated plainly. Mark "(provisional)" in the <span class="k"> while Draft. Just state the directive and any thresholds — cut the justification, which belongs in the sections below. -->
+          <!-- TODO: the house rule, stated plainly. Mark "(provisional)" in the <span class="k"> while Draft. State the directive and any thresholds (numerals) — cut the justification, which belongs in the sections below. For a set of choices, use a ul.clean list, not a dense paragraph. -->
           <p>Use <strong>X</strong> when… Use <strong>Y</strong> when… The deciding question is…</p>
         </div>
       </header>
@@ -70,8 +72,10 @@
         <span class="secnum">01 / Quick reference</span>
         <!-- TODO: section heading -->
         <h2>Decide by these dimensions</h2>
-        <!-- TODO: body copy; keep paragraphs inside .prose for the measure -->
-        <p class="prose">How to use the table or rules below.</p>
+        <!-- TODO: body copy; keep paragraphs inside .prose for the measure. Lead each
+             block with its claim (bold the first sentence); one idea per block; use a
+             ul.clean list for any parallel set rather than a comma-spliced sentence. -->
+        <p class="prose"><strong>The claim, first.</strong> Then how to use the table or rules below.</p>
         <!-- TODO: optional comparison table — copy a .tbl from an existing record -->
       </section>
 
@@ -108,7 +112,9 @@
         <!-- TODO: section heading -->
         <h2>Why the rule points this way</h2>
         <p class="prose"><!-- TODO: the forces behind the decision; for a grid of numbered
-             principles, copy .principles from the stepper record --></p>
+             principles, copy .principles from the stepper record. In each principle the
+             <h3> carries the claim and the body is ONE short sentence or a 2–3 item
+             ul.clean list — not a paragraph. --></p>
       </section>
 
       <section>

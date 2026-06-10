@@ -95,10 +95,32 @@ writing; new copy should be indistinguishable in register.
 - **State the rule, then the deciding question.** "Default to X. Reserve Y for…
   The deciding question is…"
 - **Indian/British spelling** — organise, colour, prioritise, behaviour.
-- **Bold the load-bearing terms sparingly.** Where a rule enumerates a small,
-  parallel set of choices, a tight `ul.clean` list scans better than a dense
-  paragraph; keep the surrounding context and lead as prose.
+- **Write to be scanned, not read.** The audience skims. Lead every block with
+  its claim; the full standard is below.
 - **No clinical disclaimers, no "as an AI", no filler.** Insight per sentence.
+
+### Write to be scanned
+
+Readers skim, not read — including teammates opening a record for the first
+time. The point of every block must land from its first line. `stepper-orientation.html`
+and `modal-vs-page.html` §03 are the reference for this register.
+
+- **Lead with the claim.** Open each paragraph, principle, section intro and demo
+  `.note` with its load-bearing assertion as a short **bolded** sentence. The
+  decision should be gettable from that first line alone.
+- **One idea per block.** 1–3 short sentences, never a wall. Cut throat-clearing
+  ("The first decision is…", "by nature") and reasoning the numbered sections
+  already carry.
+- **Lists for parallel sets.** Any enumeration — failure modes, conditions,
+  options — becomes a `ul.clean` list (use the `.cool`/`.anti` variants where the
+  colour carries meaning), not a comma-spliced sentence. Place the `<ul>` as a
+  block sibling, **never inside a `<p>`** (`.principle p` / `.context p` are styled).
+- **Principles are headline + one line.** In a `.principles` grid the `<h3>`
+  carries the claim; the body is one short sentence or a 2–3 item list, not a
+  paragraph.
+- **Numerals and the bare directive.** "Past 4 fields → full page", not "past
+  about four fields … belongs on a full page or in a side panel." Use `→`
+  sparingly for "promote to".
 
 ## Before you finish
 

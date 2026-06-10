@@ -30,7 +30,7 @@
     <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <span class="eyebrow">Component usage · Steppers</span></div>
     <h1>When to use a vertical<br>versus a horizontal stepper</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
-      We ship both orientations. This sets out which to reach for, and why, anchored to what VC actually is: an enterprise configuration tool. The short version is that most of our stepper usage should be vertical, and the reason is specific to our workflows, not a general style preference.
+      We ship both orientations. This sets out which to reach for, and why. The short version: default to vertical. The reason is specific to our flows — long, domain-labelled configuration — not a general style preference.
     </p>
 
     <div class="context">
@@ -53,7 +53,7 @@
     <span class="secnum">01 / Quick reference</span>
     <h2>Decide on the flow, not the page</h2>
     <p class="prose">
-      Run the flow through these dimensions. For our product most answers land in the vertical column, because our flows are long, our labels are domain phrases, and our steps carry status that the user needs to see.
+      Run the flow through these dimensions. Most answers land in the vertical column — our flows are long, our labels are domain phrases, and our steps carry status the user must see.
     </p>
 
     <table class="tbl">
@@ -104,7 +104,7 @@
     <span class="secnum">02 / The two in practice</span>
     <h2>What each one is good at, in our UI</h2>
     <p class="prose">
-      Both are the same component family with the same states. The difference is what the layout can carry. The horizontal bar gives a compact overview of a short, linear task; the vertical rail is a navigation map of a long configuration session, with status visible for every step.
+      <strong>Same component family, same states — the difference is what the layout can carry.</strong> The horizontal bar gives a compact overview of a short, linear task; the vertical rail is a navigation map of a long configuration session, with status visible for every step.
     </p>
 
     <div class="demo">
@@ -138,7 +138,7 @@
           <div class="btnrow"><span class="btn g">Back</span><span class="btn p">Continue</span></div>
         </div>
       </div>
-      <p class="note">Four terse, ordered steps. The bar is a glanceable progress strip; the form fills the canvas below. This is the right shape for a focused, page-swapping task, often in a modal.</p>
+      <p class="note"><strong>Four terse, ordered steps.</strong> The bar is a glanceable progress strip; the form fills the canvas below — the right shape for a focused, page-swapping task, often in a modal.</p>
     </div>
 
     <div class="demo" style="margin-top:2.5rem;">
@@ -190,7 +190,7 @@
           </div>
         </div>
       </div>
-      <p class="note">Six steps, domain labels, a description per step, and a visible error on Exclusions, all while the form occupies the canvas. The rail stays put as a map of the session and lets the analyst jump back to Population after previewing results. Group flows beyond six or seven steps into named phases in the rail rather than stretching the component.</p>
+      <p class="note"><strong>Six steps, domain labels, a description each, and a visible error on Exclusions</strong> — all while the form occupies the canvas. The rail stays put as a session map: the analyst can jump back to Population after previewing results. Past six or seven steps, group into named phases rather than stretching the component.</p>
     </div>
   </section>
 
@@ -206,22 +206,22 @@
       <div class="principle">
         <div class="n">1</div>
         <h3>Scale against domain labels</h3>
-        <p>Our step names are domain terms: risk adjustment methodology, attribution window, numerator logic. A horizontal bar divides its width by the step count and truncates phrases like these by the third step, and our flows routinely run past the five-step ceiling a bar can hold. Vertical gives each step the full measure and scrolls when it needs to.</p>
+        <p><strong>Our step names are domain phrases</strong> — risk adjustment methodology, attribution window, numerator logic. A horizontal bar divides its width by the step count and truncates them by the third step; our flows routinely pass the five-step ceiling a bar can hold. Vertical gives each step the full measure and scrolls when it needs to.</p>
       </div>
       <div class="principle">
         <div class="n">2</div>
         <h3>Name, description and status, at once</h3>
-        <p>Configuration steps are rarely self-explanatory. Each wants a one-line description, and each carries a state the admin must see: complete, in progress, not started, or complete with errors. Only the vertical rail shows all of that for every step simultaneously. A horizontal bar shows a number and a word, and hides which sections are still invalid.</p>
+        <p><strong>Configuration steps are rarely self-explanatory.</strong> Each needs a one-line description and a visible state — complete, in progress, not started, or error. Only the vertical rail shows all of that for every step at once; a horizontal bar shows a number and a word, and hides which sections are still invalid.</p>
       </div>
       <div class="principle">
         <div class="n">3</div>
         <h3>A persistent map, not a thin strip</h3>
-        <p>In a left rail the vertical stepper is a map of the whole process that stays beside the canvas during a long session. This is the enterprise convention, and the system built for data-heavy products, IBM Carbon, places the progress indicator in side panels and tearsheets for exactly this. A horizontal bar is a thinner top-of-page overview that suits a short page-swapping wizard, not a configuration session.</p>
+        <p><strong>A left rail is a map of the whole process, beside the canvas all session.</strong> It's the enterprise convention — Carbon places the progress indicator in side panels and tearsheets for exactly this. A horizontal bar is a thinner top-of-page overview, right for a short wizard, not a configuration session.</p>
       </div>
       <div class="principle">
         <div class="n">4</div>
         <h3>Non-linear retuning</h3>
-        <p>Configuration is iterative: define a cohort, preview the population, go back and adjust the criteria, check again. An interactive vertical rail makes every step a clickable target with its current status, so jumping back is one click. A horizontal bar makes back-and-forth cramped and gives no per-step status to navigate by.</p>
+        <p><strong>Configuration is iterative</strong> — define a cohort, preview the population, adjust the criteria, check again. An interactive vertical rail makes every step a clickable target with its status, so jumping back is one click. A horizontal bar makes back-and-forth cramped and offers no per-step status to navigate by.</p>
       </div>
     </div>
   </section>
@@ -263,7 +263,7 @@
     <span class="secnum">05 / What the major design systems say</span>
     <h2>The enterprise convention, not a house opinion</h2>
     <p class="prose">
-      The systems that enterprise data products are built on converge on the same logic: vertical scales with steps, labels and status and reads more easily; horizontal is for short wizards where one step depends on the last. Carbon, IBM's system for data-heavy products, is the closest match to our world and the clearest on the rail pattern. Links are in the references.
+      <strong>The major systems converge on the same logic:</strong> vertical scales with steps, labels and status and reads more easily; horizontal is for short wizards where one step depends on the last. Carbon — IBM's system for data-heavy products — is the closest match to ours and the clearest on the rail pattern. Links are in the references.
     </p>
 
     <div class="systems">

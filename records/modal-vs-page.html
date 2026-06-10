@@ -30,12 +30,12 @@
         <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <span class="eyebrow">Layout · Containers</span></div>
         <h1>Modal, full page,<br>or side panel</h1>
         <p class="lead prose" style="margin-top:1.4rem;">
-          Three containers, one decision: does the task need brief and total attention, is it a workspace in its own right, or does it run alongside the main work. Get that reading right and the container picks itself. The persistent error is reaching for a modal because it feels lightweight, then loading it with a multi-step form it was never built to hold.
+          Three containers, one decision: what does the task do to the work behind it? A modal blocks it and demands resolution; a full page replaces it with a workspace; a side panel leaves it in place. Read that right and the container picks itself — the standing error is loading a multi-step form into a modal because it felt lightweight.
         </p>
 
         <div class="context">
           <span class="k">Our context</span>
-          <p>The same as everywhere in VC: desktop analysts and admins, long server-backed configuration with content in a working canvas. That sends heavy work to <strong>full pages</strong>, leaves <strong>modals</strong> for short interruptions, and makes the <strong>side panel</strong> the tool for work that sits beside the main view.</p>
+          <p>The same as everywhere in VC: desktop analysts and admins doing long, server-backed configuration in a working canvas. That sends heavy work to <strong>full pages</strong>, leaves <strong>modals</strong> for short interruptions, and makes the <strong>side panel</strong> the tool for work beside the main view.</p>
         </div>
 
         <div class="rulecard">
@@ -74,7 +74,7 @@
         <span class="secnum">02 / The three in practice</span>
         <h2>What each container does to the page</h2>
         <p class="prose">
-          The difference is not visual weight, it is what happens to the work behind. A modal removes it and demands a decision. A full page replaces it with a workspace. A side panel leaves it in place and works beside it. Each mockup below is the right task in the right container.
+          <strong>The difference isn't visual weight — it's what happens to the work behind.</strong> A modal removes it and demands a decision. A full page replaces it with a workspace. A side panel leaves it in place and works beside it. Each mockup below is the right task in the right container.
         </p>
 
         <div class="demo">
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-          <p class="note">One decision, two actions, nothing to scroll — and nothing to return to, because the measure is gone. The modal blocks the list precisely because the choice is destructive and the user must resolve it before doing anything else. Irreversibility is what earns the interruption: a reversible action, like publishing a draft the user can simply unpublish, belongs in an inline confirm with undo, not here.</p>
+          <p class="note"><strong>Irreversibility earns the interruption.</strong> One decision, two actions, nothing to scroll — and nothing to return to, since the measure is gone. A reversible action — publishing a draft you can simply unpublish — belongs in an inline confirm with undo, not a modal.</p>
         </div>
 
         <div class="demo" style="margin-top:2.5rem;">
@@ -138,7 +138,7 @@
               </div>
             </div>
           </div>
-          <p class="note">A real session: five sections, its own URL in the address bar, navigable within and returned to. The page replaces the view because the work deserves the full surface. Forcing this into a modal would mean scrolling, lost context, and no link to share or reopen.</p>
+          <p class="note"><strong>A real session deserves the full surface.</strong> Five sections, its own URL, navigable within and returned to. Forcing it into a modal would mean scrolling, lost context, and no link to share or reopen.</p>
         </div>
 
         <div class="demo" style="margin-top:2.5rem;">
@@ -172,7 +172,7 @@
               </div>
             </div>
           </div>
-          <p class="note">The contracts list stays visible and usable while the analyst inspects and edits one record beside it. The panel keeps the row selected and the context in view, so comparing the detail against the rest of the list is one glance, not a round trip through a modal or a separate page.</p>
+          <p class="note"><strong>The list stays visible while the analyst edits one record beside it.</strong> The panel keeps the row selected and the context in view, so comparing the detail against the rest of the list is one glance, not a round trip through a modal or a separate page.</p>
         </div>
       </section>
 
@@ -188,27 +188,38 @@
           <div class="principle">
             <div class="n">1</div>
             <h3>A modal removes the page behind it</h3>
-            <p>The defining property of a modal is that it blocks everything else and demands resolution. That is exactly right for a confirmation or a destructive check, where the point is to stop the user and make them decide. It is exactly wrong when the task needs the context the modal has just hidden, or when the user has to refer back to the data underneath while they work.</p>
+            <p><strong>Blocking everything is the point</strong> for a confirm or a destructive check. It's wrong the moment the task needs the context the modal just hid, or the user must refer back to the data underneath.</p>
           </div>
           <div class="principle">
             <div class="n">2</div>
             <h3>Length and scrolling break a modal</h3>
-            <p>A modal is a fixed, centred box. Load it with a multi-section form and it scrolls inside its own frame, hides its own buttons, and traps validation errors out of view. Our configuration flows are long and validation-heavy by nature. Past about four fields, or the first scrollbar, the task has outgrown the container and belongs on a full page or in a side panel.</p>
+            <p><strong>A modal is a fixed, centred box.</strong> Load a multi-section form into it and it fails three ways:</p>
+            <ul class="clean">
+              <li>scrolls inside its own frame</li>
+              <li>hides its own buttons</li>
+              <li>traps validation errors out of view</li>
+            </ul>
+            <p style="margin-top:0.85rem;">Our flows are long and validation-heavy — past 4 fields, or the first scrollbar, it belongs on a full page or a side panel.</p>
           </div>
           <div class="principle">
             <div class="n">3</div>
             <h3>Linkability favours a full page</h3>
-            <p>A builder is something users share, bookmark, deep-link into, and reopen in a second tab to compare. A modal has no URL and no history entry; close it and the state is gone. Anything a colleague might need to link to, or the user might need to return to tomorrow, wants its own address, which only a full page gives it.</p>
+            <p><strong>A builder gets shared, bookmarked, and reopened to compare.</strong> A modal has no URL and no history entry — close it and the state is gone. Work that needs its own address belongs on a full page.</p>
           </div>
           <div class="principle">
             <div class="n">4</div>
             <h3>A side panel keeps the main view as reference</h3>
-            <p>Much of our work is inspect-and-edit against a list or a chart: open a contract beside the contracts table, tune a value beside the result it changes. A side panel keeps that main view in place so the comparison stays in sight. A modal would cover the very thing the user is checking against; a full page would throw away their place in the list.</p>
+            <p><strong>Much of our work is inspect-and-edit against a list or chart.</strong> A side panel keeps that main view in place so the comparison stays in sight. A modal would cover what the user is checking against; a full page would throw away their place in the list.</p>
           </div>
           <div class="principle">
             <div class="n">5</div>
             <h3>A loose dismissal loses the work</h3>
-            <p>Our sessions are long and server-backed, and what they produce feeds Care Management, Quality and Financial downstream, so an accidental dismissal is not a minor annoyance, it is lost configuration. The containers fail differently and must defend differently: a modal holding any entry cannot close on a stray scrim-click or Escape, a side panel must warn before discarding an unsaved edit, and a full page earns its length only if it autosaves or keeps a draft. The looser a container's dismissal, the more the work it holds has to be protected.</p>
+            <p><strong>An accidental dismissal isn't an annoyance — it's lost configuration.</strong> Sessions are long, server-backed, and feed Care Management, Quality and Financial downstream, so each container defends differently:</p>
+            <ul class="clean anti">
+              <li>a modal holding any entry never closes on a stray scrim-click or Escape</li>
+              <li>a side panel warns before discarding an unsaved edit</li>
+              <li>a full page autosaves or keeps a draft</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -218,7 +229,7 @@
         <span class="secnum">04 / Edge cases and anti-patterns</span>
         <h2>Where to draw the line in review</h2>
         <p class="prose">
-          The single most common mistake is a long form crammed into a modal. The same flow, given a full page, stops fighting its container.
+          <strong>The most common mistake is a long form crammed into a modal.</strong> The same flow, given a full page, stops fighting its container.
         </p>
 
         <div class="compare">
@@ -242,7 +253,7 @@
                 </div>
               </div>
             </div>
-            <p class="note">Twelve fields across five sections, scrolling inside a centred box, validation errors hidden below the fold, no URL to share. The container is fighting the task.</p>
+            <p class="note"><strong>Twelve fields across five sections, scrolling inside a centred box.</strong> Validation errors hidden below the fold, no URL to share — the container is fighting the task.</p>
           </div>
           <div class="stage use">
             <span class="judge"><span class="d"></span>Use</span>
@@ -265,7 +276,7 @@
                 </div>
               </div>
             </div>
-            <p class="note">Sections become navigation, the form gets the full surface, errors surface in place, and the flow has a URL to share and return to. The container fits the task.</p>
+            <p class="note"><strong>Sections become navigation; the form gets the full surface.</strong> Errors surface in place, and the flow has a URL to share and return to — the container fits the task.</p>
           </div>
         </div>
 
@@ -307,7 +318,7 @@
         <span class="secnum">05 / What the major design systems say</span>
         <h2>The enterprise convention, not a house opinion</h2>
         <p class="prose">
-          The systems enterprise data products are built on converge on the same logic: modals interrupt and should stay short, complexity escalates to a full page, and a panel beside the main view is the tool for context-bound work. Carbon, IBM's system for data-heavy products, is the closest match to our world and the most explicit about the ladder. Links are in the references.
+          <strong>The major systems converge on the same logic:</strong> modals interrupt and stay short, complexity escalates to a full page, and a panel beside the main view carries context-bound work. Carbon — IBM's system for data-heavy products — is the closest match to ours and the most explicit about the ladder. Links are in the references.
         </p>
 
         <div class="systems">

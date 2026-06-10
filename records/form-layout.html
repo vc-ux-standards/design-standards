@@ -36,7 +36,7 @@
         <div class="context">
           <span class="k">Our context</span>
           <p>
-            With the whole width of a <strong>1400px artboard</strong> to fill, a form tends to sprawl the full page — one full-width input per row, whether the field holds a ZIP code or a paragraph. The fix isn't responsive trickery: it's a capped form column with each field sized to its content.
+            Give a form the whole width of a <strong>1400px artboard</strong> and it sprawls — one full-width input per row, whether the field holds a ZIP code or a paragraph. The fix isn't responsive trickery: a capped form column, each field sized to its content.
           </p>
         </div>
 
@@ -56,8 +56,13 @@
         <span class="secnum">01 / Page placement</span>
         <h2>Place the form by its task, not the artboard</h2>
         <p class="prose">
-          The first decision is where the form lives on the page, before a single field. The failure to avoid is the same at every scale: a form stretched to fill the page width, the way a field stretched to fill its row reads as a wall — lines run past 90 characters and the eye loses the left edge on the return sweep. What replaces it depends on the task. A <strong>sequential form</strong> belongs in a single column capped at <strong>640px (40rem)</strong>, held there however wide the screen gets — the case the comparison below shows. A <strong>dense record</strong> an analyst edits daily belongs in a structured, grouped grid sized to its content (see §04). Neither one fills the artboard.
+          <strong>Decide where the form lives before sizing a single field.</strong> The failure is the same at every scale: a form stretched to fill the page reads as a wall — lines run past 90 characters and the eye loses the left edge on the return sweep. What replaces it depends on the task:
         </p>
+        <ul class="clean">
+          <li><strong>Sequential form</strong> — a single column capped at <strong>640px (40rem)</strong>, held there however wide the screen gets (the comparison below).</li>
+          <li><strong>Dense record</strong> edited daily — a structured, grouped grid sized to its content (§04).</li>
+        </ul>
+        <p class="prose" style="margin-top:0.85rem;">Neither one fills the artboard.</p>
 
         <div class="compare">
           <div class="stage avoid">
@@ -94,7 +99,7 @@
 
         <h3 style="margin-top:2.5rem;">Where the column sits: centred in the content area</h3>
         <p class="prose">
-          Centre the column in the content area — the space that remains after any chrome. One rule for every screen: the column keeps balanced margins on both sides, so the form reads as the deliberate centre of attention rather than something shoved against an edge. The two extremes the hero shows are what it must not do: stretch to fill the width, or sit jammed against the chrome with all the empty space dumped on one side.
+          <strong>Balanced margins on both sides, every screen.</strong> The column reads as the deliberate centre of attention, not something shoved against an edge. The two extremes to avoid: stretched to fill the width, or jammed against the chrome with all the empty space dumped on one side.
         </p>
 
         <h3 style="margin-top:2.5rem;">With page chrome: sidebar and steppers</h3>
@@ -147,7 +152,7 @@
         <span class="secnum">02 / Quick reference</span>
         <h2>Maximum input width by field type</h2>
         <p class="prose">
-          Inside that column, width signals expected length: a field sized to its content tells the user how much to type before they read the label. Cap each input near the longest realistic value, not the column. Widths below are maximums in <code>ch</code> (character widths) with an approximate pixel size at our field font.
+          <strong>Width signals expected length.</strong> A field sized to its content tells the user how much to type before they read the label — so cap each input near its longest realistic value, not the column. Widths below are maximums in <code>ch</code> (character widths), with an approximate pixel size at our field font.
         </p>
 
         <table class="tbl tri">
@@ -174,7 +179,7 @@
         <span class="secnum">03 / Field width</span>
         <h2>Size the box to the value</h2>
         <p class="prose">
-          The headline failure: every input stretched the full width, so a five-digit code and a date each get a box wide enough for a sentence. It looks tidy in a mockup and reads as noise in use. Match the box to the longest realistic value instead.
+          <strong>The headline failure: every input stretched the full width</strong>, so a five-digit code and a date each get a box wide enough for a sentence. It looks tidy in a mockup and reads as noise in use. Match the box to the longest realistic value instead.
         </p>
 
         <div class="compare">
@@ -228,7 +233,7 @@
         <span class="secnum">04 / One column versus two</span>
         <h2>Columns for structure, not to fill space</h2>
         <p class="prose">
-          A single column gives one unambiguous path down the form: in a sequential flow it is faster to complete and harder to misread. The failure is the <em>arbitrary</em> second column — unrelated fields paired across a gutter to use up the artboard, so the eye zig-zags, skips fields, and reads relationships that don't exist. In a sequential form, use a second column <strong>only</strong> for fields that are genuinely paired and short — first and last name, city and state, start and end date — and never split one logical field across two columns.
+          <strong>One column gives one unambiguous path down the form</strong> — faster to complete and harder to misread. The failure is the <em>arbitrary</em> second column: unrelated fields paired across a gutter to fill the artboard, so the eye zig-zags, skips fields, and reads relationships that don't exist. Use a second column <strong>only</strong> for genuinely paired short fields — first and last name, city and state, start and end date — and never split one logical field across two columns.
         </p>
 
         <div class="compare">
@@ -268,7 +273,7 @@
         </div>
 
         <p class="prose" style="margin-top:2.5rem;">
-          Density is the exception that earns the grid. A record an analyst opens dozens of times a day — a provider or contract with twenty-plus fields — is slower to scan in one tall column than in a <strong>structured</strong> grid: deliberate column groups, related fields together, each still sized to its content. That is not the artboard-filling two-column this section warns against; it is the dense-record regime from §01, and it is what systems built for data-heavy work (§08) actually do. The test is whether the second column carries <em>structure</em> or merely fills <em>space</em>.
+          <strong>Density is the exception that earns the grid.</strong> A record an analyst opens dozens of times a day — twenty-plus fields — scans faster in a <strong>structured</strong> grid than in one tall column: deliberate column groups, related fields together, each still sized to its content. That isn't the artboard-filling two-column this section warns against; it's the dense-record regime from §01, and what data-heavy systems (§08) actually do. The test: does the second column carry <em>structure</em>, or merely fill <em>space</em>?
         </p>
       </section>
 
@@ -277,7 +282,7 @@
         <span class="secnum">05 / Grouping, labels and spacing rhythm</span>
         <h2>Make structure visible</h2>
         <p class="prose">
-          A long form needs visible structure: related fields gathered under a heading, labels sitting directly above their inputs, and a spacing rhythm that ties each label to its field while separating one group from the next. Top-aligned labels scan fastest and survive long or translated text; a flat, even spacing with no grouping turns the form into an undifferentiated list.
+          <strong>A long form needs visible structure:</strong> related fields under a heading, labels directly above their inputs, and a spacing rhythm that ties each label to its field while separating one group from the next. Top-aligned labels scan fastest and survive long or translated text; flat, even spacing with no grouping turns the form into an undifferentiated list.
         </p>
         <p class="prose">The rhythm, in three steps: <strong>label → input ≈ 6px</strong> (they belong together), <strong>field → field ≈ 22px</strong>, <strong>group → group ≈ 44px</strong> (double the inter-field gap, plus a heading).</p>
 
@@ -422,7 +427,7 @@
         <span class="secnum">07 / Keeping long forms scannable</span>
         <h2>One concept per step; each step laid out to its task</h2>
         <p class="prose">
-          The placement and width rules carry into long, multi-step forms — applied per step, not flattened across all of them. Break the work into steps of one concept each, lay out each step to its own task (a sequential step in a capped column, a dense record in a structured grid, per §01 and §04), and let the stepper — not a wall of fields — carry the sense of progress. A multi-step flow is not automatically sequential: a step can be a dense record. When a step itself runs long, the named groups from §05 are the seams to scan by.
+          <strong>The placement and width rules carry into multi-step forms — applied per step, not flattened across all of them.</strong> Break the work into steps of one concept each; lay out each step to its own task (a sequential step in a capped column, a dense record in a structured grid, per §01 and §04); let the stepper, not a wall of fields, carry progress. A multi-step flow isn't automatically sequential — a step can be a dense record. When a step runs long, the named groups from §05 are the seams to scan by.
         </p>
 
         <div class="prose">
