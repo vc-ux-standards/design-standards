@@ -40,7 +40,7 @@
 
         <div class="rulecard">
           <span class="k">The rule</span>
-          <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt: a confirmation, a destructive check, a one or two field create, a decision the user has to resolve before continuing. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to, and that deserves its own URL. Use a <strong>side panel</strong> when the task supports the main view and that context needs to stay visible. If a modal grows past about four fields or starts to scroll, it has outgrown the container: promote it.</p>
+          <p>Use a <strong>modal</strong> only for a short, self-contained task that must interrupt and that the user cannot simply reverse: a destructive confirm, a high-consequence check, a one or two field create. A reversible action — anything the user can undo in a click — wants an inline confirm with an undo affordance, not a page-blocking scrim. Use a <strong>full page</strong> for anything long, multi-section, or that the user navigates within and returns to, and that deserves its own URL. Use a <strong>side panel</strong> when a focused edit, a handful of fields, supports the main view and that context needs to stay visible. Two thresholds keep the containers honest: a modal past about four fields or its first scrollbar has outgrown the box, and a side panel that turns into a multi-section workspace is really a full page — promote either the moment it crosses the line. And whatever the container, never let it lose the work: a modal holding entry must not close on a stray scrim-click or Escape, a side panel warns before discarding an unsaved edit, a full page autosaves or keeps a draft.</p>
         </div>
       </header>
 
@@ -52,13 +52,13 @@
           Run the task through these five dimensions. Length and the need to keep the view behind it do most of the deciding; linkability settles the rest.
         </p>
         <table class="tbl tri">
-          <thead><tr><th></th><th>Modal</th><th>Full page</th><th>Side panel</th></tr></thead>
+          <thead><tr><th></th><th><span class="tag h"><span class="dot"></span>Modal</span></th><th><span class="tag n"><span class="dot"></span>Full page</span></th><th><span class="tag v"><span class="dot"></span>Side panel</span></th></tr></thead>
           <tbody>
             <tr><th scope="row">Task length</th><td data-l="Modal">Seconds to a minute.</td><td data-l="Full page">Minutes; a real session.</td><td data-l="Side panel">Short to medium, supporting the main view.</td></tr>
             <tr><th scope="row">Keep the view behind?</th><td data-l="Modal">No; it blocks and demands resolution.</td><td data-l="Full page">No; it replaces the view.</td><td data-l="Side panel">Yes; the main view stays visible and usable.</td></tr>
             <tr><th scope="row">Content volume</th><td data-l="Modal">One decision or a few fields.</td><td data-l="Full page">Multi-section, tables, long forms.</td><td data-l="Side panel">A focused detail or a quick edit.</td></tr>
             <tr><th scope="row">Linkable, revisitable?</th><td data-l="Modal">No.</td><td data-l="Full page">Yes; it has its own URL.</td><td data-l="Side panel">Sometimes; treat as transient.</td></tr>
-            <tr><th scope="row">Typical use here</th><td data-l="Modal">Confirm publish, quick create, destructive confirm.</td><td data-l="Full page">Cohort and measure builders, contract setup.</td><td data-l="Side panel">Inspect a record, edit detail beside a list or chart.</td></tr>
+            <tr><th scope="row">Typical use here</th><td data-l="Modal">Destructive confirm, one or two field create, irreversible submit.</td><td data-l="Full page">Cohort, registry and measure builders, contract setup.</td><td data-l="Side panel">Inspect a record, edit detail beside a list or chart.</td></tr>
           </tbody>
         </table>
       </section>
@@ -73,7 +73,7 @@
 
         <div class="demo">
           <div class="cap">
-            <span class="name">Publish measure set · short blocking decision</span>
+            <span class="name">Delete measure · destructive confirm</span>
             <span class="tag h"><span class="dot"></span>Modal</span>
           </div>
           <div class="appframe">
@@ -84,20 +84,20 @@
                 <div class="acts"><span class="btn g">Filter</span><span class="btn p">New measure</span></div>
               </div>
               <div class="faux-list">
-                <div class="listrow"><span class="nm">30-day readmission</span><span class="meta">v4 · 2 owners</span><span class="pill">Draft</span></div>
+                <div class="listrow sel"><span class="nm">30-day readmission</span><span class="meta">v4 · 2 owners</span><span class="pill">Draft</span></div>
                 <div class="listrow"><span class="nm">HbA1c poor control</span><span class="meta">v2 · 1 owner</span><span class="pill">Published</span></div>
                 <div class="listrow"><span class="nm">Breast cancer screening</span><span class="meta">v1 · 3 owners</span><span class="pill">Draft</span></div>
               </div>
               <div class="scrim">
                 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
-                  <div class="dlg-head"><h4 id="dlg-t">Publish measure set?</h4></div>
-                  <div class="dlg-body"><p>Publishing locks the 3 draft measures and makes them available to all contracts. You can unpublish later.</p></div>
-                  <div class="dlg-foot"><span class="btn g">Cancel</span><span class="btn p">Publish</span></div>
+                  <div class="dlg-head"><h4 id="dlg-t">Delete this measure?</h4></div>
+                  <div class="dlg-body"><p>Deleting <strong>30-day readmission</strong> also removes it from the 2 contracts that reference it. This can’t be undone.</p></div>
+                  <div class="dlg-foot"><span class="btn g">Cancel</span><span class="btn p">Delete</span></div>
                 </div>
               </div>
             </div>
           </div>
-          <p class="note">One decision, two actions, nothing to scroll. The modal blocks the list behind it precisely because the user must resolve this before doing anything else, then returns to exactly where they were. This is the whole job of a modal.</p>
+          <p class="note">One decision, two actions, nothing to scroll — and nothing to return to, because the measure is gone. The modal blocks the list precisely because the choice is destructive and the user must resolve it before doing anything else. Irreversibility is what earns the interruption: a reversible action, like publishing a draft the user can simply unpublish, belongs in an inline confirm with undo, not here.</p>
         </div>
 
         <div class="demo" style="margin-top:2.5rem;">
@@ -173,9 +173,9 @@
       <!-- 03 REASONING -->
       <section>
         <span class="secnum">03 / The reasoning</span>
-        <h2>Four forces behind the rule</h2>
+        <h2>Five forces behind the rule</h2>
         <p class="prose">
-          The choice is structural, not a matter of taste. Four pressures decide it, and for our configuration work they sort the three containers cleanly.
+          The choice is structural, not a matter of taste. Five pressures decide it, and for our configuration work they sort the three containers cleanly.
         </p>
 
         <div class="principles">
@@ -198,6 +198,11 @@
             <div class="n">4</div>
             <h3>A side panel keeps the main view as reference</h3>
             <p>Much of our work is inspect-and-edit against a list or a chart: open a contract beside the contracts table, tune a value beside the result it changes. A side panel keeps that main view in place so the comparison stays in sight. A modal would cover the very thing the user is checking against; a full page would throw away their place in the list.</p>
+          </div>
+          <div class="principle">
+            <div class="n">5</div>
+            <h3>A loose dismissal loses the work</h3>
+            <p>Our sessions are long and server-backed, and what they produce feeds Care Management, Quality and Financial downstream, so an accidental dismissal is not a minor annoyance, it is lost configuration. The containers fail differently and must defend differently: a modal holding any entry cannot close on a stray scrim-click or Escape, a side panel must warn before discarding an unsaved edit, and a full page earns its length only if it autosaves or keeps a draft. The looser a container's dismissal, the more the work it holds has to be protected.</p>
           </div>
         </div>
       </section>
@@ -268,7 +273,7 @@
 
           <p style="margin-top:2rem;"><strong>Default to a full page when</strong> (most of our heavy work)</p>
           <ul class="clean cool">
-            <li>The flow is multi-section or long enough to be a real session: cohort and measure builders, risk-model and attribution setup, contract arrangement, data mapping.</li>
+            <li>The flow is multi-section or long enough to be a real session: cohort and measure builders, the AI-filter registry builder, risk-model and attribution setup, contract arrangement, data mapping.</li>
             <li>The user navigates within it and returns to it, and it should be linkable, bookmarkable and revisitable.</li>
             <li>The work deserves the full surface rather than a centred box.</li>
           </ul>
@@ -276,7 +281,7 @@
           <p style="margin-top:2rem;"><strong>Use a side panel when</strong></p>
           <ul class="clean cool">
             <li>The task supports the main view and that context must stay visible: inspect a record beside a list, edit a value beside the chart it changes.</li>
-            <li>The work is focused and short to medium, and is safe to treat as transient.</li>
+            <li>The work is a focused edit of a handful of fields, short to medium, and safe to treat as transient. The moment it grows into a multi-section workspace in its own right, it is a full page, not a panel.</li>
           </ul>
 
           <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
@@ -284,6 +289,7 @@
             <li>A multi-step or multi-section form inside a modal. Promote it to a full page; if it must stay over the current context, a side panel.</li>
             <li>A modal that scrolls, or hides its own action buttons below the fold. That is the signal it has outgrown the container.</li>
             <li>Stacked modals, or a modal opening another modal, especially for a destructive path. Resolve one decision at a time.</li>
+            <li>A blocking confirm modal on a reversible action. If the user can simply undo it, an inline confirm with undo is lighter and less interrupting than a scrim that stops the page.</li>
             <li>A side panel hosting a primary multi-section workspace. If it is the main task, not a companion to one, it is a full page.</li>
             <li>A full page for a one-line confirmation. That throws away the user's place in their work for no reason; that is what a modal is for.</li>
           </ul>
@@ -302,7 +308,7 @@
           <div class="syscard lead">
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>A complexity ladder from modal to full page</h3>
-            <p>Carbon tells teams to use modals sparingly because they interrupt the workflow, and lays out an explicit format ladder for create and edit flows: modal, then side panel, then tearsheet, then full page, escalating with complexity. The summary it uses is that a modal is for a decision point and a tearsheet is for a process. Heavy, multi-step configuration lands at the full-page end, which is exactly where our builders sit.</p>
+            <p>Carbon tells teams to use modals sparingly because they interrupt the workflow, and lays out an explicit format ladder for create and edit flows: modal, then side panel, then tearsheet, then full page, escalating with complexity. The summary it uses is that a modal is for a decision point and a tearsheet is for a process. Heavy, multi-step configuration lands at the full-page end, which is exactly where our builders sit. We take the ladder but not all four rungs: VC folds the tearsheet into the full page, holding our vocabulary to three so the choice stays cheap to make.</p>
             <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
           </div>
 
@@ -350,11 +356,13 @@
         <div class="reco">
           <h3>The house rule</h3>
           <ul class="clean cool">
-            <li><strong>The full page is the default</strong> for builders and setup: cohort and registry builders, quality-measure definition, risk-model and attribution setup, contract arrangement, data mapping. These are long, multi-section, linkable and revisitable, which is what a page is for.</li>
-            <li><strong>The side panel carries work that supports the main view</strong>: inspecting a record beside a list, editing a detail beside the chart it changes. Use it when the underlying context must stay visible, and treat its state as transient.</li>
-            <li><strong>The modal is reserved for a short blocking decision</strong>: a confirmation, a destructive check, a one or two field create. At most two actions, no scrolling, no steps.</li>
+            <li><strong>The full page is the default</strong> for builders and setup: cohort and registry builders — the AI-filter registry builder lives here — quality-measure definition, risk-model and attribution setup, contract arrangement, data mapping. These are long, multi-section, linkable and revisitable, which is what a page is for.</li>
+            <li><strong>The side panel carries work that supports the main view</strong>: inspecting a record beside a list, editing a detail beside the chart it changes. Use it when the underlying context must stay visible, treat its state as transient, and keep it to a focused edit of a handful of fields; once it becomes a multi-section workspace, it has turned into a full page.</li>
+            <li><strong>The modal is reserved for a short blocking decision that the user cannot simply reverse</strong>: an irreversible or high-consequence confirmation, a destructive check, a one or two field create. At most two actions, no scrolling, no steps. A reversible action gets an inline confirm with undo, not a scrim.</li>
             <li><strong>Promote a modal the moment it grows</strong>. Past about four fields or the first scrollbar, move it to a side panel if it must stay over the current context, or a full page if it is a session in its own right.</li>
             <li><strong>No stacked modals.</strong> One blocking decision at a time; if a path needs a second decision, sequence it, do not layer it.</li>
+            <li><strong>Never let a container lose the work.</strong> A modal holding entry does not close on a stray scrim-click or Escape, a side panel warns before discarding an unsaved edit, and a full page autosaves or keeps a draft.</li>
+            <li><strong>Three containers, by deliberate choice.</strong> Carbon runs a four-rung ladder with a tearsheet between side panel and full page; we fold that rung into the full page. Three types, not four, is one fewer thing for a builder to weigh and one fewer to litigate in review — the tearsheet's work is already covered between the side panel and the page.</li>
           </ul>
         </div>
       </section>
