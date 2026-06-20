@@ -21,8 +21,12 @@ for durability and zero maintenance, and it must work opened straight from disk
 - **No JavaScript.** The only exception is a small inline script scoped to one
   demo that genuinely needs it to show an interaction. There are none so far;
   adding one is a decision to flag, not a default.
-- **No inline `<style>` blocks.** Pages link `css/tokens.css` and `css/base.css`.
-  A single demo may carry scoped styles only if it genuinely needs them.
+- **No inline `<style>` blocks**, with one sanctioned exception: a single demo
+  that genuinely needs styles the shared CSS can't supply may carry a scoped
+  `<style>` in its own `<head>`. The precedent is `records/breakpoints.html` §03
+  — schematic charts as inline SVG, classes namespaced `.bp-*`, tokens only,
+  nothing leaking into `css/base.css`. Flag it; don't reach for it by default.
+  If two records would want the same thing, that is a `base.css` conversation.
 - **Relative paths everywhere** (`../css/base.css`, never `/css/base.css`).
   Absolute paths break on GitHub Pages project URLs. The few inline `style=""`
   attributes on the masthead are existing spacing tweaks — match that pattern,
@@ -63,6 +67,24 @@ A record's status badge appears in two places — the `.rechead` masthead and it
 `index.html` dircard. **Keep them in sync.** Status set: `draft` (argue with it,
 don't cite it) → `adopted` (the house rule, cite it in review) → `superseded`
 (replaced; link the replacement).
+
+## Show, don't tell
+
+A record argues with a picture, not only prose. State the rule, then
+**demonstrate it** — a reader skimming should get the decision from the demo
+alone, before reading a word of the reasoning.
+
+- **Every rule earns a working demo.** Build it from the shared `.appframe` /
+  `.compare` / `.tbl` primitives so the behaviour is *visible*, not described.
+  `records/breakpoints.html` §02–03 is the reference: a capped form beside a
+  spread-to-fill data canvas, a tier progression, and an Avoid/Use of one
+  stretched chart versus packed tiles.
+- **Contrast carries the point.** Put the anti-pattern next to the fix in a
+  `.compare` block (**Avoid** / **Use**); the gap between the two teaches faster
+  than a paragraph about either.
+- **Demos are schematic, never the real product.** Placeholder labels, neutral
+  chrome, token-driven (see Content scope). A demo exists to show the rule, not
+  to mock up a screen.
 
 ## Content scope
 
@@ -128,3 +150,8 @@ Open `index.html` from disk and click through: links resolve relatively, fonts
 and palette render, new record uses the identical shell, badges match between
 masthead and dircard, good/bad demos stack on a narrow viewport. There are no
 tests and no CI — visual inspection from disk is the check.
+
+Verifying with a headless browser instead? `file://` is blocked there — serve
+the folder first (`python3 -m http.server`) and load `http://localhost:<port>/`.
+Check one wide and one narrow viewport; the narrow pass is where tables stack to
+labelled rows and grids collapse to one column.
