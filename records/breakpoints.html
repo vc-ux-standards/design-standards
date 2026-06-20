@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breakpoints · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<style>
+/* Scoped to this record's data-viz width demos (§03): schematic charts built
+   from inline SVG, token-driven only. Not part of the shared component set —
+   the one record that needs charts to make its point carries them here. */
+.bp-board{ border:1px solid var(--rule-strong); border-radius:6px; overflow:hidden; background:var(--paper); box-shadow:0 1px 2px oklch(0.2 0.01 80 / 0.04), 0 8px 24px oklch(0.2 0.01 80 / 0.05); }
+.bp-board .bbar{ display:flex; align-items:center; gap:0.45rem; padding:0.5rem 0.7rem; background:var(--paper-3); border-bottom:1px solid var(--rule); }
+.bp-board .bbar i{ width:7px; height:7px; border-radius:50%; background:var(--rule-strong); }
+.bp-board .bbar em{ margin-left:0.3rem; font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.06em; color:var(--ink-3); }
+.bp-grid{ display:grid; gap:0.55rem; padding:0.6rem; }
+.bp-grid.c2{ grid-template-columns:repeat(2,1fr); }
+.bp-grid.c3{ grid-template-columns:repeat(3,1fr); }
+.bp-grid.c4{ grid-template-columns:repeat(4,1fr); }
+.bp-tile{ border:1px solid var(--rule); border-radius:4px; background:var(--paper-2); padding:0.45rem 0.5rem; min-width:0; }
+.bp-tile.wide{ grid-column:1 / -1; }
+.bp-tile .h{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.04em; color:var(--ink-2); margin-bottom:0.35rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bp-tile svg{ display:block; width:100%; height:auto; }
+.bp-tile .bars rect{ fill:color-mix(in oklch, var(--cool) 50%, var(--paper)); }
+.bp-tile .bars rect.hi{ fill:var(--cool); }
+.bp-tile .line{ fill:none; stroke:var(--warm); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+@media (max-width:560px){ .bp-grid.c2,.bp-grid.c3,.bp-grid.c4{ grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Responsive</span>
+  </div>
+</header>
+
+<main>
+  <article id="breakpoints" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Responsive</span></div>
+    <h1>How VC handles<br>screen width</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      VC is a desktop application, so its breakpoints live in the desktop band — not a phone-to-desktop ladder. One rule does most of the work: width follows content type. A datagrid uses the width it is given; a form caps to a reading measure.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC runs on large desktop monitors — analysts and admins building cohorts, measures and risk models, many screens dense with datagrids and charts. We serve no phone or tablet-portrait viewport, and the layout never exceeds a rail beside a canvas. What decides the breakpoints is not device width but <strong>content type, on one 12-column grid, across the desktop band only</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule (provisional)</span>
+      <p>VC is a desktop application. Hold one <strong>12-column grid</strong> across the desktop band and define the tiers in <strong>rem</strong>.</p>
+      <ul class="clean">
+        <li><strong>Width follows content type</strong> — a reading or configuration canvas caps its measure; a datagrid or chart canvas uses the full width.</li>
+        <li><strong>The grid count stays 12</strong> at every tier; column width and the gutter step change, not the count.</li>
+        <li><strong>Narrow widths are met by WCAG zoom reflow</strong>, not a designed mobile layout.</li>
+      </ul>
+      <p>The deciding question for any screen: is the canvas read, or is it data? Read caps; data spreads.</p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>The ladder, both sides of the handoff</h2>
+    <p class="prose">
+      <strong>Read the tier off the window width; read the behaviour off the content.</strong> The middle column is what a designer places; the right column is what a developer writes. Five tiers, all in the desktop band — there is no mobile rung, by decision.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr><th></th><th>Width</th><th>For the designer</th><th>For the developer</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Reflow floor</th>
+          <td data-l="Width">Below 1024px, or under zoom</td>
+          <td data-l="For the designer">Not a designed layout. One column, nothing clipped, no horizontal scroll.</td>
+          <td data-l="For the developer">Satisfy WCAG 1.4.10 down to 320px effective. The desktop min-width queries simply do not fire.</td>
+        </tr>
+        <tr>
+          <th scope="row">Base</th>
+          <td data-l="Width">64rem · 1024px</td>
+          <td data-l="For the designer">Smallest supported window. Rail collapses to an icon strip; one working column in the canvas.</td>
+          <td data-l="For the developer">Grid gutters tighten. Components in the rail adapt by container query, not viewport.</td>
+        </tr>
+        <tr>
+          <th scope="row">Standard</th>
+          <td data-l="Width">80rem · 1280px</td>
+          <td data-l="For the designer">Rail expanded beside the canvas. Reading and config canvases cap their measure; datagrids fill all 12 columns.</td>
+          <td data-l="For the developer">The base desktop target — author most layout here. Everything above is density, not reshape.</td>
+        </tr>
+        <tr>
+          <th scope="row">Large</th>
+          <td data-l="Width">90rem · 1440px</td>
+          <td data-l="For the designer">Chart tiles pack more per row (2-up → 3-up); datagrids show more columns. Capped canvases stay capped.</td>
+          <td data-l="For the developer">Step the gutter and margin up one notch. No new layout — the grid is still 12.</td>
+        </tr>
+        <tr>
+          <th scope="row">Ultrawide</th>
+          <td data-l="Width">100rem · 1600px</td>
+          <td data-l="For the designer">Tiles reach 4-up and datagrids widen; a single chart caps and the extra width buys more data. Reading measures stay capped.</td>
+          <td data-l="For the developer">Cap text containers at the measure token; let grid and data regions grow to fill.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / Width follows content type</span>
+    <h2>The same width, two different answers</h2>
+    <p class="prose">
+      <strong>Extra width is not free space to fill — what to do with it depends on what the canvas holds.</strong> A configuration form is reading work: it caps to a measure and leaves the rest of the window empty. A dashboard is data: it spreads to every column the window offers. Both sit in the same rail-plus-canvas shell on the same 12-column grid.
+    </p>
+
+    <div class="demo">
+      <div class="cap">
+        <span class="name">Configure measure · reading canvas</span>
+        <span class="tag v"><span class="dot"></span>Caps the measure</span>
+      </div>
+      <div class="appframe">
+        <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Quality measure: 30-day readmission</span></div>
+        <div class="pagebody">
+          <div class="secnav">
+            <div class="nav-i">Measure details</div>
+            <div class="nav-i on">Numerator logic</div>
+            <div class="nav-i">Exclusions</div>
+            <div class="nav-i">Risk adjustment</div>
+            <div class="nav-i">Review</div>
+          </div>
+          <div class="pagecanvas">
+            <div style="max-width:32rem;">
+              <h4>Numerator logic</h4>
+              <p class="sub">Define what counts as a readmission within the window.</p>
+              <div class="fieldlabel">Qualifying event value set</div>
+              <div class="field"></div>
+              <div class="fieldlabel">Readmission window (days)</div>
+              <div class="field s"></div>
+              <div class="fieldlabel">Care setting</div>
+              <div class="field"></div>
+              <div class="btnrow"><span class="btn g">Back</span><span class="btn p">Save and continue</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="note"><strong>The form caps to a single column; the width past the measure stays empty by design.</strong> Stretching these fields to 1600px only lengthens the eye's travel from label to input.</p>
+    </div>
+
+    <div class="demo" style="margin-top:2.5rem;">
+      <div class="cap">
+        <span class="name">Population performance · data canvas</span>
+        <span class="tag h"><span class="dot"></span>Uses the width</span>
+      </div>
+      <div class="appframe">
+        <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Performance · attributed population</span></div>
+        <div class="pagebody">
+          <div class="secnav">
+            <div class="nav-i on">Overview</div>
+            <div class="nav-i">By measure</div>
+            <div class="nav-i">By contract</div>
+            <div class="nav-i">Trends</div>
+            <div class="nav-i">Exports</div>
+          </div>
+          <div class="pagecanvas">
+            <div style="display:flex; gap:0.7rem; margin-bottom:1.1rem;">
+              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Attributed lives</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">48,210</div></div>
+              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Measures met</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">71%</div></div>
+              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Open gaps</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">3,940</div></div>
+              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Risk score</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">1.18</div></div>
+            </div>
+            <div class="faux-list" style="padding:0;">
+              <div class="listrow"><span class="nm">30-day readmission</span><span class="meta">71%</span><span class="pill">On track</span></div>
+              <div class="listrow"><span class="nm">HbA1c poor control</span><span class="meta">64%</span><span class="pill">At risk</span></div>
+              <div class="listrow"><span class="nm">Breast cancer screening</span><span class="meta">82%</span><span class="pill">On track</span></div>
+              <div class="listrow"><span class="nm">Wellness visit completion</span><span class="meta">58%</span><span class="pill">At risk</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="note"><strong>Metrics and the grid spread to every column the window offers.</strong> At Large and Ultrawide: more tiles per row, more columns in the table — the width buys visible data. Same shell and grid as the form above, opposite instinct.</p>
+    </div>
+
+    <p class="prose" style="margin-top:1.75rem; font-size:0.9rem; color:var(--ink-2);">
+      Narrow this page and both demos reflow — the section rail wraps, the canvas drops to one column. That is the reflow floor doing its job, not a phone layout we drew.
+    </p>
+  </section>
+
+  <!-- 03 LARGE WIDTH ON A DATA CANVAS -->
+  <section>
+    <span class="secnum">03 / Large width on a data canvas</span>
+    <h2>Width buys more data, not bigger charts</h2>
+    <p class="prose">
+      <strong>When a data canvas gets a wider window, add tiles and columns — do not inflate the charts already on screen.</strong> Chart tiles hold a readable minimum width, and the grid packs more of them per row as the tier climbs. In CSS this is one rule, not one per tier: a <code style="font-family:'IBM Plex Mono',monospace; font-size:0.86em;">repeat(auto-fill, minmax(22rem, 1fr))</code> grid adds columns on its own as the canvas grows.
+    </p>
+
+    <div class="scenes">
+      <div class="scene">
+        <div class="bp-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Standard · 1280</em></div>
+          <div class="bp-grid c2">
+            <div class="bp-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="bp-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+          </div>
+        </div>
+        <p class="sh">Standard — 2-up</p>
+        <p class="note">Two tiles fill the 12 columns, six each.</p>
+      </div>
+      <div class="scene">
+        <div class="bp-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Large · 1440</em></div>
+          <div class="bp-grid c3">
+            <div class="bp-tile"><div class="h">Readmissions</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="bp-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="bp-tile"><div class="h">Risk mix</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
+          </div>
+        </div>
+        <p class="sh">Large — 3-up</p>
+        <p class="note">A third tile joins the row; each keeps its aspect.</p>
+      </div>
+      <div class="scene">
+        <div class="bp-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Ultrawide · 1600</em></div>
+          <div class="bp-grid c4">
+            <div class="bp-tile"><div class="h">Readmits</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="bp-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="bp-tile"><div class="h">Risk</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
+            <div class="bp-tile"><div class="h">Spend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
+          </div>
+        </div>
+        <p class="sh">Ultrawide — 4-up</p>
+        <p class="note">Four per row. More seen at a glance, none stretched.</p>
+      </div>
+    </div>
+
+    <p class="prose" style="margin-top:2.25rem;">
+      <strong>The failure mode is one chart stretched to fill the window.</strong> A single line or bar chart spanning 1600px spreads its points so far apart that the trend flattens — the width works against the reading. Cap the chart and spend the rest of the row on companions or more data.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="bp-board">
+          <div class="bbar"><i></i><i></i><i></i><em>One chart, full width</em></div>
+          <div class="bp-grid c2">
+            <div class="bp-tile wide"><div class="h">Readmissions / month</div><svg viewBox="0 0 320 54" aria-hidden="true"><polyline class="line" points="8,42 70,38 132,40 194,30 256,34 312,24"/></svg></div>
+          </div>
+        </div>
+        <p class="note"><strong>Six points smeared across 1600px.</strong> The line goes near-flat, gaps yawn between markers, and the analyst reads less, not more, for all the extra space.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="bp-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Capped chart + companions</em></div>
+          <div class="bp-grid c2">
+            <div class="bp-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="bp-tile"><div class="h">By contract</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="22" width="12" height="22"/><rect x="26" y="16" width="12" height="28"/><rect x="46" y="10" width="12" height="34" class="hi"/><rect x="66" y="20" width="12" height="24"/><rect x="86" y="26" width="12" height="18"/><rect x="106" y="14" width="12" height="30"/></svg></div>
+            <div class="bp-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="bp-tile"><div class="h">Spend trend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
+          </div>
+        </div>
+        <p class="note"><strong>The hero chart caps at a readable width; the rest of the row carries companions.</strong> The same 1600px now shows four trends an analyst can actually read, on the same 12-column grid.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 REASONING -->
+  <section>
+    <span class="secnum">04 / The reasoning</span>
+    <h2>Six forces behind the rule</h2>
+    <p class="prose">
+      <strong>The rule is structural, not stylistic.</strong> Six forces shape the ladder, and for VC's screens they all point one way.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Desktop-first, not mobile-first</h3>
+        <p><strong>We design the desktop band, because that is the only band we serve.</strong> Inverting a mobile-first ladder onto a tool no one opens on a phone adds rungs we never use and a base layout we never ship.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>Width follows content type</h3>
+        <p><strong>The deciding question per screen is whether the canvas is read or is data.</strong> A form, a wizard, a settings page caps to a measure; a datagrid, a chart, a dashboard uses the width. One rule settles most layout arguments before they start.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>One 12-column grid across the band</h3>
+        <p><strong>The count holds at 12; only column width and the gutter step flex per tier.</strong> This is the contract a designer and a developer share — the same grid in Figma and in CSS, so a layout reads identically on both sides of the handoff.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Reflow is accessibility, not mobile</h3>
+        <p><strong>Narrow widths exist to satisfy zoom, not to serve phones.</strong> WCAG 1.4.10 requires content to reflow without a second scroll axis down to 320px effective — which a desktop user hits at 400% zoom. We meet it; we do not design a layout for it.</p>
+      </div>
+      <div class="principle">
+        <div class="n">5</div>
+        <h3>rem, not px</h3>
+        <p><strong>Breakpoints in rem respond to a user's font-size, not just to zoom.</strong> An admin who sets a larger default text size shifts the tiers with it; pixel breakpoints would ignore that preference and hold the layout fixed against them.</p>
+      </div>
+      <div class="principle">
+        <div class="n">6</div>
+        <h3>Container queries for components</h3>
+        <p><strong>A reusable component adapts to its slot, not the viewport.</strong> A cohort card or a chart that can sit in the rail or fill the canvas should respond to the width it is in — a container query — so the same component is correct in both places.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 EDGE CASES -->
+  <section>
+    <span class="secnum">05 / Edge cases and anti-patterns</span>
+    <h2>Where to draw the line in review</h2>
+
+    <div class="prose">
+      <p><strong>Cap the measure when the canvas is read</strong></p>
+      <ul class="clean">
+        <li>Forms, wizards, settings, and any prose or single-record detail — cap to the measure token, no matter how wide the window.</li>
+        <li>A single working column in a builder; the section rail carries wayfinding, not a second column of fields.</li>
+        <li>Empty space to the right of a capped canvas is correct, not a layout bug to fill.</li>
+      </ul>
+
+      <p style="margin-top:2rem;"><strong>Use the width when the canvas is data</strong></p>
+      <ul class="clean cool">
+        <li>Datagrids, dashboards, and chart canvases spread to all 12 columns and add tiles, columns or detail as the window grows.</li>
+        <li>Chart tiles hold a readable minimum width and pack more per row (2-up → 3-up → 4-up); they do not stretch to fill.</li>
+        <li>A single chart caps at a sensible maximum, then spends extra width on more time range or series — never wider bars.</li>
+        <li>Density steps up from Standard to Large to Ultrawide; the layout does not reshape, it just shows more.</li>
+        <li>Reusable data components respond to their container, so a grid is right whether it is in the rail or the full canvas.</li>
+      </ul>
+
+      <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+      <ul class="clean anti">
+        <li>A phone or tablet-portrait layout for a viewport VC does not serve. The narrow case is reflow for zoom, and that is automatic, not designed.</li>
+        <li>A "mobile" breakpoint below the desktop floor, or a hamburger nav standing in for the rail. We have no mobile rung.</li>
+        <li>Device-named breakpoints — "mobile", "tablet", "desktop". Name the tier by its place in the band, not by a device.</li>
+        <li>Pixel breakpoints. They ignore a user's font-size; define the tiers in rem.</li>
+        <li>A reading canvas stretched to the full window so the line length runs past the measure. Cap it.</li>
+        <li>A single chart stretched across the full window until the trend flattens. Cap the chart and fill the row with companion tiles or more data.</li>
+        <li>A new breakpoint added to fix one screen. Reach for a container query on that component first; a new global tier is a standards change, not a local patch.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 06 PRECEDENT -->
+  <section>
+    <span class="secnum">06 / What the major design systems say</span>
+    <h2>The enterprise convention, adapted to a desktop tool</h2>
+    <p class="prose">
+      <strong>The systems agree on the mechanics and diverge on the band.</strong> All define a small set of min-width tiers; the enterprise, data-dense ones run a 12-column grid much like ours, while the consumer-facing ones carry mobile rungs we drop. Carbon is the closest in spirit; Bootstrap is the closest on the grid. Links are in the references.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest in spirit</div>
+        <h3>A data-dense grid with a constant gutter</h3>
+        <p>Carbon's 2x Grid is built for the same data-heavy enterprise work as ours: explicit sm/md/lg/xlg/max breakpoints, a column count that steps up with width, and a 32px gutter held constant at every breakpoint so columns stay predictable. We take the stance and the constant-gutter discipline; we run 12 columns rather than Carbon's 16, because that is VC's Figma grid.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>data-dense · constant gutter · 16-col</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Bootstrap 5 — closest on the grid</div>
+        <h3>A 12-column grid on min-width tiers</h3>
+        <p>Bootstrap's grid is 12 columns across six min-width breakpoints from 576 to 1400px, each with a container max-width that caps content rather than letting it stretch. The 12-column structure and the capped container are exactly VC's model; we keep only the upper, desktop tiers and express them in rem.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>12-col · min-width · capped container</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Google · Material 3</div>
+        <h3>Window size classes, not device names</h3>
+        <p>Material replaced device breakpoints with window size classes — Compact, Medium, Expanded, Large, Extra-large — naming the layout intent rather than a phone or tablet. That is the naming discipline we adopt: a tier is a place in the band, not a device.</p>
+        <span class="verdict tag n"><span class="dot"></span>semantic classes over device names</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Tailwind CSS v4</div>
+        <h3>rem breakpoints, by default</h3>
+        <p>Tailwind defines its sm–2xl breakpoints in rem — 40, 48, 64, 80, 96rem — so they track a user's root font-size, and exposes them as CSS variables. We do not use the framework, but we follow the unit: rem tiers, for the accessibility reason, are the current default for good cause.</p>
+        <span class="verdict tag n"><span class="dot"></span>rem tiers for accessibility</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">GitHub · Primer</div>
+        <h3>Two layers: ranges for design, breakpoints for build</h3>
+        <p>Primer separates viewport ranges — narrow, regular, wide — that a designer reasons about from the finer xsmall–xxlarge breakpoints a developer writes against. That two-layer split is precisely the designer-and-developer handoff this record is built to serve.</p>
+        <span class="verdict tag n"><span class="dot"></span>ranges for design · breakpoints for build</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for a tool like ours</h3>
+        <p>For a desktop-only, datagrid- and chart-heavy tool on a 12-column grid, the field points one way: a short ladder of rem tiers in the desktop band, a constant-gutter 12-column grid throughout, and width decided by content type. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>desktop band · 12-col · content-led width</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 RECO -->
+  <section>
+    <span class="secnum">07 / Recommendation for VC</span>
+    <h2>One grid, content-led width, desktop band only</h2>
+    <div class="reco">
+      <h3>The house rule</h3>
+      <ul class="clean cool">
+        <li><strong>Width follows content type.</strong> A reading or configuration canvas — forms, wizards, settings, single-record detail — caps to the measure token. A datagrid, dashboard or chart canvas uses the full width and densifies. This is the deciding question for every screen.</li>
+        <li><strong>One 12-column grid across the whole desktop band.</strong> The count stays 12 at every tier; column width and the gutter step flex, the structure does not. It is the same grid in Figma and in CSS.</li>
+        <li><strong>On a data canvas, add columns, not bigger charts.</strong> Chart tiles hold a readable minimum and pack more per row as width grows, 2-up to 4-up; a single chart caps to a sensible maximum and spends the extra width on more time range or series, never wider bars.</li>
+        <li><strong>Define the tiers in rem</strong> — Base 64rem, Standard 80rem, Large 90rem, Ultrawide 100rem — so they track a user's font-size, not only zoom.</li>
+        <li><strong>Author at Standard (1280px)</strong> as the base desktop target. Large and Ultrawide add density, not new layouts; Base collapses the rail to an icon strip.</li>
+        <li><strong>Container queries carry reusable components.</strong> A component that can sit in the rail or fill the canvas responds to its container, not the viewport.</li>
+        <li><strong>Mobile and tablet-portrait are out of scope</strong>, met only by WCAG zoom reflow down to 320px effective. Do not draw a phone layout, add a mobile breakpoint, or name a tier after a device.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <section>
+    <span class="secnum">08 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/elements/2x-grid/overview/">IBM Carbon — 2x Grid</a> (16-column grid; sm/md/lg/xlg/max breakpoints; a 32px gutter held constant across breakpoints).</li>
+      <li><a href="https://getbootstrap.com/docs/5.3/layout/breakpoints/">Bootstrap 5 — Breakpoints</a> and <a href="https://getbootstrap.com/docs/5.3/layout/grid/">Grid</a> (12-column grid; six min-width tiers from 576 to 1400px; container max-widths that cap content per breakpoint).</li>
+      <li><a href="https://m3.material.io/foundations/layout/applying-layout/window-size-classes">Material 3 — Window size classes</a> (Compact, Medium, Expanded, Large, Extra-large; window size classes replace device-named breakpoints).</li>
+      <li><a href="https://tailwindcss.com/docs/responsive-design">Tailwind CSS v4 — Responsive design</a> (default sm–2xl breakpoints defined in rem — 40, 48, 64, 80, 96rem; min-width, mobile-first; exposed as CSS variables).</li>
+      <li><a href="https://primer.style/product/getting-started/foundations/layout/">GitHub Primer — Layout foundations</a> (viewport ranges narrow/regular/wide for layout intent, separate xsmall–xxlarge breakpoints for fine control).</li>
+      <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/reflow.html">WCAG 2.2 — Understanding SC 1.4.10 Reflow</a> (content reflows without loss to 320px-equivalent — 400% zoom on a 1280px viewport — with no two-dimensional scrolling).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
