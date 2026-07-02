@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading the chart honestly · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="reading-honestly" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Reading the<br>chart honestly</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      A chart can be accurate to the last decimal and still mislead. This record settles the handful of distortions that keep coming up in review — a cropped axis, a dual scale, a raw rate passed off as performance — so the objection is a link, not a debate. It is the record the others point to when the question is "is this chart fair?"
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC's charts move money and clinical attention, and they are shown to executives, quality committees and contract partners who read the picture, not the query behind it. The deciding pressure is <strong>a chart that misleads a decision-maker is worse than no chart — so honesty is a standard we can cite, not a matter of taste</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>These six are settled. When a chart breaks one, the fix — not the argument — is below:</p>
+      <ul class="clean anti">
+        <li><strong>Truncate the axis only on position marks.</strong> A line or dot may zoom; a bar or area starts at zero — length is its value.</li>
+        <li><strong>One scale per frame.</strong> No dual axes; ship two aligned panels instead.</li>
+        <li><strong>Say "percentage points"</strong> when you mean a point difference, not "percent".</li>
+        <li><strong>Label raw versus risk-adjusted</strong>, and rank on the adjusted rate.</li>
+        <li><strong>Suppress a rate on a tiny denominator</strong>, or show its N.</li>
+        <li><strong>Show enough history</strong> that the window isn't cherry-picked.</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>The distortion, and the fix</h2>
+    <p class="prose">
+      <strong>Most misleading charts in review are one of six moves.</strong> Each is fixable without losing the point the author wanted to make — the honest version is usually clearer, not blander.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>The distortion</th>
+          <th>Why it misleads</th>
+          <th>The fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Cropped axis on a bar</th>
+          <td data-l="Why">Bar length stops matching value; a 3-point spread reads as a cliff.</td>
+          <td data-l="Fix">Start bars at zero. Zoom a <a href="ranges-and-dot-plots.html">dot plot</a> or <a href="line-charts.html">line</a> instead.</td>
+        </tr>
+        <tr>
+          <th scope="row">Dual y-axes</th>
+          <td data-l="Why">Two scales imply a correlation the author chose by sliding them.</td>
+          <td data-l="Fix">Two aligned panels sharing one x-axis.</td>
+        </tr>
+        <tr>
+          <th scope="row">"5%" for a 5-point move</th>
+          <td data-l="Why">Percent and percentage points are different quantities; the reader can't tell which.</td>
+          <td data-l="Fix">Say "percentage points" for a point difference.</td>
+        </tr>
+        <tr>
+          <th scope="row">Raw rate, unlabelled</th>
+          <td data-l="Why">A sicker panel reads as worse care; the ranking punishes case mix.</td>
+          <td data-l="Fix">Label raw vs risk-adjusted; rank on the adjusted rate.</td>
+        </tr>
+        <tr>
+          <th scope="row">Rate on a tiny N</th>
+          <td data-l="Why">One case swings the percentage; noise looks like signal.</td>
+          <td data-l="Fix">Suppress below a floor, or show N. See <a href="numbers-and-states.html">numbers &amp; states</a>.</td>
+        </tr>
+        <tr>
+          <th scope="row">Cherry-picked window</th>
+          <td data-l="Why">A short window hides the trend it's cut from.</td>
+          <td data-l="Fix">Show enough history for the movement to be read in context.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>The same data, told straight</h2>
+    <p class="prose">
+      <strong>Each distortion has an honest twin that survives a second look.</strong> The fix isn't to flatten the message — it's to move the point onto a mark that can carry it without lying.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rate · axis from 92%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 170 112" role="img" aria-label="Four bars on an axis starting at 92 percent, turning a three-point spread into a cliff.">
+              <line class="viz-axis" x1="22" y1="16" x2="22" y2="96"/>
+              <line class="viz-axis" x1="22" y1="96" x2="160" y2="96"/>
+              <g class="viz-bars">
+                <rect x="30" y="52" width="24" height="44"/>
+                <rect x="64" y="40" width="24" height="56"/>
+                <rect x="98" y="60" width="24" height="36"/>
+                <rect x="132" y="28" width="24" height="68"/>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="18" y="19" text-anchor="end">98</text>
+                <text x="18" y="58" text-anchor="end">95</text>
+                <text x="18" y="99" text-anchor="end">92</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>A cropped bar exaggerates a three-point spread into a rout.</strong> Bar length is only honest from zero — crop the axis and length stops matching value, which is the one job a bar has.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rate · dots, 92–98%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 220 120" role="img" aria-label="The same four rates as a dot plot on a labelled 92 to 98 percent axis, honestly close.">
+              <line class="viz-axis" x1="70" y1="100" x2="212" y2="100"/>
+              <g class="viz-gridline"><line x1="70" y1="10" x2="70" y2="100"/><line x1="141" y1="10" x2="141" y2="100"/><line x1="212" y1="10" x2="212" y2="100"/></g>
+              <g class="viz-label" font-size="8">
+                <text x="6" y="18">Site A</text>
+                <text x="6" y="40">Site B</text>
+                <text x="6" y="62">Site C</text>
+                <text x="6" y="84">Site D</text>
+              </g>
+              <g class="viz-dots viz-c1">
+                <circle cx="141" cy="15" r="5"/>
+                <circle cx="164" cy="37" r="5"/>
+                <circle cx="118" cy="59" r="5"/>
+                <circle cx="187" cy="81" r="5"/>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="70" y="112" text-anchor="middle">92%</text>
+                <text x="141" y="112" text-anchor="middle">95%</text>
+                <text x="212" y="112" text-anchor="middle">98%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>A dot plot zooms honestly, because position — not length — carries the value.</strong> The axis is labelled 92–98%, the spread is real, and no reader mistakes a two-point gap for a landslide. <a href="ranges-and-dot-plots.html">The honest zoom</a> is a dot, never a bar.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Volume vs rate · two scales</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 240 140" role="img" aria-label="A dual-axis chart: bars on a left scale and a line on a right scale, implying a correlation.">
+              <line class="viz-axis" x1="26" y1="14" x2="26" y2="104"/>
+              <line class="viz-axis" x1="214" y1="14" x2="214" y2="104"/>
+              <line class="viz-axis" x1="26" y1="104" x2="214" y2="104"/>
+              <g class="viz-bars">
+                <rect x="38" y="60" width="18" height="44"/>
+                <rect x="78" y="52" width="18" height="52"/>
+                <rect x="118" y="66" width="18" height="38"/>
+                <rect x="158" y="44" width="18" height="60"/>
+              </g>
+              <polyline class="viz-line thin viz-neg" points="47,40 87,58 127,34 167,70"/>
+              <g class="viz-label" font-size="7">
+                <text x="22" y="16" text-anchor="end">40</text>
+                <text x="22" y="106" text-anchor="end">0</text>
+                <text x="219" y="16">8%</text>
+                <text x="219" y="106">0%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Two scales on one frame manufacture a correlation.</strong> Slide either axis and the bars and line "track" or "diverge" at will — the relationship is the author's, not the data's.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Volume and rate · aligned panels</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 240 150" role="img" aria-label="Two stacked panels sharing one x-axis: volume as bars above, rate as a line below.">
+              <g class="viz-bars">
+                <rect x="38" y="34" width="18" height="34"/>
+                <rect x="78" y="26" width="18" height="42"/>
+                <rect x="118" y="40" width="18" height="28"/>
+                <rect x="158" y="18" width="18" height="50"/>
+              </g>
+              <line class="viz-axis" x1="26" y1="68" x2="214" y2="68"/>
+              <text class="viz-label ink" x="26" y="14" font-size="7">Volume</text>
+              <polyline class="viz-line thin viz-c1" points="47,112 87,98 127,118 167,92"/>
+              <line class="viz-axis" x1="26" y1="132" x2="214" y2="132"/>
+              <text class="viz-label ink" x="26" y="90" font-size="7">Rate</text>
+              <g class="viz-label" font-size="7">
+                <text x="47" y="146" text-anchor="middle">Q1</text>
+                <text x="87" y="146" text-anchor="middle">Q2</text>
+                <text x="127" y="146" text-anchor="middle">Q3</text>
+                <text x="167" y="146" text-anchor="middle">Q4</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Two panels on a shared x-axis let the reader judge the relationship.</strong> Each measure keeps its own honest scale; any link between them is read, not implied by a rigged overlay.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Readmissions · raw rate</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 240 116" role="img" aria-label="Providers ranked by raw readmission rate, highest first: Site C worst.">
+              <g class="viz-bars">
+                <rect x="86" y="6" width="140" height="16"/>
+                <rect x="86" y="32" width="120" height="16"/>
+                <rect x="86" y="58" width="104" height="16"/>
+                <rect x="86" y="84" width="80" height="16"/>
+              </g>
+              <g class="viz-label" font-size="8.5">
+                <text x="6" y="17">Site C</text>
+                <text x="6" y="43">Site A</text>
+                <text x="6" y="69">Site D</text>
+                <text x="6" y="95">Site B</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Ranked on the raw rate, Site C looks like the worst performer.</strong> But Site C carries the sickest panel — the chart is ranking case mix, not care, and the "worst" provider may be doing the hardest job well.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Readmissions · risk-adjusted</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 240 116" role="img" aria-label="The same providers ranked by risk-adjusted rate: the order flips, Site A now worst and Site C mid-pack.">
+              <g class="viz-bars">
+                <rect class="viz-neg" x="86" y="6" width="132" height="16"/>
+                <rect x="86" y="32" width="112" height="16"/>
+                <rect x="86" y="58" width="96" height="16"/>
+                <rect x="86" y="84" width="70" height="16"/>
+              </g>
+              <g class="viz-label" font-size="8.5">
+                <text x="6" y="17">Site A</text>
+                <text x="6" y="43">Site D</text>
+                <text x="6" y="69">Site C</text>
+                <text x="6" y="95">Site B</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Risk-adjusted, the order flips: Site C drops to mid-pack and Site A is the real outlier.</strong> Same providers, same period — the honest ranking sends the intervention to a different door. Always label which rate a chart shows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Why honesty is a standard here</h2>
+    <p class="prose">
+      Every rule below protects the reader's inference, not the author's convenience. In an analytics product the chart is the argument — and an argument that only works because the axis was cropped isn't one we ship.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Match the liberty to the mark</h3>
+        <p><strong>Position can zoom; length cannot.</strong> A <a href="line-charts.html">line</a> or dot reads by position, so a labelled non-zero axis is honest; a <a href="bar-and-column.html">bar</a> reads by length, so it must start at zero.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>One scale per frame</h3>
+        <p><strong>A dual axis is a correlation you drew by hand.</strong> If two measures matter, ship two aligned panels; let the reader find the relationship instead of asserting it.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>Say what you mean</h3>
+        <p><strong>Points are not percent, and raw is not risk-adjusted.</strong> Name the quantity and show the N; the <a href="numbers-and-states.html">numbers &amp; states</a> record sets how each is displayed.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>The window is an argument</h3>
+        <p><strong>Where a trend starts and stops is an editorial choice.</strong> Show enough history that the movement can't be manufactured by cutting the axis at a convenient month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The honesty rules are well charted</h2>
+    <p class="prose">
+      <strong>The distortions here are the classic ones, and the field is unanimous on the fixes.</strong> The value of the record isn't novelty — it's having one place to point when a chart in review needs to change before it ships.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">Alberto Cairo · How Charts Lie</div>
+        <h3>A field guide to the distortions</h3>
+        <p>Cairo catalogues exactly these moves — truncated and dual axes, misleading ratios, cherry-picked ranges — and shows how each bends an accurate number into a false impression. It is the reference for treating chart honesty as a discipline, not an instinct.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the distortions, named</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Claus Wilke · Fundamentals</div>
+        <h3>Bars start at zero; position may zoom</h3>
+        <p>Wilke is explicit that a bar's baseline must sit at zero while a line or dot, reading by position, may take a non-zero axis — the mark decides the liberty. His treatment of amounts and axis ranges backs the truncation rule here.</p>
+        <span class="verdict tag n"><span class="dot"></span>zero baseline; honest zoom</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Datawrapper Academy</div>
+        <h3>When truncating an axis is fine</h3>
+        <p>Datawrapper's guidance draws the same line this record does: never crop a bar's axis, but a line chart may start above zero as long as the range is labelled. Practical confirmation of "match the liberty to the mark".</p>
+        <span class="verdict tag n"><span class="dot"></span>crop lines, never bars</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">FT · Visual Vocabulary</div>
+        <h3>Honest defaults by relationship</h3>
+        <p>The FT's chart doctrine pairs each relationship with the mark that shows it without distortion, and its editorial standards call out truncated axes and dual scales as things to avoid in published graphics.</p>
+        <span class="verdict tag n"><span class="dot"></span>distortion-free defaults</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Cleveland &amp; McGill (1984)</div>
+        <h3>Why the mark decides the liberty</h3>
+        <p>Their measured ranking of visual channels — position most accurate, length next — is why a dot can carry a zoomed axis that a bar cannot. The honesty rules rest on the same perception research as the choice of mark.</p>
+        <span class="verdict tag n"><span class="dot"></span>position &gt; length</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For VC's committee-facing charts: crop only position marks, one scale per frame, name points vs percent and raw vs risk-adjusted, show the N and enough history. When a chart breaks one, cite this record and fix it. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC honesty check</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://www.howchartslie.com/">Alberto Cairo — How Charts Lie</a> (truncated and dual axes, misleading ratios, cherry-picked ranges).</li>
+      <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts (Fundamentals of Data Visualization)</a> (bars require a zero baseline; position-based marks need not).</li>
+      <li><a href="https://blog.datawrapper.de/truncated-axis/">Datawrapper Academy — When to truncate an axis</a> (never crop a bar; a labelled line may start above zero).</li>
+      <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (honest defaults by relationship; distortion cautions).</li>
+      <li><a href="https://www.jstor.org/stable/2288400">Cleveland &amp; McGill — Graphical Perception (JASA, 1984)</a> (position read more accurately than length — why the mark decides the liberty).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

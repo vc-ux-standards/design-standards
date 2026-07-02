@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dot plots and ranges · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="ranges-and-dot-plots" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Dot plots and<br>the honest zoom</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      When values cluster in a narrow band near the top of the scale, a zero-based bar chart flattens them into one wall. The fix is not to crop the bar — it is to change the mark. A dot plot encodes value as <strong>position</strong>, so a zoomed, clearly-labelled axis is honest where a cropped bar would lie. This is VC's record for the honest zoom: dots, lollipops, dumbbells and ranges.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC ranks measures and providers that often sit within a few points of each other, high on the scale — screening rates in the 80s and 90s, gap-closure creeping toward a target. On a 0–100 bar axis those points vanish. The deciding pressure is <strong>the money-relevant delta — the point or two that moves a Star rating or clears a gap target — has to be visible without faking bar length</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        For values that cluster, or bars that crowd past comparison, switch to a <strong>dot plot on a labelled, zoomed axis</strong> — position lets you zoom honestly. Use a <strong>lollipop</strong> when you want a little length back, a <strong>dumbbell</strong> for two states (before/after, actual-vs-target), and a <strong>range bar</strong> for an interval. In to-target work, <strong>sort by the gap, not the raw value</strong>. Always label the range; never truncate to manufacture a story.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>Which range form</h2>
+    <p class="prose">
+      <strong>Start from what the reader is comparing, then take the lightest mark that shows it on a common scale.</strong> Every form here reads value as position, which is why each can carry a zoomed axis without lying.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>You're showing</th>
+          <th>Form</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Clustered values a zero-based bar flattens</th>
+          <td data-l="Form">A dot plot on a zoomed, labelled axis.</td>
+          <td data-l="Why">Position spreads the points that length crushed together.</td>
+        </tr>
+        <tr>
+          <th scope="row">A ranking of many near-equal items</th>
+          <td data-l="Form">A dot plot — or a lollipop for a little weight.</td>
+          <td data-l="Why">Dots decrowd where 20 bars turn into a solid block.</td>
+        </tr>
+        <tr>
+          <th scope="row">Two states per item</th>
+          <td data-l="Form">A dumbbell — two dots joined by a line.</td>
+          <td data-l="Why">The connector is the change; its length is the gap.</td>
+        </tr>
+        <tr>
+          <th scope="row">An interval or uncertainty</th>
+          <td data-l="Form">A range bar — low to high on the scale.</td>
+          <td data-l="Why">The span is the point, not a single endpoint.</td>
+        </tr>
+        <tr>
+          <th scope="row">One value against one target</th>
+          <td data-l="Form">A bullet bar. <a href="charts-at-tile-scale.html">See tile scale</a>.</td>
+          <td data-l="Why">A fill plus a target tick reads in one glance.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>The honest zoom, and sorting by the gap</h2>
+    <p class="prose">
+      <strong>Two moves recover a reading a zero-based bar throws away:</strong> put clustered values on a dot plot so the axis can zoom, and sort a to-target view by the gap the reader is chasing.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rates · zero-based bars</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 284 152" role="img" aria-label="Eight screening rates in the high 80s and low 90s as zero-based horizontal bars, all nearly the same length and impossible to rank.">
+              <g class="viz-bars">
+                <rect x="120" y="8"   width="141.0" height="11"/>
+                <rect x="120" y="23"  width="139.5" height="11"/>
+                <rect x="120" y="38"  width="138.0" height="11"/>
+                <rect x="120" y="53"  width="136.5" height="11"/>
+                <rect x="120" y="68"  width="135.0" height="11"/>
+                <rect x="120" y="83"  width="133.5" height="11"/>
+                <rect x="120" y="98"  width="132.0" height="11"/>
+                <rect x="120" y="113" width="129.0" height="11"/>
+              </g>
+              <line class="viz-baseline" x1="120" y1="6" x2="120" y2="126"/>
+              <g class="viz-label" font-size="8">
+                <text x="6" y="17">Measure A</text>
+                <text x="6" y="32">Measure B</text>
+                <text x="6" y="47">Measure C</text>
+                <text x="6" y="62">Measure D</text>
+                <text x="6" y="77">Measure E</text>
+                <text x="6" y="92">Measure F</text>
+                <text x="6" y="107">Measure G</text>
+                <text x="6" y="122">Measure H</text>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="120" y="140" text-anchor="middle">0</text>
+                <text x="261" y="140" text-anchor="end">100</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Eight rates between 86% and 94%, and the bars are one indistinguishable block.</strong> A zero baseline is right for a bar, so a bar is simply the wrong mark here — the reading the reader needs is exactly the part the zero-based length hides.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rates · dot plot, axis 80–100%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 284 152" role="img" aria-label="The same eight rates as a dot plot on an axis zoomed to 80 to 100 percent, now clearly separated and rankable.">
+              <g class="viz-gridline"><line x1="195" y1="6" x2="195" y2="126"/><line x1="270" y1="6" x2="270" y2="126"/></g>
+              <line class="viz-axis" x1="120" y1="6" x2="120" y2="126"/>
+              <g class="viz-dots viz-c1">
+                <circle cx="225.0" cy="12.5" r="4.5"/>
+                <circle cx="217.5" cy="27.5" r="4.5"/>
+                <circle cx="210.0" cy="42.5" r="4.5"/>
+                <circle cx="202.5" cy="57.5" r="4.5"/>
+                <circle cx="195.0" cy="72.5" r="4.5"/>
+                <circle cx="187.5" cy="87.5" r="4.5"/>
+                <circle cx="180.0" cy="102.5" r="4.5"/>
+                <circle cx="165.0" cy="117.5" r="4.5"/>
+              </g>
+              <g class="viz-label" font-size="8">
+                <text x="6" y="16">Measure A</text>
+                <text x="6" y="31">Measure B</text>
+                <text x="6" y="46">Measure C</text>
+                <text x="6" y="61">Measure D</text>
+                <text x="6" y="76">Measure E</text>
+                <text x="6" y="91">Measure F</text>
+                <text x="6" y="106">Measure G</text>
+                <text x="6" y="121">Measure H</text>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="120" y="140" text-anchor="middle">80</text>
+                <text x="195" y="140" text-anchor="middle">90</text>
+                <text x="270" y="140" text-anchor="end">100</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Zoomed to 80–100% and read as dots, the ranking is instant.</strong> Position on a labelled non-zero axis is honest — the dot never claims a length it doesn't have. The axis range is stated, so nothing is hidden. See the general rule in <a href="reading-honestly.html">reading the chart honestly</a>.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Rate vs target · sorted by rate</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 156" role="img" aria-label="Six measures as dumbbells of rate versus target, sorted by rate, so the two largest gaps sit buried at the bottom.">
+              <g class="viz-gridline"><line x1="195" y1="6" x2="195" y2="126"/><line x1="270" y1="6" x2="270" y2="126"/></g>
+              <line class="viz-axis" x1="120" y1="6" x2="120" y2="126"/>
+              <g>
+                <line class="viz-baseline" x1="234" y1="12" x2="240" y2="12"/>
+                <line class="viz-baseline" x1="186" y1="32" x2="195" y2="32"/>
+                <line class="viz-baseline" x1="183" y1="52" x2="195" y2="52"/>
+                <line class="viz-baseline" x1="168" y1="72" x2="180" y2="72"/>
+                <line class="viz-baseline" x1="156" y1="92" x2="195" y2="92"/>
+                <line class="viz-baseline" x1="144" y1="112" x2="180" y2="112"/>
+              </g>
+              <g class="viz-dots viz-mute">
+                <circle cx="240" cy="12" r="4"/><circle cx="195" cy="32" r="4"/><circle cx="195" cy="52" r="4"/><circle cx="180" cy="72" r="4"/><circle cx="195" cy="92" r="4"/><circle cx="180" cy="112" r="4"/>
+              </g>
+              <g class="viz-dots viz-c1">
+                <circle cx="234" cy="12" r="4.5"/><circle cx="186" cy="32" r="4.5"/><circle cx="183" cy="52" r="4.5"/><circle cx="168" cy="72" r="4.5"/><circle cx="156" cy="92" r="4.5"/><circle cx="144" cy="112" r="4.5"/>
+              </g>
+              <g class="viz-label" font-size="8">
+                <text x="6" y="15">Measure F</text>
+                <text x="6" y="35">Measure E</text>
+                <text x="6" y="55">Measure D</text>
+                <text x="6" y="75">Measure C</text>
+                <text x="6" y="95">Measure B</text>
+                <text x="6" y="115">Measure A</text>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="120" y="140" text-anchor="middle">50</text>
+                <text x="195" y="140" text-anchor="middle">75</text>
+                <text x="270" y="140" text-anchor="end">100</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Sorted by rate, the two widest gaps sink to the bottom of the list.</strong> The reader's job is to find where the shortfall is largest, but the sort answers a different question — who scores highest — and buries the answer that matters.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Rate vs target · sorted by gap</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 156" role="img" aria-label="The same six dumbbells sorted by gap to target, so the widest shortfalls lead the list.">
+              <g class="viz-gridline"><line x1="195" y1="6" x2="195" y2="126"/><line x1="270" y1="6" x2="270" y2="126"/></g>
+              <line class="viz-axis" x1="120" y1="6" x2="120" y2="126"/>
+              <g>
+                <line class="viz-baseline" x1="156" y1="12" x2="195" y2="12"/>
+                <line class="viz-baseline" x1="144" y1="32" x2="180" y2="32"/>
+                <line class="viz-baseline" x1="183" y1="52" x2="195" y2="52"/>
+                <line class="viz-baseline" x1="168" y1="72" x2="180" y2="72"/>
+                <line class="viz-baseline" x1="186" y1="92" x2="195" y2="92"/>
+                <line class="viz-baseline" x1="234" y1="112" x2="240" y2="112"/>
+              </g>
+              <g class="viz-dots viz-mute">
+                <circle cx="195" cy="12" r="4"/><circle cx="180" cy="32" r="4"/><circle cx="195" cy="52" r="4"/><circle cx="180" cy="72" r="4"/><circle cx="195" cy="92" r="4"/><circle cx="240" cy="112" r="4"/>
+              </g>
+              <g class="viz-dots viz-c1">
+                <circle cx="156" cy="12" r="4.5"/><circle cx="144" cy="32" r="4.5"/><circle cx="183" cy="52" r="4.5"/><circle cx="168" cy="72" r="4.5"/><circle cx="186" cy="92" r="4.5"/><circle cx="234" cy="112" r="4.5"/>
+              </g>
+              <g class="viz-label" font-size="8">
+                <text x="6" y="15">Measure B</text>
+                <text x="6" y="35">Measure A</text>
+                <text x="6" y="55">Measure D</text>
+                <text x="6" y="75">Measure C</text>
+                <text x="6" y="95">Measure E</text>
+                <text x="6" y="115">Measure F</text>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="120" y="140" text-anchor="middle">50</text>
+                <text x="195" y="140" text-anchor="middle">75</text>
+                <text x="270" y="140" text-anchor="end">100</text>
+              </g>
+            </svg>
+          </div>
+          <div class="viz-legend">
+            <span class="k viz-c1"><i></i>Rate</span>
+            <span class="k viz-mute"><i></i>Target</span>
+          </div>
+        </div>
+        <p class="note"><strong>Sorted by gap, the widest shortfalls lead — and the connector <em>is</em> the work to do.</strong> The dumbbell shows both the rate and the distance to target at once, ranked by the number the reader is chasing. Sorting is an editorial choice; see <a href="reading-honestly.html">reading the chart honestly</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Why position beats a cropped bar</h2>
+    <p class="prose">
+      A dot marks one value at one position; a bar draws that value as a length from zero. That single difference decides which mark may zoom and which may not.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Length starts at zero; position needn't</h3>
+        <p><strong>A bar's length is its value, so it must start at zero</strong> (see <a href="bar-and-column.html">bars</a>). A dot only marks a position on a scale — move the scale's window and the dot stays honest. That is the whole licence to zoom.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>Label the zoom, always</h3>
+        <p><strong>A non-zero axis is only honest when it says so.</strong> Print the range on the axis; never crop silently to inflate a difference. The general rule lives in <a href="reading-honestly.html">reading honestly</a>.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>Dots decrowd</h3>
+        <p><strong>Many near-equal items read faster as dots than bars.</strong> Twenty bars become a solid block; twenty dots stay separate points on a line — the reason Cleveland preferred them at scale.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Sort by what's being chased</h3>
+        <p><strong>Rank the view by the reader's question.</strong> In to-target work that is the gap, not the rate — sort by the shortfall so the widest ones lead, and the dumbbell shows both at once.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The dot plot is the settled alternative</h2>
+    <p class="prose">
+      <strong>When values cluster or categories grow, the references reach for the same mark:</strong> a dot on a common scale, not a cropped bar. It is the standard honest answer to exactly VC's problem.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">Research · Cleveland &amp; McGill</div>
+        <h3>Position is read most precisely</h3>
+        <p>Their graphical-perception work ranks position on a common scale as the most accurately decoded channel — ahead of length. It is why a dot plot on a zoomed axis beats a bar for values a reader must tell apart, and why Cleveland built the dot plot in the first place.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>position &gt; length</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Claus Wilke · Fundamentals</div>
+        <h3>Dot plots for clustered, long lists</h3>
+        <p>Wilke recommends dot plots when a category list grows long or the values sit in a narrow band — the honest alternative to a cropped bar axis. He is explicit that only marks encoding position, not length, may take a non-zero baseline.</p>
+        <span class="verdict tag n"><span class="dot"></span>dots, not a cropped bar</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">FT · Visual Vocabulary</div>
+        <h3>Dumbbells and ranges as their own family</h3>
+        <p>The FT groups the dot-strip, dumbbell and range/bar under magnitude and ranking — two-point change and interval each shown as position, not two stacked bars. It is the source for the dumbbell-for-two-states default here.</p>
+        <span class="verdict tag n"><span class="dot"></span>dumbbell · range · dot-strip</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Stephen Few · bullet graph</div>
+        <h3>The single-value cousin</h3>
+        <p>Few's bullet graph shows one value against a target and qualitative bands in the space of a line — the tile-scale relative of the dumbbell. VC uses it where the answer is one measure against one target rather than a ranked set.</p>
+        <span class="verdict tag n"><span class="dot"></span>one value vs target</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">IBM · Carbon</div>
+        <h3>Dot and range in the enterprise set</h3>
+        <p>Carbon — the system closest to VC's world — carries dot-plot and range patterns alongside bar and line, for comparisons where a bar would crowd or mislead. Confirmation that the dot plot belongs in a data-heavy product, not just in print.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>dot · range in-system</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For VC's clustered rates and gap-to-target rankings: a dot plot on a labelled zoomed axis, a dumbbell for two states sorted by the gap, and a range bar for an interval — reserving the bar for values that genuinely run from zero. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC honest-zoom default</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://www.jstor.org/stable/2288400">Cleveland &amp; McGill — Graphical Perception (JASA, 1984)</a> (position on a common scale read most precisely; the basis for the dot plot).</li>
+      <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (dot plots for long or clustered lists; only position marks may take a non-zero baseline).</li>
+      <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (dumbbell, range and dot-strip for magnitude, ranking and two-point change).</li>
+      <li><a href="https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">Stephen Few — Bullet Graph Design Spec</a> (one value against a target in the space of a line).</li>
+      <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (dot-plot and range patterns in an enterprise system).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

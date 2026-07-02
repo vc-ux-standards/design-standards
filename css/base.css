@@ -518,6 +518,18 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
 .viz-ink{ --c:var(--ink); }
 .viz-mute{ --c:var(--rule-strong); }
 
+/* Sequential (one hue, low→high) and diverging (under↔over a midpoint) ramps —
+   the tokens.css scales, exposed as --c helpers for heatmap cells and fills.
+   Same one-class-per-step pattern as the categorical series above. */
+.viz-seq-1{ --c:var(--seq-1); }
+.viz-seq-2{ --c:var(--seq-2); }
+.viz-seq-3{ --c:var(--seq-3); }
+.viz-seq-4{ --c:var(--seq-4); }
+.viz-seq-5{ --c:var(--seq-5); }
+.viz-div-low{ --c:var(--div-low); }
+.viz-div-mid{ --c:var(--div-mid); }
+.viz-div-high{ --c:var(--div-high); }
+
 /* Non-data ink — axes, gridlines, baselines, direct labels. */
 .viz-axis{ stroke:var(--rule-strong); stroke-width:1; }
 .viz-gridline{ stroke:var(--rule); stroke-width:1; }           /* on <line>/<g> inside an svg */
