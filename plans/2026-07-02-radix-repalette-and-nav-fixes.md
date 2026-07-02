@@ -34,7 +34,7 @@ One item per commit, in order. tokens.css items (A1–A3) are sequential; base.c
 - [x] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance. — `0749f1c`
 - [x] **B2** — `css/base.css`: add hover bg-step + border + transition to `.homenav .navrow` and `.regrow`. — `b2fc8f2`
 - [x] **B3** — `css/base.css`: add global `a`/`.inp` `:focus-visible` rings and the `.skip` reveal CSS. — `f7e7b49`
-- [ ] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`).
+- [x] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`). — `84babf2`
 - [ ] **C-css** — `css/base.css`: add `a.eyebrow` link-chrome reset + intentional hover.
 - [ ] **C1** — 13 `records/*.html`: convert both `<span class="eyebrow">` occurrences to `<a class="eyebrow" href="../index.html#ANCHOR">` per the anchor table.
 - [ ] **C2** — markup: add `id="main"` + skip link to `index.html`, all 13 records, and `records/_template.html`; update the template's eyebrow placeholder to the linked form with a `<!-- TODO -->` note.
