@@ -58,8 +58,8 @@
   --seq-5: oklch(0.405 0.110 245);
 
   /* Diverging — two hues off a neutral midpoint, for deviation from a target
-     (under ↔ over). Cool = below, warm = above; neutral = on target. */
+     (under ↔ over). Blue = below, Plum = above; neutral = on target. */
   --div-low:  oklch(0.525 0.115 245);
   --div-mid:  oklch(0.900 0.010 85);
-  --div-high: oklch(0.640 0.170 42);
+  --div-high: oklch(0.55 0.18 330);   /* Plum — "over target"; was a hue-42 orange */
 }
