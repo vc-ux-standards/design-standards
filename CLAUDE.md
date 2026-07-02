@@ -98,7 +98,7 @@ left as a "To be completed" stub is intentional — do not fill it in to look
 finished.
 
 **This site is public-facing — protect the product and its IP.** Always write
-**"VC"**, never the full product name (no "Value Connect") and never the parent
+**"VC"**, never the full product name and never the parent
 org. Do not expose proprietary capability mechanics: the natural-language
 registry feature is named **"AI filters"** in all copy — never "Text-to-SQL",
 and never describe its internals (prompt → generated/validated SQL → preview).
