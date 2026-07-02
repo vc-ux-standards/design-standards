@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="../css/base.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="topnav">
   <div class="inner">
@@ -30,11 +31,11 @@
       <span class="sub">Design Standards</span>
     </a>
     <!-- TODO: category eyebrow, e.g. "Standards · Forms" — must match the rechead eyebrow below -->
-    <span class="eyebrow">Category · Topic</span>
+    <a class="eyebrow" href="../index.html#ANCHOR">Category · Topic</a><!-- TODO: set the category anchor -->
   </div>
 </header>
 
-<main>
+<main id="main">
   <!-- TODO: id — the record slug, same as this file's name -->
   <article id="record-slug" class="record">
     <div class="recordwrap">
@@ -44,7 +45,7 @@
           <!-- TODO: status — class and label must match: draft / adopted / superseded -->
           <span class="status draft"><span class="d"></span>Draft</span>
           <!-- TODO: category eyebrow, e.g. "Component usage · Steppers" -->
-          <span class="eyebrow">Category · Topic</span>
+          <a class="eyebrow" href="../index.html#ANCHOR">Category · Topic</a><!-- TODO: set the category anchor -->
         </div>
         <!-- TODO: record title; use <br> to control the line break if needed -->
         <h1>Record title</h1>

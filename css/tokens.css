@@ -11,15 +11,15 @@
   --error:        oklch(0.545 0.165 28);
   --error-soft:   oklch(0.930 0.045 30);
 
-  /* Brand accent — warm. --warm-ink is the readable ink on
-     --warm-soft (chips, table heads); parallels the --ok/--ok-ink pair. */
-  --warm:         oklch(0.705 0.195 42);
-  --warm-soft:    oklch(0.930 0.045 55);
-  --warm-ink:     oklch(0.420 0.140 45);
-  /* Interactive accent — cool. */
-  --cool:         oklch(0.525 0.115 245);
-  --cool-soft:    oklch(0.930 0.035 240);
-  --cool-ink:     oklch(0.400 0.100 235);
+  /* Brand accent — Radix Plum. --warm-ink is the readable ink on --warm-soft
+     (chips, table heads); parallels the --ok/--ok-ink pair. */
+  --warm:         oklch(0.55 0.18 330);   /* Radix Plum 9  — wordmark, chips, bullets */
+  --warm-soft:    oklch(0.94 0.035 330);  /* Radix Plum 3  — chip / table-tint background */
+  --warm-ink:     oklch(0.47 0.16 328);   /* Radix Plum 11 — readable text on --warm-soft */
+  /* Interactive — Radix Indigo. */
+  --cool:         oklch(0.51 0.16 267);   /* Radix Indigo 11 — links/interactive */
+  --cool-soft:    oklch(0.94 0.03 274);   /* Radix Indigo 3 */
+  --cool-ink:     oklch(0.45 0.15 267);   /* Radix Indigo 11/12 — text on --cool-soft */
 
   /* Shadow ink — one dark, near-neutral base composed at varying alpha for every
      card/panel elevation. Use as oklch(var(--shadow-ink) / <a>). */
@@ -34,18 +34,21 @@
 /* Data-visualization palette. Marks encode data, so these are chosen for
    perceptual separation, colourblind safety (a deutan/protan-safe qualitative
    set in the Okabe–Ito lineage), and ≥3:1 non-text contrast on --paper. The
-   data records govern their use; --warm/--cool/--ok/--error keep their existing
-   brand and semantic meanings and are reused here rather than duplicated.
+   data records govern their use. --ok/--error keep their existing semantic
+   meanings and are reused here rather than duplicated.
 
    Categorical — up to 6 series. Past 6, colour stops separating: group the tail
-   or switch to position. --cat-1/-2 reuse the brand hues so charts stay on-brand. */
+   or switch to position. --cat-1/-2 are independent literal data hues (blue 250,
+   vermilion 32), decoupled from the --cool/--warm brand accents so a brand
+   re-palette can't drag the chart set onto a colliding hue — they are pinned for
+   perceptual separation and colourblind safety, not to stay on-brand. */
 :root{
-  --cat-1: var(--cool);            /* blue    */
-  --cat-2: var(--warm);            /* orange  */
-  --cat-3: oklch(0.600 0.130 165); /* green   */
-  --cat-4: oklch(0.550 0.140 330); /* purple  */
-  --cat-5: oklch(0.620 0.100 200); /* teal    */
-  --cat-6: oklch(0.700 0.120 85);  /* gold    */
+  --cat-1: oklch(0.55 0.13 250);   /* blue      — pinned literal, decoupled from --cool */
+  --cat-2: oklch(0.62 0.18 32);    /* vermilion — warm CB anchor, redder than a 42-hue orange */
+  --cat-3: oklch(0.600 0.130 165); /* green   — unchanged */
+  --cat-4: oklch(0.550 0.140 315); /* purple  — nudged 330→315 to clear brand Plum */
+  --cat-5: oklch(0.620 0.100 200); /* teal    — unchanged */
+  --cat-6: oklch(0.700 0.120 85);  /* gold    — unchanged */
 
   /* Sequential — one hue, light→dark, for an ordered quantity (low→high). */
   --seq-1: oklch(0.905 0.035 245);
@@ -55,8 +58,8 @@
   --seq-5: oklch(0.405 0.110 245);
 
   /* Diverging — two hues off a neutral midpoint, for deviation from a target
-     (under ↔ over). Cool = below, warm = above; neutral = on target. */
+     (under ↔ over). Blue = below, Plum = above; neutral = on target. */
   --div-low:  oklch(0.525 0.115 245);
   --div-mid:  oklch(0.900 0.010 85);
-  --div-high: oklch(0.640 0.170 42);
+  --div-high: oklch(0.55 0.18 330);   /* Plum — "over target"; was a hue-42 orange */
 }

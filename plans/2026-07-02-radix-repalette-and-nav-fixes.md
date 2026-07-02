@@ -23,6 +23,22 @@ interactive colour; and records that are navigable, with visible hover/focus and
 **Scope decided with the user:** handoff items **1–8** only. Item 9 (prev/next between sibling
 records + sticky in-page section rail) is deferred to a separate, larger branch.
 
+## Execution checklist
+
+One item per commit, in order. tokens.css items (A1–A3) are sequential; base.css items
+(B1–B4, C-css) are sequential; markup items (C1–C2) come last.
+
+- [x] **A1** — `css/tokens.css`: swap `--warm*`/`--cool*` triplets to Radix Plum/Indigo and scrub the Optum names/hex from comments (record the CLAUDE.md-flagged authorisation in the commit message). — `f699d6c`
+- [x] **A2** — `css/tokens.css`: decouple + retune the data-viz categorical set (`--cat-1`…`--cat-6`) and rewrite the now-false block comment. — `ab54598`
+- [x] **A3** — `css/tokens.css`: retint `--div-high` to Plum and update the diverging block comment. — `6d4f911`
+- [x] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance. — `0749f1c`
+- [x] **B2** — `css/base.css`: add hover bg-step + border + transition to `.homenav .navrow` and `.regrow`. — `b2fc8f2`
+- [x] **B3** — `css/base.css`: add global `a`/`.inp` `:focus-visible` rings and the `.skip` reveal CSS. — `f7e7b49`
+- [x] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`). — `84babf2`
+- [x] **C-css** — `css/base.css`: add `a.eyebrow` link-chrome reset + intentional hover. — `9f3c432`
+- [x] **C1** — 13 `records/*.html`: convert both `<span class="eyebrow">` occurrences to `<a class="eyebrow" href="../index.html#ANCHOR">` per the anchor table. — `5f49e6f`
+- [x] **C2** — markup: add `id="main"` + skip link to `index.html`, all 13 records, and `records/_template.html`; update the template's eyebrow placeholder to the linked form with a `<!-- TODO -->` note. — `8975277`
+
 ## Constraints (from CLAUDE.md — hold these)
 
 - Plain HTML + CSS. **No JS, no build, no package.json.** Must work from disk *and* GitHub Pages.
