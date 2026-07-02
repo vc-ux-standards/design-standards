@@ -191,8 +191,8 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .topnav{ border-bottom:1px solid var(--rule); background:var(--paper); }
 .topnav .inner{ max-width:62rem; margin:0 auto; padding:0.85rem var(--gutter); display:flex; align-items:baseline; justify-content:space-between; gap:0.5rem 1.5rem; flex-wrap:wrap; }
 .topnav .brand{ text-decoration:none; border:none; display:inline-flex; align-items:baseline; gap:0.8rem; flex-wrap:wrap; }
-.topnav .brand:hover{ border:none; }
-.topnav .brand .wm{ font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:-0.01em; line-height:1.1; color:var(--warm); }
+.topnav .brand:hover .wm{ text-decoration:underline; text-underline-offset:2px; }
+.topnav .brand .wm{ font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:-0.01em; line-height:1.1; color:var(--warm); transition:color 150ms; }
 .topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); }
 
 .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
