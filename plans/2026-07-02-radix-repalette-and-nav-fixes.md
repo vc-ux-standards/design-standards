@@ -31,7 +31,7 @@ One item per commit, in order. tokens.css items (A1–A3) are sequential; base.c
 - [x] **A1** — `css/tokens.css`: swap `--warm*`/`--cool*` triplets to Radix Plum/Indigo and scrub the Optum names/hex from comments (record the CLAUDE.md-flagged authorisation in the commit message). — `f699d6c`
 - [x] **A2** — `css/tokens.css`: decouple + retune the data-viz categorical set (`--cat-1`…`--cat-6`) and rewrite the now-false block comment. — `ab54598`
 - [x] **A3** — `css/tokens.css`: retint `--div-high` to Plum and update the diverging block comment. — `6d4f911`
-- [ ] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance.
+- [x] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance. — `0749f1c`
 - [ ] **B2** — `css/base.css`: add hover bg-step + border + transition to `.homenav .navrow` and `.regrow`.
 - [ ] **B3** — `css/base.css`: add global `a`/`.inp` `:focus-visible` rings and the `.skip` reveal CSS.
 - [ ] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`).
