@@ -405,3 +405,68 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
   .fieldgrid{ grid-template-columns:1fr; }
   .drawer{ flex-basis:100%; max-width:none; border-left:none; border-top:1px solid var(--rule-strong); box-shadow:none; }
 }
+
+/* ---------- Chart demos (Data visualization records) ----------
+   Reusable, schematic, static-SVG chart primitives — token-driven, no JS.
+   Generalises the .bp-* precedent in breakpoints.html so every data record
+   draws from one vocabulary. Every mark reads its colour from a --c custom
+   property; series/semantic helpers set --c, so bars, lines, dots, arcs and
+   cells all recolour the same way. Non-data ink recedes to --rule / --ink-3. */
+
+/* Plot surface and small-multiple tiles. */
+.chart{ background:var(--paper); }
+.chart svg{ display:block; width:100%; height:auto; }
+
+.viz-board{ border:1px solid var(--rule-strong); border-radius:6px; overflow:hidden; background:var(--paper); box-shadow:0 1px 2px oklch(0.2 0.01 80 / 0.04), 0 8px 24px oklch(0.2 0.01 80 / 0.05); }
+.viz-board .bbar{ display:flex; align-items:center; gap:0.45rem; padding:0.5rem 0.7rem; background:var(--paper-3); border-bottom:1px solid var(--rule); }
+.viz-board .bbar i{ width:7px; height:7px; border-radius:50%; background:var(--rule-strong); }
+.viz-board .bbar em{ margin-left:0.3rem; font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.06em; color:var(--ink-3); }
+
+.viz-plot{ padding:0.9rem 1.05rem 1.05rem; }         /* a single framed chart inside a .viz-board */
+.viz-grid{ display:grid; gap:0.6rem; padding:0.7rem; }
+.viz-grid.c2{ grid-template-columns:repeat(2,1fr); }
+.viz-grid.c3{ grid-template-columns:repeat(3,1fr); }
+.viz-grid.c4{ grid-template-columns:repeat(4,1fr); }
+.viz-tile{ border:1px solid var(--rule); border-radius:4px; background:var(--paper-2); padding:0.5rem 0.55rem; min-width:0; }
+.viz-tile.wide{ grid-column:1 / -1; }
+.viz-tile .h{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.04em; color:var(--ink-2); margin-bottom:0.35rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.viz-tile .big{ font-family:"Source Serif 4",serif; font-variation-settings:"opsz" 24; font-weight:600; font-size:1.5rem; line-height:1; color:var(--ink); font-feature-settings:"tnum" 1; }
+.viz-tile .delta{ font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.02em; margin-top:0.2rem; }
+.viz-tile .delta.up{ color:var(--ok-ink); }
+.viz-tile .delta.down{ color:var(--error); }
+.viz-tile svg{ display:block; width:100%; height:auto; }
+@media (max-width:560px){ .viz-grid.c2,.viz-grid.c3,.viz-grid.c4{ grid-template-columns:repeat(2,1fr); } }
+
+/* Marks — each fills/strokes from --c, with a sensible default. */
+.viz-bars rect{ fill:var(--c, color-mix(in oklch, var(--cool) 55%, var(--paper))); }
+.viz-bars rect.hi{ --c:var(--cool); }
+.viz-line{ fill:none; stroke:var(--c, var(--warm)); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.viz-line.thin{ stroke-width:1.6; }
+.viz-area{ fill:var(--c, color-mix(in oklch, var(--cool) 16%, transparent)); stroke:none; }
+.viz-dots circle{ fill:var(--c, color-mix(in oklch, var(--cool) 55%, var(--paper))); fill-opacity:0.72; }
+.viz-arc path{ fill:var(--c, var(--rule-strong)); stroke:var(--paper); stroke-width:1.5; }
+.viz-cells rect{ fill:var(--c, var(--rule)); stroke:var(--paper); stroke-width:1.5; }
+
+/* Series and semantic colour — set --c on a mark or a wrapping <g>. */
+.viz-c1{ --c:var(--cat-1); }
+.viz-c2{ --c:var(--cat-2); }
+.viz-c3{ --c:var(--cat-3); }
+.viz-c4{ --c:var(--cat-4); }
+.viz-c5{ --c:var(--cat-5); }
+.viz-c6{ --c:var(--cat-6); }
+.viz-pos{ --c:var(--ok); }
+.viz-neg{ --c:var(--error); }
+.viz-ink{ --c:var(--ink); }
+.viz-mute{ --c:var(--rule-strong); }
+
+/* Non-data ink — axes, gridlines, baselines, direct labels. */
+.viz-axis{ stroke:var(--rule-strong); stroke-width:1; }
+.viz-gridline{ stroke:var(--rule); stroke-width:1; }           /* on <line>/<g> inside an svg */
+.viz-baseline{ stroke:var(--ink-3); stroke-width:1.25; }
+.viz-label{ font-family:"IBM Plex Mono",monospace; fill:var(--ink-3); letter-spacing:0.02em; }
+.viz-label.ink{ fill:var(--ink-2); }
+
+/* Legend — a categorical key when direct labels won't fit. */
+.viz-legend{ display:flex; flex-wrap:wrap; gap:0.3rem 0.9rem; margin-top:0.7rem; }
+.viz-legend .k{ display:inline-flex; align-items:center; gap:0.42em; font-family:"IBM Plex Mono",monospace; font-size:0.64rem; letter-spacing:0.04em; color:var(--ink-2); }
+.viz-legend .k i{ width:0.72em; height:0.72em; border-radius:2px; background:var(--c, var(--ink-3)); flex:none; }
