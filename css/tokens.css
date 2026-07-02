@@ -27,6 +27,18 @@
 
   --measure: 64ch;
   --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* Spacing scale — fixed component rhythm. Fluid page rhythm stays on the
+     clamp()s (--gutter, masthead/section) which are intentionally viewport-fluid. */
+  --space-1: 0.25rem;   /* hairline: dot↔text, tight label↔control */
+  --space-2: 0.375rem;  /* very tight */
+  --space-3: 0.5rem;    /* small gaps, inset padding */
+  --space-4: 0.75rem;   /* row inner padding, nav row */
+  --space-5: 1rem;      /* default block gap */
+  --space-6: 1.5rem;    /* card padding, card→card */
+  --space-7: 2rem;      /* sub-group separation */
+  --space-8: 2.75rem;   /* top-level register group gap */
+  --space-9: 4rem;      /* large block rhythm */
 }
 
 :root{ --ok:oklch(0.560 0.095 150); --ok-ink:oklch(0.420 0.085 150); }
