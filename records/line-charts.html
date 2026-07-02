@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line charts and trends · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="line-charts" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Line charts<br>and trends</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      A line shows change over time, and because it encodes the value as position and slope — not length — a zoomed y-axis is allowed here, the honest counterpart to the zero baseline a bar must keep. The two liberties a line still owes the reader: label the range you zoomed to, and don't cherry-pick the window.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC trends things over rolling periods all day — a quality measure climbing month by month toward a year-end target, enrolment, utilisation, readmissions. The movement that matters is often only a few points, and the current month is usually half-finished. The deciding pressure is <strong>the reader must see the real movement without being misled by an arbitrary crop or a partial period drawn as if it were complete</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        Use a <strong>line</strong> for change over time. A <strong>zoomed y-axis is fine — label it</strong> — because slope, not length, carries the value. Default to a <strong>rolling 12 months</strong>; <strong>mark the partial current period</strong> so it isn't read as a fall; and <strong>break the line across missing data</strong> rather than interpolating through it. Past ~4 series, switch to <strong>small multiples</strong>; use an area only for a running total.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>Reading a trend honestly</h2>
+    <p class="prose">
+      <strong>A line's freedoms come with duties.</strong> The zoom that makes a small movement visible is legitimate; the crop that invents a movement is not. Match the situation to the move, and the line stays honest.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>Situation</th>
+          <th>Do</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Values cluster in a narrow high band</th>
+          <td data-l="Do">Zoom the y-axis to the data and label the range.</td>
+          <td data-l="Why">Slope carries the value; a full 0–100 axis flattens the movement to nothing.</td>
+        </tr>
+        <tr>
+          <th scope="row">The current period is unfinished</th>
+          <td data-l="Do">Dash or grey the last segment and note it.</td>
+          <td data-l="Why">A solid line reads as a real drop, not a month with days still to come.</td>
+        </tr>
+        <tr>
+          <th scope="row">A gap in the series</th>
+          <td data-l="Do">Break the line; don't interpolate across it.</td>
+          <td data-l="Why">A drawn segment claims data you don't have.</td>
+        </tr>
+        <tr>
+          <th scope="row">Five or more series</th>
+          <td data-l="Do">Split into small multiples.</td>
+          <td data-l="Why">Overplotted lines cross and force the reader back into the legend.</td>
+        </tr>
+        <tr>
+          <th scope="row">A cumulative running total</th>
+          <td data-l="Do">An area; otherwise a plain line.</td>
+          <td data-l="Why">Fill implies accumulation — wrong for a rate or a level.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>The zoom, the partial period, and the tangle</h2>
+    <p class="prose">
+      <strong>Two failures account for most misread trends:</strong> a crushed axis that hides real movement, and too many lines in one frame. Both are obvious the moment the fix sits beside them.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>A1c control · axis 0–100%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 140" role="img" aria-label="A rising measure plotted on a 0 to 100 percent axis: the line hugs the top and looks flat, hiding a real four-point gain.">
+              <line class="viz-axis" x1="30" y1="15" x2="30" y2="110"/>
+              <line class="viz-axis" x1="30" y1="110" x2="292" y2="110"/>
+              <g class="viz-label" font-size="7">
+                <text x="26" y="18" text-anchor="end">100</text>
+                <text x="26" y="65" text-anchor="end">50</text>
+                <text x="26" y="113" text-anchor="end">0</text>
+              </g>
+              <polyline class="viz-line viz-c1" points="30,30.7 54,29.8 77,29.3 101,29.0 124,28.3 148,27.8 172,27.4 195,27.0 219,26.9 242,26.6 266,26.4 290,26.4"/>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>On a 0–100% axis, a real four-point climb looks like a flat line at the ceiling.</strong> The movement that decides whether the measure clears its target is invisible. A line is not a bar — it doesn't owe the axis a zero, and pinning it there wastes the whole plot.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>A1c control · axis 82–90%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 140" role="img" aria-label="The same measure on a labelled 82 to 90 percent axis: the climb is clear, and the unfinished current month is dashed.">
+              <line class="viz-axis" x1="30" y1="15" x2="30" y2="110"/>
+              <line class="viz-axis" x1="30" y1="110" x2="292" y2="110"/>
+              <g class="viz-label" font-size="7">
+                <text x="26" y="18" text-anchor="end">90</text>
+                <text x="26" y="65" text-anchor="end">86</text>
+                <text x="26" y="113" text-anchor="end">82</text>
+              </g>
+              <polyline class="viz-line viz-c1" points="30,92.2 54,86.3 77,80.3 101,74.4 124,68.4 148,62.5 172,56.6 195,50.6 219,44.7 242,38.8"/>
+              <polyline class="viz-line viz-c1" points="242,38.8 266,35.0" stroke-dasharray="3 3"/>
+              <circle cx="266" cy="35.0" r="3" fill="var(--paper)" stroke="var(--cat-1)" stroke-width="1.5"/>
+              <g class="viz-label" font-size="6.5"><text x="266" y="27" text-anchor="middle">MTD</text></g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Zoomed to 82–90% and labelled, the same climb reads at a glance.</strong> The range is stated, so no one is fooled; the month-to-date point is dashed and hollow, so a half-finished period isn't mistaken for a drop. The freedom to zoom is honest only when the axis says where it starts — see <a href="reading-honestly.html">reading the chart honestly</a>.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Six measures · one frame</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 150" role="img" aria-label="Six trend lines overplotted in one frame, crossing and indistinct, readable only through a legend.">
+              <line class="viz-axis" x1="20" y1="12" x2="20" y2="120"/>
+              <line class="viz-axis" x1="20" y1="120" x2="294" y2="120"/>
+              <polyline class="viz-line thin viz-c1" points="20,86 74,72 128,90 182,60 236,74 290,52"/>
+              <polyline class="viz-line thin viz-c2" points="20,60 74,80 128,58 182,86 236,64 290,78"/>
+              <polyline class="viz-line thin viz-c3" points="20,100 74,92 128,74 182,96 236,82 290,66"/>
+              <polyline class="viz-line thin viz-c4" points="20,44 74,58 128,50 182,42 236,56 290,40"/>
+              <polyline class="viz-line thin viz-c5" points="20,110 74,96 128,104 182,88 236,100 290,84"/>
+              <polyline class="viz-line thin viz-c6" points="20,72 74,64 128,80 182,70 236,48 290,60"/>
+            </svg>
+          </div>
+          <div class="viz-legend">
+            <span class="k viz-c1"><i></i>Diabetes</span>
+            <span class="k viz-c2"><i></i>BP</span>
+            <span class="k viz-c3"><i></i>Depression</span>
+            <span class="k viz-c4"><i></i>Colorectal</span>
+            <span class="k viz-c5"><i></i>Breast</span>
+            <span class="k viz-c6"><i></i>Flu</span>
+          </div>
+        </div>
+        <p class="note"><strong>Six lines in one frame is a tangle, not a trend.</strong> The lines cross, the colours stop separating, and the reader is left tracing a legend instead of reading a shape. No single measure's direction is legible.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Six measures · small multiples</em></div>
+          <div class="viz-grid c3">
+            <div class="viz-tile">
+              <div class="h">Diabetes</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Diabetes trend, rising.">
+                <polyline class="viz-line thin viz-c1" points="4,28 21,26 38,22 55,18 72,14 86,10"/>
+              </svg>
+            </div>
+            <div class="viz-tile">
+              <div class="h">BP control</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Blood pressure control trend, flat.">
+                <polyline class="viz-line thin viz-c1" points="4,18 21,17 38,19 55,17 72,18 86,16"/>
+              </svg>
+            </div>
+            <div class="viz-tile">
+              <div class="h">Depression</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Depression screening trend, rising slowly.">
+                <polyline class="viz-line thin viz-c1" points="4,26 21,25 38,24 55,20 72,19 86,15"/>
+              </svg>
+            </div>
+            <div class="viz-tile">
+              <div class="h">Colorectal</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Colorectal screening trend, dipping then recovering.">
+                <polyline class="viz-line thin viz-c1" points="4,16 21,20 38,22 55,18 72,14 86,12"/>
+              </svg>
+            </div>
+            <div class="viz-tile">
+              <div class="h">Breast</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Breast screening trend, gently falling.">
+                <polyline class="viz-line thin viz-c1" points="4,12 21,14 38,16 55,17 72,20 86,22"/>
+              </svg>
+            </div>
+            <div class="viz-tile">
+              <div class="h">Flu vaccine</div>
+              <svg viewBox="0 0 90 34" role="img" aria-label="Flu vaccine trend, seasonal rise.">
+                <polyline class="viz-line thin viz-c1" points="4,24 21,22 38,20 55,15 72,11 86,8"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Split into small multiples, each measure keeps its own shape.</strong> A shared scale and one hue let the eye scan direction and volatility down the grid in a single pass — no legend, no crossing. Past ~4 series, this is the move.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Why the line earns the zoom</h2>
+    <p class="prose">
+      A line's job is to show change, and change lives in the slope. Every rule below protects that: give the slope room to be seen, but never let the framing manufacture a movement that isn't there.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Slope is the value, so zoom is honest</h3>
+        <p><strong>A line encodes by position, not length.</strong> Cropping the y-axis moves the whole line but doesn't distort a single slope, so a labelled non-zero axis is fair — the opposite of a <a href="bar-and-column.html">bar</a>, whose length would start lying.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>The window is editorial</h3>
+        <p><strong>What you crop to is a claim.</strong> A zoomed axis must show its range, and the time span must be honest — a start point chosen to flatter is the line-chart version of a lie. The <a href="reading-honestly.html">reading honestly</a> record sets the limit.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>Don't fake continuity</h3>
+        <p><strong>A drawn segment asserts data.</strong> Break the line across a gap instead of interpolating, and dash the unfinished current period so it reads as in-progress, not as a fall.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Split, don't overplot</h3>
+        <p><strong>Past ~4 series a single frame becomes a tangle.</strong> Small multiples on a shared scale keep each shape legible; save one frame for the two or three series a reader genuinely needs to compare directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The trend conventions are settled</h2>
+    <p class="prose">
+      <strong>Line for time, and a truncated axis is allowed when it's labelled — the field agrees.</strong> The bar's zero baseline and the line's freedom to zoom are two sides of one principle: match the axis to what the mark encodes.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest to our world</div>
+        <h3>Line for time; truncate with care</h3>
+        <p>Carbon defaults time series to line charts and, unlike bars, permits a non-zero y-axis when it helps the reader see variation — provided the scale is clear. It is the exact shape of VC's measure trends.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>line for time; labelled zoom</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">FT · Visual Vocabulary</div>
+        <h3>Change over time is its own family</h3>
+        <p>The FT treats "change over time" as a distinct purpose served by lines, columns and slopes — the family that governs a series read left to right. It is where the line-for-trend default comes from.</p>
+        <span class="verdict tag n"><span class="dot"></span>lines for change over time</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Claus Wilke · Fundamentals</div>
+        <h3>Axis ranges and honest gaps</h3>
+        <p>Wilke is explicit that line charts need not start at zero, that the chosen range shapes the story and must be reasonable, and that missing data should break the line rather than be bridged.</p>
+        <span class="verdict tag n"><span class="dot"></span>non-zero axis; break on gaps</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Stephen Few · trend legibility</div>
+        <h3>Give the movement room</h3>
+        <p>Few argues a trend line should be scaled so the meaningful variation is visible, not squashed against a baseline — the reason VC zooms a clustered measure instead of pinning it to 0–100.</p>
+        <span class="verdict tag n"><span class="dot"></span>scale to the variation</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Alberto Cairo · How Charts Lie</div>
+        <h3>The window can mislead</h3>
+        <p>Cairo's caution is the other half: a truncated axis or a cherry-picked time range can manufacture a trend. The fix is disclosure — label the range and show enough history — not a mandatory zero.</p>
+        <span class="verdict tag n"><span class="dot"></span>label the range; honest window</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For VC's clustered, rolling measures: a line on a zoomed, labelled y-axis over a rolling 12 months, the partial period dashed, gaps broken, and small multiples past four series. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC trend default</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (line defaults for time series; non-zero y-axis permitted with a clear scale).</li>
+      <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (change over time served by lines, columns and slopes).</li>
+      <li><a href="https://clauswilke.com/dataviz/time-series.html">Claus Wilke — Visualizing time series</a> (line charts need not start at zero; break the line across missing data).</li>
+      <li><a href="https://blog.datawrapper.de/y-axis-scale-line-charts/">Datawrapper — Should the y-axis start at zero?</a> (line charts: zoom to the data, but label the range).</li>
+      <li><a href="https://www.howchartslie.com/">Alberto Cairo — How Charts Lie</a> (truncated axes and cherry-picked windows; disclose the range).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
