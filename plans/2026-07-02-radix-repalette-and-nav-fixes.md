@@ -28,7 +28,7 @@ records + sticky in-page section rail) is deferred to a separate, larger branch.
 One item per commit, in order. tokens.css items (A1–A3) are sequential; base.css items
 (B1–B4, C-css) are sequential; markup items (C1–C2) come last.
 
-- [ ] **A1** — `css/tokens.css`: swap `--warm*`/`--cool*` triplets to Radix Plum/Indigo and scrub the Optum names/hex from comments (record the CLAUDE.md-flagged authorisation in the commit message).
+- [x] **A1** — `css/tokens.css`: swap `--warm*`/`--cool*` triplets to Radix Plum/Indigo and scrub the Optum names/hex from comments (record the CLAUDE.md-flagged authorisation in the commit message). — `f699d6c`
 - [ ] **A2** — `css/tokens.css`: decouple + retune the data-viz categorical set (`--cat-1`…`--cat-6`) and rewrite the now-false block comment.
 - [ ] **A3** — `css/tokens.css`: retint `--div-high` to Plum and update the diverging block comment.
 - [ ] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance.
