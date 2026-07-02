@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar and column charts · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="bar-and-column" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Bars: orientation,<br>order, and too many</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, show the top and group the rest.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC ranks things all day — measures by performance, providers by gap count, contracts by spend — and the category count is rarely tidy. A registry can return dozens of measures. The deciding pressure is <strong>legibility under real cardinality: a chart that reads at 6 bars must not silently become unreadable at 40</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, show the <strong>top-N and roll the tail into a labelled "Other"</strong>; the full set belongs in a sortable table.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>Column or horizontal bar</h2>
+    <p class="prose">
+      <strong>Orientation is a reading decision, not a style one.</strong> Columns are for an ordered axis you read left to right; horizontal bars are for ranking and for labels that need room. When in doubt in VC, it's a horizontal bar.
+    </p>
+
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="colh"><span class="th-h">Column (vertical)</span></th>
+          <th class="colv"><span class="th-v">Horizontal bar</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Category count</th>
+          <td data-l="Column">Up to ~8 that fit without crowding.</td>
+          <td data-l="Horizontal bar">Many — rows stack downward and scroll.</td>
+        </tr>
+        <tr>
+          <th scope="row">Labels</th>
+          <td data-l="Column">Short, or they rotate and truncate.</td>
+          <td data-l="Horizontal bar">Long domain names sit left, on one line.</td>
+        </tr>
+        <tr>
+          <th scope="row">Reading task</th>
+          <td data-l="Column">Change across an ordered axis, usually time.</td>
+          <td data-l="Horizontal bar">Ranking and magnitude comparison.</td>
+        </tr>
+        <tr>
+          <th scope="row">Order</th>
+          <td data-l="Column">Keep the natural order — the axis is the point.</td>
+          <td data-l="Horizontal bar">Sort by value, biggest first.</td>
+        </tr>
+        <tr>
+          <th scope="row">Best fit in our app</th>
+          <td data-l="Column">Readmissions per month; enrolment by quarter.</td>
+          <td data-l="Horizontal bar">Measures, providers or contracts ranked.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>Overflow, and the zero baseline</h2>
+    <p class="prose">
+      <strong>Two failures account for most bad bars in review:</strong> too many of them, and an axis that doesn't start at zero. Both are visible the moment the fix sits beside them.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Quality measures · performance</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 320 132" role="img" aria-label="Twenty-eight thin, unsorted columns with no readable labels.">
+              <g class="viz-bars">
+                <rect x="8" y="67.3" width="7" height="52.7"/><rect x="19" y="39.4" width="7" height="80.6"/><rect x="30" y="56.5" width="7" height="63.5"/><rect x="41" y="22.4" width="7" height="97.6"/><rect x="52" y="76.6" width="7" height="43.4"/><rect x="63" y="47.2" width="7" height="72.8"/><rect x="74" y="10.0" width="7" height="110.0"/><rect x="85" y="59.6" width="7" height="60.4"/><rect x="96" y="34.8" width="7" height="85.2"/><rect x="107" y="51.8" width="7" height="68.2"/><rect x="118" y="27.0" width="7" height="93.0"/><rect x="129" y="68.9" width="7" height="51.1"/><rect x="140" y="44.1" width="7" height="75.9"/><rect x="151" y="30.1" width="7" height="89.9"/><rect x="162" y="62.7" width="7" height="57.3"/><rect x="173" y="17.7" width="7" height="102.3"/><rect x="184" y="54.9" width="7" height="65.1"/><rect x="195" y="41.0" width="7" height="79.0"/><rect x="206" y="73.5" width="7" height="46.5"/><rect x="217" y="50.3" width="7" height="69.7"/><rect x="228" y="14.6" width="7" height="105.4"/><rect x="239" y="64.2" width="7" height="55.8"/><rect x="250" y="37.9" width="7" height="82.1"/><rect x="261" y="58.0" width="7" height="62.0"/><rect x="272" y="23.9" width="7" height="96.1"/><rect x="283" y="45.6" width="7" height="74.4"/><rect x="294" y="31.7" width="7" height="88.3"/><rect x="305" y="53.4" width="7" height="66.6"/>
+              </g>
+              <line class="viz-axis" x1="6" y1="120" x2="316" y2="120"/>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Twenty-eight measures crammed into one column block, unsorted.</strong> Bars this thin can't be labelled or ranked; the reader can't find the worst performer or read a single value. Width, not the question, is setting the count.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Quality measures · top performers</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 284 148" role="img" aria-label="Top eight measures as sorted horizontal bars, with a greyed Other bar for the remaining six.">
+              <g class="viz-bars">
+                <rect x="120" y="6" width="140.0" height="13"/>
+                <rect x="120" y="21.5" width="130.1" height="13"/>
+                <rect x="120" y="37.0" width="124.2" height="13"/>
+                <rect x="120" y="52.5" width="118.3" height="13"/>
+                <rect x="120" y="68.0" width="114.4" height="13"/>
+                <rect x="120" y="83.5" width="108.5" height="13"/>
+                <rect x="120" y="99.0" width="102.5" height="13"/>
+                <rect x="120" y="114.5" width="96.6" height="13"/>
+                <rect class="viz-mute" x="120" y="130.0" width="92.7" height="13"/>
+              </g>
+              <g class="viz-label" font-size="8.5">
+                <text x="6" y="15.5">Readmission</text>
+                <text x="6" y="31.0">Diabetes A1c</text>
+                <text x="6" y="46.5">BP control</text>
+                <text x="6" y="62.0">Depression scr</text>
+                <text x="6" y="77.5">Colorectal scr</text>
+                <text x="6" y="93.0">Med adherence</text>
+                <text x="6" y="108.5">Breast screen</text>
+                <text x="6" y="124.0">Flu vaccine</text>
+                <text x="6" y="139.5">Other (6)</text>
+              </g>
+              <g class="viz-label ink" font-size="8.5">
+                <text x="263.0" y="15.5">71%</text>
+                <text x="253.1" y="31.0">66%</text>
+                <text x="247.2" y="46.5">63%</text>
+                <text x="241.3" y="62.0">60%</text>
+                <text x="237.4" y="77.5">58%</text>
+                <text x="231.5" y="93.0">55%</text>
+                <text x="225.5" y="108.5">52%</text>
+                <text x="219.6" y="124.0">49%</text>
+                <text x="215.7" y="139.5">47%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Sorted, top eight, and the tail rolled into a greyed "Other".</strong> Each domain label gets the full measure, values sit at the bar end, and the ranking reads top to bottom. Past ~12 categories, this is the move — and the full list stays a click away as a sortable table.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rate · axis from 90%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 170 112" role="img" aria-label="Four bars on an axis starting at 90 percent, exaggerating a three-point spread into large differences.">
+              <line class="viz-axis" x1="22" y1="16" x2="22" y2="96"/>
+              <line class="viz-axis" x1="22" y1="96" x2="160" y2="96"/>
+              <g class="viz-bars">
+                <rect x="30" y="48" width="24" height="48"/>
+                <rect x="64" y="64" width="24" height="32"/>
+                <rect x="98" y="40" width="24" height="56"/>
+                <rect x="132" y="56" width="24" height="40"/>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="18" y="19" text-anchor="end">100</text>
+                <text x="18" y="58" text-anchor="end">95</text>
+                <text x="18" y="99" text-anchor="end">90</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>An axis starting at 90% turns a three-point spread into a cliff.</strong> Four screening rates within three points of each other look wildly unequal — bar length no longer matches value, which is the one job a bar has.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Screening rate · axis from 0%</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 170 112" role="img" aria-label="The same four rates on a zero baseline, nearly level.">
+              <line class="viz-axis" x1="22" y1="16" x2="22" y2="96"/>
+              <line class="viz-baseline" x1="22" y1="96" x2="160" y2="96"/>
+              <g class="viz-bars">
+                <rect x="30" y="19.2" width="24" height="76.8"/>
+                <rect x="64" y="20.8" width="24" height="75.2"/>
+                <rect x="98" y="18.4" width="24" height="77.6"/>
+                <rect x="132" y="20.0" width="24" height="76.0"/>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="18" y="19" text-anchor="end">100</text>
+                <text x="18" y="58" text-anchor="end">50</text>
+                <text x="18" y="99" text-anchor="end">0</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Zero baseline: the bars tell the truth.</strong> The same four rates are nearly level, because bar length is only honest from zero. If a three-point difference matters, say it in a number or a dot plot — don't fake it with a cropped axis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Four rules the bar earns</h2>
+    <p class="prose">
+      A bar encodes one value as one length. Every rule below protects that: keep the length honest, order it so the eye can read it, and don't ask it to carry more categories than it can show.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Zero baseline, always</h3>
+        <p><strong>A bar's length is its value.</strong> Crop the axis and length stops matching value, which reads as a lie. A non-zero axis is a line-chart liberty; a bar never takes it.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>Sort by value, not the alphabet</h3>
+        <p><strong>Ranking is the whole point of most bar charts.</strong> Order biggest-to-smallest so the rank reads directly. Keep a natural order only when that order — time, a sequence — is itself the question.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>Horizontal when labels or counts grow</h3>
+        <p><strong>Columns divide the width by the category count and truncate the labels.</strong> Horizontal bars stack downward, scroll, and give each domain name the full measure — which is why VC's rankings are almost always horizontal.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Cap the count, group the tail</h3>
+        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> Show the top-N, roll the rest into a labelled "Other", and put the exhaustive list in a sortable table. Never squeeze 40 bars into a tile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The bar conventions are settled</h2>
+    <p class="prose">
+      <strong>Sort by value, start at zero, and don't overload — every major source agrees.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest to our world</div>
+        <h3>Bar defaults, sorted, zero-based</h3>
+        <p>Carbon defaults categorical comparison to bar charts, recommends ordering by value for ranking, and uses horizontal bars when category labels are long — the exact shape of VC's measure and provider rankings. Its axes start at zero.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>sorted, horizontal, zero-based</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Datawrapper Academy</div>
+        <h3>Order by value; group small categories</h3>
+        <p>Datawrapper's bar guidance is explicit: sort bars by value unless the order carries meaning, always start the axis at zero, and combine small categories into an "Other" group rather than showing a long unreadable tail.</p>
+        <span class="verdict tag n"><span class="dot"></span>sort · zero · group the tail</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">FT · Visual Vocabulary</div>
+        <h3>Ranking is its own family</h3>
+        <p>The FT treats "ranking" as a distinct purpose served by ordered bars, columns and lollipops — bars sorted by value, the largest read first. It is where the horizontal-bar-for-ranking default comes from.</p>
+        <span class="verdict tag n"><span class="dot"></span>ordered bars for ranking</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Claus Wilke · Fundamentals</div>
+        <h3>Bars must start at zero; dot plots for many</h3>
+        <p>Wilke is categorical that bar length demands a zero baseline, and recommends dot plots when a category list grows long or the values cluster in a narrow band — the honest alternative to a cropped axis.</p>
+        <span class="verdict tag n"><span class="dot"></span>zero baseline; dot plot at scale</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Google · Material</div>
+        <h3>Bar for category comparison</h3>
+        <p>Material recommends bars for comparing values across categories and, like the others, anchors the value axis at zero so the length reads as the quantity.</p>
+        <span class="verdict tag n"><span class="dot"></span>category comparison, zero axis</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline, capped with a grouped "Other" and backed by a sortable table. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar default</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (bar defaults for comparison; sort by value; horizontal for long labels; zero-based axes).</li>
+      <li><a href="https://www.datawrapper.de/blog/bar-column-charts">Datawrapper Academy — Bar &amp; column charts</a> (sort by value; start at zero; group small categories into "Other").</li>
+      <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (bars require a zero baseline; dot plots for long category lists).</li>
+      <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (ranking served by ordered bars, columns and lollipops).</li>
+      <li><a href="https://m3.material.io/components/charts/guidelines">Google Material — Charts guidelines</a> (bar charts for category comparison; zero baseline).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charts at tile scale · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="charts-at-tile-scale" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Charts at tile scale</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      A dashboard tile is not a shrunk chart panel. At tile size the chrome — axes, gridlines, legends — costs more than it earns, so drop it and keep the mark. A two-bar comparison is usually a big number and a delta; below a legibility floor, the honest chart is a number.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC dashboards pack many measures into a tile grid on large desktop monitors — the overview an analyst or care manager scans before opening anything. Each tile gets seconds and a few square inches. The deciding constraint is <strong>a tile answers one question at a glance; anything that doesn't serve that one answer is noise the tile can't afford</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        At tile scale, <strong>drop the chrome and keep the mark</strong>: no axis, no gridlines, no legend. Show one value as a <strong>big number with a delta</strong>, a target as a <strong>bullet bar</strong>, two or three categories as <strong>direct-labelled bars</strong>, and a trend's shape as a <strong>sparkline</strong>. Below the point where labels stop fitting, the tile is a number — and a chart that needs an axis needs a <a href="breakpoints.html">full panel</a>, not a tile.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>What the tile has to say picks the form</h2>
+    <p class="prose">
+      <strong>Start from the one thing the tile must answer</strong>, then take the smallest form that answers it without an axis or a legend. If none of these fit, it isn't a tile.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>The tile answers</th>
+          <th>Form</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">One value, and how it moved</th>
+          <td data-l="Form">A big number with a delta; a sparkline if the shape matters.</td>
+          <td data-l="Why">The number is the answer; the delta is the context.</td>
+        </tr>
+        <tr>
+          <th scope="row">One value against a target</th>
+          <td data-l="Form">A bullet bar — a fill plus a target tick.</td>
+          <td data-l="Why">Position against the tick reads in one glance.</td>
+        </tr>
+        <tr>
+          <th scope="row">Two or three categories</th>
+          <td data-l="Form">Direct-labelled bars — no axis, no legend.</td>
+          <td data-l="Why">The label on the bar replaces the whole scale.</td>
+        </tr>
+        <tr>
+          <th scope="row">The shape of a trend, not the values</th>
+          <td data-l="Form">A sparkline.</td>
+          <td data-l="Why">Direction and volatility, no room spent on ticks.</td>
+        </tr>
+        <tr>
+          <th scope="row">Anything more</th>
+          <td data-l="Form">Not a tile — open a panel.</td>
+          <td data-l="Why">If it needs an axis to be read, it needs the width.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>The two-bar tile, and the tile set</h2>
+    <p class="prose">
+      <strong>The commonest mistake is shrinking an analytical chart to fit.</strong> Here is one measure as a cramped mini-panel and as the big number it should be — then a full tile row, each answering one question in its own smallest form.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Enrolment · shrunk to a tile</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c2">
+              <div class="viz-tile">
+                <div class="h">Enrolment by segment</div>
+                <svg viewBox="0 0 160 104" role="img" aria-label="A full grouped-bar chart with axis, gridlines and legend, crushed into a tile and unreadable.">
+                  <g class="viz-gridline"><line x1="22" y1="18" x2="150" y2="18"/><line x1="22" y1="49" x2="150" y2="49"/></g>
+                  <line class="viz-axis" x1="22" y1="18" x2="22" y2="80"/>
+                  <line class="viz-axis" x1="22" y1="80" x2="150" y2="80"/>
+                  <g class="viz-bars">
+                    <rect class="viz-c1" x="30" y="41.6" width="9" height="38.4"/><rect class="viz-c2" x="41" y="50.2" width="9" height="29.8"/>
+                    <rect class="viz-c1" x="54" y="45.9" width="9" height="34.1"/><rect class="viz-c2" x="65" y="36.0" width="9" height="44.0"/>
+                    <rect class="viz-c1" x="78" y="30.4" width="9" height="49.6"/><rect class="viz-c2" x="89" y="42.8" width="9" height="37.2"/>
+                    <rect class="viz-c1" x="102" y="53.3" width="9" height="26.7"/><rect class="viz-c2" x="113" y="47.8" width="9" height="32.2"/>
+                    <rect class="viz-c1" x="126" y="37.8" width="9" height="42.2"/><rect class="viz-c2" x="137" y="44.0" width="9" height="36.0"/>
+                  </g>
+                  <g class="viz-label" font-size="6"><text x="19" y="20" text-anchor="end">100</text><text x="19" y="51" text-anchor="end">50</text><text x="19" y="82" text-anchor="end">0</text></g>
+                  <g class="viz-label" font-size="6"><text x="34" y="88">Q1</text><text x="58" y="88">Q2</text><text x="82" y="88">Q3</text><text x="106" y="88">Q4</text><text x="130" y="88">Q5</text></g>
+                  <g class="viz-label" font-size="6"><text x="30" y="99">■ New</text><text x="78" y="99">■ Renewed</text></g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Two series, five quarters, an axis, gridlines and a legend — at two inches wide.</strong> Nothing here is readable: not the labels, not the legend, not a single value. The panel was designed for a page and pasted into a tile.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Enrolment · as a tile</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c2">
+              <div class="viz-tile">
+                <div class="h">Members enrolled</div>
+                <div class="big">1,284</div>
+                <div class="delta up">▲ 6.2% vs last month</div>
+                <svg viewBox="0 0 121 30" style="margin-top:0.4rem;" role="img" aria-label="Sparkline of enrolment trending up over recent months.">
+                  <polyline class="viz-line thin viz-c1" points="2,26 15,24 28,25 41,20 54,21 67,17 80,18 93,13 106,12 119,8"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>One number, one delta, one sparkline for the shape.</strong> The answer — how many, and up or down — lands instantly. A two-value comparison almost always reduces to a number and a delta; that is the tile, not a chart of two bars with an axis.</p>
+      </div>
+    </div>
+
+    <div class="demo" style="margin-top:2.5rem;">
+      <div class="cap">
+        <span class="name">One dashboard row · each tile in its smallest honest form</span>
+        <span class="tag n"><span class="dot"></span>Tile set</span>
+      </div>
+      <div class="viz-board">
+        <div class="bbar"><i></i><i></i><i></i><em>Population overview</em></div>
+        <div class="viz-grid c4">
+          <div class="viz-tile">
+            <div class="h">Attributed lives</div>
+            <div class="big">18,402</div>
+            <div class="delta up">▲ 2.1%</div>
+          </div>
+          <div class="viz-tile">
+            <div class="h">Readmissions / mo</div>
+            <div class="big">312</div>
+            <svg viewBox="0 0 121 32" style="margin-top:0.35rem;" role="img" aria-label="Sparkline of readmissions trending down.">
+              <polyline class="viz-line thin" points="2,8 15,12 28,10 41,17 54,14 67,16 80,22 93,20 106,26 119,24"/>
+            </svg>
+          </div>
+          <div class="viz-tile">
+            <div class="h">In vs out of network</div>
+            <svg viewBox="0 0 120 62" role="img" aria-label="Two direct-labelled bars: in-network 68 percent, out-of-network 32 percent.">
+              <g class="viz-bars">
+                <rect x="14" y="20.8" width="34" height="27.2"/>
+                <rect class="viz-mute" x="66" y="35.2" width="34" height="12.8"/>
+              </g>
+              <line class="viz-baseline" x1="8" y1="48" x2="112" y2="48"/>
+              <g class="viz-label ink" font-size="9"><text x="31" y="17" text-anchor="middle">68%</text><text x="83" y="32" text-anchor="middle">32%</text></g>
+              <g class="viz-label" font-size="7"><text x="31" y="58" text-anchor="middle">In-net</text><text x="83" y="58" text-anchor="middle">Out</text></g>
+            </svg>
+          </div>
+          <div class="viz-tile">
+            <div class="h">A1c control vs target</div>
+            <div class="big">71%</div>
+            <svg viewBox="0 0 120 20" style="margin-top:0.35rem;" role="img" aria-label="Bullet bar: A1c control at 71 percent, below the 75 percent target tick.">
+              <rect x="2" y="6" width="116" height="9" rx="2" fill="var(--paper-3)"/>
+              <rect x="2" y="6" width="82.4" height="9" rx="2" fill="var(--cool)"/>
+              <line x1="89" y1="3" x2="89" y2="18" stroke="var(--ink)" stroke-width="1.5"/>
+            </svg>
+            <div class="delta down">target 75%</div>
+          </div>
+        </div>
+      </div>
+      <p class="note"><strong>Four questions, four forms, one axis-free row.</strong> A number with a delta, a shape-only sparkline, two direct-labelled bars, and a fill against a target tick. None carries an axis or a legend, and each is legible at a glance — which is all a tile is asked to be.</p>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Why the tile sheds its chrome</h2>
+    <p class="prose">
+      A tile has a few square inches and a few seconds. That budget goes to the answer, so everything that isn't the answer has to justify itself — and at this size, most chart chrome can't.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Drop the chrome, keep the mark</h3>
+        <p><strong>Axes, gridlines and legends are navigation for a large chart.</strong> At tile size they shrink below legibility and eat the space the mark needs. Remove them; let a direct label or a single number carry the scale.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>A number often beats a chart</h3>
+        <p><strong>A two-value comparison is usually a value and a delta.</strong> "1,284, up 6.2%" answers faster than two bars with an axis. Reserve marks for shape — a trend, a distribution, a gap against a target.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>There is a legibility floor</h3>
+        <p><strong>Below the size where labels fit, a chart stops informing and starts decorating.</strong> When the mark can no longer be labelled or read, promote the value to a number, or the chart to a full <a href="breakpoints.html">panel</a>.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>A dashboard is small multiples, not shrunk panels</h3>
+        <p><strong>Build the grid from tiles that each answer one question</strong>, not from analytical panels crushed to fit. The data canvas spreads to fill; the tile packs — the same width rule from the <a href="breakpoints.html">breakpoints</a> record.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The dashboard tradition is clear on this</h2>
+    <p class="prose">
+      <strong>The people who defined dashboard design say the same thing:</strong> at a glance, strip the chrome, and use the number or the sparkline. The tile is a summary, and a summary that needs an axis isn't one.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">Stephen Few · Information Dashboard Design</div>
+        <h3>A dashboard is a glance medium</h3>
+        <p>Few's core argument: a dashboard must be read at a glance, so it strips non-data ink, uses compact forms — sparklines, bullet graphs — and shows a single, well-chosen measure per tile. Sparklines and bullet graphs in this record are his.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>glance-first, minimal chrome</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Edward Tufte · sparklines</div>
+        <h3>A word-sized graphic</h3>
+        <p>Tufte defined the sparkline as a small, high-resolution graphic with no axis or gridlines — the shape of a series in the space of a word. It is exactly the trend form a tile can afford.</p>
+        <span class="verdict tag n"><span class="dot"></span>axis-free trend shape</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">IBM · Carbon — KPI &amp; expressive</div>
+        <h3>Big value, then a small trend</h3>
+        <p>Carbon's KPI patterns lead with the value and a delta and add a compact trend only in support — no axis furniture at summary size. It is the enterprise version of the big-number tile.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>value + delta + small trend</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Google · Material — data &amp; scorecards</div>
+        <h3>Scorecards summarise a single metric</h3>
+        <p>Material's scorecard is a single metric with its change, sized for scanning, distinct from the full charts it links to. Same split VC needs between the tile and the panel behind it.</p>
+        <span class="verdict tag n"><span class="dot"></span>one metric, made to scan</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">VC · Breakpoints</div>
+        <h3>Width follows content type</h3>
+        <p>The <a href="breakpoints.html">breakpoints record</a> already sets the frame: data canvases spread to fill, forms cap to a measure. Tiles are the packed end of that — many small summaries, not one panel shrunk to fit.</p>
+        <span class="verdict tag n"><span class="dot"></span>tile packs, canvas spreads</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For a VC overview grid on a large monitor: one question per tile, in its smallest honest form — number, delta, sparkline, direct-labelled bars, bullet — and no axis. If it needs a scale to be read, it needs a panel. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>smallest honest form</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://www.perceptualedge.com/library.php">Stephen Few — Information Dashboard Design</a> and <a href="https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">Bullet Graph Design Spec</a> (glance-first dashboards; minimal chrome; sparklines and bullet graphs per tile).</li>
+      <li><a href="https://www.edwardtufte.com/tufte/books_be">Edward Tufte — Beautiful Evidence</a> (sparklines: word-sized, axis-free graphics for trend shape).</li>
+      <li><a href="https://carbondesignsystem.com/data-visualization/complex-charts/">IBM Carbon — Data visualization</a> (KPI and expressive patterns: value plus delta, compact trend, no summary-size axis).</li>
+      <li><a href="https://m3.material.io/components/charts/guidelines">Google Material — Charts guidelines</a> (scorecards: a single metric with its change, sized for scanning).</li>
+      <li><a href="breakpoints.html">VC — Breakpoints</a> (width follows content type; data canvases spread, forms cap).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

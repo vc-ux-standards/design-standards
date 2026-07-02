@@ -23,3 +23,33 @@
 }
 
 :root{ --ok:oklch(0.560 0.095 150); --ok-ink:oklch(0.420 0.085 150); }
+
+/* Data-visualization palette. Marks encode data, so these are chosen for
+   perceptual separation, colourblind safety (a deutan/protan-safe qualitative
+   set in the Okabe–Ito lineage), and ≥3:1 non-text contrast on --paper. The
+   data records govern their use; --warm/--cool/--ok/--error keep their existing
+   brand and semantic meanings and are reused here rather than duplicated.
+
+   Categorical — up to 6 series. Past 6, colour stops separating: group the tail
+   or switch to position. --cat-1/-2 reuse the brand hues so charts stay on-brand. */
+:root{
+  --cat-1: var(--cool);            /* blue    */
+  --cat-2: var(--warm);            /* orange  */
+  --cat-3: oklch(0.600 0.130 165); /* green   */
+  --cat-4: oklch(0.550 0.140 330); /* purple  */
+  --cat-5: oklch(0.620 0.100 200); /* teal    */
+  --cat-6: oklch(0.700 0.120 85);  /* gold    */
+
+  /* Sequential — one hue, light→dark, for an ordered quantity (low→high). */
+  --seq-1: oklch(0.905 0.035 245);
+  --seq-2: oklch(0.790 0.070 245);
+  --seq-3: oklch(0.660 0.100 245);
+  --seq-4: oklch(0.525 0.115 245);
+  --seq-5: oklch(0.405 0.110 245);
+
+  /* Diverging — two hues off a neutral midpoint, for deviation from a target
+     (under ↔ over). Cool = below, warm = above; neutral = on target. */
+  --div-low:  oklch(0.525 0.115 245);
+  --div-mid:  oklch(0.900 0.010 85);
+  --div-high: oklch(0.640 0.170 42);
+}
