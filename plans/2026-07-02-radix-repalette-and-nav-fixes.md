@@ -23,6 +23,22 @@ interactive colour; and records that are navigable, with visible hover/focus and
 **Scope decided with the user:** handoff items **1–8** only. Item 9 (prev/next between sibling
 records + sticky in-page section rail) is deferred to a separate, larger branch.
 
+## Execution checklist
+
+One item per commit, in order. tokens.css items (A1–A3) are sequential; base.css items
+(B1–B4, C-css) are sequential; markup items (C1–C2) come last.
+
+- [ ] **A1** — `css/tokens.css`: swap `--warm*`/`--cool*` triplets to Radix Plum/Indigo and scrub the Optum names/hex from comments (record the CLAUDE.md-flagged authorisation in the commit message).
+- [ ] **A2** — `css/tokens.css`: decouple + retune the data-viz categorical set (`--cat-1`…`--cat-6`) and rewrite the now-false block comment.
+- [ ] **A3** — `css/tokens.css`: retint `--div-high` to Plum and update the diverging block comment.
+- [ ] **B1** — `css/base.css`: replace `.topnav .brand:hover{border:none}` with a visible wordmark hover affordance.
+- [ ] **B2** — `css/base.css`: add hover bg-step + border + transition to `.homenav .navrow` and `.regrow`.
+- [ ] **B3** — `css/base.css`: add global `a`/`.inp` `:focus-visible` rings and the `.skip` reveal CSS.
+- [ ] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`).
+- [ ] **C-css** — `css/base.css`: add `a.eyebrow` link-chrome reset + intentional hover.
+- [ ] **C1** — 13 `records/*.html`: convert both `<span class="eyebrow">` occurrences to `<a class="eyebrow" href="../index.html#ANCHOR">` per the anchor table.
+- [ ] **C2** — markup: add `id="main"` + skip link to `index.html`, all 13 records, and `records/_template.html`; update the template's eyebrow placeholder to the linked form with a `<!-- TODO -->` note.
+
 ## Constraints (from CLAUDE.md — hold these)
 
 - Plain HTML + CSS. **No JS, no build, no package.json.** Must work from disk *and* GitHub Pages.

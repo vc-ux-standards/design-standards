@@ -13,9 +13,12 @@
 
 PATTERN='optum|value[ _-]?connect'
 
-# Search staged (indexed) content only; skip this hook dir so the pattern list
-# here is exempt from its own rule.
-matches=$(git grep --cached -n -iE "$PATTERN" -- ':!.githooks' 2>/dev/null)
+# Search staged (indexed) content only. Exemptions:
+#  - .githooks: the pattern list here is exempt from its own rule.
+#  - plans: internal, never-shipped planning docs must name the terms they scrub
+#    (e.g. a re-palette plan documenting the move off a named brand colour).
+#    The invariant that matters is that no *shippable* file carries the name.
+matches=$(git grep --cached -n -iE "$PATTERN" -- ':!.githooks' ':!plans' 2>/dev/null)
 
 if [ -n "$matches" ]; then
   echo "" >&2
