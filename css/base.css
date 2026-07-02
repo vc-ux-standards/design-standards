@@ -46,7 +46,7 @@ a.eyebrow:hover{ color:var(--cool); }
 
 header.masthead{ padding:clamp(3.5rem,9vw,7rem) 0 2.5rem; }
 section{ padding:clamp(2.5rem,6vw,4.5rem) 0; border-top:1px solid var(--rule); }
-.secnum{ font-family:"IBM Plex Mono", monospace; font-size:0.72rem; letter-spacing:0.14em; color:var(--ink-3); display:block; margin-bottom:0.9rem; }
+.secnum{ font-family:"IBM Plex Mono", monospace; font-size:0.72rem; letter-spacing:0.14em; color:var(--ink-3); display:block; margin-bottom:var(--space-5); }
 
 .tag{ display:inline-flex; align-items:center; gap:0.4em; font-family:"IBM Plex Mono", monospace; font-size:0.68rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; padding:0.28em 0.62em; border-radius:2px; line-height:1; }
 .tag.h{ background:var(--warm-soft); color:var(--warm-ink); }
@@ -57,14 +57,14 @@ section{ padding:clamp(2.5rem,6vw,4.5rem) 0; border-top:1px solid var(--rule); }
 .tag.v .dot{ background:var(--cool); }
 .tag.n .dot{ background:var(--ink-3); }
 
-.context{ border:1px solid var(--rule-strong); background:var(--paper-2); border-radius:4px; padding:1.4rem 1.5rem; max-width:54rem; margin-top:2rem; }
+.context{ border:1px solid var(--rule-strong); background:var(--paper-2); border-radius:4px; padding:var(--space-6); max-width:54rem; margin-top:var(--space-6); }
 .context .k{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
-.context p{ margin:0.5rem 0 0; font-size:1.0rem; color:var(--ink-2); }
+.context p{ margin:var(--space-3) 0 0; font-size:1.0rem; color:var(--ink-2); }
 .context p strong{ color:var(--ink); }
 
-.rulecard{ margin-top:1.5rem; border:1px solid var(--rule-strong); border-left:3px solid var(--ink); background:var(--paper-2); padding:1.5rem 1.6rem; max-width:54rem; }
+.rulecard{ margin-top:var(--space-6); border:1px solid var(--rule-strong); border-left:3px solid var(--ink); background:var(--paper-2); padding:var(--space-6); max-width:54rem; }
 .rulecard .k{ font-family:"IBM Plex Mono", monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
-.rulecard p{ margin:0.5rem 0 0; font-size:1.06rem; }
+.rulecard p{ margin:var(--space-3) 0 0; font-size:1.06rem; }
 
 .tbl{ width:100%; border-collapse:collapse; margin-top:1.5rem; font-size:0.98rem; }
 .tbl th, .tbl td{ text-align:left; vertical-align:top; padding:0.85rem 1rem; border-bottom:1px solid var(--rule); }
@@ -208,7 +208,7 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 
 .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
 .record header.masthead{ padding-top:2.6rem; padding-bottom:2rem; }
-.rechead{ display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; margin-bottom:1rem; }
+.rechead{ display:flex; align-items:center; gap:var(--space-4); flex-wrap:wrap; margin-bottom:var(--space-5); }
 
 /* Status badges. Lifecycle: Draft → Adopted → Superseded. */
 .status{ display:inline-flex; align-items:center; vertical-align:middle; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; border:1px solid transparent; line-height:1; }
@@ -241,52 +241,59 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
    category costs a row rather than a half-empty grid band. Two tiers:
    top-level categories plus a Standards parent grouping Forms /
    Responsive / Data-viz. Pure CSS — position:sticky + anchor links, no JS. */
-.homeshell{ display:grid; grid-template-columns:1fr; gap:0; margin-top:2.25rem; }
+.homeshell{ display:grid; grid-template-columns:1fr; gap:0; margin-top:var(--space-7); }
 @media (min-width:760px){
-  .homeshell{ grid-template-columns:13.5rem minmax(0,1fr); gap:3.25rem; align-items:start; }
+  .homeshell{ grid-template-columns:13.5rem minmax(0,1fr); gap:var(--space-8); align-items:start; }
 }
 
 /* Left rail — the site navigation */
-.homenav .navhead{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); margin:0 0 0.85rem; }
+.homenav .navhead{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); margin:0 0 var(--space-4); padding-left:var(--space-3); }
 .homenav ul{ list-style:none; margin:0; padding:0; }
-.homenav .navrow{ display:flex; align-items:baseline; justify-content:space-between; gap:0.75rem; text-decoration:none; border:none; padding:0.32rem 0; font-size:0.92rem; color:var(--ink-2); transition:background 150ms, color 150ms, border-color 150ms; }
+/* Horizontal padding (no compensating negative margin) genuinely insets the
+   label/count from the hover pill's edges — a matching negative margin would
+   cancel it back out to the old flush-edge "banner" look. .navhead/.glabel
+   pick up the same left padding so their text still lines up with the rows. */
+.homenav .navrow{ display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-4); text-decoration:none; border:none; padding:var(--space-2) var(--space-3); border-radius:4px; font-size:0.92rem; color:var(--ink-2); transition:background 150ms, color 150ms, border-color 150ms; }
 .homenav .navrow:hover{ background:var(--paper-2); color:var(--ink); border:none; }
 .homenav .navrow .n{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-3); font-variant-numeric:tabular-nums; }
-.homenav .navgroup{ margin-top:0.55rem; }
-.homenav .navgroup > .glabel{ display:block; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); padding:0.32rem 0 0.1rem; }
-.homenav .navgroup ul .navrow{ padding-left:0.85rem; }
+.homenav .navgroup{ margin-top:var(--space-3); }
+.homenav .navgroup > .glabel{ display:block; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); padding:var(--space-2) 0 var(--space-1) var(--space-3); }
+.homenav .navgroup ul .navrow{ padding-left:calc(var(--space-3) + var(--space-2)); }
 @media (min-width:760px){
-  .homenav{ position:sticky; top:1.75rem; }
+  .homenav{ position:sticky; top:calc(var(--space-6) + var(--space-1)); }
 }
 /* Narrow: the rail folds to a wrapping chip strip above the register */
 @media (max-width:759px){
-  .homenav{ margin-bottom:1.75rem; padding-bottom:1.25rem; border-bottom:1px solid var(--rule); }
-  .homenav > ul{ display:flex; flex-wrap:wrap; gap:0.35rem 1.2rem; }
-  .homenav .navgroup{ margin-top:0; display:flex; flex-wrap:wrap; gap:0.35rem 1.2rem; }
+  .homenav{ margin-bottom:var(--space-7); padding-bottom:var(--space-6); border-bottom:1px solid var(--rule); }
+  .homenav > ul{ display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-5); }
+  .homenav .navgroup{ margin-top:0; display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-5); }
   .homenav .navgroup > .glabel{ display:none; }
-  .homenav .navgroup ul{ display:flex; flex-wrap:wrap; gap:0.35rem 1.2rem; }
-  .homenav .navgroup ul .navrow{ padding-left:0; }
-  .homenav .navrow{ padding:0.15rem 0; }
+  .homenav .navgroup ul{ display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-5); }
+  .homenav .navgroup ul .navrow{ padding-left:var(--space-3); }
+  .homenav .navrow{ padding:var(--space-1) var(--space-3); margin:0; }
 }
 
 /* Right column — the register */
 /* .reggroup is a <section>; drop the global section padding + top border
    (base.css §section) — the register supplies its own rhythm and rules. */
-.reggroup{ padding:0; border-top:none; margin-top:2.75rem; }
+.reggroup{ padding:0; border-top:none; margin-top:var(--space-8); }
 .reggroup:first-child{ margin-top:0; }
-.reghead{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); margin:0 0 0.2rem; padding-bottom:0.7rem; border-bottom:1px solid var(--rule-strong); }
+.reghead{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); margin:0 0 var(--space-1); padding-bottom:var(--space-4); border-bottom:1px solid var(--rule-strong); }
 .reggroup-parent > .reghead{ color:var(--ink); }
-.regsub{ margin-top:1.6rem; }
-.regsubhead{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3); margin:0 0 0.1rem; padding-bottom:0.4rem; }
+/* Sub-group gap is deliberately less than --space-8 (top-level group gap) so a
+   parent's sub-groups still read as nested, but wide enough that STANDARDS
+   reads as a parent band rather than sitting flush against FORMS. */
+.regsub{ margin-top:var(--space-7); }
+.regsubhead{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3); margin:0 0 var(--space-1); padding-bottom:var(--space-2); }
 
-.regrow{ display:grid; grid-template-columns:6.25rem minmax(0,1fr); column-gap:1.15rem; row-gap:0.3rem; align-items:baseline; padding:0.85rem 0.7rem; margin:0 -0.7rem; border-top:1px solid var(--rule); text-decoration:none; border-radius:4px; transition:background 150ms, color 150ms, border-color 150ms; }
+.regrow{ display:grid; grid-template-columns:6.25rem minmax(0,1fr); column-gap:var(--space-5); row-gap:var(--space-1); align-items:baseline; padding:var(--space-4); margin:0 calc(-1*var(--space-4)); border:0; border-top:1px solid var(--rule); text-decoration:none; border-radius:4px; transition:background 150ms, color 150ms, border-color 150ms; }
 .regrow:hover{ background:var(--paper-3); border-color:var(--rule-strong); }
 .reghead + .regrow, .regsubhead + .regrow{ border-top:none; }
 .regrow .status{ grid-column:1; grid-row:1; }
 .regrow .rt{ grid-column:2; grid-row:1; font-family:"Source Serif 4",serif; font-weight:600; font-variation-settings:"opsz" 16; font-size:1.05rem; line-height:1.25; color:var(--ink); }
 .regrow .rd{ grid-column:2; grid-row:2; font-size:0.88rem; color:var(--ink-2); line-height:1.45; }
 @media (max-width:520px){
-  .regrow{ grid-template-columns:1fr; row-gap:0.45rem; }
+  .regrow{ grid-template-columns:1fr; row-gap:var(--space-3); }
   .regrow .status{ grid-column:1; grid-row:1; justify-self:start; }
   .regrow .rt{ grid-column:1; grid-row:2; }
   .regrow .rd{ grid-column:1; grid-row:3; }
