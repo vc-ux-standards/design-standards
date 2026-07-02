@@ -202,20 +202,20 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .topnav .brand{ text-decoration:none; border:none; display:inline-flex; align-items:baseline; gap:0.8rem; flex-wrap:wrap; }
 .topnav .brand:hover .wm{ text-decoration:underline; text-underline-offset:2px; }
 .topnav .brand .wm{ font-family:"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:-0.01em; line-height:1.1; color:var(--warm); transition:color 150ms; }
-.topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); }
+.topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
 
 .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
 .record header.masthead{ padding-top:2.6rem; padding-bottom:2rem; }
 .rechead{ display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; margin-bottom:1rem; }
 
 /* Status badges. Lifecycle: Draft → Adopted → Superseded. */
-.status{ display:inline-flex; align-items:center; vertical-align:middle; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; line-height:1; }
+.status{ display:inline-flex; align-items:center; vertical-align:middle; gap:0.45em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.3em 0.6em; border-radius:2px; border:1px solid transparent; line-height:1; }
 .status .d{ width:0.5em; height:0.5em; border-radius:50%; }
 .status.adopted{ background:color-mix(in oklch, var(--ok) 16%, transparent); color:var(--ok-ink); } .status.adopted .d{ background:var(--ok); }
 .status.proposed{ background:var(--warm-soft); color:var(--warm-ink); } .status.proposed .d{ background:var(--warm); }
 .status.contested{ background:var(--error-soft); color:var(--error); } .status.contested .d{ background:var(--error); }
-.status.draft{ background:var(--paper-3); color:var(--ink-3); } .status.draft .d{ background:var(--ink-3); }
-.status.superseded{ background:var(--paper-3); color:var(--ink-3); } .status.superseded .d{ background:var(--rule-strong); }
+.status.draft{ background:var(--paper-3); color:var(--ink-3); border-color:var(--rule-strong); } .status.draft .d{ background:var(--ink-3); }
+.status.superseded{ background:var(--paper-3); color:var(--ink-3); border-color:var(--rule-strong); } .status.superseded .d{ background:var(--rule-strong); }
 
 .dirgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.5rem; }
 .dircard{ display:block; border:1px solid var(--rule-strong); border-radius:6px; padding:1.3rem 1.4rem; background:var(--paper-2); text-decoration:none; }
@@ -434,7 +434,7 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
 .listrow{ display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:0.9rem; padding:0.62rem 0.2rem; border-bottom:1px solid var(--rule); font-size:0.84rem; color:var(--ink-2); }
 .listrow .nm{ color:var(--ink); }
 .listrow .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; color:var(--ink-3); font-feature-settings:"tnum" 1; }
-.listrow .pill{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.22em 0.5em; border-radius:2px; background:var(--paper-3); color:var(--ink-3); }
+.listrow .pill{ font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.22em 0.5em; border-radius:2px; background:var(--paper-3); color:var(--ink-2); }
 .listrow.sel{ background:color-mix(in oklch, var(--cool) 8%, transparent); border-radius:4px; }
 .listrow.sel .nm{ font-weight:600; }
 
