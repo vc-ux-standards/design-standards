@@ -37,6 +37,8 @@ strong{ font-weight:600; color:var(--ink); }
 em{ font-style:italic; }
 a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--cool) 35%, transparent); }
 a:hover{ border-bottom-color:var(--cool); }
+a:focus-visible,
+.inp:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
 .lead{ font-size:1.22rem; line-height:1.55; color:var(--ink); }
 @media (max-width:640px){ .lead{ font-size:1.12rem; } }
 
@@ -178,6 +180,13 @@ footer{ border-top:1px solid var(--rule); padding:2.5rem 0 4rem; }
 footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.06em; color:var(--ink-3); }
 
 .vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+/* Skip link: visually hidden (the .vh idiom) until focused, then a visible
+   fixed chip pinned top-left. Markup lands per-page in Part C. */
+.skip{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+.skip:focus{ position:fixed; top:0; left:0; clip:auto; width:auto; height:auto;
+  padding:.5rem .75rem; background:var(--paper); color:var(--cool);
+  outline:2px solid var(--cool); outline-offset:2px; z-index:1000; }
 
 @media print{
   body{ background:#fff; }
