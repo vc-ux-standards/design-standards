@@ -25,7 +25,7 @@ All links are relative (`../css/base.css`, never `/css/base.css`) so the site wo
 
 1. Duplicate `records/_template.html` and name it after the record slug, e.g. `records/form-layout.html`.
 2. Fill in every `<!-- TODO -->`: title, category eyebrow, status badge, the numbered sections, demos.
-3. Add one `<a class="dircard">` entry for it in `index.html`, under the right category section (add a new section if the category is new).
+3. Add one `<a class="regrow">` entry for it in `index.html`, inside the right `.reggroup` (or `.regsub`), and bump that category's count in the `.homenav` rail (add a new section if the category is new).
 
 That is the entire workflow. No build step, no registration, nothing to generate.
 

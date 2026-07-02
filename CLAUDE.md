@@ -44,8 +44,9 @@ new component style, that is a conversation, not a quiet addition.
 ## How a record is built
 
 Adding a record = duplicate `records/_template.html`, fill every `<!-- TODO -->`,
-add one `<a class="dircard">` to `index.html` under the right category section.
-That is the entire workflow — no registration, nothing to generate.
+add one `<a class="regrow">` to `index.html` inside the right `.reggroup` (or
+`.regsub`), and bump that category's count in the `.homenav` rail. That is the
+entire workflow — no registration, nothing to generate.
 
 Every record shares one shell and this anatomy:
 
@@ -64,7 +65,7 @@ Every record shares one shell and this anatomy:
 - **`.globalfoot`** — the shared footer, verbatim.
 
 A record's status badge appears in two places — the `.rechead` masthead and its
-`index.html` dircard. **Keep them in sync.** Status set: `draft` (argue with it,
+`index.html` register row (`.regrow`). **Keep them in sync.** Status set: `draft` (argue with it,
 don't cite it) → `adopted` (the house rule, cite it in review) → `superseded`
 (replaced; link the replacement).
 
@@ -148,7 +149,7 @@ and `modal-vs-page.html` §03 are the reference for this register.
 
 Open `index.html` from disk and click through: links resolve relatively, fonts
 and palette render, new record uses the identical shell, badges match between
-masthead and dircard, good/bad demos stack on a narrow viewport. There are no
+masthead and its `.regrow`, good/bad demos stack on a narrow viewport. There are no
 tests and no CI — visual inspection from disk is the check.
 
 Verifying with a headless browser instead? `file://` is blocked there — serve
