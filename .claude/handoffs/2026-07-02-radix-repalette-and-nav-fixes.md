@@ -1,4 +1,4 @@
-# Session Handoff: Move VC Design Standards off Optum colours → Radix, plus nav/affordance fixes
+# Session Handoff: Move VC Design Standards off the incumbent brand colours → Radix, plus nav/affordance fixes
 
 **Date:** 2026-07-02
 **Project:** /Users/sudakshsoti/dev/design-patterns (VC Design Standards — static HTML/CSS site of UX decision records)
@@ -7,24 +7,24 @@
 
 ## Current State
 
-**Task:** Re-palette the site away from Optum's brand colours to Radix Colors, and ship a batch of CSS-only navigation/affordance/label fixes surfaced in a design audit.
+**Task:** Re-palette the site away from the incumbent brand colours to Radix Colors, and ship a batch of CSS-only navigation/affordance/label fixes surfaced in a design audit.
 **Progress:** Audit done, colour direction decided, plan agreed. Zero implementation started. Next session executes the TODO list below.
 
 ## What We Did
 
-Ran a design + usability audit of the live site (served locally, viewed at wide and narrow). Found the type system is strong but navigation between/within records is nearly absent and hover/focus affordances are too quiet. Discovered the two brand accents are literally Optum's colours (named in `tokens.css` comments). User decided to move to Radix Plum (brand) + Radix Indigo (interactive), fully off anything Optum-like.
+Ran a design + usability audit of the live site (served locally, viewed at wide and narrow). Found the type system is strong but navigation between/within records is nearly absent and hover/focus affordances are too quiet. Discovered the two brand accents were lifted from the incumbent brand's colours (named in `tokens.css` comments). User decided to move to Radix Plum (brand) + Radix Indigo (interactive), fully off anything resembling the incumbent brand.
 
 ## The core finding (why we're doing this)
 
-The palette *is* Optum, despite being described as "not Optum":
-- `css/tokens.css:14` — `--warm` accent is commented **"Optum Orange #FF612B"** (`oklch(0.705 0.195 42)`).
-- `css/tokens.css:19` — `--cool` accent is commented **"Optum Interaction Blue ~#0F68B2"** (`oklch(0.525 0.115 245)`).
-Those are the only two "Optum" references in the whole repo (grep for `optum|FF612B|0F68B2` returns just these two comment lines). The Optum-ness is purely those two hues + the naming comments.
+The palette matches the incumbent brand, despite being described as neutral:
+- `css/tokens.css:14` — `--warm` accent is a warm orange (`oklch(0.705 0.195 42)`).
+- `css/tokens.css:19` — `--cool` accent is a mid azure (`oklch(0.525 0.115 245)`).
+The brand resemblance is purely those two hues + the (now-scrubbed) naming comments.
 
 ## Decisions Made
 
 - **Use Radix Colors** — battle-tested, semantic 12-step scales, pairs with the Tailwind v4 + shadcn stack the user works in. Chosen over Tailwind's default palette because Tailwind's default accents run high-chroma (blue-600 ≈ chroma 0.245) and read loud against this muted warm-paper editorial base.
-- **Brand = Radix Plum, Interactive = Radix Indigo** — "move away from anything that remotely looks like Optum" rules out the orange brand *and* a mid-azure interactive blue (Optum's is hue ~245). Interactive shifts violet-ward (Indigo, hue ~267) so it's clearly not Optum's azure but still reads as a link. Brand leaves the warm family entirely (Plum, hue ~330).
+- **Brand = Radix Plum, Interactive = Radix Indigo** — "move away from anything that remotely resembles the incumbent brand" rules out the orange brand *and* a mid-azure interactive blue (the incumbent's is hue ~245). Interactive shifts violet-ward (Indigo, hue ~267) so it's clearly not that azure but still reads as a link. Brand leaves the warm family entirely (Plum, hue ~330).
 - **Only the two accent triplets change.** Paper, ink, rule, error, ok all stay. Keeps the change ~6 lines and respects the site's durability intent.
 - **Colour change is a `CLAUDE.md`-flagged decision, not a quiet edit.** `CLAUDE.md` declares the visual language canonical ("do not redesign it"). User has explicitly authorised this specific change, so it's approved — note the authorisation in the commit message.
 
@@ -48,9 +48,9 @@ Replace the `--warm*` / `--cool*` triplets in `css/tokens.css` (currently lines 
 
 ## TODO — execute in this order
 
-### Colour: move off Optum → Radix Plum + Indigo
+### Colour: move off the incumbent brand → Radix Plum + Indigo
 1. [ ] **Swap the two accent triplets** in `css/tokens.css` to the block above. Paper/ink/rule untouched.
-2. [ ] **Rewrite the two Optum comments** (`tokens.css:14`, `tokens.css:19`) to reference Radix Plum / Radix Indigo. They name Optum + hex in a public repo — scrub regardless.
+2. [ ] **Rewrite the two accent comments** (`tokens.css:14`, `tokens.css:19`) to reference Radix Plum / Radix Indigo. (The brand-naming comments have since been scrubbed to a generic warm/cool description.)
 3. [ ] **Decide on the last orange:** `--div-high` is `oklch(0.640 0.170 42)` (orange) in the diverging data scale (`tokens.css:61`). Warm-pole-for-"over" is a legit data-viz convention, so this is a *decision*, not an automatic change — ask the user: keep as convention, or retint (e.g. toward Plum/red). Do not silently change.
 4. [ ] **Re-check the data-viz categorical set.** `--cat-1` aliases `--cool` and `--cat-2` aliases `--warm` (`tokens.css:44-45`). Now Indigo + Plum sit only ~60° apart — weaker series separation than blue+orange gave. Either pin `--cat-1`/`--cat-2` to their own hues, or reorder the categorical ramp so adjacent series stay distinguishable. Re-run a colourblind check on the 6-colour set. Open the data-viz records to eyeball (e.g. `records/colour-for-data.html`, `records/choosing-a-chart.html`).
 

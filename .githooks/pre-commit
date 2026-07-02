@@ -1,0 +1,32 @@
+#!/bin/sh
+# Pre-commit guard: reject staged content that contains a protected brand or
+# parent-org name. Zero dependencies — POSIX sh + git only, in keeping with the
+# repo's no-tooling rule (this guards commits; it ships nothing to the site).
+#
+# The invariant it enforces: the committed tree never contains these terms.
+# Always write "VC" instead.
+#
+# Bypass in a genuine emergency with:  git commit --no-verify
+#
+# The blocklist lives in this file, which is excluded from the scan below so the
+# patterns don't trip the guard on themselves. Add terms to PATTERN with "|".
+
+PATTERN='optum|value[ _-]?connect'
+
+# Search staged (indexed) content only; skip this hook dir so the pattern list
+# here is exempt from its own rule.
+matches=$(git grep --cached -n -iE "$PATTERN" -- ':!.githooks' 2>/dev/null)
+
+if [ -n "$matches" ]; then
+  echo "" >&2
+  echo "✖ Commit blocked — a protected brand/parent-org name is in the staged tree:" >&2
+  echo "" >&2
+  echo "$matches" | sed 's/^/    /' >&2
+  echo "" >&2
+  echo "  Remove the term(s) above (write \"VC\" instead) and re-stage." >&2
+  echo "  Genuine emergency override: git commit --no-verify" >&2
+  echo "" >&2
+  exit 1
+fi
+
+exit 0

@@ -11,12 +11,12 @@
   --error:        oklch(0.545 0.165 28);
   --error-soft:   oklch(0.930 0.045 30);
 
-  /* Brand accent — Optum Orange #FF612B. --warm-ink is the readable ink on
+  /* Brand accent — warm. --warm-ink is the readable ink on
      --warm-soft (chips, table heads); parallels the --ok/--ok-ink pair. */
   --warm:         oklch(0.705 0.195 42);
   --warm-soft:    oklch(0.930 0.045 55);
   --warm-ink:     oklch(0.420 0.140 45);
-  /* Interactive — Optum Interaction Blue ~#0F68B2. */
+  /* Interactive accent — cool. */
   --cool:         oklch(0.525 0.115 245);
   --cool-soft:    oklch(0.930 0.035 240);
   --cool-ink:     oklch(0.400 0.100 235);

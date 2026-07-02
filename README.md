@@ -52,3 +52,21 @@ Each record carries a status badge in its masthead (`.rechead`) and on its index
 - No inline `<style>` blocks; pages link `css/tokens.css` and `css/base.css`. A single demo may carry scoped styles if it genuinely needs them.
 - Good/bad comparisons use the `.compare` block (`.stage.avoid` / `.stage.use`): side by side on desktop, stacked on narrow viewports.
 - Write to be scanned: lead every block with its claim, one idea per block, `ul.clean` for parallel sets. The full copy standard is CLAUDE.md → "Write to be scanned".
+
+## Commit guard (protected names)
+
+This site is public-facing: always write **"VC"**, never the full product name or
+parent-org name. A `pre-commit` hook enforces that — it blocks any commit whose
+staged tree contains a name on the blocklist. Zero dependencies (POSIX `sh` +
+`git`); it guards commits and ships nothing to the site.
+
+The hook is tracked at `.githooks/pre-commit`, but Git won't run it until each
+clone points at that directory once:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+To add or change a blocked term, edit the `PATTERN` line in `.githooks/pre-commit`
+(extended regex, `|`-separated). A genuine emergency can bypass it with
+`git commit --no-verify`.
