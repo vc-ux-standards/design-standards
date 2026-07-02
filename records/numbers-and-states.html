@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numbers, units, and empty states · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="numbers-and-states" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Numbers, units,<br>and empty states</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      Set the number to be scanned, state its unit once, and give the four data-absent states four different faces. A blank cell that reads as a zero is not a small slip — it is a wrong answer the reader trusts, and in VC a trusted wrong answer moves a decision.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC dashboards mix rates, counts and dollars in one grid, and a quality view always has measures not yet reporting or held back for a small denominator. The deciding pressure is <strong>the reader must never mistake "no data" for a zero, or trust a rate built on a handful of members</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        Set numbers in <strong>tabular figures with thousands separators</strong>, and hold decimal precision <strong>constant within a view</strong>. State the <strong>unit once</strong> — in the header or axis, not on every value — and let a rate <strong>carry its denominator</strong> (N=). Give <strong>no data, a real zero, a suppressed cell and a loading cell four distinct treatments</strong>; never a bare blank.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>How a value is set, and how absence is told apart</h2>
+    <p class="prose">
+      <strong>The number is a mark, and its absence is information too.</strong> Two tables: how each value type is formatted, then how the four kinds of missing value are kept distinct. The tile forms these numbers live in are the <a href="charts-at-tile-scale.html">tile-scale</a> record's.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>Value type</th>
+          <th>Format</th>
+          <th>Reads as</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Count</th>
+          <td data-l="Format">Thousands separator, no decimals.</td>
+          <td data-l="Reads as">18,402</td>
+        </tr>
+        <tr>
+          <th scope="row">Rate / percentage</th>
+          <td data-l="Format">One decimal, unit stated once.</td>
+          <td data-l="Reads as">71.0%</td>
+        </tr>
+        <tr>
+          <th scope="row">Money at scale</th>
+          <td data-l="Format">Whole dollars, unit in the header.</td>
+          <td data-l="Reads as">$412 PMPM</td>
+        </tr>
+        <tr>
+          <th scope="row">Utilisation</th>
+          <td data-l="Format">Per 1,000, one decimal.</td>
+          <td data-l="Reads as">42.3 /1,000</td>
+        </tr>
+        <tr>
+          <th scope="row">Change</th>
+          <td data-l="Format">Signed, and points vs percent said plainly.</td>
+          <td data-l="Reads as">▲ 3.2 pts</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="tbl tri" style="margin-top:2rem;">
+      <thead>
+        <tr>
+          <th>Absent state</th>
+          <th>Means</th>
+          <th>Show</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">No data yet</th>
+          <td data-l="Means">Not reporting this period.</td>
+          <td data-l="Show">An em dash with a quiet "No data".</td>
+        </tr>
+        <tr>
+          <th scope="row">Real zero</th>
+          <td data-l="Means">A true count of nothing.</td>
+          <td data-l="Show">0 — the same weight as any value.</td>
+        </tr>
+        <tr>
+          <th scope="row">Suppressed</th>
+          <td data-l="Means">Denominator below the threshold.</td>
+          <td data-l="Show">"N&lt;11" or "Suppressed", never a rate.</td>
+        </tr>
+        <tr>
+          <th scope="row">Loading</th>
+          <td data-l="Means">Fetch still in progress.</td>
+          <td data-l="Show">A neutral placeholder — never a 0.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>Absence, then formatting</h2>
+    <p class="prose">
+      <strong>Two failures account for most misread tiles:</strong> absence that all looks alike, and formatting that won't line up. Both are visible the moment the fix sits beside them.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Measures · absence blurred</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c4">
+              <div class="viz-tile">
+                <div class="h">Gap closure</div>
+                <div class="big">0</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">New enrolments</div>
+                <div class="big">0</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Screening rate</div>
+                <div class="big">100%</div>
+                <div class="delta" style="color:var(--ink-3);">N=2</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Adherence</div>
+                <div class="big">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Three tiles read as "0 or nothing", and one is noise.</strong> The first two might be a real zero or a measure that hasn't reported — the reader can't tell. The 100% is two members, and the last is a blank that will be read as zero.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Measures · four honest faces</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c4">
+              <div class="viz-tile">
+                <div class="h">Gap closure</div>
+                <div class="big">0</div>
+                <div class="delta" style="color:var(--ink-3);">real zero</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">New enrolments</div>
+                <div class="big">—</div>
+                <div class="delta" style="color:var(--ink-3);">No data yet</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Screening rate</div>
+                <div class="big" style="font-size:1.05rem;">N&lt;11</div>
+                <div class="delta" style="color:var(--ink-3);">Suppressed · N=2</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Adherence</div>
+                <svg viewBox="0 0 120 34" role="img" aria-label="Loading placeholder — value not yet available.">
+                  <rect x="0" y="3" width="78" height="16" rx="3" fill="var(--paper-3)"/>
+                  <rect x="0" y="25" width="46" height="6" rx="3" fill="var(--rule)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>A real zero, no data, a suppressed cell and a loading cell — each unmistakable.</strong> The zero keeps full weight; the em dash and label mark "not reporting"; the small denominator is withheld with its N; the placeholder is plainly not a value.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Overview · formatting adrift</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c4">
+              <div class="viz-tile">
+                <div class="h">Attributed lives</div>
+                <div class="big" style="font-feature-settings:'tnum' 0;">18402</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">A1c control</div>
+                <div class="big" style="font-size:1.15rem;">71.04%</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Cost</div>
+                <div class="big" style="font-size:1.0rem;">$412.00 PMPM</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Readmits</div>
+                <div class="big" style="font-size:0.95rem;">312 per 1000 mbrs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Precision jumps 0 to 2 decimals, separators are missing, and the unit is repeated on every value.</strong> The digits won't align down the row, so the eye can't compare — the formatting is doing the opposite of its job.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Overview · one system</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c4">
+              <div class="viz-tile">
+                <div class="h">Attributed lives</div>
+                <div class="big">18,402</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">A1c control</div>
+                <div class="big">71.0%</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Cost · PMPM</div>
+                <div class="big">$412</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Readmits · /1,000</div>
+                <div class="big">42.3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Tabular figures, thousands separators, one decimal, and the unit moved once into the header.</strong> The numbers line up and compare at a glance, and each tile spends its space on the value, not on repeating "%" or "PMPM".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Why the number and its absence both need rules</h2>
+    <p class="prose">
+      A tile is scanned in a second, and the reader acts on what it says — including when it says nothing. Every rule below protects that second: make the value legible, spend no ink twice, and never let absence pose as a value.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>A number is read, not just shown</h3>
+        <p><strong>The eye compares digits down a column, so they must line up.</strong> Tabular figures, thousands separators, and one decimal precision held across the view — anything less and the comparison the tile exists for stops working.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>The unit belongs once</h3>
+        <p><strong>Put %, $ PMPM or /1,000 in the header or axis.</strong> Repeating it on every value is ink competing with the number it labels; state it once and let the figure carry the tile.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>A rate is nothing without its denominator</h3>
+        <p><strong>100% on two members is noise dressed as a result.</strong> Show N, and suppress a rate below the threshold rather than printing it — the <a href="reading-honestly.html">honesty</a> record covers why a small-N rate misleads.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Absence has meanings</h3>
+        <p><strong>No data, a real zero, a suppressed cell and a loading cell are four different facts.</strong> Give them four faces; a single blank collapses them and the reader guesses — usually "zero".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>Formatting and empty states are settled craft</h2>
+    <p class="prose">
+      <strong>The systems agree on both halves:</strong> format numbers by type and align them, and treat an empty cell as a designed state that explains itself. Small-cell suppression is the analytics convention layered on top.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest to our world</div>
+        <h3>Distinct empty states, numbers that scan</h3>
+        <p>Carbon specifies separate empty states — no data, not configured, error — rather than one blank, and formats metrics with grouping separators and consistent precision. It is the enterprise pattern for a data grid like VC's.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>distinct empties · formatted metrics</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Google · Material</div>
+        <h3>Format by type; the empty state is designed</h3>
+        <p>Material formats numbers by their type and treats the empty state as a first-class, designed state with guidance — not an absence the layout forgot to fill.</p>
+        <span class="verdict tag n"><span class="dot"></span>number by type; designed empties</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Nielsen Norman Group</div>
+        <h3>An empty state is content</h3>
+        <p>NN/g's guidance: an empty state should say why it is empty and what to do next. A cell that leaves the reader guessing whether it is zero or missing has failed that test.</p>
+        <span class="verdict tag n"><span class="dot"></span>explain the blank</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Stephen Few · Information Dashboard Design</div>
+        <h3>Legible numbers on a dashboard</h3>
+        <p>Few's rules for tabular numbers — right-align, align decimals, minimise non-data ink — are exactly what lets a column of tiles compare at a glance.</p>
+        <span class="verdict tag n"><span class="dot"></span>align · minimise ink</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Practice · small-cell suppression</div>
+        <h3>Small denominators are withheld</h3>
+        <p>Across analytics and health-data privacy practice, cells below a threshold (often around 11) are suppressed rather than shown — because both the rate and the privacy are unreliable at that size.</p>
+        <span class="verdict tag n"><span class="dot"></span>suppress below threshold</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For a VC quality grid: tabular numbers with the unit stated once, a rate that carries its denominator, and four honest faces for absence. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC number default</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/patterns/empty-states-pattern/">IBM Carbon — Empty states pattern</a> (distinct empty states; metric formatting with grouping and consistent precision).</li>
+      <li><a href="https://m3.material.io/">Google Material</a> (number formatting by type; the empty state as a designed state).</li>
+      <li><a href="https://www.nngroup.com/articles/empty-state-interface-design/">Nielsen Norman Group — Empty-state design</a> (an empty state should explain why it is empty and what to do).</li>
+      <li><a href="https://www.perceptualedge.com/library.php">Stephen Few — Information Dashboard Design</a> (legible tabular numbers: align, align decimals, minimise non-data ink).</li>
+      <li>Small-cell suppression — a standard analytics and health-data privacy convention (cells below a threshold, often ~11, are withheld rather than shown). See the <a href="reading-honestly.html">reading honestly</a> record.</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>

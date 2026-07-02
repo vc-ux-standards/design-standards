@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colour for data · Design Decisions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <span class="eyebrow">Standards · Data visualization</span>
+  </div>
+</header>
+
+<main>
+  <article id="colour-for-data" class="record">
+    <div class="recordwrap">
+
+  <header class="masthead">
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <span class="eyebrow">Standards · Data visualization</span></div>
+    <h1>Colour for data</h1>
+    <p class="lead prose" style="margin-top:1.5rem;">
+      Colour is the weakest channel the eye reads, so it earns its place only when it does one job: separate categories, show magnitude, or show deviation from a target. VC already ships all three palettes — this record says which to reach for, and the two rules that keep colour honest: never as decoration, never as the only encoding.
+    </p>
+
+    <div class="context">
+      <span class="k">Our context</span>
+      <p>
+        VC's dashboards mix all three at once — categorical series (lines of business, measure domains), magnitude ramps (a risk score low to high), and to-target views (a rate above or below its benchmark) — read at a glance by analysts and care managers, not chart specialists. The deciding pressure is <strong>colour has to survive a legend-free glance and a colour-blind reader — roughly 8% of men — or it isn't carrying the data, it's decorating it</strong>.
+      </p>
+    </div>
+
+    <div class="rulecard">
+      <span class="k">The rule</span>
+      <p>
+        Spend colour on exactly one job per chart: <strong>separate categories</strong> (the categorical set, capped at ~6), <strong>show magnitude</strong> (the sequential ramp, one hue low→high), or <strong>show deviation</strong> from a target or midpoint (the diverging ramp). <strong>Never as decoration, never as the only encoding</strong> — pair it with position, a label, or a shape. And reserve the attention hue for "needs attention" <strong>consistently</strong>: one hue means one thing across the whole dashboard.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 QUICK REFERENCE -->
+  <section>
+    <span class="secnum">01 / Quick reference</span>
+    <h2>Three palettes, three jobs</h2>
+    <p class="prose">
+      <strong>Match the palette to the shape of the data, not to taste.</strong> The three scales already live in the tokens — pick by what the colour has to say, and stop reaching for hue once position or a label can carry it. All three are built on a colour-blind-safe (Okabe–Ito) basis.
+    </p>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>Palette</th>
+          <th>Use it for</th>
+          <th>Tokens</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Categorical</th>
+          <td data-l="Use it for">Distinct, unordered series — lines of business, measure domains. Cap at ~6; past that colour stops separating.</td>
+          <td data-l="Tokens"><code>--cat-1…6</code> · classes <code>.viz-c1…6</code></td>
+        </tr>
+        <tr>
+          <th scope="row">Sequential</th>
+          <td data-l="Use it for">One ordered quantity, low → high — a risk score, a volume, a gap size. One hue, light to dark.</td>
+          <td data-l="Tokens"><code>--seq-1…5</code> · classes <code>.viz-seq-1…5</code></td>
+        </tr>
+        <tr>
+          <th scope="row">Diverging</th>
+          <td data-l="Use it for">Deviation either side of a meaningful midpoint — under ↔ over a target, change up ↔ down.</td>
+          <td data-l="Tokens"><code>--div-low / --div-mid / --div-high</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 IN PRACTICE -->
+  <section>
+    <span class="secnum">02 / The pattern in practice</span>
+    <h2>Too many hues, and the flipped meaning</h2>
+    <p class="prose">
+      <strong>Two colour failures account for most bad charts in review:</strong> asking hue to separate more categories than the eye can hold, and letting the same colour mean different things across a dashboard. Both read instantly once the fix sits beside them.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Members by contract type · 8 colours</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 44" role="img" aria-label="A single stacked bar split into eight coloured segments, indistinguishable past the sixth, forcing the reader to the legend.">
+              <g class="viz-bars">
+                <rect class="viz-c1" x="2"    y="8" width="46" height="20"/>
+                <rect class="viz-c2" x="49"   y="8" width="42" height="20"/>
+                <rect class="viz-c3" x="92"   y="8" width="40" height="20"/>
+                <rect class="viz-c4" x="133"  y="8" width="38" height="20"/>
+                <rect class="viz-c5" x="172"  y="8" width="34" height="20"/>
+                <rect class="viz-c6" x="207"  y="8" width="32" height="20"/>
+                <rect class="viz-c1" x="240"  y="8" width="30" height="20"/>
+                <rect class="viz-c2" x="271"  y="8" width="27" height="20"/>
+              </g>
+            </svg>
+            <div class="viz-legend">
+              <span class="k viz-c1"><i></i>Commercial</span>
+              <span class="k viz-c2"><i></i>Medicare</span>
+              <span class="k viz-c3"><i></i>Medicaid</span>
+              <span class="k viz-c4"><i></i>Dual</span>
+              <span class="k viz-c5"><i></i>Exchange</span>
+              <span class="k viz-c6"><i></i>ACA</span>
+              <span class="k viz-c1"><i></i>TRICARE</span>
+              <span class="k viz-c2"><i></i>Other</span>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Eight segments, and the last two repeat hues the first two already used.</strong> Past ~6 categories the palette runs out of separable colours; the reader is stuck matching faint bands to a legend, and two "Commercial" blues aren't even the same series.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Members by contract type · direct-labelled</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 232 138" role="img" aria-label="Six sorted horizontal bars in a single hue, each directly labelled, no legend needed.">
+              <g class="viz-bars">
+                <rect x="68" y="6"   width="150.0" height="14"/>
+                <rect x="68" y="28"  width="129.5" height="14"/>
+                <rect x="68" y="50"  width="122.7" height="14"/>
+                <rect x="68" y="72"  width="102.3" height="14"/>
+                <rect x="68" y="94"  width="95.5"  height="14"/>
+                <rect x="68" y="116" width="81.8"  height="14"/>
+              </g>
+              <g class="viz-label" font-size="8.5">
+                <text x="4" y="16">Commercial</text>
+                <text x="4" y="38">Medicare</text>
+                <text x="4" y="60">Medicaid</text>
+                <text x="4" y="82">Dual</text>
+                <text x="4" y="104">Exchange</text>
+                <text x="4" y="126">Other</text>
+              </g>
+              <g class="viz-label ink" font-size="8.5">
+                <text x="221"   y="16"  text-anchor="end">22%</text>
+                <text x="200.5" y="38"  text-anchor="end">19%</text>
+                <text x="193.7" y="60"  text-anchor="end">18%</text>
+                <text x="173.3" y="82"  text-anchor="end">15%</text>
+                <text x="166.5" y="104" text-anchor="end">14%</text>
+                <text x="152.8" y="126" text-anchor="end">12%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Position separates the categories, so one hue is enough.</strong> A direct label carries each name and value; colour does no work here and is spent to zero. No legend, no colour-matching, and it reads the same in greyscale.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:2.5rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Two measures · coloured by raw value</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c2">
+              <div class="viz-tile">
+                <div class="h">Breast screening</div>
+                <div class="big">82%</div>
+                <div class="delta up">▲ higher = green</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Readmission rate</div>
+                <div class="big">18%</div>
+                <div class="delta up">▲ higher = green</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Both tiles go green because both numbers rose — but a rise means opposite things.</strong> Higher screening is good; higher readmissions is bad. Colouring by raw magnitude makes green mean "good" in one tile and "worse" in the next, and the glance lies.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Two measures · coloured by direction</em></div>
+          <div class="chart" style="padding:0.6rem 0.7rem;">
+            <div class="viz-grid c2">
+              <div class="viz-tile">
+                <div class="h">Breast screening</div>
+                <div class="big">82%</div>
+                <div class="delta up">▲ toward target</div>
+              </div>
+              <div class="viz-tile">
+                <div class="h">Readmission rate</div>
+                <div class="big">18%</div>
+                <div class="delta down">▲ away from target</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note"><strong>Colour tracks the good/bad direction, not the number.</strong> The attention hue is reserved for "moving the wrong way" whichever measure it is — so red always means the same thing, and the reader learns it once.</p>
+      </div>
+    </div>
+
+    <div class="demo" style="margin-top:2.5rem;">
+      <div class="cap">
+        <span class="name">Sequential for magnitude · diverging for deviation</span>
+        <span class="tag n"><span class="dot"></span>Ramp set</span>
+      </div>
+      <div class="viz-board">
+        <div class="bbar"><i></i><i></i><i></i><em>Risk band and to-target</em></div>
+        <div class="viz-grid c2">
+          <div class="viz-tile">
+            <div class="h">Risk score by cohort — sequential</div>
+            <svg viewBox="0 0 220 64" role="img" aria-label="A heatmap grid shaded from light to dark in one hue, low to high risk.">
+              <g class="viz-cells">
+                <rect class="viz-seq-1" x="2"   y="4"  width="40" height="26"/>
+                <rect class="viz-seq-3" x="44"  y="4"  width="40" height="26"/>
+                <rect class="viz-seq-2" x="86"  y="4"  width="40" height="26"/>
+                <rect class="viz-seq-5" x="128" y="4"  width="40" height="26"/>
+                <rect class="viz-seq-4" x="170" y="4"  width="40" height="26"/>
+                <rect class="viz-seq-2" x="2"   y="32" width="40" height="26"/>
+                <rect class="viz-seq-4" x="44"  y="32" width="40" height="26"/>
+                <rect class="viz-seq-3" x="86"  y="32" width="40" height="26"/>
+                <rect class="viz-seq-1" x="128" y="32" width="40" height="26"/>
+                <rect class="viz-seq-5" x="170" y="32" width="40" height="26"/>
+              </g>
+            </svg>
+          </div>
+          <div class="viz-tile">
+            <div class="h">Measures vs target — diverging</div>
+            <svg viewBox="0 0 220 64" role="img" aria-label="A row of cells from cool below-target through neutral on-target to warm above-target.">
+              <g class="viz-cells">
+                <rect class="viz-div-low"  x="2"   y="18" width="40" height="28"/>
+                <rect class="viz-div-low"  x="44"  y="18" width="40" height="28"/>
+                <rect class="viz-div-mid"  x="86"  y="18" width="40" height="28"/>
+                <rect class="viz-div-high" x="128" y="18" width="40" height="28"/>
+                <rect class="viz-div-high" x="170" y="18" width="40" height="28"/>
+              </g>
+              <g class="viz-label" font-size="7">
+                <text x="22"  y="58" text-anchor="middle">under</text>
+                <text x="106" y="58" text-anchor="middle">on target</text>
+                <text x="190" y="58" text-anchor="middle">over</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="note"><strong>One hue for an ordered quantity; two hues off a neutral midpoint for deviation.</strong> The sequential ramp reads low-to-high without a legend; the diverging ramp puts "on target" at the calm centre so under and over fall to opposite sides. Never use a rainbow for either — hue order isn't magnitude order.</p>
+    </div>
+  </section>
+
+  <!-- 03 WHY -->
+  <section>
+    <span class="secnum">03 / The reasoning</span>
+    <h2>Four rules that keep colour honest</h2>
+    <p class="prose">
+      Colour is powerful and cheap to overspend, which is why it goes wrong so often. Each rule below protects the same thing: that the colour a reader sees maps to something real in the data, and keeps mapping to it everywhere.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <h3>Colour is the weakest channel</h3>
+        <p><strong>The eye decodes position and length far more precisely than hue.</strong> <a href="choosing-a-chart.html">Choosing a chart</a> ranks the channels from Cleveland &amp; McGill; colour comes last. Encode the deciding value on position or length, and let colour do the small remaining job.</p>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <h3>Never the sole encoding</h3>
+        <p><strong>Pair colour with position, a label, or a shape.</strong> Roughly 8% of men can't separate the reds and greens, and any chart can end up printed or in greyscale. If removing colour destroys the chart, colour was doing a job it shouldn't have.</p>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <h3>One hue, one meaning</h3>
+        <p><strong>Reserve the attention hue for "needs attention" everywhere.</strong> "Is higher better?" flips by measure — screening up is good, readmissions up is bad — so colour by the good/bad direction, not the raw number, or the same red contradicts itself across the dashboard.</p>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <h3>Match the palette to the data shape</h3>
+        <p><strong>Categorical for unordered series, sequential for an ordered quantity, diverging for deviation.</strong> Never a rainbow for magnitude — hue order carries no low-to-high meaning, so the reader can't tell high from low without decoding a key.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRECEDENT -->
+  <section>
+    <span class="secnum">04 / What the field says</span>
+    <h2>The colour conventions are settled</h2>
+    <p class="prose">
+      <strong>Cap the categories, match the ramp to the data, and never rely on hue alone — every major source agrees.</strong> The three-palette split and the colour-blind-safe basis in VC's tokens come straight from this body of work.
+    </p>
+
+    <div class="systems">
+      <div class="syscard lead">
+        <div class="src">IBM · Carbon — closest to our world</div>
+        <h3>Three palette families, colour-blind aware</h3>
+        <p>Carbon ships categorical, sequential and diverging palettes for exactly the three jobs, caps categorical series before hue stops separating, and documents colour-blind-safe usage — the model VC's tokens follow for a data-heavy enterprise product.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>categorical · sequential · diverging</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Okabe &amp; Ito</div>
+        <h3>A colour-blind-safe qualitative set</h3>
+        <p>The Okabe–Ito palette is the widely-adopted qualitative set designed to stay distinguishable for deutan and protan viewers. VC's <code>--cat</code> series is built on its lineage, which is why the categorical palette survives colour-blind eyes.</p>
+        <span class="verdict tag n"><span class="dot"></span>deutan/protan-safe categories</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">ColorBrewer · Cynthia Brewer</div>
+        <h3>Schemes chosen by data type</h3>
+        <p>ColorBrewer classifies every scheme as qualitative, sequential or diverging and flags which are colour-blind and print safe — the canonical reference for "which palette for which data", and the source of the three-way split.</p>
+        <span class="verdict tag n"><span class="dot"></span>palette by data type</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Datawrapper Academy</div>
+        <h3>Practical colour do's and don'ts</h3>
+        <p>Datawrapper's guidance is explicit: limit categorical colours, use one hue for sequential data, put a neutral midpoint on diverging scales, and never encode meaning in colour alone. Practical confirmation of the rules here.</p>
+        <span class="verdict tag n"><span class="dot"></span>limit hues · never colour-only</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Claus Wilke · Fundamentals</div>
+        <h3>The rainbow is the classic mistake</h3>
+        <p>Wilke devotes a chapter to colour use and misuse: rainbow scales for magnitude mislead because hue order isn't quantity order, and too many categorical colours become unreadable. Both are anti-patterns VC avoids by construction.</p>
+        <span class="verdict tag n"><span class="dot"></span>no rainbow for magnitude</span>
+      </div>
+
+      <div class="syscard">
+        <div class="src">Synthesis</div>
+        <h3>The pattern for tools like ours</h3>
+        <p>For VC's mixed dashboards read at a glance: pick the palette from the data shape, cap categorical at ~6, colour by direction not raw value, and never let hue be the only encoding. Our usage should follow it.</p>
+        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC colour default</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REFS -->
+  <section>
+    <span class="secnum">05 / References</span>
+    <h2>Sources</h2>
+    <ul class="clean refs prose" style="margin-top:1rem;">
+      <li><a href="https://carbondesignsystem.com/data-visualization/color-palettes/">IBM Carbon — Data visualization, colour palettes</a> (categorical, sequential and diverging families; caps and colour-blind guidance).</li>
+      <li><a href="https://jfly.uni-koeln.de/color/">Okabe &amp; Ito — Color Universal Design</a> (the colour-blind-safe qualitative palette VC's categorical set is built on).</li>
+      <li><a href="https://colorbrewer2.org/">ColorBrewer — Cynthia Brewer</a> (schemes classified qualitative / sequential / diverging, with colour-blind and print-safe flags).</li>
+      <li><a href="https://blog.datawrapper.de/colors-for-data-vis-style-guides/">Datawrapper Academy — Colours for data vis</a> (limit categorical hues; one hue for sequential; neutral midpoint for diverging; never colour alone).</li>
+      <li><a href="https://clauswilke.com/dataviz/color-basics.html">Claus Wilke — Colour basics &amp; pitfalls</a> (rainbow scales mislead for magnitude; too many categorical colours become unreadable).</li>
+    </ul>
+  </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
