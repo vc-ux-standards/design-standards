@@ -37,7 +37,7 @@ One item per commit, in order. tokens.css items (A1–A3) are sequential; base.c
 - [x] **B4** — `css/base.css`: lift the smallest mono labels (`.sub`, `.pill`) and add scannable status-chip borders (transparent base border + visible border on `draft`/`superseded`). — `84babf2`
 - [x] **C-css** — `css/base.css`: add `a.eyebrow` link-chrome reset + intentional hover. — `9f3c432`
 - [x] **C1** — 13 `records/*.html`: convert both `<span class="eyebrow">` occurrences to `<a class="eyebrow" href="../index.html#ANCHOR">` per the anchor table. — `5f49e6f`
-- [ ] **C2** — markup: add `id="main"` + skip link to `index.html`, all 13 records, and `records/_template.html`; update the template's eyebrow placeholder to the linked form with a `<!-- TODO -->` note.
+- [x] **C2** — markup: add `id="main"` + skip link to `index.html`, all 13 records, and `records/_template.html`; update the template's eyebrow placeholder to the linked form with a `<!-- TODO -->` note. — `8975277`
 
 ## Constraints (from CLAUDE.md — hold these)
 
