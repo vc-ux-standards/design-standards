@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bar and column charts · Design Decisions</title>
+<title>Bars: count, orientation, order, and labels · Design Decisions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
 
   <header class="masthead">
     <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
-    <h1>Bars: orientation,<br>order, and too many</h1>
+    <h1>Bars: count, orientation,<br>order, and labels</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, show the top and group the rest.
     </p>
@@ -37,14 +37,14 @@
     <div class="context">
       <span class="k">Our context</span>
       <p>
-        VC ranks things all day — measures by performance, providers by gap count, contracts by spend — and the category count is rarely tidy. A registry can return dozens of measures. The deciding pressure is <strong>legibility under real cardinality: a chart that reads at 6 bars must not silently become unreadable at 40</strong>.
+        VC ranks things all day — measures by performance, providers by gap count, contracts by spend — and the category count is rarely tidy. A registry can return dozens of measures, and each chart lives in a dashboard grid that resizes it. The deciding pressure is <strong>legibility under real cardinality: a chart that reads at 6 bars must not silently become unreadable at 40, or spill its labels when the panel narrows</strong>.
       </p>
     </div>
 
     <div class="rulecard">
       <span class="k">The rule</span>
       <p>
-        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, show the <strong>top-N and roll the tail into a labelled "Other"</strong>; the full set belongs in a sortable table.
+        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, show the <strong>top-N and roll the tail into a labelled "Other"</strong>; the full set belongs in a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
       </p>
     </div>
   </header>
@@ -73,7 +73,7 @@
         </tr>
         <tr>
           <th scope="row">Labels</th>
-          <td data-l="Column">Short, or they rotate and truncate.</td>
+          <td data-l="Column">Short only — long names crowd, so go horizontal; VC does not rotate them.</td>
           <td data-l="Horizontal bar">Long domain names sit left, on one line.</td>
         </tr>
         <tr>
@@ -93,6 +93,16 @@
         </tr>
       </tbody>
     </table>
+
+    <p class="prose" style="margin-top:2rem;">
+      <strong>Before orientation, settle the count — a bar chart earns its axis only in a middle band.</strong> Too few values and the honest form is a number; too many and it stops comparing.
+    </p>
+    <ul class="clean">
+      <li><strong>1 value, or current vs prior</strong> → a number with a delta, not an axis — see <a href="charts-at-tile-scale.html">charts at tile scale</a>.</li>
+      <li><strong>2–3 categorical states</strong> → a small, direct-labelled bar chart is fine.</li>
+      <li><strong>~4–12</strong> → the bar chart proper, the range everything below assumes.</li>
+      <li><strong>Past ~12</strong> → top-N, a grouped "Other", and a sortable table (§02).</li>
+    </ul>
   </section>
 
   <!-- 02 IN PRACTICE -->
@@ -217,12 +227,122 @@
     </div>
   </section>
 
-  <!-- 03 WHY -->
+  <!-- 03 WHEN LABELS COLLIDE -->
   <section>
-    <span class="secnum">03 / The reasoning</span>
-    <h2>Four rules the bar earns</h2>
+    <span class="secnum">03 / When labels collide</span>
+    <h2>Labels that won't fit</h2>
     <p class="prose">
-      A bar encodes one value as one length. Every rule below protects that: keep the length honest, order it so the eye can read it, and don't ask it to carry more categories than it can show.
+      <strong>A column axis divides one width between every category, so labels collide the moment the panel narrows.</strong> The reflex is to rotate them to a diagonal. That keeps them from overlapping but makes them slow to read — and on a tight panel they overlap anyway. This is audits closed each month: an ordered monthly series read as a count-by-count comparison, not for its slope — a slope is a <a href="line-charts.html">line</a>.
+    </p>
+
+    <div class="compare">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Audits closed · rotated labels</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 320 160" role="img" aria-label="Twelve monthly columns with all twelve full month names rotated to a diagonal, the long labels running into one another below the axis.">
+              <g class="viz-bars">
+                <rect x="14" y="40" width="14" height="60"/>
+                <rect x="38.5" y="54" width="14" height="46"/>
+                <rect x="63" y="26" width="14" height="74"/>
+                <rect x="87.5" y="60" width="14" height="40"/>
+                <rect x="112" y="34" width="14" height="66"/>
+                <rect x="136.5" y="48" width="14" height="52"/>
+                <rect x="161" y="30" width="14" height="70"/>
+                <rect x="185.5" y="52" width="14" height="48"/>
+                <rect x="210" y="38" width="14" height="62"/>
+                <rect x="234.5" y="44" width="14" height="56"/>
+                <rect x="259" y="24" width="14" height="76"/>
+                <rect x="283.5" y="50" width="14" height="50"/>
+              </g>
+              <line class="viz-axis" x1="8" y1="100" x2="312" y2="100"/>
+              <g class="viz-label" font-size="7.5">
+                <text x="21" y="112" text-anchor="end" transform="rotate(-45 21 112)">January</text>
+                <text x="45.5" y="112" text-anchor="end" transform="rotate(-45 45.5 112)">February</text>
+                <text x="70" y="112" text-anchor="end" transform="rotate(-45 70 112)">March</text>
+                <text x="94.5" y="112" text-anchor="end" transform="rotate(-45 94.5 112)">April</text>
+                <text x="119" y="112" text-anchor="end" transform="rotate(-45 119 112)">May</text>
+                <text x="143.5" y="112" text-anchor="end" transform="rotate(-45 143.5 112)">June</text>
+                <text x="168" y="112" text-anchor="end" transform="rotate(-45 168 112)">July</text>
+                <text x="192.5" y="112" text-anchor="end" transform="rotate(-45 192.5 112)">August</text>
+                <text x="217" y="112" text-anchor="end" transform="rotate(-45 217 112)">September</text>
+                <text x="241.5" y="112" text-anchor="end" transform="rotate(-45 241.5 112)">October</text>
+                <text x="266" y="112" text-anchor="end" transform="rotate(-45 266 112)">November</text>
+                <text x="290.5" y="112" text-anchor="end" transform="rotate(-45 290.5 112)">December</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Diagonal labels don't scan — the eye has to tilt for every one.</strong> The long months still crowd their neighbours, and no reader can match a slanted "September" back to its bar at a glance.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Audits closed · thinned ticks</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 320 160" role="img" aria-label="The same twelve columns with upright labels thinned to every third month — January, April, July, October.">
+              <g class="viz-bars">
+                <rect x="14" y="40" width="14" height="60"/>
+                <rect x="38.5" y="54" width="14" height="46"/>
+                <rect x="63" y="26" width="14" height="74"/>
+                <rect x="87.5" y="60" width="14" height="40"/>
+                <rect x="112" y="34" width="14" height="66"/>
+                <rect x="136.5" y="48" width="14" height="52"/>
+                <rect x="161" y="30" width="14" height="70"/>
+                <rect x="185.5" y="52" width="14" height="48"/>
+                <rect x="210" y="38" width="14" height="62"/>
+                <rect x="234.5" y="44" width="14" height="56"/>
+                <rect x="259" y="24" width="14" height="76"/>
+                <rect x="283.5" y="50" width="14" height="50"/>
+              </g>
+              <line class="viz-axis" x1="8" y1="100" x2="312" y2="100"/>
+              <g class="viz-axis">
+                <line x1="21" y1="100" x2="21" y2="105"/>
+                <line x1="45.5" y1="100" x2="45.5" y2="105"/>
+                <line x1="70" y1="100" x2="70" y2="105"/>
+                <line x1="94.5" y1="100" x2="94.5" y2="105"/>
+                <line x1="119" y1="100" x2="119" y2="105"/>
+                <line x1="143.5" y1="100" x2="143.5" y2="105"/>
+                <line x1="168" y1="100" x2="168" y2="105"/>
+                <line x1="192.5" y1="100" x2="192.5" y2="105"/>
+                <line x1="217" y1="100" x2="217" y2="105"/>
+                <line x1="241.5" y1="100" x2="241.5" y2="105"/>
+                <line x1="266" y1="100" x2="266" y2="105"/>
+                <line x1="290.5" y1="100" x2="290.5" y2="105"/>
+              </g>
+              <g class="viz-label" font-size="8" text-anchor="middle">
+                <text x="21" y="116">Jan</text>
+                <text x="94.5" y="116">Apr</text>
+                <text x="168" y="116">Jul</text>
+                <text x="241.5" y="116">Oct</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Upright labels, thinned to every third month, read straight across.</strong> A minor tick keeps every bar's place, so on a regular ordered axis the dropped labels cost little — the reader counts the months between — and the whole row stays legible as the panel resizes.</p>
+      </div>
+    </div>
+
+    <p class="prose" style="margin-top:2rem;">
+      <strong>Which fix applies is set by the label's type, not by rotating it.</strong>
+    </p>
+    <ul class="clean">
+      <li><strong>Long nominal labels</strong> (measures, providers, contracts) → go horizontal; each name gets a full row (principle 3).</li>
+      <li><strong>Dense ordered labels</strong> (months, quarters) → thin the ticks or wrap to two lines.</li>
+      <li><strong>Still too tight</strong> → abbreviate, and carry the full name in a tooltip reachable on focus, not hover alone.</li>
+    </ul>
+    <p class="prose">
+      <strong>VC does not rotate labels in dashboard charts.</strong> Diagonal text is a last resort the field reaches for and we don't — one of horizontal, thinned, or wrapped always fits our panels.
+    </p>
+  </section>
+
+  <!-- 04 WHY -->
+  <section>
+    <span class="secnum">04 / The reasoning</span>
+    <h2>Five rules the bar earns</h2>
+    <p class="prose">
+      A bar encodes one value as one length. Every rule below protects that: keep the length honest, order it so the eye can read it, and don't ask it to carry more categories — or longer labels — than it can show.
     </p>
 
     <div class="principles">
@@ -246,12 +366,17 @@
         <h3>Cap the count, group the tail</h3>
         <p><strong>Past ~12 categories a bar chart stops comparing.</strong> Show the top-N, roll the rest into a labelled "Other", and put the exhaustive list in a sortable table. Never squeeze 40 bars into a tile.</p>
       </div>
+      <div class="principle">
+        <div class="n">5</div>
+        <h3>Labels stay horizontal — never rotate</h3>
+        <p><strong>Diagonal text is slower to read, so VC's house rule is stronger than the field's.</strong> When a column axis crowds, go horizontal, thin the ticks, or wrap — never tilt the labels. Rotation is the field's last resort; on our dashboard panels it isn't a resort at all.</p>
+      </div>
     </div>
   </section>
 
   <!-- 04 PRECEDENT -->
   <section>
-    <span class="secnum">04 / What the field says</span>
+    <span class="secnum">05 / What the field says</span>
     <h2>The bar conventions are settled</h2>
     <p class="prose">
       <strong>Sort by value, start at zero, and don't overload — every major source agrees.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
@@ -294,6 +419,13 @@
       </div>
 
       <div class="syscard">
+        <div class="src">Storytelling with Data</div>
+        <h3>Alternatives to diagonal labels</h3>
+        <p>Cole Nussbaumer Knaflic treats rotated axis labels as a last resort, not a default: prefer horizontal bars, or shorter, wrapped and thinned labels. The field's line is "rotate only as a last resort"; VC hardens that to a ban in dashboard charts, since one of the alternatives always fits our panels.</p>
+        <span class="verdict tag n"><span class="dot"></span>horizontal · thin · wrap, not rotate</span>
+      </div>
+
+      <div class="syscard">
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline, capped with a grouped "Other" and backed by a sortable table. Our usage should follow it.</p>
@@ -304,11 +436,12 @@
 
   <!-- 05 REFS -->
   <section>
-    <span class="secnum">05 / References</span>
+    <span class="secnum">06 / References</span>
     <h2>Sources</h2>
     <ul class="clean refs prose" style="margin-top:1rem;">
       <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (bar defaults for comparison; sort by value; horizontal for long labels; zero-based axes).</li>
       <li><a href="https://www.datawrapper.de/blog/bar-column-charts">Datawrapper Academy — Bar &amp; column charts</a> (sort by value; start at zero; group small categories into "Other").</li>
+      <li><a href="https://www.storytellingwithdata.com/blog/2020/4/22/alternatives-to-diagonal-axis-labels">Storytelling with Data — Alternatives to diagonal axis labels</a> (rotate as a last resort; prefer horizontal, shorter, wrapped or thinned labels).</li>
       <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (bars require a zero baseline; dot plots for long category lists).</li>
       <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (ranking served by ordered bars, columns and lollipops).</li>
       <li><a href="https://m3.material.io/components/charts/guidelines">Google Material — Charts guidelines</a> (bar charts for category comparison; zero baseline).</li>
