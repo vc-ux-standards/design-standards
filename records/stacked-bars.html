@@ -19,6 +19,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
+<style>
+/* Scoped to §03's live stacked-column tooltip demo — the one interaction this
+   record must show, not describe. CSS-only hover/focus disclosure, token-driven,
+   namespaced .sb-*. Precedent: records/breakpoints.html §03 (inline SVG charts).
+   Not part of the shared set; if a second record wants this, it moves to base.css. */
+.sb-plot{ display:flex; align-items:flex-end; gap:0.5rem; height:180px; padding-top:2.4rem; }
+.sb-band{ position:relative; flex:1 1 0; min-width:24px; height:100%;
+          display:flex; flex-direction:column-reverse; border-radius:2px; }
+.sb-band:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
+.sb-seg{ width:100%; background:var(--c); }   /* .viz-cN only sets --c; SVG's fill rule can't reach a div */
+.sb-seg:first-child{ border-radius:0 0 2px 2px; }
+.sb-seg:last-child{ border-radius:2px 2px 0 0; }
+
+/* The tip is a positioned hover box; padding-bottom is the visual gap kept INSIDE
+   that box so :hover survives the travel from column to card (a margin would drop it).
+   The visible card nests inside, so the gap reads as empty space, not filled panel. */
+.sb-tip{ opacity:0; visibility:hidden; position:absolute; left:50%; bottom:100%;
+         transform:translateX(-50%); width:max-content; max-width:180px; z-index:1;
+         padding-bottom:0.55rem; }
+.sb-band:hover .sb-tip,
+.sb-band:focus-visible .sb-tip{ opacity:1; visibility:visible; }
+.sb-band:hover, .sb-band:focus-visible{ z-index:2; }
+
+/* Clamp the outermost tooltips inside the plot — CSS can't measure the edge. */
+.sb-band:first-child .sb-tip{ left:0; transform:none; }
+.sb-band:last-child .sb-tip{ left:auto; right:0; transform:none; }
+/* A full-height column's tip would clip on the board top; flip it below instead. */
+.sb-band.tall .sb-tip{ top:100%; bottom:auto; padding-bottom:0; padding-top:0.55rem; }
+
+.sb-card{ background:var(--paper); border:1px solid var(--rule-strong); border-radius:5px;
+          padding:0.5rem 0.6rem; box-shadow:0 1px 2px oklch(var(--shadow-ink) / 0.05),
+          0 8px 24px oklch(var(--shadow-ink) / 0.09);
+          font-family:"Hanken Grotesk",sans-serif; color:var(--ink); }
+.sb-hd{ display:flex; align-items:baseline; justify-content:space-between; gap:0.9rem;
+        padding-bottom:0.4rem; margin-bottom:0.4rem; border-bottom:1px solid var(--rule); }
+.sb-hd .sb-k{ font-weight:600; font-size:0.82rem; color:var(--ink); }
+.sb-hd .sb-tot{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.04em; color:var(--ink-3); white-space:nowrap; }
+.sb-row{ display:flex; align-items:center; gap:0.45rem; font-size:0.76rem; line-height:1.5; }
+.sb-sw{ width:0.66em; height:0.66em; border-radius:2px; background:var(--c, var(--ink-3)); flex:none; }
+.sb-lbl{ color:var(--ink-2); }
+.sb-val{ margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink); white-space:nowrap; }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -80,6 +122,166 @@
       <section>
         <span class="secnum">03 / Where the tooltip sits</span>
         <h2>Anchored to the column it describes</h2>
+
+        <p class="prose">
+          <strong>The tooltip anchors to the column, sits above it, and never covers the mark it describes.</strong> The reader points at a stack and the enrichment appears clear of the paint — so the shape being read stays visible while its exact figures are read off.
+        </p>
+
+        <ul class="clean">
+          <li><strong>Above the column, offset by a gap.</strong> The tip clears the top of the stack; the offset gap is part of the hoverable box, so moving from column to card never dismisses it mid-travel.</li>
+          <li><strong>Clamped inside the plot.</strong> The first and last columns push their tips flush to the plot edge instead of overflowing it; a full-height column flips its tip below rather than clip on the board top.</li>
+          <li><strong>Reachable by keyboard.</strong> Every column is focusable and shows the same card on <code>:focus-visible</code> as on hover, with a visible focus ring.</li>
+        </ul>
+
+        <div class="demo" style="margin-top:2.5rem;">
+          <div class="cap">
+            <span class="name">Payer mix by cohort · hover or focus a column</span>
+            <span class="tag n"><span class="dot"></span>Live demo</span>
+          </div>
+          <div class="viz-board">
+            <div class="bbar"><i></i><i></i><i></i><em>Attributed lives · payer mix</em></div>
+            <div class="viz-plot">
+              <div class="sb-plot">
+
+                <div class="sb-band" tabindex="0" role="img"
+                     aria-label="Q1 total 1,000. Commercial 400, 40%. Medicare 350, 35%. Medicaid 230, 23%. Dual 20, 2%.">
+                  <div class="sb-seg viz-c4" style="height:2%"></div>
+                  <div class="sb-seg viz-c3" style="height:23%"></div>
+                  <div class="sb-seg viz-c2" style="height:35%"></div>
+                  <div class="sb-seg viz-c1" style="height:40%"></div>
+                  <div class="sb-tip" aria-hidden="true">
+                    <div class="sb-card">
+                      <div class="sb-hd"><span class="sb-k">Q1</span><span class="sb-tot">1,000 total</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">400 · 40%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">350 · 35%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">230 · 23%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">20 · 2%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sb-band" tabindex="0" role="img"
+                     aria-label="Q2 total 1,200. Commercial 528, 44%. Medicare 360, 30%. Medicaid 216, 18%. Dual 96, 8%.">
+                  <div class="sb-seg viz-c4" style="height:8%"></div>
+                  <div class="sb-seg viz-c3" style="height:18%"></div>
+                  <div class="sb-seg viz-c2" style="height:30%"></div>
+                  <div class="sb-seg viz-c1" style="height:44%"></div>
+                  <div class="sb-tip" aria-hidden="true">
+                    <div class="sb-card">
+                      <div class="sb-hd"><span class="sb-k">Q2</span><span class="sb-tot">1,200 total</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">528 · 44%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">360 · 30%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">216 · 18%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">96 · 8%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sb-band tall" tabindex="0" role="img"
+                     aria-label="Q3 total 900. Commercial 342, 38%. Medicare 297, 33%. Medicaid 198, 22%. Dual 63, 7%.">
+                  <div class="sb-seg viz-c4" style="height:7%"></div>
+                  <div class="sb-seg viz-c3" style="height:22%"></div>
+                  <div class="sb-seg viz-c2" style="height:33%"></div>
+                  <div class="sb-seg viz-c1" style="height:38%"></div>
+                  <div class="sb-tip" aria-hidden="true">
+                    <div class="sb-card">
+                      <div class="sb-hd"><span class="sb-k">Q3</span><span class="sb-tot">900 total</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">342 · 38%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">297 · 33%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">198 · 22%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">63 · 7%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sb-band" tabindex="0" role="img"
+                     aria-label="Q4 total 1,500. Commercial 750, 50%. Medicare 420, 28%. Medicaid 240, 16%. Dual 90, 6%.">
+                  <div class="sb-seg viz-c4" style="height:6%"></div>
+                  <div class="sb-seg viz-c3" style="height:16%"></div>
+                  <div class="sb-seg viz-c2" style="height:28%"></div>
+                  <div class="sb-seg viz-c1" style="height:50%"></div>
+                  <div class="sb-tip" aria-hidden="true">
+                    <div class="sb-card">
+                      <div class="sb-hd"><span class="sb-k">Q4</span><span class="sb-tot">1,500 total</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">750 · 50%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">420 · 28%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">240 · 16%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">90 · 6%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sb-band" tabindex="0" role="img"
+                     aria-label="Q5 total 1,100. Commercial 374, 34%. Medicare 341, 31%. Medicaid 286, 26%. Dual 99, 9%.">
+                  <div class="sb-seg viz-c4" style="height:9%"></div>
+                  <div class="sb-seg viz-c3" style="height:26%"></div>
+                  <div class="sb-seg viz-c2" style="height:31%"></div>
+                  <div class="sb-seg viz-c1" style="height:34%"></div>
+                  <div class="sb-tip" aria-hidden="true">
+                    <div class="sb-card">
+                      <div class="sb-hd"><span class="sb-k">Q5</span><span class="sb-tot">1,100 total</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">374 · 34%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">341 · 31%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">286 · 26%</span></div>
+                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">99 · 9%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <table class="tbl tri">
+            <thead>
+              <tr><th scope="col">Cohort</th><th scope="col">Commercial</th><th scope="col">Medicare</th><th scope="col">Medicaid</th><th scope="col">Dual</th><th scope="col">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Q1</th>
+                <td data-l="Commercial">400 · 40%</td>
+                <td data-l="Medicare">350 · 35%</td>
+                <td data-l="Medicaid">230 · 23%</td>
+                <td data-l="Dual">20 · 2%</td>
+                <td data-l="Total">1,000</td>
+              </tr>
+              <tr>
+                <th scope="row">Q2</th>
+                <td data-l="Commercial">528 · 44%</td>
+                <td data-l="Medicare">360 · 30%</td>
+                <td data-l="Medicaid">216 · 18%</td>
+                <td data-l="Dual">96 · 8%</td>
+                <td data-l="Total">1,200</td>
+              </tr>
+              <tr>
+                <th scope="row">Q3</th>
+                <td data-l="Commercial">342 · 38%</td>
+                <td data-l="Medicare">297 · 33%</td>
+                <td data-l="Medicaid">198 · 22%</td>
+                <td data-l="Dual">63 · 7%</td>
+                <td data-l="Total">900</td>
+              </tr>
+              <tr>
+                <th scope="row">Q4</th>
+                <td data-l="Commercial">750 · 50%</td>
+                <td data-l="Medicare">420 · 28%</td>
+                <td data-l="Medicaid">240 · 16%</td>
+                <td data-l="Dual">90 · 6%</td>
+                <td data-l="Total">1,500</td>
+              </tr>
+              <tr>
+                <th scope="row">Q5</th>
+                <td data-l="Commercial">374 · 34%</td>
+                <td data-l="Medicare">341 · 31%</td>
+                <td data-l="Medicaid">286 · 26%</td>
+                <td data-l="Dual">99 · 9%</td>
+                <td data-l="Total">1,100</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note"><strong>Every value lives in the table above; the tooltip only saves a glance.</strong> That is what keeps this an honest demo rather than a broken one — the tip conveys nothing not already on the page, so WCAG 1.4.13 (content on hover) does not apply. A production tooltip carrying anything <em>unique</em> would additionally owe Escape-to-dismiss, which needs a key handler this no-JS site does not ship. On touch there is no <code>:hover</code> and <code>:focus-visible</code> will not fire on a tap — a stated assumption, not an oversight: VC's users are analysts and config admins on large desktop monitors, and the table carries the data on any device regardless.</p>
+        </div>
       </section>
 
       <!-- 04 WHEN THE SEGMENT IS TOO THIN -->
