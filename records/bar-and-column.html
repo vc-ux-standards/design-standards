@@ -31,7 +31,7 @@
     <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
     <h1>Bars: count, orientation,<br>order, and labels</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
-      The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, show the top and group the rest.
+      The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, group the tail into "Other" when the question is which are the top, but keep every entity when the reader must find or compare each one.
     </p>
 
     <div class="context">
@@ -44,7 +44,7 @@
     <div class="rulecard">
       <span class="k">The rule</span>
       <p>
-        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, show the <strong>top-N and roll the tail into a labelled "Other"</strong>; the full set belongs in a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
+        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, the split is <strong>the question asked, not the entity</strong>: when the question is <strong>which are the top</strong>, show the top-N and roll the tail into a labelled "Other"; when the reader must <strong>find or compare every entity</strong>, drop nothing — sort, go horizontal, filter and scroll, then a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
       </p>
     </div>
   </header>
@@ -101,7 +101,7 @@
       <li><strong>1 value, or current vs prior</strong> → a number with a delta, not an axis — see <a href="charts-at-tile-scale.html">charts at tile scale</a>.</li>
       <li><strong>2–3 categorical states</strong> → a small, direct-labelled bar chart is fine.</li>
       <li><strong>~4–12</strong> → the bar chart proper, the range everything below assumes.</li>
-      <li><strong>Past ~12</strong> → top-N, a grouped "Other", and a sortable table (§02).</li>
+      <li><strong>Past ~12</strong> → top-N, a grouped "Other", and a sortable table when the tail is disposable; keep every entity when the reader must compare each one (§02, §03).</li>
     </ul>
   </section>
 
@@ -171,7 +171,7 @@
             </svg>
           </div>
         </div>
-        <p class="note"><strong>Sorted, top eight, and the tail rolled into a greyed "Other".</strong> Each domain label gets the full measure, values sit at the bar end, and the ranking reads top to bottom. Past ~12 categories, this is the move — and the full list stays a click away as a sortable table.</p>
+        <p class="note"><strong>Sorted, top eight, and the tail rolled into a greyed "Other".</strong> Each domain label gets the full measure, values sit at the bar end, and the ranking reads top to bottom. Past ~12 categories, this is the move — and the full list stays a click away as a sortable table. The grouped "Other" works <strong>because the question is "who is top", not "where is measure X"</strong>; when identity is required, nothing is merged away (§03).</p>
       </div>
     </div>
 
@@ -227,12 +227,12 @@
     </div>
   </section>
 
-  <!-- 03 WHEN LABELS COLLIDE -->
+  <!-- 03 WHEN THE AXIS CROWDS -->
   <section>
-    <span class="secnum">03 / When labels collide</span>
-    <h2>Labels that won't fit</h2>
+    <span class="secnum">03 / When the axis crowds</span>
+    <h2>Two crowded axes, two fixes</h2>
     <p class="prose">
-      <strong>A column axis divides one width between every category, so labels collide the moment the panel narrows.</strong> The reflex is to rotate them to a diagonal. That keeps them from overlapping but makes them slow to read — and on a tight panel they overlap anyway. This is audits closed each month: an ordered monthly series read as a count-by-count comparison, not for its slope — a slope is a <a href="line-charts.html">line</a>.
+      <strong>A crowded axis is two problems, and which one you have is set by what the axis carries.</strong> An ordered series — months, quarters — crowds when the ticks outrun the width, and the fix is to thin them. A categorical axis of entities — providers, measures, contracts — crowds because every tick is a distinct name that can't be thinned away without deleting data. The reflex for both is to tilt the labels to a diagonal; VC does neither. Diagonal text reads slowly and still overlaps on a tight panel.
     </p>
 
     <div class="compare">
@@ -325,13 +325,125 @@
     </div>
 
     <p class="prose" style="margin-top:2rem;">
+      <strong>An entity axis can't be thinned — a dropped tick is a dropped provider, so the fix is set by the question, not by the entity.</strong> Ask <em>which are the top performers</em> and the tail is disposable: show the top-N and roll the rest into a labelled "Other", the §02 move. Ask <em>where does this provider sit, or compare them all</em> and identity is required — nothing may be dropped or merged. Sort by value, go horizontal, let the reader filter and scroll, then hand the full set to a sortable table. The same forty providers go either way; the question decides.
+    </p>
+
+    <div class="compare" style="margin-top:1.75rem;">
+      <div class="stage avoid">
+        <span class="judge"><span class="d"></span>Avoid</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Gap count · 40 providers</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 320 160" role="img" aria-label="Eighteen of forty providers as thin vertical columns, every label rotated to a diagonal and truncated to 'Prov…', so no column can be told from its neighbour.">
+              <g class="viz-bars">
+                <rect x="12" y="42" width="10" height="58"/><rect x="28.5" y="58" width="10" height="42"/><rect x="45" y="29" width="10" height="71"/><rect x="61.5" y="64" width="10" height="36"/><rect x="78" y="36" width="10" height="64"/><rect x="94.5" y="51" width="10" height="49"/><rect x="111" y="26" width="10" height="74"/><rect x="127.5" y="69" width="10" height="31"/><rect x="144" y="45" width="10" height="55"/><rect x="160.5" y="55" width="10" height="45"/><rect x="177" y="32" width="10" height="68"/><rect x="193.5" y="61" width="10" height="39"/><rect x="210" y="40" width="10" height="60"/><rect x="226.5" y="66" width="10" height="34"/><rect x="243" y="48" width="10" height="52"/><rect x="259.5" y="34" width="10" height="66"/><rect x="276" y="53" width="10" height="47"/><rect x="292.5" y="28" width="10" height="72"/>
+              </g>
+              <line class="viz-axis" x1="8" y1="100" x2="312" y2="100"/>
+              <g class="viz-label" font-size="7.5">
+                <text x="17" y="112" text-anchor="end" transform="rotate(-45 17 112)">Prov…</text>
+                <text x="33.5" y="112" text-anchor="end" transform="rotate(-45 33.5 112)">Prov…</text>
+                <text x="50" y="112" text-anchor="end" transform="rotate(-45 50 112)">Prov…</text>
+                <text x="66.5" y="112" text-anchor="end" transform="rotate(-45 66.5 112)">Prov…</text>
+                <text x="83" y="112" text-anchor="end" transform="rotate(-45 83 112)">Prov…</text>
+                <text x="99.5" y="112" text-anchor="end" transform="rotate(-45 99.5 112)">Prov…</text>
+                <text x="116" y="112" text-anchor="end" transform="rotate(-45 116 112)">Prov…</text>
+                <text x="132.5" y="112" text-anchor="end" transform="rotate(-45 132.5 112)">Prov…</text>
+                <text x="149" y="112" text-anchor="end" transform="rotate(-45 149 112)">Prov…</text>
+                <text x="165.5" y="112" text-anchor="end" transform="rotate(-45 165.5 112)">Prov…</text>
+                <text x="182" y="112" text-anchor="end" transform="rotate(-45 182 112)">Prov…</text>
+                <text x="198.5" y="112" text-anchor="end" transform="rotate(-45 198.5 112)">Prov…</text>
+                <text x="215" y="112" text-anchor="end" transform="rotate(-45 215 112)">Prov…</text>
+                <text x="231.5" y="112" text-anchor="end" transform="rotate(-45 231.5 112)">Prov…</text>
+                <text x="248" y="112" text-anchor="end" transform="rotate(-45 248 112)">Prov…</text>
+                <text x="264.5" y="112" text-anchor="end" transform="rotate(-45 264.5 112)">Prov…</text>
+                <text x="281" y="112" text-anchor="end" transform="rotate(-45 281 112)">Prov…</text>
+                <text x="297.5" y="112" text-anchor="end" transform="rotate(-45 297.5 112)">Prov…</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Unreadable on purpose: forty entity ticks collapse into a solid block.</strong> Rotated and truncated to <code>Prov…</code>, no column can be told from its neighbour — and thinning the axis here would delete providers, not spare labels.</p>
+      </div>
+      <div class="stage use">
+        <span class="judge"><span class="d"></span>Use</span>
+        <div class="viz-board">
+          <div class="bbar"><i></i><i></i><i></i><em>Gap count · sorted, scrollable</em></div>
+          <div class="chart viz-plot">
+            <svg viewBox="0 0 300 152" role="img" aria-label="The same providers as sorted horizontal bars, each named in full with its value at the bar end, a faded ninth row and a scroll thumb signalling more rows below.">
+              <g class="viz-bars">
+                <rect x="118" y="6" width="138.0" height="12"/>
+                <rect x="118" y="22" width="129.9" height="12"/>
+                <rect x="118" y="38" width="124.5" height="12"/>
+                <rect x="118" y="54" width="119.1" height="12"/>
+                <rect x="118" y="70" width="110.9" height="12"/>
+                <rect x="118" y="86" width="105.5" height="12"/>
+                <rect x="118" y="102" width="100.1" height="12"/>
+                <rect x="118" y="118" width="92.0" height="12"/>
+                <rect class="viz-mute" x="118" y="134" width="86.6" height="12" opacity="0.4"/>
+                <rect class="viz-mute" x="292" y="6" width="3" height="44" rx="1.5"/>
+              </g>
+              <g class="viz-label" font-size="8.5">
+                <text x="6" y="15">Provider A</text>
+                <text x="6" y="31">Provider B</text>
+                <text x="6" y="47">Provider C</text>
+                <text x="6" y="63">Provider D</text>
+                <text x="6" y="79">Provider E</text>
+                <text x="6" y="95">Provider F</text>
+                <text x="6" y="111">Provider G</text>
+                <text x="6" y="127">Provider H</text>
+                <text x="6" y="143" opacity="0.4">Provider I</text>
+              </g>
+              <g class="viz-label ink" font-size="8.5">
+                <text x="261.0" y="15">51</text>
+                <text x="252.9" y="31">48</text>
+                <text x="247.5" y="47">46</text>
+                <text x="242.1" y="63">44</text>
+                <text x="233.9" y="79">41</text>
+                <text x="228.5" y="95">39</text>
+                <text x="223.1" y="111">37</text>
+                <text x="215.0" y="127">34</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="note"><strong>Sorted by value, horizontal, every provider named in full — scroll for the rest.</strong> No entity is dropped or merged; the reader scrolls the ranking and, past a screenful, hands the full set to a sortable table. The scroll chrome here is schematic — the rule is the sorted, complete, horizontal list.</p>
+      </div>
+    </div>
+
+    <p class="prose" style="margin-top:2rem;">
       <strong>Which fix applies is set by the label's type, not by rotating it.</strong>
     </p>
     <ul class="clean">
       <li><strong>Long nominal labels</strong> (measures, providers, contracts) → go horizontal; each name gets a full row (principle 3).</li>
       <li><strong>Dense ordered labels</strong> (months, quarters) → thin the ticks or wrap to two lines.</li>
-      <li><strong>Still too tight</strong> → abbreviate, and carry the full name in a tooltip reachable on focus, not hover alone.</li>
     </ul>
+
+    <table class="tbl tri">
+      <thead>
+        <tr>
+          <th>The axis carries</th>
+          <th>What it allows</th>
+          <th>When it still won't fit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">An ordered series — months, quarters</th>
+          <td data-l="What it allows">Thin the ticks, keep minor ticks, wrap to two lines.</td>
+          <td data-l="When it still won't fit">Wrap, or drop to a line chart.</td>
+        </tr>
+        <tr>
+          <th scope="row">Entities, and the question is "which are the top"</th>
+          <td data-l="What it allows">Sort by value, go horizontal, show the top-N.</td>
+          <td data-l="When it still won't fit">A labelled "Other", drilling through.</td>
+        </tr>
+        <tr>
+          <th scope="row">Entities, and the question needs every one</th>
+          <td data-l="What it allows">Sort by value, go horizontal, filter and scroll.</td>
+          <td data-l="When it still won't fit">A sortable table with inline bars.</td>
+        </tr>
+      </tbody>
+    </table>
     <p class="prose">
       <strong>VC does not rotate labels in dashboard charts.</strong> Diagonal text is a last resort the field reaches for and we don't — one of horizontal, thinned, or wrapped always fits our panels.
     </p>
@@ -363,13 +475,13 @@
       </div>
       <div class="principle">
         <div class="n">4</div>
-        <h3>Cap the count, group the tail</h3>
-        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> Show the top-N, roll the rest into a labelled "Other", and put the exhaustive list in a sortable table. Never squeeze 40 bars into a tile.</p>
+        <h3>Cap the count, group the tail — when identity is disposable</h3>
+        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> When the tail is disposable, show the top-N and roll the rest into a labelled "Other". When the reader must find or compare every one, drop nothing — sort, scroll, then a sortable table. Forty providers cannot become "Other".</p>
       </div>
       <div class="principle">
         <div class="n">5</div>
         <h3>Labels stay horizontal — never rotate</h3>
-        <p><strong>Diagonal text is slower to read, so VC's house rule is stronger than the field's.</strong> When a column axis crowds, go horizontal, thin the ticks, or wrap — never tilt the labels. Rotation is the field's last resort; on our dashboard panels it isn't a resort at all.</p>
+        <p><strong>The rotation ban is ours, not the evidence's.</strong> The research on whether a diagonal label reads slower is mixed; VC bans it regardless, because on our panels one of horizontal, thinned, or wrapped always fits. When a column axis crowds, reach for those — never tilt the labels.</p>
       </div>
     </div>
   </section>
@@ -379,24 +491,10 @@
     <span class="secnum">05 / What the field says</span>
     <h2>The bar conventions are settled</h2>
     <p class="prose">
-      <strong>Sort by value, start at zero, and don't overload — every major source agrees.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
+      <strong>Sort by value, start at zero, and reach for any alternative before rotating a label.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
     </p>
 
     <div class="systems">
-      <div class="syscard lead">
-        <div class="src">IBM · Carbon — closest to our world</div>
-        <h3>Bar defaults, sorted, zero-based</h3>
-        <p>Carbon defaults categorical comparison to bar charts, recommends ordering by value for ranking, and uses horizontal bars when category labels are long — the exact shape of VC's measure and provider rankings. Its axes start at zero.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>sorted, horizontal, zero-based</span>
-      </div>
-
-      <div class="syscard">
-        <div class="src">Datawrapper Academy</div>
-        <h3>Order by value; group small categories</h3>
-        <p>Datawrapper's bar guidance is explicit: sort bars by value unless the order carries meaning, always start the axis at zero, and combine small categories into an "Other" group rather than showing a long unreadable tail.</p>
-        <span class="verdict tag n"><span class="dot"></span>sort · zero · group the tail</span>
-      </div>
-
       <div class="syscard">
         <div class="src">FT · Visual Vocabulary</div>
         <h3>Ranking is its own family</h3>
@@ -425,10 +523,10 @@
         <span class="verdict tag n"><span class="dot"></span>horizontal · thin · wrap, not rotate</span>
       </div>
 
-      <div class="syscard">
+      <div class="syscard lead">
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
-        <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline, capped with a grouped "Other" and backed by a sortable table. Our usage should follow it.</p>
+        <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline. When the question is which are the top, cap with a grouped "Other"; when every entity must be compared, keep them all and back the ranking with a sortable table. Our usage should follow it.</p>
         <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar default</span>
       </div>
     </div>
@@ -439,8 +537,6 @@
     <span class="secnum">06 / References</span>
     <h2>Sources</h2>
     <ul class="clean refs prose" style="margin-top:1rem;">
-      <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (bar defaults for comparison; sort by value; horizontal for long labels; zero-based axes).</li>
-      <li><a href="https://www.datawrapper.de/blog/bar-column-charts">Datawrapper Academy — Bar &amp; column charts</a> (sort by value; start at zero; group small categories into "Other").</li>
       <li><a href="https://www.storytellingwithdata.com/blog/2020/4/22/alternatives-to-diagonal-axis-labels">Storytelling with Data — Alternatives to diagonal axis labels</a> (rotate as a last resort; prefer horizontal, shorter, wrapped or thinned labels).</li>
       <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (bars require a zero baseline; dot plots for long category lists).</li>
       <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (ranking served by ordered bars, columns and lollipops).</li>
