@@ -112,12 +112,88 @@
       <section>
         <span class="secnum">01 / Quick reference</span>
         <h2>Which tier holds the value</h2>
+        <p class="prose">
+          <strong>Three tiers, one rule: a value lives where a reader can reach it for the job it does.</strong> The names and order below are the rulecard's — cite the tier, not a paraphrase of it.
+        </p>
+
+        <table class="tbl tri">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>What it holds</th>
+              <th>Where it lives</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Always visible</th>
+              <td data-l="What it holds">The axis, the total, and a direct label for any value the decision turns on.</td>
+              <td data-l="Where it lives">Baked into the chart itself — direct labels, axis ticks, the total in the caption.</td>
+            </tr>
+            <tr>
+              <th scope="row">On demand (tooltip)</th>
+              <td data-l="What it holds">Exact figures, denominators, definitions. Enrichment, never the only copy of a needed fact.</td>
+              <td data-l="Where it lives">The hover/focus card, anchored to the column it describes (§03).</td>
+            </tr>
+            <tr>
+              <th scope="row">On navigate</th>
+              <td data-l="What it holds">The full row set, history, provenance.</td>
+              <td data-l="Where it lives">A table or a detail page, one click away — never a tooltip.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <!-- 02 WHAT THE TOOLTIP CARRIES -->
       <section>
         <span class="secnum">02 / What the tooltip carries</span>
         <h2>Enough to enrich, not to explain</h2>
+        <p class="prose">
+          <strong>A legitimate tooltip has a ceiling: one header, one total, four to six segment rows.</strong> Past that it has stopped enriching the chart and started standing in for a page the record hasn't earned.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Cohort record · every field</em></div>
+              <div class="viz-plot" style="display:flex; justify-content:center;">
+                <div class="sb-card" style="max-width:230px;">
+                  <div class="sb-hd"><span class="sb-k">Record CH-04471</span><span class="sb-tot">12 fields</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Status</span><span class="sb-val">Open</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Payer</span><span class="sb-val">Commercial</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Plan type</span><span class="sb-val">HMO</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Risk tier</span><span class="sb-val">Tier 2</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Gap type</span><span class="sb-val">A1c overdue</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Region</span><span class="sb-val">Northeast</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Contract</span><span class="sb-val">CTR-1182</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Care manager</span><span class="sb-val">J. Alvarez</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Attribution date</span><span class="sb-val">14 Jan</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Last synced</span><span class="sb-val">08 Jul</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Owner team</span><span class="sb-val">Quality Ops</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-mute"></span><span class="sb-lbl">Source</span><span class="sb-val">Registry sync</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>Twelve fields, no ceiling.</strong> This is every column on the record, not the handful that decide anything — the reader hunts through the whole card for the one value they hovered to see.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Payer mix by cohort · Q1</em></div>
+              <div class="viz-plot" style="display:flex; justify-content:center;">
+                <div class="sb-card" style="max-width:180px;">
+                  <div class="sb-hd"><span class="sb-k">Q1</span><span class="sb-tot">1,000 total</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">400 · 40%</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">350 · 35%</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">230 · 23%</span></div>
+                  <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">20 · 2%</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>One header, one total, four segment rows — §03's actual payload.</strong> Every value here is worth the glance it costs; nothing in it is padding.</p>
+          </div>
+        </div>
       </section>
 
       <!-- 03 WHERE THE TOOLTIP SITS -->
@@ -290,24 +366,171 @@
       <section>
         <span class="secnum">04 / When the segment is too thin</span>
         <h2>Target the column, not the paint</h2>
+        <p class="prose">
+          <strong>The target is the column, not the segment.</strong> A 2% band is real estate no pointer can reliably land on — and it's usually the band the decision turns on. The fix is never to enlarge the paint; it's to make the whole column the hit area.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Payer mix · segment as target</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 200 150" role="img" aria-label="A single stacked column with a thin top segment; a highlighted box exactly the height of that segment marks it as the only hit zone, showing how easy it is to miss.">
+                  <g class="viz-bars">
+                    <rect class="viz-c1" x="40" y="88" width="36" height="42"/>
+                    <rect class="viz-c2" x="40" y="50" width="36" height="38"/>
+                    <rect class="viz-c3" x="40" y="24" width="36" height="26"/>
+                    <rect class="viz-c4" x="40" y="20" width="36" height="4"/>
+                  </g>
+                  <line class="viz-axis" x1="34" y1="130" x2="170" y2="130"/>
+                  <rect x="40" y="20" width="36" height="4" fill="none" stroke="var(--error)" stroke-width="1.5"/>
+                  <line x1="76" y1="22" x2="110" y2="22" stroke="var(--error)" stroke-width="1"/>
+                  <text x="114" y="19" font-size="8" fill="var(--error)" font-family="'IBM Plex Mono',monospace">Dual · 2%</text>
+                  <text x="114" y="30" font-size="7.5" fill="var(--error)" font-family="'IBM Plex Mono',monospace">the only hit zone</text>
+                  <text x="58" y="142" text-anchor="middle" class="viz-label" font-size="8">Q1</text>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>If the hit zone matches the paint, a 2% segment is an impossible target.</strong> That precision beats what a mouse — let alone a touch point — can reliably deliver, on the exact band most likely to be the one that matters.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Payer mix · column as target</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 200 150" role="img" aria-label="The same column with a highlighted box spanning its full height, marking the whole column — not the thin segment — as the hit zone.">
+                  <g class="viz-bars">
+                    <rect class="viz-c1" x="40" y="88" width="36" height="42"/>
+                    <rect class="viz-c2" x="40" y="50" width="36" height="38"/>
+                    <rect class="viz-c3" x="40" y="24" width="36" height="26"/>
+                    <rect class="viz-c4" x="40" y="20" width="36" height="4"/>
+                  </g>
+                  <line class="viz-axis" x1="34" y1="130" x2="170" y2="130"/>
+                  <rect x="40" y="20" width="36" height="110" fill="none" stroke="var(--cool)" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <line x1="76" y1="75" x2="110" y2="75" stroke="var(--cool)" stroke-width="1"/>
+                  <text x="114" y="68" font-size="8" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">24px min</text>
+                  <text x="114" y="79" font-size="7.5" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">the whole column</text>
+                  <text x="58" y="142" text-anchor="middle" class="viz-label" font-size="8">Q1</text>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>The hit band is the full column, 24px minimum, however thin the segment paints.</strong> §03's live demo ships this already — every column is one focusable target the height of the stack, whatever the smallest segment gets in pixels.</p>
+          </div>
+        </div>
+
+        <p class="prose" style="margin-top:2rem;">
+          <strong>Widening the band is the first fix, not the last.</strong> Work the ladder in order — each row is the next move, not an alternative to try first.
+        </p>
+
+        <table class="tbl tri">
+          <thead>
+            <tr>
+              <th>The segment</th>
+              <th>What it allows</th>
+              <th>When it still won't fit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Targetable in a column band</th>
+              <td data-l="What it allows">Widen the hit band to the whole column, 24px minimum.</td>
+              <td data-l="When it still won't fit">More than 6 segments in the stack — cap it (next row).</td>
+            </tr>
+            <tr>
+              <th scope="row">More than 6 segments</th>
+              <td data-l="What it allows">Cap the stack; roll the tail into a labelled "Other" — the <a href="bar-and-column.html">bar-and-column.html §02</a> move.</td>
+              <td data-l="When it still won't fit">Every segment's identity is still required, or a middle segment must be compared across columns (next row).</td>
+            </tr>
+            <tr>
+              <th scope="row">Identity required, or a middle segment must be compared across columns</th>
+              <td data-l="What it allows">Change the form: grouped bars, small multiples, or a sortable table.</td>
+              <td data-l="When it still won't fit">Nothing — this is the floor. The tooltip was never the fix for a chart carrying the wrong question.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <!-- 05 THE REASONING -->
       <section>
         <span class="secnum">05 / The reasoning</span>
         <h2>What the stack shows, and what it withholds</h2>
+        <p class="prose">
+          <strong>A stacked bar hides exactly what a tooltip is built to recover.</strong> The four rules below explain why the rulecard's tiers aren't arbitrary — they follow from what a stack can and cannot show on its own.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <div class="n">1</div>
+            <h3>The floating middle segment</h3>
+            <p><strong>Only the bottom segment and the total share the zero baseline.</strong> Every segment above it starts wherever the one below ends, so the eye can judge its length within a column but not compare it across columns — <a href="reading-honestly.html">a bar reads by length, so it must start at zero</a>; a middle segment never gets one.</p>
+          </div>
+          <div class="principle">
+            <div class="n">2</div>
+            <h3>Why the tooltip earns its place</h3>
+            <p><strong>The exact per-segment number is precisely what the stack withholds.</strong> A tooltip here recovers the one fact the encoding can't show — enrichment, not a patch over a chart that shouldn't have shipped.</p>
+          </div>
+          <div class="principle">
+            <div class="n">3</div>
+            <h3>Progressive disclosure is the whole law</h3>
+            <p><strong>Always visible, on demand, on navigate — the shape outlives stacked bars.</strong> Any view that can't fit every fact on the canvas earns the same three tiers this record sets for the tooltip.</p>
+          </div>
+          <div class="principle">
+            <div class="n">4</div>
+            <h3>Interaction is not a tile-scale affordance</h3>
+            <p><strong>A hover or focus target assumes room to point at.</strong> Below the size where a segment can be labelled, <a href="charts-at-tile-scale.html">a chart stops informing and starts decorating</a> — promote it to a number before reaching for a tooltip to rescue it.</p>
+          </div>
+        </div>
       </section>
 
       <!-- 06 PRECEDENT -->
       <section>
         <span class="secnum">06 / What the field says</span>
-        <h2>To be completed</h2>
+        <h2>Nonessential, dismissible, never interactive</h2>
+        <p class="prose">
+          <strong>Three sources converge on the same shape.</strong> A tooltip carries nonessential enrichment, must be dismissible without losing the pointer, and never carries interactive content — VC's three-tier rule sits inside all three constraints already.
+        </p>
+
+        <div class="systems">
+          <div class="syscard">
+            <div class="src">WCAG 2.1 · SC 1.4.13</div>
+            <h3>Dismissible, hoverable, persistent</h3>
+            <p>Content that appears on hover or focus must be dismissible without moving the pointer, stay hoverable so the pointer can reach it without it disappearing, and persist until the trigger is removed, the user dismisses it, or the content is no longer valid. It is the normative floor any hover/focus disclosure sits on.</p>
+            <span class="verdict tag n"><span class="dot"></span>dismissible · hoverable · persistent</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">W3C WAI-ARIA · APG Tooltip pattern</div>
+            <h3>Not for focusable or interactive content</h3>
+            <p>The pattern states plainly that "tooltip widgets do not receive focus" and that a hover containing focusable elements needs a non-modal dialog instead. A tooltip triggers on hover or keyboard focus and dismisses on Escape or on mouse-out — it is never itself a place to click.</p>
+            <span class="verdict tag n"><span class="dot"></span>no interactive content, ever</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">IBM Carbon · Tooltip usage</div>
+            <h3>Contextual, helpful, nonessential</h3>
+            <p>Carbon defines a tooltip as content that is "contextual, helpful, and nonessential," and rules directly against the record-dump failure mode: "do not include pertinent information for the user to complete their task," and never an interactive element — both belong in Carbon's separate toggletip component instead.</p>
+            <span class="verdict tag n"><span class="dot"></span>nonessential text only</span>
+          </div>
+
+          <div class="syscard lead">
+            <div class="src">Synthesis</div>
+            <h3>The pattern for tools like ours</h3>
+            <p>For VC's stacked-bar tooltips: one header, one total, per-segment values — enrichment the field agrees a tooltip is built to carry, never the record's only copy of a needed fact. Everything a decision turns on stays on the canvas; everything else waits for the tooltip or the table. Our usage should follow it.</p>
+            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC tooltip default</span>
+          </div>
+        </div>
       </section>
 
       <!-- 07 REFERENCES -->
       <section>
         <span class="secnum">07 / References</span>
         <h2>Sources</h2>
+        <ul class="clean refs prose" style="margin-top:1rem;">
+          <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html">WCAG 2.1 — Understanding SC 1.4.13, Content on Hover or Focus</a> (hover/focus content must be dismissible, hoverable and persistent).</li>
+          <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/">W3C WAI-ARIA — Authoring Practices, Tooltip pattern</a> (tooltip widgets do not receive focus; interactive content needs a non-modal dialog instead).</li>
+          <li><a href="https://carbondesignsystem.com/components/tooltip/usage/">IBM Carbon — Tooltip usage</a> ("contextual, helpful, and nonessential"; never pertinent task information or interactive elements).</li>
+        </ul>
       </section>
 
     </div>
