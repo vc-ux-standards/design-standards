@@ -21,36 +21,40 @@
 <link rel="stylesheet" href="../css/base.css">
 <style>
 /* Scoped to §03's live stacked-column tooltip demo — the one interaction this
-   record must show, not describe. CSS-only hover/focus disclosure, token-driven,
-   namespaced .sb-*. Precedent: records/breakpoints.html §03 (inline SVG charts).
-   Not part of the shared set; if a second record wants this, it moves to base.css. */
-/* padding-top/-bottom each exceed the ~135px card + hover-bridge so the full tip
-   (raised above, or flipped below on .tall) seats inside .viz-board's overflow:hidden. */
-.sb-plot{ display:flex; align-items:flex-end; gap:0.5rem; height:180px; padding-top:10rem; padding-bottom:10rem; }
-.sb-band{ position:relative; flex:1 1 0; min-width:24px; height:100%;
-          display:flex; flex-direction:column-reverse; border-radius:2px; }
-.sb-band:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
-.sb-seg{ width:100%; background:var(--c); }   /* .viz-cN only sets --c; SVG's fill rule can't reach a div */
+   record must show, not describe. The small script below supplies Escape and tap
+   behaviour; if a second record needs this pattern, move the complete set to base.css. */
+/* The plot owns two distinct spaces: a 140px tooltip well above, then an 180px
+   stack area. Padding belongs to the fixed outer height, never around a 180px plot. */
+.sb-plot{ --sb-stack-h:180px; display:flex; align-items:flex-end; gap:0.5rem; height:340px;
+          box-sizing:border-box; padding:8.75rem 0.5rem 1.25rem; }
+.sb-band{ appearance:none; position:relative; flex:1 1 0; min-width:24px; height:var(--sb-stack-h);
+          display:flex; flex-direction:column-reverse; padding:0; border:0; border-radius:2px;
+          background:none; cursor:pointer; font:inherit; touch-action:manipulation;
+          -webkit-tap-highlight-color:color-mix(in oklch, var(--cool) 16%, transparent); }
+.sb-band:focus-visible{ outline:2px solid var(--cool); outline-offset:3px; }
+.sb-band:hover, .sb-band.is-open{ filter:saturate(1.08) contrast(1.04); }
+.sb-seg{ display:block; width:100%; background:var(--c); pointer-events:none; } /* .viz-cN only sets --c; SVG's fill rule can't reach a span */
 .sb-seg:first-child{ border-radius:0 0 2px 2px; }
 .sb-seg:last-child{ border-radius:2px 2px 0 0; }
 
 /* The tip is a positioned hover box; padding-bottom is the visual gap kept INSIDE
    that box so :hover survives the travel from column to card (a margin would drop it).
    The visible card nests inside, so the gap reads as empty space, not filled panel. */
-.sb-tip{ opacity:0; visibility:hidden; position:absolute; left:50%; bottom:100%;
+.sb-tip{ display:block; opacity:0; visibility:hidden; position:absolute; left:50%; bottom:100%;
          transform:translateX(-50%); width:max-content; max-width:180px; z-index:1;
          padding-bottom:0.55rem; }
 .sb-band:hover .sb-tip,
 .sb-band:focus-visible .sb-tip{ opacity:1; visibility:visible; }
-.sb-band:hover, .sb-band:focus-visible{ z-index:2; }
+.sb-band:hover, .sb-band:focus-visible, .sb-band.is-open{ z-index:2; }
+/* Once JavaScript is ready it owns the disclosure state, including Escape. */
+html.sb-ready .sb-band:hover .sb-tip,
+html.sb-ready .sb-band:focus-visible .sb-tip{ opacity:0; visibility:hidden; }
+html.sb-ready .sb-band.is-open .sb-tip{ opacity:1; visibility:visible; }
 
 /* Clamp the outermost tooltips inside the plot — CSS can't measure the edge. */
 .sb-band:first-child .sb-tip{ left:0; transform:none; }
 .sb-band:last-child .sb-tip{ left:auto; right:0; transform:none; }
-/* A full-height column's tip would clip on the board top; flip it below instead. */
-.sb-band.tall .sb-tip{ top:100%; bottom:auto; padding-bottom:0; padding-top:0.55rem; }
-
-.sb-card{ background:var(--paper); border:1px solid var(--rule-strong); border-radius:5px;
+.sb-card{ display:block; background:var(--paper); border:1px solid var(--rule-strong); border-radius:5px;
           padding:0.5rem 0.6rem; box-shadow:0 1px 2px oklch(var(--shadow-ink) / 0.05),
           0 8px 24px oklch(var(--shadow-ink) / 0.09);
           font-family:"Hanken Grotesk",sans-serif; color:var(--ink); }
@@ -202,18 +206,18 @@
         <h2>Anchored to the column it describes</h2>
 
         <p class="prose">
-          <strong>The tooltip anchors to the column, sits above it, and never covers the mark it describes.</strong> The reader points at a stack and the enrichment appears clear of the paint — so the shape being read stays visible while its exact figures are read off.
+          <strong>The tooltip anchors to the column, sits above it, and never covers the mark it describes.</strong> The reader points at any part of Q1 and gets Q1's complete breakdown — so the shape being read stays visible while its exact figures are read off.
         </p>
 
         <ul class="clean">
-          <li><strong>Above the column, offset by a gap.</strong> The tip clears the top of the stack; the offset gap is part of the hoverable box, so moving from column to card never dismisses it mid-travel.</li>
-          <li><strong>Clamped inside the plot.</strong> The first and last columns push their tips flush to the plot edge instead of overflowing it; a full-height column flips its tip below rather than clip on the board top.</li>
-          <li><strong>Reachable by keyboard.</strong> Every column is focusable and shows the same card on <code>:focus-visible</code> as on hover, with a visible focus ring.</li>
+          <li><strong>Above the column, with room reserved for it.</strong> The card clears the stack without covering it; its bridge remains inside the target, so the pointer can reach the card without dismissing it.</li>
+          <li><strong>Clamped inside the plot.</strong> The first and last columns push their cards flush to the plot edge instead of overflowing it.</li>
+          <li><strong>Reachable by keyboard and touch.</strong> Every column is a button: focus or hover opens its card, tap pins it, and <kbd>Escape</kbd> dismisses it.</li>
         </ul>
 
         <div class="demo" style="margin-top:2.5rem;">
           <div class="cap">
-            <span class="name">Payer mix by cohort · hover or focus a column</span>
+            <span class="name">Payer mix by cohort · hover, focus or tap a column</span>
             <span class="tag n"><span class="dot"></span>Live demo</span>
           </div>
           <div class="viz-board">
@@ -221,90 +225,35 @@
             <div class="viz-plot">
               <div class="sb-plot">
 
-                <div class="sb-band" tabindex="0" role="img"
-                     aria-label="Q1 total 1,000. Commercial 400, 40%. Medicare 350, 35%. Medicaid 230, 23%. Dual 20, 2%.">
-                  <div class="sb-seg viz-c4" style="height:2%"></div>
-                  <div class="sb-seg viz-c3" style="height:23%"></div>
-                  <div class="sb-seg viz-c2" style="height:35%"></div>
-                  <div class="sb-seg viz-c1" style="height:40%"></div>
-                  <div class="sb-tip" aria-hidden="true">
-                    <div class="sb-card">
-                      <div class="sb-hd"><span class="sb-k">Q1</span><span class="sb-tot">1,000 total</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">400 · 40%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">350 · 35%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">230 · 23%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">20 · 2%</span></div>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="sb-band" aria-expanded="false"
+                        aria-label="Q1 payer mix. Total 1,000. Commercial 400, 40%. Medicare 350, 35%. Medicaid 230, 23%. Dual 20, 2%.">
+                  <span class="sb-seg viz-c4" style="height:2%"></span><span class="sb-seg viz-c3" style="height:23%"></span><span class="sb-seg viz-c2" style="height:35%"></span><span class="sb-seg viz-c1" style="height:40%"></span>
+                  <span class="sb-tip" aria-hidden="true"><span class="sb-card"><span class="sb-hd"><span class="sb-k">Q1</span><span class="sb-tot">1,000 total</span></span><span class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">400 · 40%</span></span><span class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">350 · 35%</span></span><span class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">230 · 23%</span></span><span class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">20 · 2%</span></span></span></span>
+                </button>
 
-                <div class="sb-band" tabindex="0" role="img"
-                     aria-label="Q2 total 1,200. Commercial 528, 44%. Medicare 360, 30%. Medicaid 216, 18%. Dual 96, 8%.">
-                  <div class="sb-seg viz-c4" style="height:8%"></div>
-                  <div class="sb-seg viz-c3" style="height:18%"></div>
-                  <div class="sb-seg viz-c2" style="height:30%"></div>
-                  <div class="sb-seg viz-c1" style="height:44%"></div>
-                  <div class="sb-tip" aria-hidden="true">
-                    <div class="sb-card">
-                      <div class="sb-hd"><span class="sb-k">Q2</span><span class="sb-tot">1,200 total</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">528 · 44%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">360 · 30%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">216 · 18%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">96 · 8%</span></div>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="sb-band" aria-expanded="false"
+                        aria-label="Q2 payer mix. Total 1,200. Commercial 528, 44%. Medicare 360, 30%. Medicaid 216, 18%. Dual 96, 8%.">
+                  <span class="sb-seg viz-c4" style="height:8%"></span><span class="sb-seg viz-c3" style="height:18%"></span><span class="sb-seg viz-c2" style="height:30%"></span><span class="sb-seg viz-c1" style="height:44%"></span>
+                  <span class="sb-tip" aria-hidden="true"><span class="sb-card"><span class="sb-hd"><span class="sb-k">Q2</span><span class="sb-tot">1,200 total</span></span><span class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">528 · 44%</span></span><span class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">360 · 30%</span></span><span class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">216 · 18%</span></span><span class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">96 · 8%</span></span></span></span>
+                </button>
 
-                <div class="sb-band tall" tabindex="0" role="img"
-                     aria-label="Q3 total 900. Commercial 342, 38%. Medicare 297, 33%. Medicaid 198, 22%. Dual 63, 7%.">
-                  <div class="sb-seg viz-c4" style="height:7%"></div>
-                  <div class="sb-seg viz-c3" style="height:22%"></div>
-                  <div class="sb-seg viz-c2" style="height:33%"></div>
-                  <div class="sb-seg viz-c1" style="height:38%"></div>
-                  <div class="sb-tip" aria-hidden="true">
-                    <div class="sb-card">
-                      <div class="sb-hd"><span class="sb-k">Q3</span><span class="sb-tot">900 total</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">342 · 38%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">297 · 33%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">198 · 22%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">63 · 7%</span></div>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="sb-band" aria-expanded="false"
+                        aria-label="Q3 payer mix. Total 900. Commercial 342, 38%. Medicare 297, 33%. Medicaid 198, 22%. Dual 63, 7%.">
+                  <span class="sb-seg viz-c4" style="height:7%"></span><span class="sb-seg viz-c3" style="height:22%"></span><span class="sb-seg viz-c2" style="height:33%"></span><span class="sb-seg viz-c1" style="height:38%"></span>
+                  <span class="sb-tip" aria-hidden="true"><span class="sb-card"><span class="sb-hd"><span class="sb-k">Q3</span><span class="sb-tot">900 total</span></span><span class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">342 · 38%</span></span><span class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">297 · 33%</span></span><span class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">198 · 22%</span></span><span class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">63 · 7%</span></span></span></span>
+                </button>
 
-                <div class="sb-band" tabindex="0" role="img"
-                     aria-label="Q4 total 1,500. Commercial 750, 50%. Medicare 420, 28%. Medicaid 240, 16%. Dual 90, 6%.">
-                  <div class="sb-seg viz-c4" style="height:6%"></div>
-                  <div class="sb-seg viz-c3" style="height:16%"></div>
-                  <div class="sb-seg viz-c2" style="height:28%"></div>
-                  <div class="sb-seg viz-c1" style="height:50%"></div>
-                  <div class="sb-tip" aria-hidden="true">
-                    <div class="sb-card">
-                      <div class="sb-hd"><span class="sb-k">Q4</span><span class="sb-tot">1,500 total</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">750 · 50%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">420 · 28%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">240 · 16%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">90 · 6%</span></div>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="sb-band" aria-expanded="false"
+                        aria-label="Q4 payer mix. Total 1,500. Commercial 750, 50%. Medicare 420, 28%. Medicaid 240, 16%. Dual 90, 6%.">
+                  <span class="sb-seg viz-c4" style="height:6%"></span><span class="sb-seg viz-c3" style="height:16%"></span><span class="sb-seg viz-c2" style="height:28%"></span><span class="sb-seg viz-c1" style="height:50%"></span>
+                  <span class="sb-tip" aria-hidden="true"><span class="sb-card"><span class="sb-hd"><span class="sb-k">Q4</span><span class="sb-tot">1,500 total</span></span><span class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">750 · 50%</span></span><span class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">420 · 28%</span></span><span class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">240 · 16%</span></span><span class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">90 · 6%</span></span></span></span>
+                </button>
 
-                <div class="sb-band" tabindex="0" role="img"
-                     aria-label="Q5 total 1,100. Commercial 374, 34%. Medicare 341, 31%. Medicaid 286, 26%. Dual 99, 9%.">
-                  <div class="sb-seg viz-c4" style="height:9%"></div>
-                  <div class="sb-seg viz-c3" style="height:26%"></div>
-                  <div class="sb-seg viz-c2" style="height:31%"></div>
-                  <div class="sb-seg viz-c1" style="height:34%"></div>
-                  <div class="sb-tip" aria-hidden="true">
-                    <div class="sb-card">
-                      <div class="sb-hd"><span class="sb-k">Q5</span><span class="sb-tot">1,100 total</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">374 · 34%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">341 · 31%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">286 · 26%</span></div>
-                      <div class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">99 · 9%</span></div>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="sb-band" aria-expanded="false"
+                        aria-label="Q5 payer mix. Total 1,100. Commercial 374, 34%. Medicare 341, 31%. Medicaid 286, 26%. Dual 99, 9%.">
+                  <span class="sb-seg viz-c4" style="height:9%"></span><span class="sb-seg viz-c3" style="height:26%"></span><span class="sb-seg viz-c2" style="height:31%"></span><span class="sb-seg viz-c1" style="height:34%"></span>
+                  <span class="sb-tip" aria-hidden="true"><span class="sb-card"><span class="sb-hd"><span class="sb-k">Q5</span><span class="sb-tot">1,100 total</span></span><span class="sb-row"><span class="sb-sw viz-c1"></span><span class="sb-lbl">Commercial</span><span class="sb-val">374 · 34%</span></span><span class="sb-row"><span class="sb-sw viz-c2"></span><span class="sb-lbl">Medicare</span><span class="sb-val">341 · 31%</span></span><span class="sb-row"><span class="sb-sw viz-c3"></span><span class="sb-lbl">Medicaid</span><span class="sb-val">286 · 26%</span></span><span class="sb-row"><span class="sb-sw viz-c4"></span><span class="sb-lbl">Dual</span><span class="sb-val">99 · 9%</span></span></span></span>
+                </button>
 
               </div>
             </div>
@@ -358,7 +307,7 @@
             </tbody>
           </table>
 
-          <p class="note"><strong>Every value lives in the table above; the tooltip only saves a glance.</strong> That is what keeps this an honest demo rather than a broken one — the tip conveys nothing not already on the page, so WCAG 1.4.13 (content on hover) does not apply. A production tooltip carrying anything <em>unique</em> would additionally owe Escape-to-dismiss, which needs a key handler this no-JS site does not ship. On touch there is no <code>:hover</code> and <code>:focus-visible</code> will not fire on a tap — a stated assumption, not an oversight: VC's users are analysts and config admins on large desktop monitors, and the table carries the data on any device regardless.</p>
+          <p class="note"><strong>Every value lives in the table below; the tooltip only saves a glance.</strong> It is still hover/focus content, so the demo meets WCAG 1.4.13: the card persists while the pointer crosses to it, tap pins it, and <code>Escape</code> dismisses it. The table remains the complete answer on every device; the card is enrichment, never the only copy.</p>
         </div>
       </section>
 
@@ -367,7 +316,7 @@
         <span class="secnum">04 / When the segment is too thin</span>
         <h2>Target the column, not the paint</h2>
         <p class="prose">
-          <strong>The target is the column, not the segment.</strong> A 2% band is real estate no pointer can reliably land on — and it's usually the band the decision turns on. The fix is never to enlarge the paint; it's to make the whole column the hit area.
+          <strong>One column is one target; it returns the column's complete breakdown.</strong> A 2% band is real estate no pointer can reliably land on — and it is not a separate control. The fix is never to enlarge the paint; it is to let any point in Q1 reveal Q1's full card.
         </p>
 
         <div class="compare">
@@ -376,7 +325,7 @@
             <div class="viz-board">
               <div class="bbar"><i></i><i></i><i></i><em>Payer mix · segment as target</em></div>
               <div class="chart viz-plot">
-                <svg viewBox="0 0 200 150" role="img" aria-label="A single stacked column with a thin top segment; a highlighted box exactly the height of that segment marks it as the only hit zone, showing how easy it is to miss.">
+                <svg viewBox="0 0 200 150" role="img" aria-label="A single stacked column with its 2 percent top segment marked as the only hit zone, showing that a tiny painted segment cannot be a reliable target.">
                   <g class="viz-bars">
                     <rect class="viz-c1" x="40" y="88" width="36" height="42"/>
                     <rect class="viz-c2" x="40" y="50" width="36" height="38"/>
@@ -387,7 +336,7 @@
                   <rect x="40" y="20" width="36" height="4" fill="none" stroke="var(--error)" stroke-width="1.5"/>
                   <line x1="76" y1="22" x2="110" y2="22" stroke="var(--error)" stroke-width="1"/>
                   <text x="114" y="19" font-size="8" fill="var(--error)" font-family="'IBM Plex Mono',monospace">Dual · 2%</text>
-                  <text x="114" y="30" font-size="7.5" fill="var(--error)" font-family="'IBM Plex Mono',monospace">the only hit zone</text>
+                  <text x="114" y="30" font-size="7.5" fill="var(--error)" font-family="'IBM Plex Mono',monospace">only target</text>
                   <text x="58" y="142" text-anchor="middle" class="viz-label" font-size="8">Q1</text>
                 </svg>
               </div>
@@ -399,7 +348,7 @@
             <div class="viz-board">
               <div class="bbar"><i></i><i></i><i></i><em>Payer mix · column as target</em></div>
               <div class="chart viz-plot">
-                <svg viewBox="0 0 200 150" role="img" aria-label="The same column with a highlighted box spanning its full height, marking the whole column — not the thin segment — as the hit zone.">
+                <svg viewBox="0 0 200 150" role="img" aria-label="The same column with a highlighted box spanning its full height: the complete Q1 column is one target that reveals the Q1 breakdown, with a minimum width of 24 pixels.">
                   <g class="viz-bars">
                     <rect class="viz-c1" x="40" y="88" width="36" height="42"/>
                     <rect class="viz-c2" x="40" y="50" width="36" height="38"/>
@@ -409,13 +358,14 @@
                   <line class="viz-axis" x1="34" y1="130" x2="170" y2="130"/>
                   <rect x="40" y="20" width="36" height="110" fill="none" stroke="var(--cool)" stroke-width="1.5" stroke-dasharray="3 2"/>
                   <line x1="76" y1="75" x2="110" y2="75" stroke="var(--cool)" stroke-width="1"/>
-                  <text x="114" y="68" font-size="8" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">24px min</text>
-                  <text x="114" y="79" font-size="7.5" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">the whole column</text>
+                  <text x="114" y="63" font-size="8" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">1 target → Q1 card</text>
+                  <text x="114" y="74" font-size="7.5" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">width ≥ 24px</text>
+                  <text x="114" y="84" font-size="7.5" fill="var(--cool-ink)" font-family="'IBM Plex Mono',monospace">height = stack</text>
                   <text x="58" y="142" text-anchor="middle" class="viz-label" font-size="8">Q1</text>
                 </svg>
               </div>
             </div>
-            <p class="note"><strong>The hit band is the full column, 24px minimum, however thin the segment paints.</strong> §03's live demo ships this already — every column is one focusable target the height of the stack, whatever the smallest segment gets in pixels.</p>
+            <p class="note"><strong>The whole column is one target: its width is at least 24px and its height is the stack.</strong> Anywhere in Q1 opens the Q1 card; the 2% Dual paint remains evidence in that answer, not a target the reader has to land on.</p>
           </div>
         </div>
 
@@ -433,9 +383,9 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Targetable in a column band</th>
-              <td data-l="What it allows">Widen the hit band to the whole column, 24px minimum.</td>
-              <td data-l="When it still won't fit">More than 6 segments in the stack — cap it (next row).</td>
+              <th scope="row">A composition question; one column answers it</th>
+              <td data-l="What it allows">Use one whole-column target: width ≥24px, height = stack, one complete column card.</td>
+              <td data-l="When it still won't fit">A named segment must be identified or compared across columns (next row).</td>
             </tr>
             <tr>
               <th scope="row">More than 6 segments</th>
@@ -541,5 +491,56 @@
   </footer>
 </main>
 
+<script>
+/* Scoped to §03's live demo: one column card at a time, with keyboard dismissal
+   and touch pinning. The values remain available in the following data table. */
+(() => {
+  const bands = [...document.querySelectorAll('.sb-band')];
+  let pinned = null;
+
+  const close = () => {
+    pinned = null;
+    bands.forEach((band) => {
+      band.classList.remove('is-open');
+      band.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  const open = (band, shouldPin = false) => {
+    pinned = shouldPin ? band : null;
+    bands.forEach((item) => {
+      const isOpen = item === band;
+      item.classList.toggle('is-open', isOpen);
+      item.setAttribute('aria-expanded', String(isOpen));
+    });
+  };
+
+  document.documentElement.classList.add('sb-ready');
+
+  bands.forEach((band) => {
+    band.addEventListener('pointerenter', () => {
+      if (!pinned) open(band);
+    });
+    band.addEventListener('pointerleave', () => {
+      if (!pinned) close();
+    });
+    band.addEventListener('focus', () => open(band));
+    band.addEventListener('blur', () => {
+      if (pinned !== band) close();
+    });
+    band.addEventListener('click', () => {
+      if (pinned === band) close();
+      else open(band, true);
+    });
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (!event.target.closest('.sb-band')) close();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') close();
+  });
+})();
+</script>
 </body>
 </html>
