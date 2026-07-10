@@ -31,7 +31,7 @@
     <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
     <h1>Bars: count, orientation,<br>order, and labels</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
-      The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, show the top and group the rest.
+      The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, group the tail into "Other" when the question is which are the top, but keep every entity when the reader must find or compare each one.
     </p>
 
     <div class="context">
@@ -44,7 +44,7 @@
     <div class="rulecard">
       <span class="k">The rule</span>
       <p>
-        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, show the <strong>top-N and roll the tail into a labelled "Other"</strong>; the full set belongs in a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
+        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, the split is <strong>the question asked, not the entity</strong>: when the question is <strong>which are the top</strong>, show the top-N and roll the tail into a labelled "Other"; when the reader must <strong>find or compare every entity</strong>, drop nothing — sort, go horizontal, filter and scroll, then a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
       </p>
     </div>
   </header>
@@ -101,7 +101,7 @@
       <li><strong>1 value, or current vs prior</strong> → a number with a delta, not an axis — see <a href="charts-at-tile-scale.html">charts at tile scale</a>.</li>
       <li><strong>2–3 categorical states</strong> → a small, direct-labelled bar chart is fine.</li>
       <li><strong>~4–12</strong> → the bar chart proper, the range everything below assumes.</li>
-      <li><strong>Past ~12</strong> → top-N, a grouped "Other", and a sortable table (§02).</li>
+      <li><strong>Past ~12</strong> → top-N, a grouped "Other", and a sortable table when the tail is disposable; keep every entity when the reader must compare each one (§02, §03).</li>
     </ul>
   </section>
 
@@ -171,7 +171,7 @@
             </svg>
           </div>
         </div>
-        <p class="note"><strong>Sorted, top eight, and the tail rolled into a greyed "Other".</strong> Each domain label gets the full measure, values sit at the bar end, and the ranking reads top to bottom. Past ~12 categories, this is the move — and the full list stays a click away as a sortable table.</p>
+        <p class="note"><strong>Sorted, top eight, and the tail rolled into a greyed "Other".</strong> Each domain label gets the full measure, values sit at the bar end, and the ranking reads top to bottom. Past ~12 categories, this is the move — and the full list stays a click away as a sortable table. The grouped "Other" works <strong>because the question is "who is top", not "where is measure X"</strong>; when identity is required, nothing is merged away (§03).</p>
       </div>
     </div>
 
@@ -230,7 +230,7 @@
   <!-- 03 WHEN THE AXIS CROWDS -->
   <section>
     <span class="secnum">03 / When the axis crowds</span>
-    <h2>Labels that won't fit</h2>
+    <h2>Two crowded axes, two fixes</h2>
     <p class="prose">
       <strong>A crowded axis is two problems, and which one you have is set by what the axis carries.</strong> An ordered series — months, quarters — crowds when the ticks outrun the width, and the fix is to thin them. A categorical axis of entities — providers, measures, contracts — crowds because every tick is a distinct name that can't be thinned away without deleting data. The reflex for both is to tilt the labels to a diagonal; VC does neither. Diagonal text reads slowly and still overlaps on a tight panel.
     </p>
@@ -475,13 +475,13 @@
       </div>
       <div class="principle">
         <div class="n">4</div>
-        <h3>Cap the count, group the tail</h3>
-        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> Show the top-N, roll the rest into a labelled "Other", and put the exhaustive list in a sortable table. Never squeeze 40 bars into a tile.</p>
+        <h3>Cap the count, group the tail — when identity is disposable</h3>
+        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> When the tail is disposable, show the top-N and roll the rest into a labelled "Other". When the reader must find or compare every one, drop nothing — sort, scroll, then a sortable table. Forty providers cannot become "Other".</p>
       </div>
       <div class="principle">
         <div class="n">5</div>
         <h3>Labels stay horizontal — never rotate</h3>
-        <p><strong>Diagonal text is slower to read, so VC's house rule is stronger than the field's.</strong> When a column axis crowds, go horizontal, thin the ticks, or wrap — never tilt the labels. Rotation is the field's last resort; on our dashboard panels it isn't a resort at all.</p>
+        <p><strong>The rotation ban is ours, not the evidence's.</strong> The research on whether a diagonal label reads slower is mixed; VC bans it regardless, because on our panels one of horizontal, thinned, or wrapped always fits. When a column axis crowds, reach for those — never tilt the labels.</p>
       </div>
     </div>
   </section>
@@ -540,7 +540,7 @@
       <div class="syscard">
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
-        <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline, capped with a grouped "Other" and backed by a sortable table. Our usage should follow it.</p>
+        <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline. When the question is which are the top, cap with a grouped "Other"; when every entity must be compared, keep them all and back the ranking with a sortable table. Our usage should follow it.</p>
         <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar default</span>
       </div>
     </div>
