@@ -491,24 +491,10 @@
     <span class="secnum">05 / What the field says</span>
     <h2>The bar conventions are settled</h2>
     <p class="prose">
-      <strong>Sort by value, start at zero, and don't overload — every major source agrees.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
+      <strong>Sort by value, start at zero, and reach for any alternative before rotating a label.</strong> The disagreements in dataviz are elsewhere; the bar chart is the settled ground these standards stand on.
     </p>
 
     <div class="systems">
-      <div class="syscard lead">
-        <div class="src">IBM · Carbon — closest to our world</div>
-        <h3>Bar defaults, sorted, zero-based</h3>
-        <p>Carbon defaults categorical comparison to bar charts, recommends ordering by value for ranking, and uses horizontal bars when category labels are long — the exact shape of VC's measure and provider rankings. Its axes start at zero.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>sorted, horizontal, zero-based</span>
-      </div>
-
-      <div class="syscard">
-        <div class="src">Datawrapper Academy</div>
-        <h3>Order by value; group small categories</h3>
-        <p>Datawrapper's bar guidance is explicit: sort bars by value unless the order carries meaning, always start the axis at zero, and combine small categories into an "Other" group rather than showing a long unreadable tail.</p>
-        <span class="verdict tag n"><span class="dot"></span>sort · zero · group the tail</span>
-      </div>
-
       <div class="syscard">
         <div class="src">FT · Visual Vocabulary</div>
         <h3>Ranking is its own family</h3>
@@ -537,7 +523,7 @@
         <span class="verdict tag n"><span class="dot"></span>horizontal · thin · wrap, not rotate</span>
       </div>
 
-      <div class="syscard">
+      <div class="syscard lead">
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline. When the question is which are the top, cap with a grouped "Other"; when every entity must be compared, keep them all and back the ranking with a sortable table. Our usage should follow it.</p>
@@ -551,8 +537,6 @@
     <span class="secnum">06 / References</span>
     <h2>Sources</h2>
     <ul class="clean refs prose" style="margin-top:1rem;">
-      <li><a href="https://carbondesignsystem.com/data-visualization/chart-types/">IBM Carbon — Data visualization, chart types</a> (bar defaults for comparison; sort by value; horizontal for long labels; zero-based axes).</li>
-      <li><a href="https://www.datawrapper.de/blog/bar-column-charts">Datawrapper Academy — Bar &amp; column charts</a> (sort by value; start at zero; group small categories into "Other").</li>
       <li><a href="https://www.storytellingwithdata.com/blog/2020/4/22/alternatives-to-diagonal-axis-labels">Storytelling with Data — Alternatives to diagonal axis labels</a> (rotate as a last resort; prefer horizontal, shorter, wrapped or thinned labels).</li>
       <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (bars require a zero baseline; dot plots for long category lists).</li>
       <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (ranking served by ordered bars, columns and lollipops).</li>
