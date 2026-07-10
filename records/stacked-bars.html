@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     HOW TO ADD A DECISION RECORD
+     1. Duplicate this file. Name it after the record slug,
+        e.g. records/form-layout.html.
+     2. Fill in every TODO below.
+     3. Add one <a class="regrow"> entry for it in ../index.html,
+        inside the right .reggroup (or .regsub), and bump that
+        category's count in the .homenav rail.
+     That is the only wiring. No build step.
+============================================================ -->
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stacked bars: what the tooltip carries · Design Standards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+  </div>
+</header>
+
+<main id="main">
+  <article id="stacked-bars" class="record">
+    <div class="recordwrap">
+
+      <header class="masthead">
+        <div class="rechead">
+          <span class="status draft"><span class="d"></span>Draft</span>
+          <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+        </div>
+        <h1>Stacked bars, and what the tooltip carries</h1>
+        <p class="lead prose" style="margin-top:1.5rem;">
+          A tooltip is a disclosure tier, not a dumping ground: the values a decision turns on stay on the canvas, the tooltip only enriches them. And a segment too thin to see is still reachable — the hit target is the whole column, never the paint.
+        </p>
+
+        <div class="context">
+          <span class="k">Our context</span>
+          <p>VC's stacked bars carry payer mix, gap status and risk tier — four to six categories across a handful of columns, read by analysts and care managers on large desktop monitors. <strong>The smallest segment is routinely the one that decides the work</strong> — the 2% cohort still open on a quality gap — and it is exactly the band the pointer cannot catch.</p>
+        </div>
+
+        <div class="rulecard">
+          <span class="k">The rule (provisional)</span>
+          <p>Sort a value into the tier that has earned it. Every fact a decision needs is always visible; the tooltip is the second tier, not the first copy.</p>
+          <ul class="clean">
+            <li><strong>Always visible</strong> — the axis, the total, and a direct label for any value the decision turns on.</li>
+            <li><strong>On demand (tooltip)</strong> — exact figures, denominators, definitions. Enrichment, never the only copy of a needed fact.</li>
+            <li><strong>On navigate</strong> — the full row set, history, provenance. A table or a detail page, not a tooltip.</li>
+          </ul>
+          <p>The hover and focus target is the <strong>column, not the segment</strong>. Give every column a hit band of at least <strong>24px</strong>, whatever the paint does.</p>
+        </div>
+      </header>
+
+      <!-- 01 QUICK REFERENCE -->
+      <section>
+        <span class="secnum">01 / Quick reference</span>
+        <h2>Which tier holds the value</h2>
+      </section>
+
+      <!-- 02 WHAT THE TOOLTIP CARRIES -->
+      <section>
+        <span class="secnum">02 / What the tooltip carries</span>
+        <h2>Enough to enrich, not to explain</h2>
+      </section>
+
+      <!-- 03 WHERE THE TOOLTIP SITS -->
+      <section>
+        <span class="secnum">03 / Where the tooltip sits</span>
+        <h2>Anchored to the column it describes</h2>
+      </section>
+
+      <!-- 04 WHEN THE SEGMENT IS TOO THIN -->
+      <section>
+        <span class="secnum">04 / When the segment is too thin</span>
+        <h2>Target the column, not the paint</h2>
+      </section>
+
+      <!-- 05 THE REASONING -->
+      <section>
+        <span class="secnum">05 / The reasoning</span>
+        <h2>What the stack shows, and what it withholds</h2>
+      </section>
+
+      <!-- 06 PRECEDENT -->
+      <section>
+        <span class="secnum">06 / What the field says</span>
+        <h2>To be completed</h2>
+      </section>
+
+      <!-- 07 REFERENCES -->
+      <section>
+        <span class="secnum">07 / References</span>
+        <h2>Sources</h2>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
