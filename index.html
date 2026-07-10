@@ -111,51 +111,63 @@
             </div>
 
             <div id="data-viz" class="regsub">
-              <h3 class="regsubhead">Data visualization</h3>
+              <h3 class="regsubhead">Start with the question</h3>
               <a class="regrow" href="records/choosing-a-chart.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Choosing a chart</span>
-                <span class="rd">Start from the question — comparison, trend, part-to-whole, correlation, hierarchy — then encode the deciding value as position or length, not angle, area, or colour. The entry point to the data-viz standards.</span>
+                <span class="rt">Choose a chart</span>
+                <span class="rd">Select the mark from the comparison, trend, part-to-whole, correlation, or hierarchy question.</span>
               </a>
+            </div>
+
+            <div class="regsub">
+              <h3 class="regsubhead">Common chart forms</h3>
               <a class="regrow" href="records/bar-and-column.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Bars: count, orientation, order, and labels</span>
-                <span class="rd">Sort by value, start the axis at zero, go horizontal for long labels; below a handful of values reach for a number, past ~12 group the tail into "Other" when the question is which are the top — but keep every entity in a sortable table when the reader must compare each one — and when a column axis crowds, thin the ticks rather than rotate.</span>
+                <span class="rt">Bars and columns</span>
+                <span class="rd">Use zero-based, value-sorted bars; choose orientation for label length and count.</span>
               </a>
               <a class="regrow" href="records/stacked-bars.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Stacked bars, and what the tooltip carries</span>
-                <span class="rd">A tooltip is a disclosure tier, not a dumping ground: everything a decision turns on stays always visible, the tooltip only enriches it, and the hit target is the whole column — 24px minimum — never the thin segment underneath it.</span>
+                <span class="rt">Stacked bars and tooltips</span>
+                <span class="rd">Show decision-critical values directly; tooltips enrich the whole-column target.</span>
               </a>
               <a class="regrow" href="records/line-charts.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
                 <span class="rt">Line charts and trends</span>
-                <span class="rd">Change over time is a line: slope carries the value, so a zoomed y-axis is fair if you label it. Default to rolling 12 months, mark the partial period, break the line over gaps, and split past ~4 series into small multiples.</span>
+                <span class="rd">Show change over time with labelled zooms, honest gaps, and limited series.</span>
               </a>
               <a class="regrow" href="records/ranges-and-dot-plots.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Dot plots and the honest zoom</span>
-                <span class="rd">When values cluster near the top and a zero-based bar flattens them, switch to a dot plot on a labelled zoomed axis — position can zoom where length can't. Dumbbells for two states, sorted by the gap.</span>
+                <span class="rt">Dot plots and ranges</span>
+                <span class="rd">Use position marks and labelled zooms when zero-based bars flatten meaningful differences.</span>
               </a>
-              <a class="regrow" href="records/colour-for-data.html">
-                <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Colour for data</span>
-                <span class="rd">Colour is the weakest channel: spend it on one job — separate categories (cap ~6), show magnitude, or show deviation from a target. Never decoration, never the sole encoding, one hue one meaning.</span>
-              </a>
+            </div>
+
+            <div class="regsub">
+              <h3 class="regsubhead">Presentation and scale</h3>
               <a class="regrow" href="records/numbers-and-states.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Numbers, units, and empty states</span>
-                <span class="rd">Format the number for scanning, state the unit once, carry the denominator — and give no-data, real-zero, suppressed and loading four distinct treatments so a blank never reads as zero.</span>
+                <span class="rt">Numbers, units, and data states</span>
+                <span class="rd">Format for scanning and distinguish no data, zero, suppression, and loading.</span>
               </a>
               <a class="regrow" href="records/charts-at-tile-scale.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
                 <span class="rt">Charts at tile scale</span>
-                <span class="rd">A tile is not a shrunk panel: drop the axis, gridlines and legend; use a big number and delta, a bullet bar, direct-labelled bars, or a sparkline — a chart that needs an axis needs a panel.</span>
+                <span class="rd">Use a number and a minimal mark; charts requiring axes belong in a panel.</span>
               </a>
+              <a class="regrow" href="records/colour-for-data.html">
+                <span class="status draft"><span class="d"></span>Draft</span>
+                <span class="rt">Colour for data</span>
+                <span class="rd">Give colour one meaning and never make it the sole encoding.</span>
+              </a>
+            </div>
+
+            <div class="regsub">
+              <h3 class="regsubhead">Trust and interpretation</h3>
               <a class="regrow" href="records/reading-honestly.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Reading the chart honestly</span>
-                <span class="rd">The distortions review keeps re-litigating, settled: truncate only position marks not bars, no dual axes, points vs percent, raw vs risk-adjusted, suppress tiny-N rates, and don't cherry-pick the window.</span>
+                <span class="rt">Reading charts honestly</span>
+                <span class="rd">Prevent known distortions in scales, denominators, comparison, and time windows.</span>
               </a>
             </div>
           </section>
