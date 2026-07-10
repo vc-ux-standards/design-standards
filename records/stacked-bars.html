@@ -24,7 +24,9 @@
    record must show, not describe. CSS-only hover/focus disclosure, token-driven,
    namespaced .sb-*. Precedent: records/breakpoints.html §03 (inline SVG charts).
    Not part of the shared set; if a second record wants this, it moves to base.css. */
-.sb-plot{ display:flex; align-items:flex-end; gap:0.5rem; height:180px; padding-top:2.4rem; }
+/* padding-top/-bottom each exceed the ~135px card + hover-bridge so the full tip
+   (raised above, or flipped below on .tall) seats inside .viz-board's overflow:hidden. */
+.sb-plot{ display:flex; align-items:flex-end; gap:0.5rem; height:180px; padding-top:10rem; padding-bottom:10rem; }
 .sb-band{ position:relative; flex:1 1 0; min-width:24px; height:100%;
           display:flex; flex-direction:column-reverse; border-radius:2px; }
 .sb-band:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
