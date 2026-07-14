@@ -24,9 +24,9 @@ for durability and zero maintenance, and it must work opened straight from disk
   a default.
 - **No inline `<style>` blocks**, with one sanctioned exception: a single demo
   that genuinely needs styles the shared CSS can't supply may carry a scoped
-  `<style>` in its own `<head>`. The precedent is `records/breakpoints.html` §03
-  — schematic charts as inline SVG, classes namespaced `.bp-*`, tokens only,
-  nothing leaking into `css/base.css`. Flag it; don't reach for it by default.
+  `<style>` in its own `<head>`. The sole precedent is `records/stacked-bars.html`
+  §03 — a live stacked-column tooltip demo, classes namespaced `.sb-*`, tokens
+  only, nothing leaking into `css/base.css`. Flag it; don't reach for it by default.
   If two records would want the same thing, that is a `base.css` conversation.
 - **Relative paths everywhere** (`../css/base.css`, never `/css/base.css`).
   Absolute paths break on GitHub Pages project URLs. The few inline `style=""`
