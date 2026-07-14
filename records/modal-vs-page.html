@@ -327,7 +327,7 @@
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>A complexity ladder from modal to full page</h3>
             <p>Carbon tells teams to use modals sparingly because they interrupt the workflow, and lays out an explicit format ladder for create and edit flows: modal, then side panel, then tearsheet, then full page, escalating with complexity. The summary it uses is that a modal is for a decision point and a tearsheet is for a process. Heavy, multi-step configuration lands at the full-page end, which is exactly where our builders sit. We take the ladder but not all four rungs: VC folds the tearsheet into the full page, holding our vocabulary to three so the choice stays cheap to make.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
+            <span class="verdict tag v"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
           </div>
 
           <div class="syscard">
@@ -341,14 +341,14 @@
             <div class="src">Ant Design vs Atlassian — the drawer split</div>
             <h3>The one genuine disagreement, and why we side with Ant</h3>
             <p>Ant keeps a Drawer so users can act without leaving the current page and stay in the context of the main task, its answer for heavier subtasks and forms. Atlassian is going the other way, deprecating its Drawer in favour of Modal. The split is about whether a product has a stable need to work beside the main view. Ours does, in every inspect-beside-a-list surface, so we keep the side panel.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>drawer preserves context</span>
+            <span class="verdict tag v"><span class="dot"></span>drawer preserves context</span>
           </div>
 
           <div class="syscard">
             <div class="src">Shopify · Polaris</div>
             <h3>Don't put complex forms in a modal</h3>
             <p>Polaris is the bluntest: do not use modals to display complex forms or large amounts of information; modals are focused, carry no more than two actions, and are temporary rather than persistent. Anything that needs to live on in the UI belongs on a page, not in an overlay.</p>
-            <span class="verdict tag h" style="background:var(--warm-soft);"><span class="dot"></span>focused, ≤ 2 actions, temporary</span>
+            <span class="verdict tag h"><span class="dot"></span>focused, ≤ 2 actions, temporary</span>
           </div>
 
           <div class="syscard">
@@ -362,7 +362,7 @@
             <div class="src">Synthesis</div>
             <h3>The pattern for tools like ours</h3>
             <p>For an enterprise, desktop, analyst-facing configuration tool, the field points one way: the full page is the default for builders and setup, the side panel carries context-bound inspect-and-edit, and the modal is reserved for short blocking decisions. Our usage should follow it.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>page default · panel for context · modal for decisions</span>
+            <span class="verdict tag v"><span class="dot"></span>page default · panel for context · modal for decisions</span>
           </div>
         </div>
       </section>
@@ -389,7 +389,7 @@
       <section>
         <span class="secnum">07 / References</span>
         <h2>Sources</h2>
-        <ul class="clean refs prose" style="margin-top:1rem;">
+        <ul class="clean refs prose">
           <li><a href="https://carbondesignsystem.com/components/modal/usage/">IBM Carbon — Modal usage</a> and <a href="https://carbondesignsystem.com/community/patterns/create-flows/">Create flows pattern</a> (use modals sparingly; the modal → side panel → tearsheet → full page ladder; a modal is for a decision point, a tearsheet for a process).</li>
           <li><a href="https://m3.material.io/components/dialogs/guidelines">Material 3 — Dialogs</a> (dialogs are purposefully interruptive; use a full-screen dialog for complex tasks that batch a series of inputs before saving).</li>
           <li><a href="https://ant.design/components/drawer">Ant Design — Drawer</a> (act without leaving the current page, within the context of the main task) and <a href="https://atlassian.design/components/drawer">Atlassian — Drawer</a> (deprecated in favour of Modal).</li>

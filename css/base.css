@@ -382,7 +382,7 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
 .choice{ display:flex; align-items:flex-start; gap:0.55rem; padding:0.34rem 0; font-size:0.85rem; line-height:1.35; color:var(--ink); }
 .choice .mk{ flex:none; width:16px; height:16px; margin-top:0.06rem; border:1.5px solid var(--rule-strong); border-radius:3px; background:var(--paper); display:grid; place-items:center; }
 .choice .mk.radio{ border-radius:50%; }
-.choice.on .mk{ background:var(--ink); border-color:var(--ink); }
+.choice.on .mk{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
 .choice.on .mk svg{ width:10px; height:10px; }
 .choice.on .mk.radio{ background:var(--paper); }
 .choice.on .mk.radio::after{ content:""; width:8px; height:8px; border-radius:50%; background:var(--ink); }
@@ -511,6 +511,7 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
 .viz-tile .delta{ font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.02em; margin-top:0.2rem; }
 .viz-tile .delta.up{ color:var(--ok-ink); }
 .viz-tile .delta.down{ color:var(--error); }
+.viz-tile .delta.mute{ color:var(--ink-3); }
 .viz-tile svg{ display:block; width:100%; height:auto; }
 @media (max-width:560px){ .viz-grid.c2,.viz-grid.c3,.viz-grid.c4{ grid-template-columns:repeat(2,1fr); } }
 

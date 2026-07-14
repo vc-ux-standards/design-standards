@@ -286,7 +286,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's resizing tiles and data-set counts: scale the bars to the band, clamp to a ~8px floor and a ~48px ceiling, and set the gap at about a third of the step. When the count is small, hold the ceiling and leave whitespace; when it hits the floor, change the form. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar-sizing default</span>
+        <span class="verdict tag v"><span class="dot"></span>the VC bar-sizing default</span>
       </div>
     </div>
   </section>
@@ -295,7 +295,7 @@
   <section>
     <span class="secnum">05 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://d3js.org/d3-scale/band">D3 — Band scales</a> (<code>paddingInner</code> / <code>paddingOuter</code> set the gap as a fraction of the step).</li>
       <li><a href="https://echarts.apache.org/en/option.html#series-bar.barCategoryGap">Apache ECharts — Bar series options</a> (<code>barMaxWidth</code>, <code>barCategoryGap</code> default <code>'20%'</code>, <code>barGap</code>).</li>
       <li><a href="https://api.highcharts.com/highcharts/plotOptions.column.maxPointWidth">Highcharts — Column plot options</a> (<code>maxPointWidth</code>, <code>pointPadding</code>, <code>groupPadding</code>).</li>

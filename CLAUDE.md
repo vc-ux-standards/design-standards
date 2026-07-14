@@ -19,8 +19,9 @@ for durability and zero maintenance, and it must work opened straight from disk
 - **No `package.json`, no bundler, no generator, no npm.** If you reach for
   tooling, you have misread the project.
 - **No JavaScript.** The only exception is a small inline script scoped to one
-  demo that genuinely needs it to show an interaction. There are none so far;
-  adding one is a decision to flag, not a default.
+  demo that genuinely needs it to show an interaction. The sanctioned exception
+  is `records/stacked-bars.html` §03; adding another is a decision to flag, not
+  a default.
 - **No inline `<style>` blocks**, with one sanctioned exception: a single demo
   that genuinely needs styles the shared CSS can't supply may carry a scoped
   `<style>` in its own `<head>`. The precedent is `records/breakpoints.html` §03
