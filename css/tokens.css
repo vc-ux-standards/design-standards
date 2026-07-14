@@ -13,7 +13,7 @@
 
   /* Brand accent — Radix Plum. --warm-ink is the readable ink on --warm-soft
      (chips, table heads); parallels the --ok/--ok-ink pair. */
-  --warm:         oklch(0.55 0.18 330);   /* Radix Plum 9  — wordmark, chips, bullets */
+  --warm:         oklch(0.55 0.18 330);   /* Radix Plum 9  — chips, bullets, status */
   --warm-soft:    oklch(0.94 0.035 330);  /* Radix Plum 3  — chip / table-tint background */
   --warm-ink:     oklch(0.47 0.16 328);   /* Radix Plum 11 — readable text on --warm-soft */
   /* Interactive — Radix Indigo. */

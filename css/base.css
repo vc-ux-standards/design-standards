@@ -30,7 +30,7 @@ h1{ font-size:clamp(2.4rem, 6.5vw, 4.1rem); font-weight:560; font-variation-sett
 h2{ font-size:clamp(1.7rem, 3.4vw, 2.35rem); margin:0 0 0.5rem; }
 h3{ font-size:clamp(1.18rem, 2vw, 1.38rem); font-weight:600; font-variation-settings:"opsz" 18; line-height:1.22; }
 
-.eyebrow{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.16em; color:var(--ink-3); }
+.eyebrow{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.16em; color:var(--ink-2); }
 p{ margin:0 0 1.1rem; }
 strong{ font-weight:600; color:var(--ink); }
 em{ font-style:italic; }
@@ -39,7 +39,7 @@ a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in
 a:hover{ border-bottom-color:var(--cool); }
 a:focus-visible,
 .inp:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
-a.eyebrow{ color:var(--ink-3); border-bottom:0; }
+a.eyebrow{ color:var(--ink-2); border-bottom:0; }
 a.eyebrow:hover{ color:var(--cool); }
 .lead{ font-size:1.22rem; line-height:1.55; color:var(--ink); }
 @media (max-width:640px){ .lead{ font-size:1.12rem; } }
@@ -212,8 +212,8 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .topnav .inner{ max-width:62rem; margin:0 auto; padding:0.85rem var(--gutter); display:flex; align-items:baseline; justify-content:space-between; gap:0.5rem 1.5rem; flex-wrap:wrap; }
 .topnav .brand{ text-decoration:none; border:none; display:inline-flex; align-items:baseline; gap:0.8rem; flex-wrap:wrap; }
 .topnav .brand:hover .wm{ text-decoration:underline; text-underline-offset:2px; }
-.topnav .brand .wm{ font-family:"Source Serif 4", Georgia, "Times New Roman", serif; font-variation-settings:"opsz" 14; font-weight:600; font-size:1.15rem; letter-spacing:0; line-height:1.1; color:var(--warm); transition:color 150ms; }
-.topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
+.topnav .brand .wm{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-weight:600; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.14em; line-height:1.1; color:var(--ink); transition:color 150ms; }
+.topnav .brand .sub{ font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
 
 .recordwrap{ max-width:62rem; margin:0 auto; padding:0 var(--gutter); }
 .record header.masthead{ padding-top:2.6rem; padding-bottom:2rem; }
