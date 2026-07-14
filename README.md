@@ -25,9 +25,26 @@ All links are relative (`../css/base.css`, never `/css/base.css`) so the site wo
 
 1. Duplicate `records/_template.html` and name it after the record slug, e.g. `records/form-layout.html`.
 2. Fill in every `<!-- TODO -->`: title, category eyebrow, status badge, the numbered sections, demos.
-3. Add one `<a class="regrow">` entry for it in `index.html`, inside the right `.reggroup` (or `.regsub`), and bump that category's count in the `.homenav` rail (add a new section if the category is new).
+3. Add one `<a class="regrow">` entry for it in `index.html`, inside the right `.reggroup` (or `.regsub`), and bump that category's count in the `.homenav` rail.
 
 That is the entire workflow. No build step, no registration, nothing to generate.
+
+### Where a record files
+
+The index is organised by the **subject a record governs**, on three fixed
+shelves — a chart → **Data visualization** (under its seam), a component or
+component family → **Components**, a cross-cutting property → **Foundations**.
+The shelves never change; the groups inside them live by counts:
+
+- A family earns a `.regsub` heading only at **2 records** — never a heading
+  for one record.
+- **Split past 7:** a flat list under one heading exceeding ~7 rows splits at
+  its most obvious seam, into subgroups of ≥2.
+- **Promote on depth demand:** the moment a subgroup wants headings of its
+  own, it becomes a top-level `.reggroup` instead. Depth stops at
+  `.reghead` → `.regsubhead` → records; there is no third level.
+- **Merge when small and stale:** a non-shelf group still under 3 records
+  after the site has grown noticeably folds into its nearest neighbour.
 
 ## Status lifecycle
 

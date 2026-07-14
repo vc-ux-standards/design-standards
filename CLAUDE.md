@@ -48,6 +48,16 @@ add one `<a class="regrow">` to `index.html` inside the right `.reggroup` (or
 `.regsub`), and bump that category's count in the `.homenav` rail. That is the
 entire workflow — no registration, nothing to generate.
 
+**Where it files — by the subject the record governs, on three fixed shelves.**
+A chart → **Data visualization**, under its seam. A component or component
+family → **Components**. A cross-cutting property → **Foundations**. The
+shelves never change; groups inside them live by counts: a family earns a
+`.regsub` heading only at 2 records; a flat list splits past ~7 rows at its
+most obvious seam; a subgroup that wants headings of its own gets promoted to
+a top-level `.reggroup` instead — depth stops at `.reghead` → `.regsubhead` →
+records, never a third level. The record's eyebrow reads "Shelf · Family"
+(e.g. "Components · Forms") and links to the shelf or seam anchor.
+
 Every record shares one shell and this anatomy:
 
 - **`.topnav`** — brand linking to the index + a category eyebrow.
