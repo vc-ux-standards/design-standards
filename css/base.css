@@ -34,7 +34,8 @@ h3{ font-size:clamp(1.18rem, 2vw, 1.38rem); font-weight:600; font-variation-sett
 p{ margin:0 0 1.1rem; }
 strong{ font-weight:600; color:var(--ink); }
 em{ font-style:italic; }
-a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--cool) 35%, transparent); }
+code{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.86em; }
+a{ color:var(--cool); text-decoration:none; border-bottom:1px solid color-mix(in oklch, var(--cool) 35%, transparent); transition:border-bottom-color 150ms; }
 a:hover{ border-bottom-color:var(--cool); }
 a:focus-visible,
 .inp:focus-visible{ outline:2px solid var(--cool); outline-offset:2px; }
@@ -107,7 +108,7 @@ section{ padding:clamp(2.5rem,6vw,4.5rem) 0; border-top:1px solid var(--rule); }
 .appbar .d{ width:8px; height:8px; border-radius:50%; background:var(--rule-strong); }
 .appbar .t{ margin-left:0.4rem; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.06em; color:var(--ink-3); }
 
-.step-circle{ flex:0 0 auto; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-family:"IBM Plex Mono",monospace; font-size:0.8rem; font-weight:500; font-feature-settings:"tnum" 1; background:var(--paper); color:var(--ink-3); border:1.5px solid var(--rule-strong); transition:all .2s ease; }
+.step-circle{ flex:0 0 auto; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-family:"IBM Plex Mono",monospace; font-size:0.8rem; font-weight:500; font-feature-settings:"tnum" 1; background:var(--paper); color:var(--ink-3); border:1.5px solid var(--rule-strong); transition:background 150ms, color 150ms, border-color 150ms, box-shadow 150ms; }
 .step.done  .step-circle{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .step.current .step-circle{ background:var(--paper); color:var(--ink); border:2px solid var(--ink); box-shadow:0 0 0 4px color-mix(in oklch, var(--ink) 10%, transparent); }
 .step.error .step-circle{ background:var(--paper); color:var(--error); border:2px solid var(--error); }
