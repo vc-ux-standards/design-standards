@@ -18,7 +18,7 @@ Files: `css/tokens.css`, `css/base.css`, `index.html`, `records/*.html` (16 + `_
 
 ## Progress
 
-- [ ] Commit 1 — Delete no-op inline styles; move 2 colours into classes; housekeeping
+- [x] Commit 1 — Delete no-op inline styles; move 2 colours into classes; housekeeping
 - [ ] Commit 2 — Dead CSS, orphan file, focus-rule conflict
 - [ ] Commit 3 — Migrate breakpoints.html off its private `.bp-*` copy
 - [ ] Commit 4 — Site-name sweep → "Design Standards"
