@@ -298,6 +298,13 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 .compare .stage.use .judge .d{ background:var(--ok); border-radius:50%; }
 @media (max-width:760px){ .compare{ grid-template-columns:1fr; } }
 
+/* Spacing rhythm: contextual rules replace one-off inline margins.
+   A second demo/compare in a row wants more air than the default block gap;
+   a "Reject in review"-style paragraph right after a ul.clean wants the same. */
+:is(.demo, .compare) + :is(.demo, .compare){ margin-top:var(--space-8); }
+.prose ul.clean + p{ margin-top:var(--space-7); }
+.mt-lg{ margin-top:var(--space-8); }
+
 /* ---------- Form demos (Standards · Forms records) ---------- */
 /* The schematic .field above is a blank box. These render real labelled controls
    — visible labels, help/hint text, placeholders, content-sized widths — which is

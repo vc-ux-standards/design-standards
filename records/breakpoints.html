@@ -141,7 +141,7 @@
       <p class="note"><strong>The form caps to a single column; the width past the measure stays empty by design.</strong> Stretching these fields to 1600px only lengthens the eye's travel from label to input.</p>
     </div>
 
-    <div class="demo" style="margin-top:2.5rem;">
+    <div class="demo">
       <div class="cap">
         <span class="name">Population performance · data canvas</span>
         <span class="tag h"><span class="dot"></span>Uses the width</span>
@@ -227,7 +227,7 @@
       </div>
     </div>
 
-    <p class="prose" style="margin-top:2.25rem;">
+    <p class="prose mt-lg">
       <strong>The failure mode is one chart stretched to fill the window.</strong> A single line or bar chart spanning 1600px spreads its points so far apart that the trend flattens — the width works against the reading. Cap the chart and spend the rest of the row on companions or more data.
     </p>
 
@@ -313,7 +313,7 @@
         <li>Empty space to the right of a capped canvas is correct, not a layout bug to fill.</li>
       </ul>
 
-      <p style="margin-top:2rem;"><strong>Use the width when the canvas is data</strong></p>
+      <p><strong>Use the width when the canvas is data</strong></p>
       <ul class="clean cool">
         <li>Datagrids, dashboards, and chart canvases spread to all 12 columns and add tiles, columns or detail as the window grows.</li>
         <li>Chart tiles hold a readable minimum width and pack more per row (2-up → 3-up → 4-up); they do not stretch to fill.</li>
@@ -322,7 +322,7 @@
         <li>Reusable data components respond to their container, so a grid is right whether it is in the rail or the full canvas.</li>
       </ul>
 
-      <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+      <p><strong>Reject in review</strong></p>
       <ul class="clean anti">
         <li>A phone or tablet-portrait layout for a viewport VC does not serve. The narrow case is reflow for zoom, and that is automatic, not designed.</li>
         <li>A "mobile" breakpoint below the desktop floor, or a hamburger nav standing in for the rail. We have no mobile rung.</li>
