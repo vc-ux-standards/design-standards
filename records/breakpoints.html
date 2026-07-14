@@ -3,33 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Breakpoints · Design Decisions</title>
+<title>Breakpoints · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
-<style>
-/* Scoped to this record's data-viz width demos (§03): schematic charts built
-   from inline SVG, token-driven only. Not part of the shared component set —
-   the one record that needs charts to make its point carries them here. */
-.bp-board{ border:1px solid var(--rule-strong); border-radius:6px; overflow:hidden; background:var(--paper); box-shadow:0 1px 2px oklch(var(--shadow-ink) / 0.04), 0 8px 24px oklch(var(--shadow-ink) / 0.05); }
-.bp-board .bbar{ display:flex; align-items:center; gap:0.45rem; padding:0.5rem 0.7rem; background:var(--paper-3); border-bottom:1px solid var(--rule); }
-.bp-board .bbar i{ width:7px; height:7px; border-radius:50%; background:var(--rule-strong); }
-.bp-board .bbar em{ margin-left:0.3rem; font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.06em; color:var(--ink-3); }
-.bp-grid{ display:grid; gap:0.55rem; padding:0.6rem; }
-.bp-grid.c2{ grid-template-columns:repeat(2,1fr); }
-.bp-grid.c3{ grid-template-columns:repeat(3,1fr); }
-.bp-grid.c4{ grid-template-columns:repeat(4,1fr); }
-.bp-tile{ border:1px solid var(--rule); border-radius:4px; background:var(--paper-2); padding:0.45rem 0.5rem; min-width:0; }
-.bp-tile.wide{ grid-column:1 / -1; }
-.bp-tile .h{ font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.04em; color:var(--ink-2); margin-bottom:0.35rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.bp-tile svg{ display:block; width:100%; height:auto; }
-.bp-tile .bars rect{ fill:color-mix(in oklch, var(--cool) 50%, var(--paper)); }
-.bp-tile .bars rect.hi{ fill:var(--cool); }
-.bp-tile .line{ fill:none; stroke:var(--warm); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-@media (max-width:560px){ .bp-grid.c2,.bp-grid.c3,.bp-grid.c4{ grid-template-columns:repeat(2,1fr); } }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -40,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#responsive">Standards · Responsive</a>
+    <a class="eyebrow" href="../index.html#foundations">Foundations · Responsive</a>
   </div>
 </header>
 
@@ -49,7 +28,7 @@
     <div class="recordwrap">
 
   <header class="masthead">
-    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#responsive">Standards · Responsive</a></div>
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#foundations">Foundations · Responsive</a></div>
     <h1>How VC handles<br>screen width</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       VC is a desktop application, so its breakpoints live in the desktop band — not a phone-to-desktop ladder. One rule does most of the work: width follows content type. A datagrid uses the width it is given; a form caps to a reading measure.
@@ -162,7 +141,7 @@
       <p class="note"><strong>The form caps to a single column; the width past the measure stays empty by design.</strong> Stretching these fields to 1600px only lengthens the eye's travel from label to input.</p>
     </div>
 
-    <div class="demo" style="margin-top:2.5rem;">
+    <div class="demo">
       <div class="cap">
         <span class="name">Population performance · data canvas</span>
         <span class="tag h"><span class="dot"></span>Uses the width</span>
@@ -178,11 +157,11 @@
             <div class="nav-i">Exports</div>
           </div>
           <div class="pagecanvas">
-            <div style="display:flex; gap:0.7rem; margin-bottom:1.1rem;">
-              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Attributed lives</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">48,210</div></div>
-              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Measures met</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">71%</div></div>
-              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Open gaps</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">3,940</div></div>
-              <div style="flex:1; border:1px solid var(--rule); border-radius:4px; padding:0.6rem 0.75rem; background:var(--paper-2);"><div class="fieldlabel" style="margin-top:0;">Risk score</div><div style="font-family:'Source Serif 4',serif; font-variation-settings:'opsz' 18; font-weight:600; font-size:1.35rem; line-height:1.1;">1.18</div></div>
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.7rem; margin-bottom:1.1rem;">
+              <div class="viz-tile"><div class="h">Attributed lives</div><div class="big">48,210</div></div>
+              <div class="viz-tile"><div class="h">Measures met</div><div class="big">71%</div></div>
+              <div class="viz-tile"><div class="h">Open gaps</div><div class="big">3,940</div></div>
+              <div class="viz-tile"><div class="h">Risk score</div><div class="big">1.18</div></div>
             </div>
             <div class="faux-list" style="padding:0;">
               <div class="listrow"><span class="nm">30-day readmission</span><span class="meta">71%</span><span class="pill">On track</span></div>
@@ -206,41 +185,41 @@
     <span class="secnum">03 / Large width on a data canvas</span>
     <h2>Width buys more data, not bigger charts</h2>
     <p class="prose">
-      <strong>When a data canvas gets a wider window, add tiles and columns — do not inflate the charts already on screen.</strong> Chart tiles hold a readable minimum width, and the grid packs more of them per row as the tier climbs. In CSS this is one rule, not one per tier: a <code style="font-family:'IBM Plex Mono',monospace; font-size:0.86em;">repeat(auto-fill, minmax(22rem, 1fr))</code> grid adds columns on its own as the canvas grows.
+      <strong>When a data canvas gets a wider window, add tiles and columns — do not inflate the charts already on screen.</strong> Chart tiles hold a readable minimum width, and the grid packs more of them per row as the tier climbs. In CSS this is one rule, not one per tier: a <code>repeat(auto-fill, minmax(22rem, 1fr))</code> grid adds columns on its own as the canvas grows.
     </p>
 
     <div class="scenes">
       <div class="scene">
-        <div class="bp-board">
+        <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Standard · 1280</em></div>
-          <div class="bp-grid c2">
-            <div class="bp-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
-            <div class="bp-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+          <div class="viz-grid c2">
+            <div class="viz-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="viz-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
           </div>
         </div>
         <p class="sh">Standard — 2-up</p>
         <p class="note">Two tiles fill the 12 columns, six each.</p>
       </div>
       <div class="scene">
-        <div class="bp-board">
+        <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Large · 1440</em></div>
-          <div class="bp-grid c3">
-            <div class="bp-tile"><div class="h">Readmissions</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
-            <div class="bp-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
-            <div class="bp-tile"><div class="h">Risk mix</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
+          <div class="viz-grid c3">
+            <div class="viz-tile"><div class="h">Readmissions</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="viz-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="viz-tile"><div class="h">Risk mix</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
           </div>
         </div>
         <p class="sh">Large — 3-up</p>
         <p class="note">A third tile joins the row; each keeps its aspect.</p>
       </div>
       <div class="scene">
-        <div class="bp-board">
+        <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Ultrawide · 1600</em></div>
-          <div class="bp-grid c4">
-            <div class="bp-tile"><div class="h">Readmits</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
-            <div class="bp-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
-            <div class="bp-tile"><div class="h">Risk</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
-            <div class="bp-tile"><div class="h">Spend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
+          <div class="viz-grid c4">
+            <div class="viz-tile"><div class="h">Readmits</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="viz-tile"><div class="h">Gaps</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="viz-tile"><div class="h">Risk</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="18" width="12" height="26"/><rect x="26" y="24" width="12" height="20"/><rect x="46" y="12" width="12" height="32" class="hi"/><rect x="66" y="22" width="12" height="22"/><rect x="86" y="28" width="12" height="16"/><rect x="106" y="20" width="12" height="24"/></svg></div>
+            <div class="viz-tile"><div class="h">Spend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
           </div>
         </div>
         <p class="sh">Ultrawide — 4-up</p>
@@ -248,30 +227,30 @@
       </div>
     </div>
 
-    <p class="prose" style="margin-top:2.25rem;">
+    <p class="prose mt-lg">
       <strong>The failure mode is one chart stretched to fill the window.</strong> A single line or bar chart spanning 1600px spreads its points so far apart that the trend flattens — the width works against the reading. Cap the chart and spend the rest of the row on companions or more data.
     </p>
 
     <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
-        <div class="bp-board">
+        <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>One chart, full width</em></div>
-          <div class="bp-grid c2">
-            <div class="bp-tile wide"><div class="h">Readmissions / month</div><svg viewBox="0 0 320 54" aria-hidden="true"><polyline class="line" points="8,42 70,38 132,40 194,30 256,34 312,24"/></svg></div>
+          <div class="viz-grid c2">
+            <div class="viz-tile wide"><div class="h">Readmissions / month</div><svg viewBox="0 0 320 54" aria-hidden="true"><polyline class="viz-line" points="8,42 70,38 132,40 194,30 256,34 312,24"/></svg></div>
           </div>
         </div>
         <p class="note"><strong>Six points smeared across 1600px.</strong> The line goes near-flat, gaps yawn between markers, and the analyst reads less, not more, for all the extra space.</p>
       </div>
       <div class="stage use">
         <span class="judge"><span class="d"></span>Use</span>
-        <div class="bp-board">
+        <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Capped chart + companions</em></div>
-          <div class="bp-grid c2">
-            <div class="bp-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
-            <div class="bp-tile"><div class="h">By contract</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="22" width="12" height="22"/><rect x="26" y="16" width="12" height="28"/><rect x="46" y="10" width="12" height="34" class="hi"/><rect x="66" y="20" width="12" height="24"/><rect x="86" y="26" width="12" height="18"/><rect x="106" y="14" width="12" height="30"/></svg></div>
-            <div class="bp-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
-            <div class="bp-tile"><div class="h">Spend trend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
+          <div class="viz-grid c2">
+            <div class="viz-tile"><div class="h">Readmissions / month</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,38 22,30 42,33 62,20 82,25 102,12 118,16"/></svg></div>
+            <div class="viz-tile"><div class="h">By contract</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="22" width="12" height="22"/><rect x="26" y="16" width="12" height="28"/><rect x="46" y="10" width="12" height="34" class="hi"/><rect x="66" y="20" width="12" height="24"/><rect x="86" y="26" width="12" height="18"/><rect x="106" y="14" width="12" height="30"/></svg></div>
+            <div class="viz-tile"><div class="h">Gaps by measure</div><svg viewBox="0 0 120 46" class="viz-bars" aria-hidden="true"><rect x="6" y="26" width="12" height="18"/><rect x="26" y="14" width="12" height="30"/><rect x="46" y="20" width="12" height="24"/><rect x="66" y="8" width="12" height="36" class="hi"/><rect x="86" y="16" width="12" height="28"/><rect x="106" y="11" width="12" height="33"/></svg></div>
+            <div class="viz-tile"><div class="h">Spend trend</div><svg viewBox="0 0 120 46" aria-hidden="true"><polyline class="viz-line" points="2,30 22,32 42,22 62,26 82,16 102,20 118,10"/></svg></div>
           </div>
         </div>
         <p class="note"><strong>The hero chart caps at a readable width; the rest of the row carries companions.</strong> The same 1600px now shows four trends an analyst can actually read, on the same 12-column grid.</p>
@@ -334,7 +313,7 @@
         <li>Empty space to the right of a capped canvas is correct, not a layout bug to fill.</li>
       </ul>
 
-      <p style="margin-top:2rem;"><strong>Use the width when the canvas is data</strong></p>
+      <p><strong>Use the width when the canvas is data</strong></p>
       <ul class="clean cool">
         <li>Datagrids, dashboards, and chart canvases spread to all 12 columns and add tiles, columns or detail as the window grows.</li>
         <li>Chart tiles hold a readable minimum width and pack more per row (2-up → 3-up → 4-up); they do not stretch to fill.</li>
@@ -343,7 +322,7 @@
         <li>Reusable data components respond to their container, so a grid is right whether it is in the rail or the full canvas.</li>
       </ul>
 
-      <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+      <p><strong>Reject in review</strong></p>
       <ul class="clean anti">
         <li>A phone or tablet-portrait layout for a viewport VC does not serve. The narrow case is reflow for zoom, and that is automatic, not designed.</li>
         <li>A "mobile" breakpoint below the desktop floor, or a hamburger nav standing in for the rail. We have no mobile rung.</li>
@@ -369,14 +348,14 @@
         <div class="src">IBM · Carbon — closest in spirit</div>
         <h3>A data-dense grid with a constant gutter</h3>
         <p>Carbon's 2x Grid is built for the same data-heavy enterprise work as ours: explicit sm/md/lg/xlg/max breakpoints, a column count that steps up with width, and a 32px gutter held constant at every breakpoint so columns stay predictable. We take the stance and the constant-gutter discipline; we run 12 columns rather than Carbon's 16, because that is VC's Figma grid.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>data-dense · constant gutter · 16-col</span>
+        <span class="verdict tag v"><span class="dot"></span>data-dense · constant gutter · 16-col</span>
       </div>
 
       <div class="syscard">
         <div class="src">Bootstrap 5 — closest on the grid</div>
         <h3>A 12-column grid on min-width tiers</h3>
         <p>Bootstrap's grid is 12 columns across six min-width breakpoints from 576 to 1400px, each with a container max-width that caps content rather than letting it stretch. The 12-column structure and the capped container are exactly VC's model; we keep only the upper, desktop tiers and express them in rem.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>12-col · min-width · capped container</span>
+        <span class="verdict tag v"><span class="dot"></span>12-col · min-width · capped container</span>
       </div>
 
       <div class="syscard">
@@ -404,7 +383,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for a tool like ours</h3>
         <p>For a desktop-only, datagrid- and chart-heavy tool on a 12-column grid, the field points one way: a short ladder of rem tiers in the desktop band, a constant-gutter 12-column grid throughout, and width decided by content type. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>desktop band · 12-col · content-led width</span>
+        <span class="verdict tag v"><span class="dot"></span>desktop band · 12-col · content-led width</span>
       </div>
     </div>
   </section>
@@ -431,7 +410,7 @@
   <section>
     <span class="secnum">08 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://carbondesignsystem.com/elements/2x-grid/overview/">IBM Carbon — 2x Grid</a> (16-column grid; sm/md/lg/xlg/max breakpoints; a 32px gutter held constant across breakpoints).</li>
       <li><a href="https://getbootstrap.com/docs/5.3/layout/breakpoints/">Bootstrap 5 — Breakpoints</a> and <a href="https://getbootstrap.com/docs/5.3/layout/grid/">Grid</a> (12-column grid; six min-width tiers from 576 to 1400px; container max-widths that cap content per breakpoint).</li>
       <li><a href="https://m3.material.io/foundations/layout/applying-layout/window-size-classes">Material 3 — Window size classes</a> (Compact, Medium, Expanded, Large, Extra-large; window size classes replace device-named breakpoints).</li>

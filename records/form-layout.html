@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form layout on wide artboards · Design Decisions</title>
+<title>Form layout on wide artboards · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,9 +17,9 @@
   <div class="inner">
     <a class="brand" href="../index.html">
       <span class="wm">VC</span>
-      <span class="sub">Design Decisions</span>
+      <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#forms">Standards · Forms</a>
+    <a class="eyebrow" href="../index.html#components">Components · Forms</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
       <header class="masthead">
-        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#forms">Standards · Forms</a></div>
+        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#components">Components · Forms</a></div>
         <h1>Form layout on<br>wide artboards</h1>
         <p class="lead prose" style="margin-top:1.5rem;">
           A 1400px artboard is a canvas, not a form width. This record sets where a form sits on the page and how wide each field should be, so a form stops sprawling across the whole screen and a date stops stretching a thousand pixels edge to edge.
@@ -98,12 +98,12 @@
           </div>
         </div>
 
-        <h3 style="margin-top:2.5rem;">Where the column sits: centred in the content area</h3>
+        <h3 class="mt-lg">Where the column sits: centred in the content area</h3>
         <p class="prose">
           <strong>Balanced margins on both sides, every screen.</strong> The column reads as the deliberate centre of attention, not something shoved against an edge. The two extremes to avoid: stretched to fill the width, or jammed against the chrome with all the empty space dumped on one side.
         </p>
 
-        <h3 style="margin-top:2.5rem;">With page chrome: sidebar and steppers</h3>
+        <h3 class="mt-lg">With page chrome: sidebar and steppers</h3>
         <p class="prose">
           Our pages carry chrome — the ~200px navigation sidebar on every page, and a stepper on the longer flows. The rule doesn't change: the 640px column sits <strong>centred in the content area</strong> — the space that remains beside or below whatever chrome precedes it. The stepper's own orientation is a separate decision; see <a href="stepper-orientation.html">Stepper orientation</a>.
         </p>
@@ -273,7 +273,7 @@
           </div>
         </div>
 
-        <p class="prose" style="margin-top:2.5rem;">
+        <p class="prose mt-lg">
           <strong>Density is the exception that earns the grid.</strong> A record an analyst opens dozens of times a day — twenty-plus fields — scans faster in a <strong>structured</strong> grid than in one tall column: deliberate column groups, related fields together, each still sized to its content. That isn't the artboard-filling two-column this section warns against; it's the dense-record regime from §01, and what data-heavy systems (§08) actually do. The test: does the second column carry <em>structure</em>, or merely fill <em>space</em>?
         </p>
       </section>
@@ -373,7 +373,7 @@
           </div>
         </div>
 
-        <h3 style="margin-top:2.5rem;">Ten checkboxes → group or split into columns</h3>
+        <h3 class="mt-lg">Ten checkboxes → group or split into columns</h3>
         <p class="prose">A long set is where a single vertical list turns into a scroll. Past about seven options, break into two columns read top-to-bottom, or — better, when the options fall into categories — group them under sub-headings. Add a select-all when the set is acted on together.</p>
         <div class="compare">
           <div class="stage avoid">
@@ -383,12 +383,12 @@
               <div class="formdemo">
                 <span class="lbl" style="display:block; margin-bottom:0.55rem;">Included measures</span>
                 <div class="choices inline">
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
                   <span class="choice"><span class="mk"></span>BP control</span>
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
                   <span class="choice"><span class="mk"></span>Colorectal screening</span>
                   <span class="choice"><span class="mk"></span>Statin therapy</span>
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
                   <span class="choice"><span class="mk"></span>Depression screen</span>
                   <span class="choice"><span class="mk"></span>Fall risk</span>
                   <span class="choice"><span class="mk"></span>Med reconciliation</span>
@@ -405,11 +405,11 @@
               <div class="formdemo">
                 <span class="lbl" style="display:block; margin-bottom:0.55rem;">Included measures</span>
                 <div class="choices cols2">
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Diabetes A1c</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Flu vaccine</span>
                   <span class="choice"><span class="mk"></span>BP control</span>
                   <span class="choice"><span class="mk"></span>Depression screen</span>
-                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--paper)"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
+                  <span class="choice on"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Breast screening</span>
                   <span class="choice"><span class="mk"></span>Fall risk</span>
                   <span class="choice"><span class="mk"></span>Colorectal screening</span>
                   <span class="choice"><span class="mk"></span>Med reconciliation</span>
@@ -440,7 +440,7 @@
             <li>Keep field widths content-sized inside steps too; consistency across steps is what makes the whole flow feel calm.</li>
           </ul>
 
-          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+          <p><strong>Reject in review</strong></p>
           <ul class="clean anti">
             <li>A form that fills the page, or a sequential-form column that grows with the viewport instead of staying capped at 640px.</li>
             <li>A form column jammed against the chrome or stretched full width, rather than centred in the content area with balanced margins.</li>
@@ -464,42 +464,42 @@
             <div class="src">GOV.UK Design System — closest precedent</div>
             <h3>Match the input to the content</h3>
             <p>GOV.UK gives every text input a set of width-override classes — both fixed character widths (2, 3, 4, 5, 10, 20 characters) and fluid fractions (full, three-quarters, one-half, one-third, one-quarter) — and the guidance is explicit: make the size of an input proportionate to the information it requires. A field for a few digits should be visibly small.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>size to content</span>
+            <span class="verdict tag v"><span class="dot"></span>size to content</span>
           </div>
 
           <div class="syscard">
             <div class="src">Baymard Institute — checkout research</div>
             <h3>Single column completes faster</h3>
             <p>Baymard's large-scale form usability testing finds multi-column layouts cause users to misinterpret field relationships and skip fields, and recommends a single-column flow for the main path, reserving side-by-side fields for short, clearly related pairs. A single column gives one reading path.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>single column</span>
+            <span class="verdict tag v"><span class="dot"></span>single column</span>
           </div>
 
           <div class="syscard">
             <div class="src">Typographic measure</div>
             <h3>Line length caps the column</h3>
             <p>Readable line length tops out around 50–75 characters; past that the eye struggles to find the start of the next line. A form column much wider than ~640px pushes labels and help text beyond that measure, which is the ceiling behind the 640px cap — the same logic that bounds body text bounds a form.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>~640px column</span>
+            <span class="verdict tag v"><span class="dot"></span>~640px column</span>
           </div>
 
           <div class="syscard">
             <div class="src">Nielsen Norman Group · Luke Wroblewski</div>
             <h3>Labels above; small sets as radios</h3>
             <p>Eye-tracking work popularised by Wroblewski's <em>Web Form Design</em> and echoed by NN/g shows top-aligned labels are fastest to scan, and that a small set of mutually exclusive options belongs in a vertical list of radios — visible at once — rather than a dropdown that hides them.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>top labels, stacked radios</span>
+            <span class="verdict tag v"><span class="dot"></span>top labels, stacked radios</span>
           </div>
 
           <div class="syscard">
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>Consistent spacing and field sizing</h3>
             <p>Carbon, the system for data-heavy enterprise products, specifies form field widths and a consistent vertical spacing scale, and lays dense records out in structured multi-column grids rather than one tall column. It is the nearest match to VC's density — the authority for the dense-record regime — and it confirms the rhythm in §05.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>fixed widths, spacing scale</span>
+            <span class="verdict tag v"><span class="dot"></span>fixed widths, spacing scale</span>
           </div>
 
           <div class="syscard">
             <div class="src">Synthesis</div>
             <h3>The pattern for forms like ours</h3>
             <p>The systems split cleanly by task. For a sequential flow the consumer-form research holds: a single ~640px column, centred, choices stacked. For the dense records an analyst edits daily, Carbon's stance holds: a structured, grouped grid sized to content. Both agree on what matters everywhere — inputs sized to their content, labels above, fields in named groups — and both reject the form that fills the artboard.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>task-fit width, content-sized fields</span>
+            <span class="verdict tag v"><span class="dot"></span>task-fit width, content-sized fields</span>
           </div>
         </div>
       </section>
@@ -529,7 +529,7 @@
       <section>
         <span class="secnum">10 / References</span>
         <h2>Sources</h2>
-        <ul class="clean refs prose" style="margin-top:1rem;">
+        <ul class="clean refs prose">
           <li><a href="https://design-system.service.gov.uk/components/text-input/">GOV.UK Design System — Text input</a> (fixed-character and fluid width override classes; make input size proportionate to the content).</li>
           <li><a href="https://baymard.com/blog/avoid-multi-column-forms">Baymard Institute — Avoid multi-column forms</a> (single-column flow completes faster; reserve side-by-side fields for short related pairs).</li>
           <li><a href="https://www.nngroup.com/articles/form-design-placeholders/">Nielsen Norman Group — Form design</a> and Luke Wroblewski, <a href="https://www.lukew.com/ff/entry.asp?1502">Web Application Form Design</a> (top-aligned labels scan fastest; stacked radios for small mutually exclusive sets).</li>

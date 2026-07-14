@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading the chart honestly · Design Decisions</title>
+<title>Reading the chart honestly · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+    <a class="eyebrow" href="../index.html#dv-trust">Data visualization · Trust and interpretation</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
   <header class="masthead">
-    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#dv-trust">Data visualization · Trust and interpretation</a></div>
     <h1>Reading the<br>chart honestly</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       A chart can be accurate to the last decimal and still mislead. This record settles the handful of distortions that keep coming up in review — a cropped axis, a dual scale, a raw rate passed off as performance — so the objection is a link, not a debate. It is the record the others point to when the question is "is this chart fair?"
@@ -171,7 +171,7 @@
       </div>
     </div>
 
-    <div class="compare" style="margin-top:2.5rem;">
+    <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
@@ -229,7 +229,7 @@
       </div>
     </div>
 
-    <div class="compare" style="margin-top:2.5rem;">
+    <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
@@ -324,7 +324,7 @@
         <div class="src">Alberto Cairo · How Charts Lie</div>
         <h3>A field guide to the distortions</h3>
         <p>Cairo catalogues exactly these moves — truncated and dual axes, misleading ratios, cherry-picked ranges — and shows how each bends an accurate number into a false impression. It is the reference for treating chart honesty as a discipline, not an instinct.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the distortions, named</span>
+        <span class="verdict tag v"><span class="dot"></span>the distortions, named</span>
       </div>
 
       <div class="syscard">
@@ -359,7 +359,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's committee-facing charts: crop only position marks, one scale per frame, name points vs percent and raw vs risk-adjusted, show the N and enough history. When a chart breaks one, cite this record and fix it. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC honesty check</span>
+        <span class="verdict tag v"><span class="dot"></span>the VC honesty check</span>
       </div>
     </div>
   </section>
@@ -368,7 +368,7 @@
   <section>
     <span class="secnum">05 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://www.howchartslie.com/">Alberto Cairo — How Charts Lie</a> (truncated and dual axes, misleading ratios, cherry-picked ranges).</li>
       <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts (Fundamentals of Data Visualization)</a> (bars require a zero baseline; position-based marks need not).</li>
       <li><a href="https://blog.datawrapper.de/truncated-axis/">Datawrapper Academy — When to truncate an axis</a> (never crop a bar; a labelled line may start above zero).</li>

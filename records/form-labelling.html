@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Descriptions and placeholders · Design Decisions</title>
+<title>Descriptions and placeholders · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,9 +17,9 @@
   <div class="inner">
     <a class="brand" href="../index.html">
       <span class="wm">VC</span>
-      <span class="sub">Design Decisions</span>
+      <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#forms">Standards · Forms</a>
+    <a class="eyebrow" href="../index.html#components">Components · Forms</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
       <header class="masthead">
-        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#forms">Standards · Forms</a></div>
+        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#components">Components · Forms</a></div>
         <h1>Descriptions and<br>placeholders</h1>
         <p class="lead prose" style="margin-top:1.5rem;">
           A field carries two optional slots: a description above the input, and a placeholder inside it. One persists; the other vanishes the instant the user types. Treating them as interchangeable is how essential guidance lands in the one place it can't survive. This record sets out what each carries, and when a field needs neither.
@@ -145,7 +145,7 @@
           </div>
         </div>
 
-        <h3 style="margin-top:2.5rem;">Don't ask the placeholder to do work it can't</h3>
+        <h3 class="mt-lg">Don't ask the placeholder to do work it can't</h3>
         <p class="prose">
           <strong>A placeholder earns its place rarely, even without instructions.</strong> Two patterns to avoid: one that merely repeats the label (clutter, no information); and an example so complete it reads as a value already entered and gets left untouched. When an example genuinely helps, make it unmistakably an example — a truncated sample of the format, not a plausible whole answer.
         </p>
@@ -239,7 +239,7 @@
             <li>The value's shape is self-evident from the label and width. The placeholder adds clutter, not clarity.</li>
           </ul>
 
-          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+          <p><strong>Reject in review</strong></p>
           <ul class="clean anti">
             <li>Essential information — a format, an instruction, a constraint — living only in the placeholder, where it vanishes on input.</li>
             <li>A placeholder that echoes its label, or one so complete it reads as a value the user has already entered.</li>
@@ -262,42 +262,42 @@
             <div class="src">GOV.UK Design System — closest precedent</div>
             <h3>Don't use placeholders; use persistent hint text</h3>
             <p>GOV.UK is blunt: do not use placeholder text in place of a label or hint, because it disappears on input, is mistaken for a pre-filled value, has poor contrast, and isn't consistently announced. Format and examples go in hint text — which in their layout sits with the label, above the input. That is precisely our description slot.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>guidance above the input</span>
+            <span class="verdict tag v"><span class="dot"></span>guidance above the input</span>
           </div>
 
           <div class="syscard">
             <div class="src">Nielsen Norman Group</div>
             <h3>Placeholders in form fields are harmful</h3>
             <p>NN/g's testing shows placeholder-as-guidance increases errors and cognitive load: users forget what was asked, can't verify their answer, and skip fields that look filled. Keep any guidance persistent, and show examples outside the field rather than inside it.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>keep guidance persistent</span>
+            <span class="verdict tag v"><span class="dot"></span>keep guidance persistent</span>
           </div>
 
           <div class="syscard">
             <div class="src">W3C · WCAG — the standard</div>
             <h3>Instructions must be available, not ephemeral</h3>
             <p>Success Criterion 3.3.2 (Labels or Instructions) requires that instructions are provided when content needs input. Guidance that exists only in a placeholder fails it — it is not a reliable accessible name, and its low-contrast grey commonly fails 1.4.3 as well.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>3.3.2 instructions</span>
+            <span class="verdict tag v"><span class="dot"></span>3.3.2 instructions</span>
           </div>
 
           <div class="syscard">
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>Assistive text holds the guidance</h3>
             <p>Carbon, the system built for data-heavy enterprise products, keeps field guidance in persistent assistive text and treats the placeholder as an optional example only — never the home for essential information. That is the same division we draw, with the persistent text moved to the description above the input.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>persistent assistive text</span>
+            <span class="verdict tag v"><span class="dot"></span>persistent assistive text</span>
           </div>
 
           <div class="syscard">
             <div class="src">MDN · web standards</div>
             <h3>Describe via aria-describedby, not the placeholder</h3>
             <p>MDN documents the mechanics this rule depends on: supplementary description text linked to the input with <code>aria-describedby</code> is announced by assistive tech, whereas the <code>placeholder</code> attribute is not a dependable accessible name. The description is the slot that actually reaches every user.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>aria-describedby</span>
+            <span class="verdict tag v"><span class="dot"></span>aria-describedby</span>
           </div>
 
           <div class="syscard">
             <div class="src">Synthesis</div>
             <h3>The pattern for forms like ours</h3>
             <p>For a two-slot system with no hint line, the field is unanimous: the description is the persistent helper that carries meaning and format, and the placeholder is a demoted, optional example. VC should follow it, and keep the placeholder empty by default.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>description carries, placeholder shows</span>
+            <span class="verdict tag v"><span class="dot"></span>description carries, placeholder shows</span>
           </div>
         </div>
       </section>
@@ -322,7 +322,7 @@
       <section>
         <span class="secnum">07 / References</span>
         <h2>Sources</h2>
-        <ul class="clean refs prose" style="margin-top:1rem;">
+        <ul class="clean refs prose">
           <li><a href="https://design-system.service.gov.uk/components/text-input/">GOV.UK Design System — Text input</a> and <a href="https://design-system.service.gov.uk/get-started/labels-legends-hints/">labels, legends and hint text</a> (do not use placeholder text; put guidance in persistent hint text with the label).</li>
           <li><a href="https://www.nngroup.com/articles/form-design-placeholders/">Nielsen Norman Group — Placeholders in Form Fields Are Harmful</a> (placeholders disappear, raise cognitive load, and read as filled; keep guidance persistent).</li>
           <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html">W3C WCAG — Understanding SC 3.3.2: Labels or Instructions</a> (instructions required for user input; placeholder-only guidance does not satisfy it).</li>

@@ -19,13 +19,14 @@ for durability and zero maintenance, and it must work opened straight from disk
 - **No `package.json`, no bundler, no generator, no npm.** If you reach for
   tooling, you have misread the project.
 - **No JavaScript.** The only exception is a small inline script scoped to one
-  demo that genuinely needs it to show an interaction. There are none so far;
-  adding one is a decision to flag, not a default.
+  demo that genuinely needs it to show an interaction. The sanctioned exception
+  is `records/stacked-bars.html` §03; adding another is a decision to flag, not
+  a default.
 - **No inline `<style>` blocks**, with one sanctioned exception: a single demo
   that genuinely needs styles the shared CSS can't supply may carry a scoped
-  `<style>` in its own `<head>`. The precedent is `records/breakpoints.html` §03
-  — schematic charts as inline SVG, classes namespaced `.bp-*`, tokens only,
-  nothing leaking into `css/base.css`. Flag it; don't reach for it by default.
+  `<style>` in its own `<head>`. The sole precedent is `records/stacked-bars.html`
+  §03 — a live stacked-column tooltip demo, classes namespaced `.sb-*`, tokens
+  only, nothing leaking into `css/base.css`. Flag it; don't reach for it by default.
   If two records would want the same thing, that is a `base.css` conversation.
 - **Relative paths everywhere** (`../css/base.css`, never `/css/base.css`).
   Absolute paths break on GitHub Pages project URLs. The few inline `style=""`
@@ -47,6 +48,16 @@ Adding a record = duplicate `records/_template.html`, fill every `<!-- TODO -->`
 add one `<a class="regrow">` to `index.html` inside the right `.reggroup` (or
 `.regsub`), and bump that category's count in the `.homenav` rail. That is the
 entire workflow — no registration, nothing to generate.
+
+**Where it files — by the subject the record governs, on three fixed shelves.**
+A chart → **Data visualization**, under its seam. A component or component
+family → **Components**. A cross-cutting property → **Foundations**. The
+shelves never change; groups inside them live by counts: a family earns a
+`.regsub` heading only at 2 records; a flat list splits past ~7 rows at its
+most obvious seam; a subgroup that wants headings of its own gets promoted to
+a top-level `.reggroup` instead — depth stops at `.reghead` → `.regsubhead` →
+records, never a third level. The record's eyebrow reads "Shelf · Family"
+(e.g. "Components · Forms") and links to the shelf or seam anchor.
 
 Every record shares one shell and this anatomy:
 

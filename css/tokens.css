@@ -24,6 +24,11 @@
   /* Shadow ink — one dark, near-neutral base composed at varying alpha for every
      card/panel elevation. Use as oklch(var(--shadow-ink) / <a>). */
   --shadow-ink:   0.2 0.01 80;
+  /* Composed elevations — the two reused stacks. --shadow-frame lifts a bordered
+     panel (app-frame, page schematic, chart board); --shadow-pop floats an
+     overlay (modal dialog). Directional / one-off shadows stay literal. */
+  --shadow-frame: 0 1px 2px oklch(var(--shadow-ink) / 0.04), 0 8px 24px oklch(var(--shadow-ink) / 0.05);
+  --shadow-pop:   0 16px 48px oklch(var(--shadow-ink) / 0.32);
 
   --measure: 64ch;
   --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -39,6 +44,12 @@
   --space-7: 2rem;      /* sub-group separation */
   --space-8: 2.75rem;   /* top-level register group gap */
   --space-9: 4rem;      /* large block rhythm */
+
+  /* Radius scale — component corner rounding. Pill/dot 50% stays literal. */
+  --radius-1: 2px;   /* chips, swatches, small insets */
+  --radius-2: 4px;   /* inputs, buttons, cards, register rows */
+  --radius-3: 6px;   /* framed surfaces — app-frame, chart board */
+  --radius-4: 8px;   /* modal dialog */
 }
 
 :root{ --ok:oklch(0.560 0.095 150); --ok-ink:oklch(0.420 0.085 150); }

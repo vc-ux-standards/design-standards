@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Charts at tile scale · Design Decisions</title>
+<title>Charts at tile scale · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+    <a class="eyebrow" href="../index.html#dv-presentation">Data visualization · Presentation and scale</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
   <header class="masthead">
-    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#dv-presentation">Data visualization · Presentation and scale</a></div>
     <h1>Charts at tile scale</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       A dashboard tile is not a shrunk chart panel. At tile size the chrome — axes, gridlines, legends — costs more than it earns, so drop it and keep the mark. A two-bar comparison is usually a big number and a delta; below a legibility floor, the honest chart is a number.
@@ -108,7 +108,7 @@
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Enrolment · shrunk to a tile</em></div>
-          <div class="chart" style="padding:0.6rem 0.7rem;">
+          <div class="chart viz-plot">
             <div class="viz-grid c2">
               <div class="viz-tile">
                 <div class="h">Enrolment by segment</div>
@@ -137,7 +137,7 @@
         <span class="judge"><span class="d"></span>Use</span>
         <div class="viz-board">
           <div class="bbar"><i></i><i></i><i></i><em>Enrolment · as a tile</em></div>
-          <div class="chart" style="padding:0.6rem 0.7rem;">
+          <div class="chart viz-plot">
             <div class="viz-grid c2">
               <div class="viz-tile">
                 <div class="h">Members enrolled</div>
@@ -154,7 +154,7 @@
       </div>
     </div>
 
-    <div class="demo" style="margin-top:2.5rem;">
+    <div class="demo">
       <div class="cap">
         <span class="name">One dashboard row · each tile in its smallest honest form</span>
         <span class="tag n"><span class="dot"></span>Tile set</span>
@@ -247,7 +247,7 @@
         <div class="src">Stephen Few · Information Dashboard Design</div>
         <h3>A dashboard is a glance medium</h3>
         <p>Few's core argument: a dashboard must be read at a glance, so it strips non-data ink, uses compact forms — sparklines, bullet graphs — and shows a single, well-chosen measure per tile. Sparklines and bullet graphs in this record are his.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>glance-first, minimal chrome</span>
+        <span class="verdict tag v"><span class="dot"></span>glance-first, minimal chrome</span>
       </div>
 
       <div class="syscard">
@@ -261,7 +261,7 @@
         <div class="src">IBM · Carbon — KPI &amp; expressive</div>
         <h3>Big value, then a small trend</h3>
         <p>Carbon's KPI patterns lead with the value and a delta and add a compact trend only in support — no axis furniture at summary size. It is the enterprise version of the big-number tile.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>value + delta + small trend</span>
+        <span class="verdict tag v"><span class="dot"></span>value + delta + small trend</span>
       </div>
 
       <div class="syscard">
@@ -282,7 +282,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For a VC overview grid on a large monitor: one question per tile, in its smallest honest form — number, delta, sparkline, direct-labelled bars, bullet — and no axis. If it needs a scale to be read, it needs a panel. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>smallest honest form</span>
+        <span class="verdict tag v"><span class="dot"></span>smallest honest form</span>
       </div>
     </div>
   </section>
@@ -291,7 +291,7 @@
   <section>
     <span class="secnum">05 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://www.perceptualedge.com/library.php">Stephen Few — Information Dashboard Design</a> and <a href="https://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">Bullet Graph Design Spec</a> (glance-first dashboards; minimal chrome; sparklines and bullet graphs per tile).</li>
       <li><a href="https://www.edwardtufte.com/tufte/books_be">Edward Tufte — Beautiful Evidence</a> (sparklines: word-sized, axis-free graphics for trend shape).</li>
       <li><a href="https://carbondesignsystem.com/data-visualization/complex-charts/">IBM Carbon — Data visualization</a> (KPI and expressive patterns: value plus delta, compact trend, no summary-size axis).</li>

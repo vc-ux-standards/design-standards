@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modal, full page, or side panel · Design Decisions</title>
+<title>Modal, full page, or side panel · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#layout">Layout · Containers</a>
+    <a class="eyebrow" href="../index.html#components">Components · Containers</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
       <header class="masthead">
-        <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <a class="eyebrow" href="../index.html#layout">Layout · Containers</a></div>
+        <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <a class="eyebrow" href="../index.html#components">Components · Containers</a></div>
         <h1>Modal, full page,<br>or side panel</h1>
         <p class="lead prose" style="margin-top:1.4rem;">
           Three containers, one decision: what does the task do to the work behind it? A modal blocks it and demands resolution; a full page replaces it with a workspace; a side panel leaves it in place. Read that right and the container picks itself — the standing error is loading a multi-step form into a modal because it felt lightweight.
@@ -107,7 +107,7 @@
           <p class="note"><strong>Irreversibility earns the interruption.</strong> One decision, two actions, nothing to scroll — and nothing to return to, since the measure is gone. A reversible action — publishing a draft you can simply unpublish — belongs in an inline confirm with undo, not a modal.</p>
         </div>
 
-        <div class="demo" style="margin-top:2.5rem;">
+        <div class="demo">
           <div class="cap">
             <span class="name">Define cohort · a configuration session</span>
             <span class="tag n"><span class="dot"></span>Full page</span>
@@ -142,7 +142,7 @@
           <p class="note"><strong>A real session deserves the full surface.</strong> Five sections, its own URL, navigable within and returned to. Forcing it into a modal would mean scrolling, lost context, and no link to share or reopen.</p>
         </div>
 
-        <div class="demo" style="margin-top:2.5rem;">
+        <div class="demo">
           <div class="cap">
             <span class="name">Inspect contract · work beside the list</span>
             <span class="tag v"><span class="dot"></span>Side panel</span>
@@ -281,7 +281,7 @@
           </div>
         </div>
 
-        <div class="prose" style="margin-top:2.5rem;">
+        <div class="prose mt-lg">
           <p><strong>Reach for a modal only when</strong></p>
           <ul class="clean">
             <li>The task is a single decision, a destructive confirm, or a create with one or two fields.</li>
@@ -289,20 +289,20 @@
             <li>There are at most two actions, and nothing needs to scroll.</li>
           </ul>
 
-          <p style="margin-top:2rem;"><strong>Default to a full page when</strong> (most of our heavy work)</p>
+          <p><strong>Default to a full page when</strong> (most of our heavy work)</p>
           <ul class="clean cool">
             <li>The flow is multi-section or long enough to be a real session: cohort and measure builders, the AI-filter registry builder, risk-model and attribution setup, contract arrangement, data mapping.</li>
             <li>The user navigates within it and returns to it, and it should be linkable, bookmarkable and revisitable.</li>
             <li>The work deserves the full surface rather than a centred box.</li>
           </ul>
 
-          <p style="margin-top:2rem;"><strong>Use a side panel when</strong></p>
+          <p><strong>Use a side panel when</strong></p>
           <ul class="clean cool">
             <li>The task supports the main view and that context must stay visible: inspect a record beside a list, edit a value beside the chart it changes.</li>
             <li>The work is a focused edit of a handful of fields, short to medium, and safe to treat as transient. The moment it grows into a multi-section workspace in its own right, it is a full page, not a panel.</li>
           </ul>
 
-          <p style="margin-top:2rem;"><strong>Reject in review</strong></p>
+          <p><strong>Reject in review</strong></p>
           <ul class="clean anti">
             <li>A multi-step or multi-section form inside a modal. Promote it to a full page; if it must stay over the current context, a side panel.</li>
             <li>A modal that scrolls, or hides its own action buttons below the fold. That is the signal it has outgrown the container.</li>
@@ -327,7 +327,7 @@
             <div class="src">IBM · Carbon — closest to our world</div>
             <h3>A complexity ladder from modal to full page</h3>
             <p>Carbon tells teams to use modals sparingly because they interrupt the workflow, and lays out an explicit format ladder for create and edit flows: modal, then side panel, then tearsheet, then full page, escalating with complexity. The summary it uses is that a modal is for a decision point and a tearsheet is for a process. Heavy, multi-step configuration lands at the full-page end, which is exactly where our builders sit. We take the ladder but not all four rungs: VC folds the tearsheet into the full page, holding our vocabulary to three so the choice stays cheap to make.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
+            <span class="verdict tag v"><span class="dot"></span>modal → side panel → tearsheet → full page</span>
           </div>
 
           <div class="syscard">
@@ -341,14 +341,14 @@
             <div class="src">Ant Design vs Atlassian — the drawer split</div>
             <h3>The one genuine disagreement, and why we side with Ant</h3>
             <p>Ant keeps a Drawer so users can act without leaving the current page and stay in the context of the main task, its answer for heavier subtasks and forms. Atlassian is going the other way, deprecating its Drawer in favour of Modal. The split is about whether a product has a stable need to work beside the main view. Ours does, in every inspect-beside-a-list surface, so we keep the side panel.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>drawer preserves context</span>
+            <span class="verdict tag v"><span class="dot"></span>drawer preserves context</span>
           </div>
 
           <div class="syscard">
             <div class="src">Shopify · Polaris</div>
             <h3>Don't put complex forms in a modal</h3>
             <p>Polaris is the bluntest: do not use modals to display complex forms or large amounts of information; modals are focused, carry no more than two actions, and are temporary rather than persistent. Anything that needs to live on in the UI belongs on a page, not in an overlay.</p>
-            <span class="verdict tag h" style="background:var(--warm-soft);"><span class="dot"></span>focused, ≤ 2 actions, temporary</span>
+            <span class="verdict tag h"><span class="dot"></span>focused, ≤ 2 actions, temporary</span>
           </div>
 
           <div class="syscard">
@@ -362,7 +362,7 @@
             <div class="src">Synthesis</div>
             <h3>The pattern for tools like ours</h3>
             <p>For an enterprise, desktop, analyst-facing configuration tool, the field points one way: the full page is the default for builders and setup, the side panel carries context-bound inspect-and-edit, and the modal is reserved for short blocking decisions. Our usage should follow it.</p>
-            <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>page default · panel for context · modal for decisions</span>
+            <span class="verdict tag v"><span class="dot"></span>page default · panel for context · modal for decisions</span>
           </div>
         </div>
       </section>
@@ -389,7 +389,7 @@
       <section>
         <span class="secnum">07 / References</span>
         <h2>Sources</h2>
-        <ul class="clean refs prose" style="margin-top:1rem;">
+        <ul class="clean refs prose">
           <li><a href="https://carbondesignsystem.com/components/modal/usage/">IBM Carbon — Modal usage</a> and <a href="https://carbondesignsystem.com/community/patterns/create-flows/">Create flows pattern</a> (use modals sparingly; the modal → side panel → tearsheet → full page ladder; a modal is for a decision point, a tearsheet for a process).</li>
           <li><a href="https://m3.material.io/components/dialogs/guidelines">Material 3 — Dialogs</a> (dialogs are purposefully interruptive; use a full-screen dialog for complex tasks that batch a series of inputs before saving).</li>
           <li><a href="https://ant.design/components/drawer">Ant Design — Drawer</a> (act without leaving the current page, within the context of the main task) and <a href="https://atlassian.design/components/drawer">Atlassian — Drawer</a> (deprecated in favour of Modal).</li>

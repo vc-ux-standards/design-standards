@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bar thickness and spacing · Design Decisions</title>
+<title>Bar thickness and spacing · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+    <a class="eyebrow" href="../index.html#dv-chart-forms">Data visualization · Common chart forms</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
   <header class="masthead">
-    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#dv-chart-forms">Data visualization · Common chart forms</a></div>
     <h1>Bar thickness<br>and spacing</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       A bar's thickness is not a style knob — it follows the width and the count, within limits. Let the bars scale to the plot, but clamp them: never thinner than the eye can read, never so fat they stop reading as bars. The two failures are the same reflex — letting the chart stretch its bars to fill the container: three categories balloon into slabs, forty collapse into hairlines. Cap the thickness, set the gap as a fraction of the step, and when there are only a few bars, hold the cap and leave the whitespace.
@@ -169,7 +169,7 @@
       </div>
     </div>
 
-    <div class="compare" style="margin-top:2.5rem;">
+    <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
@@ -286,7 +286,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's resizing tiles and data-set counts: scale the bars to the band, clamp to a ~8px floor and a ~48px ceiling, and set the gap at about a third of the step. When the count is small, hold the ceiling and leave whitespace; when it hits the floor, change the form. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar-sizing default</span>
+        <span class="verdict tag v"><span class="dot"></span>the VC bar-sizing default</span>
       </div>
     </div>
   </section>
@@ -295,7 +295,7 @@
   <section>
     <span class="secnum">05 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://d3js.org/d3-scale/band">D3 — Band scales</a> (<code>paddingInner</code> / <code>paddingOuter</code> set the gap as a fraction of the step).</li>
       <li><a href="https://echarts.apache.org/en/option.html#series-bar.barCategoryGap">Apache ECharts — Bar series options</a> (<code>barMaxWidth</code>, <code>barCategoryGap</code> default <code>'20%'</code>, <code>barGap</code>).</li>
       <li><a href="https://api.highcharts.com/highcharts/plotOptions.column.maxPointWidth">Highcharts — Column plot options</a> (<code>maxPointWidth</code>, <code>pointPadding</code>, <code>groupPadding</code>).</li>

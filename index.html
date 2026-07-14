@@ -4,8 +4,18 @@
      To add a record: duplicate records/_template.html, fill in
      its TODOs, then add one <a class="regrow"> below inside the
      right .reggroup (or .regsub), and bump that category's count
-     in the .homenav rail (add a new section if the category is
-     new). That is the only wiring. No build step.
+     in the .homenav rail. That is the only wiring. No build step.
+
+     Filing rule (5 seconds): which thing does this record govern?
+       A chart → Data visualization, under its seam.
+       A component or component family → Components.
+       A cross-cutting property → Foundations.
+     The three shelves are fixed. Inside a shelf:
+       - a family earns a subgroup heading only at 2 records;
+       - split any flat list past 7 rows at its most obvious seam;
+       - if a record ever needs a third heading level, promote the
+         middle level to the top instead — depth stops at
+         .reghead → .regsubhead → records.
 ============================================================ -->
 <html lang="en-US">
 <head>
@@ -36,7 +46,7 @@
     <div class="recordwrap">
       <header class="masthead" style="padding-top:2.6rem; padding-bottom:1.5rem;">
         <span class="eyebrow">VC · UX decision records</span>
-        <h1>Design decisions</h1>
+        <h1>Design standards</h1>
         <p class="lead prose" style="margin-top:1.4rem;">
           Decision records for the recurring interface questions in VC. Each states what we do, why, and what the major design systems do — so a contested choice is settled by pointing at the record, not relitigating it in review.
         </p>
@@ -52,65 +62,49 @@
         <nav class="homenav" aria-label="Records by category">
           <p class="navhead">Contents</p>
           <ul>
-            <li><a class="navrow" href="#component-usage"><span>Component usage</span><span class="n">1</span></a></li>
-            <li><a class="navrow" href="#layout"><span>Layout</span><span class="n">1</span></a></li>
+            <li><a class="navrow" href="#components"><span>Components</span><span class="n">4</span></a></li>
             <li class="navgroup">
-              <span class="glabel">Standards</span>
+              <span class="glabel">Data visualization</span>
               <ul>
-                <li><a class="navrow" href="#forms"><span>Forms</span><span class="n">2</span></a></li>
-                <li><a class="navrow" href="#responsive"><span>Responsive</span><span class="n">1</span></a></li>
-                <li><a class="navrow" href="#data-viz"><span>Data visualization</span><span class="n">10</span></a></li>
+                <li><a class="navrow" href="#dv-question"><span>Start with the question</span><span class="n">1</span></a></li>
+                <li><a class="navrow" href="#dv-chart-forms"><span>Common chart forms</span><span class="n">5</span></a></li>
+                <li><a class="navrow" href="#dv-presentation"><span>Presentation and scale</span><span class="n">3</span></a></li>
+                <li><a class="navrow" href="#dv-trust"><span>Trust and interpretation</span><span class="n">1</span></a></li>
               </ul>
             </li>
+            <li><a class="navrow" href="#foundations"><span>Foundations</span><span class="n">1</span></a></li>
           </ul>
         </nav>
 
         <div class="homemain">
-          <section id="component-usage" class="reggroup">
-            <h2 class="reghead">Component usage</h2>
+          <section id="components" class="reggroup">
+            <h2 class="reghead">Components</h2>
             <a class="regrow" href="records/stepper-orientation.html">
               <span class="status adopted"><span class="d"></span>Adopted</span>
               <span class="rt">Stepper orientation</span>
               <span class="rd">Vertical rail by default; horizontal only for short, linear, page-swapping wizards.</span>
             </a>
-          </section>
-
-          <section id="layout" class="reggroup">
-            <h2 class="reghead">Layout</h2>
             <a class="regrow" href="records/modal-vs-page.html">
               <span class="status adopted"><span class="d"></span>Adopted</span>
               <span class="rt">Modal, full page, or side panel</span>
               <span class="rd">Full page by default for real work; side panel for work beside the main view; modal only for a short blocking decision.</span>
             </a>
+            <a class="regrow" href="records/form-layout.html">
+              <span class="status draft"><span class="d"></span>Draft</span>
+              <span class="rt">Form layout on wide artboards</span>
+              <span class="rd">Size the layout to the task, not the artboard: a capped column for sequential forms, a grid for dense records; every input sized to its content.</span>
+            </a>
+            <a class="regrow" href="records/form-labelling.html">
+              <span class="status draft"><span class="d"></span>Draft</span>
+              <span class="rt">Descriptions and placeholders</span>
+              <span class="rd">Guidance that must survive typing — meaning, format, constraints — goes in the description above the input; the placeholder is only a faint, optional example.</span>
+            </a>
           </section>
 
-          <section id="standards" class="reggroup reggroup-parent">
-            <h2 class="reghead">Standards</h2>
+          <section id="data-viz" class="reggroup reggroup-parent">
+            <h2 class="reghead">Data visualization</h2>
 
-            <div id="forms" class="regsub">
-              <h3 class="regsubhead">Forms</h3>
-              <a class="regrow" href="records/form-layout.html">
-                <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Form layout on wide artboards</span>
-                <span class="rd">Size the layout to the task, not the artboard: a capped column for sequential forms, a grid for dense records; every input sized to its content.</span>
-              </a>
-              <a class="regrow" href="records/form-labelling.html">
-                <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Descriptions and placeholders</span>
-                <span class="rd">Guidance that must survive typing — meaning, format, constraints — goes in the description above the input; the placeholder is only a faint, optional example.</span>
-              </a>
-            </div>
-
-            <div id="responsive" class="regsub">
-              <h3 class="regsubhead">Responsive</h3>
-              <a class="regrow" href="records/breakpoints.html">
-                <span class="status draft"><span class="d"></span>Draft</span>
-                <span class="rt">Breakpoints</span>
-                <span class="rd">Desktop only, on a 12-column grid: width follows content type — datagrids and charts use the width, reading and config canvases cap the measure; narrow widths met by zoom reflow, not a mobile layout.</span>
-              </a>
-            </div>
-
-            <div id="data-viz" class="regsub">
+            <div id="dv-question" class="regsub">
               <h3 class="regsubhead">Start with the question</h3>
               <a class="regrow" href="records/choosing-a-chart.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
@@ -119,7 +113,7 @@
               </a>
             </div>
 
-            <div class="regsub">
+            <div id="dv-chart-forms" class="regsub">
               <h3 class="regsubhead">Common chart forms</h3>
               <a class="regrow" href="records/bar-and-column.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
@@ -148,7 +142,7 @@
               </a>
             </div>
 
-            <div class="regsub">
+            <div id="dv-presentation" class="regsub">
               <h3 class="regsubhead">Presentation and scale</h3>
               <a class="regrow" href="records/numbers-and-states.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
@@ -167,7 +161,7 @@
               </a>
             </div>
 
-            <div class="regsub">
+            <div id="dv-trust" class="regsub">
               <h3 class="regsubhead">Trust and interpretation</h3>
               <a class="regrow" href="records/reading-honestly.html">
                 <span class="status draft"><span class="d"></span>Draft</span>
@@ -175,6 +169,15 @@
                 <span class="rd">Prevent known distortions in scales, denominators, comparison, and time windows.</span>
               </a>
             </div>
+          </section>
+
+          <section id="foundations" class="reggroup">
+            <h2 class="reghead">Foundations</h2>
+            <a class="regrow" href="records/breakpoints.html">
+              <span class="status draft"><span class="d"></span>Draft</span>
+              <span class="rt">Breakpoints</span>
+              <span class="rd">Desktop only, on a 12-column grid: width follows content type — datagrids and charts use the width, reading and config canvases cap the measure; narrow widths met by zoom reflow, not a mobile layout.</span>
+            </a>
           </section>
         </div>
       </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bars: count, orientation, order, and labels · Design Decisions</title>
+<title>Bars: count, orientation, order, and labels · Design Standards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <span class="wm">VC</span>
       <span class="sub">Design Standards</span>
     </a>
-    <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a>
+    <a class="eyebrow" href="../index.html#dv-chart-forms">Data visualization · Common chart forms</a>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
     <div class="recordwrap">
 
   <header class="masthead">
-    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#data-viz">Standards · Data visualization</a></div>
+    <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#dv-chart-forms">Data visualization · Common chart forms</a></div>
     <h1>Bars: count, orientation,<br>order, and labels</h1>
     <p class="lead prose" style="margin-top:1.5rem;">
       The bar chart is VC's default for comparison and ranking, so most of the questions are about discipline: which way it runs, how it's ordered, and what to do when the categories overflow. Sort by value, start at zero, go horizontal when labels are long — and past ~12 bars, group the tail into "Other" when the question is which are the top, but keep every entity when the reader must find or compare each one.
@@ -175,7 +175,7 @@
       </div>
     </div>
 
-    <div class="compare" style="margin-top:2.5rem;">
+    <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
@@ -328,7 +328,7 @@
       <strong>An entity axis can't be thinned — a dropped tick is a dropped provider, so the fix is set by the question, not by the entity.</strong> Ask <em>which are the top performers</em> and the tail is disposable: show the top-N and roll the rest into a labelled "Other", the §02 move. Ask <em>where does this provider sit, or compare them all</em> and identity is required — nothing may be dropped or merged. Sort by value, go horizontal, let the reader filter and scroll, then hand the full set to a sortable table. The same forty providers go either way; the question decides.
     </p>
 
-    <div class="compare" style="margin-top:1.75rem;">
+    <div class="compare">
       <div class="stage avoid">
         <span class="judge"><span class="d"></span>Avoid</span>
         <div class="viz-board">
@@ -527,7 +527,7 @@
         <div class="src">Synthesis</div>
         <h3>The pattern for tools like ours</h3>
         <p>For VC's ranked measures, providers and contracts at real cardinality: horizontal bars, sorted by value, on a zero baseline. When the question is which are the top, cap with a grouped "Other"; when every entity must be compared, keep them all and back the ranking with a sortable table. Our usage should follow it.</p>
-        <span class="verdict tag v" style="background:var(--cool-soft);"><span class="dot"></span>the VC bar default</span>
+        <span class="verdict tag v"><span class="dot"></span>the VC bar default</span>
       </div>
     </div>
   </section>
@@ -536,7 +536,7 @@
   <section>
     <span class="secnum">06 / References</span>
     <h2>Sources</h2>
-    <ul class="clean refs prose" style="margin-top:1rem;">
+    <ul class="clean refs prose">
       <li><a href="https://www.storytellingwithdata.com/blog/2020/4/22/alternatives-to-diagonal-axis-labels">Storytelling with Data — Alternatives to diagonal axis labels</a> (rotate as a last resort; prefer horizontal, shorter, wrapped or thinned labels).</li>
       <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Claus Wilke — Visualizing amounts</a> (bars require a zero baseline; dot plots for long category lists).</li>
       <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary">FT — Visual Vocabulary</a> (ranking served by ordered bars, columns and lollipops).</li>
