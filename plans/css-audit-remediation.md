@@ -24,7 +24,7 @@ Files: `css/tokens.css`, `css/base.css`, `index.html`, `records/*.html` (16 + `_
 - [x] Commit 4 — Site-name sweep → "Design Standards"
 - [x] Commit 5 — Spacing rhythm: contextual rules replace inline margins
 - [x] Commit 6 — Radius + shadow tokens; base.css consolidation
-- [ ] Commit 7 — Interaction polish, `<code>` rule, chart padding
+- [x] Commit 7 — Interaction polish, `<code>` rule, chart padding
 
 ---
 
