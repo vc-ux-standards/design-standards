@@ -18,7 +18,7 @@
 .sb-plot{ --sb-stack-h:180px; display:flex; align-items:flex-end; gap:0.5rem; height:340px;
           box-sizing:border-box; padding:8.75rem 0.5rem 1.25rem; }
 .sb-band{ appearance:none; position:relative; flex:1 1 0; min-width:24px; height:var(--sb-stack-h);
-          display:flex; flex-direction:column-reverse; padding:0; border:0; border-radius:2px;
+          display:flex; flex-direction:column-reverse; padding:0; border:0; border-radius:var(--radius-1);
           background:none; cursor:pointer; font:inherit; touch-action:manipulation;
           -webkit-tap-highlight-color:color-mix(in oklch, var(--cool) 16%, transparent); }
 .sb-band:focus-visible{ outline:2px solid var(--cool); outline-offset:3px; }
@@ -44,7 +44,7 @@ html.sb-ready .sb-band.is-open .sb-tip{ opacity:1; visibility:visible; }
 /* Clamp the outermost tooltips inside the plot — CSS can't measure the edge. */
 .sb-band:first-child .sb-tip{ left:0; transform:none; }
 .sb-band:last-child .sb-tip{ left:auto; right:0; transform:none; }
-.sb-card{ display:block; background:var(--paper); border:1px solid var(--rule-strong); border-radius:5px;
+.sb-card{ display:block; background:var(--paper); border:1px solid var(--rule-strong); border-radius:var(--radius-2);
           padding:0.5rem 0.6rem; box-shadow:0 1px 2px oklch(var(--shadow-ink) / 0.05),
           0 8px 24px oklch(var(--shadow-ink) / 0.09);
           font-family:"Hanken Grotesk",sans-serif; color:var(--ink); }
@@ -53,7 +53,7 @@ html.sb-ready .sb-band.is-open .sb-tip{ opacity:1; visibility:visible; }
 .sb-hd .sb-k{ font-weight:600; font-size:0.82rem; color:var(--ink); }
 .sb-hd .sb-tot{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.04em; color:var(--ink-3); white-space:nowrap; }
 .sb-row{ display:flex; align-items:center; gap:0.45rem; font-size:0.76rem; line-height:1.5; }
-.sb-sw{ width:0.66em; height:0.66em; border-radius:2px; background:var(--c, var(--ink-3)); flex:none; }
+.sb-sw{ width:0.66em; height:0.66em; border-radius:var(--radius-1); background:var(--c, var(--ink-3)); flex:none; }
 .sb-lbl{ color:var(--ink-2); }
 .sb-val{ margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink); white-space:nowrap; }
 </style>
