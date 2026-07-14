@@ -22,7 +22,7 @@ Files: `css/tokens.css`, `css/base.css`, `index.html`, `records/*.html` (16 + `_
 - [x] Commit 2 — Dead CSS, orphan file, focus-rule conflict
 - [x] Commit 3 — Migrate breakpoints.html off its private `.bp-*` copy
 - [x] Commit 4 — Site-name sweep → "Design Standards"
-- [ ] Commit 5 — Spacing rhythm: contextual rules replace inline margins
+- [x] Commit 5 — Spacing rhythm: contextual rules replace inline margins
 - [ ] Commit 6 — Radius + shadow tokens; base.css consolidation
 - [ ] Commit 7 — Interaction polish, `<code>` rule, chart padding
 
