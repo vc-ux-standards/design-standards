@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tooltip usage · Design Standards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <a class="eyebrow" href="../index.html#components">Components · Tooltips</a>
+  </div>
+</header>
+
+<main id="main">
+  <article id="tooltip-usage" class="record">
+    <div class="recordwrap">
+
+      <header class="masthead">
+        <div class="rechead"><span class="status draft"><span class="d"></span>Draft</span> <a class="eyebrow" href="../index.html#components">Components · Tooltips</a></div>
+        <h1>What belongs in a tooltip<br>— and what never does</h1>
+        <p class="lead prose" style="margin-top:1.5rem;">
+          A tooltip is a label, not a container. Ours carries one short line of helpful, non-essential text — a control's name, a shortcut, a term's definition. The moment it wants a second idea, a bullet, or a button, it has stopped being a tooltip; this record says where that content goes instead.
+        </p>
+
+        <div class="context">
+          <span class="k">Our context</span>
+          <p>
+            VC's screens are dense analytical surfaces worked with a pointer on large monitors, so a tooltip is cheap to reach and tempting to overload. The constraint that decides this record: <strong>a tooltip is invisible until asked for — nothing an analyst or admin needs to finish a configuration can live only there.</strong>
+          </p>
+        </div>
+
+        <div class="rulecard">
+          <span class="k">The rule (provisional)</span>
+          <p>A tooltip carries one plain line of non-essential text.</p>
+          <ul class="clean">
+            <li><strong>1–2 short sentences, ~110 characters, 240px cap.</strong> No bullets, headings or images.</li>
+            <li><strong>No buttons, no links.</strong> An action inside makes it a toggletip or popover.</li>
+            <li><strong>Behaviour is fixed:</strong> hover and keyboard focus both open it, it stays while hovered, Esc dismisses it.</li>
+            <li><strong>Never on a disabled control</strong> — the reason it's disabled goes in helper text on the page.</li>
+          </ul>
+          <p>The deciding question is: <strong>can the user finish the task if the tooltip never appears?</strong> If not, the content moves down the ladder — helper text on the page, a toggletip, or its own page.</p>
+        </div>
+      </header>
+
+      <!-- 01 QUICK REFERENCE -->
+      <section>
+        <span class="secnum">01 / Quick reference</span>
+        <h2>One question decides it: can they finish without it?</h2>
+        <p class="prose">
+          <strong>The ladder has five rungs; the table holds the middle three.</strong> Rung 0 is a visible label — text the user must always see lives on the page. Rung 4 is a documentation page — anything that takes paragraphs earns its own address. The three surfaces between them split by what they carry.
+        </p>
+
+        <table class="tbl tri">
+          <thead><tr><th></th><th><span class="tag n"><span class="dot"></span>Inline helper text</span></th><th><span class="tag v"><span class="dot"></span>Tooltip</span></th><th><span class="tag h"><span class="dot"></span>Toggletip / popover</span></th></tr></thead>
+          <tbody>
+            <tr><th scope="row">What it carries</th><td data-l="Inline helper text">Essential guidance — meaning, format, constraints.</td><td data-l="Tooltip">Non-essential text: a name, a shortcut, a definition.</td><td data-l="Toggletip / popover">Richer, still-optional detail, plus one action or link.</td></tr>
+            <tr><th scope="row">Visible when</th><td data-l="Inline helper text">Always; it sits on the page.</td><td data-l="Tooltip">Only while hovered or focused; Esc dismisses.</td><td data-l="Toggletip / popover">On click; stays until dismissed.</td></tr>
+            <tr><th scope="row">Interactive content</th><td data-l="Inline helper text">No; plain text beside the field.</td><td data-l="Tooltip">Never. A tooltip never takes focus.</td><td data-l="Toggletip / popover">Yes; it takes focus and may carry a button or link.</td></tr>
+            <tr><th scope="row">Length</th><td data-l="Inline helper text">1–2 sentences beside the input.</td><td data-l="Tooltip">1–2 short sentences, ~110 characters, 240px cap.</td><td data-l="Toggletip / popover">A short paragraph plus one action.</td></tr>
+            <tr><th scope="row">Typical use here</th><td data-l="Inline helper text">Field format and meaning — value-set OIDs, attribution windows.</td><td data-l="Tooltip">Naming an icon-only button, a shortcut, defining PMPM.</td><td data-l="Toggletip / popover">"3 fields unmapped — view mapping"; help worth a click.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 02 IN PRACTICE -->
+      <section>
+        <span class="secnum">02 / The pattern in practice</span>
+        <h2>Three jobs — and everything else moves out</h2>
+        <p class="prose">
+          <strong>A tooltip has exactly three jobs: name, shortcut, definition.</strong> The first demo shows all three done right. The three pairs after it are the ways a bubble goes wrong — too much, essential, interactive — and where each one's content belongs instead.
+        </p>
+
+        <div class="demo">
+          <div class="cap">
+            <span class="name">Registry toolbar · the three legitimate tooltips</span>
+            <span class="tag v"><span class="dot"></span>Tooltip</span>
+          </div>
+          <div class="appframe">
+            <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Patient registry</span></div>
+            <div class="formdemo">
+              <div class="tt-row">
+                <div class="tt-anchor">
+                  <span class="tt-iconbtn">↓</span>
+                  <span class="tt-caret"></span>
+                  <div class="tt-bubble">Export as CSV</div>
+                </div>
+                <div class="tt-anchor">
+                  <span class="tt-iconbtn focused">☆</span>
+                  <span class="tt-caret"></span>
+                  <div class="tt-bubble">Save view <span class="tt-kbd">⌘S</span></div>
+                </div>
+                <div class="tt-anchor">
+                  <span class="tt-term">PMPM</span>
+                  <span class="tt-caret"></span>
+                  <div class="tt-bubble">Per member per month — total cost divided by member months.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="note"><strong>Name, shortcut, definition — the entire legitimate range.</strong> Hover and keyboard focus open the same bubble, as on the second button. The toolbar still works if no bubble ever appears.</p>
+        </div>
+
+        <h3 class="mt-lg">Too much text: the bubble becomes a document</h3>
+        <p class="prose">
+          <strong>The cap is 240px and ~110 characters.</strong> The same "?" can carry one clean line — or a floating document nobody can read in the life of a hover.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <label class="lbl" for="tt-a-win">Attribution window <span class="tt-help">?</span></label>
+                  <div class="tt-anchor">
+                    <span class="tt-caret"></span>
+                    <div class="tt-bubble wide">
+                      <span class="hd">Attribution window</span>
+                      Controls how claims are counted after the index event.
+                      <ul>
+                        <li>Applies to every measure in this contract</li>
+                        <li>Standard windows are 30, 60 or 90 days</li>
+                        <li>Changing it triggers a full recalculation</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <input class="inp w-phone" id="tt-a-win" type="text">
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>A heading and bullets are the tell — this stopped being a tooltip.</strong> At 420px the bubble is a document that vanishes the moment the pointer drifts. Split it: one line stays, the rest moves to the page or a toggletip.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <label class="lbl" for="tt-b-win">Attribution window <span class="tt-help">?</span></label>
+                  <div class="tt-anchor">
+                    <span class="tt-caret"></span>
+                    <div class="tt-bubble">Days after the index event during which claims still count.</div>
+                  </div>
+                  <input class="inp w-phone" id="tt-b-win" type="text">
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>One idea, one line, inside the cap.</strong> 240px and ~110 characters reads in a glance and is gone without loss.</p>
+          </div>
+        </div>
+
+        <h3 class="mt-lg">Essential information: it can't live behind a hover</h3>
+        <p class="prose">
+          <strong>If the task fails without the tooltip, it isn't tooltip content.</strong> A required format is essential — it belongs on the page, not behind a "?".
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <label class="lbl" for="tt-c-oid">Value set OID <span class="tt-help">?</span></label>
+                  <div class="tt-anchor">
+                    <span class="tt-caret"></span>
+                    <div class="tt-bubble">Must be the full dotted OID from the value set authority centre.</div>
+                  </div>
+                  <input class="inp w-line" id="tt-c-oid" type="text">
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>The only statement of the format is invisible until asked for.</strong> An analyst who never hovers submits a malformed OID — nothing on the page says otherwise.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Measure setup</span></div>
+              <div class="formdemo">
+                <div class="fld">
+                  <label class="lbl" for="tt-d-oid">Value set OID</label>
+                  <p class="help" id="tt-d-oid-d">The full dotted identifier for the code list this measure draws from. Find it in the value set authority centre.</p>
+                  <input class="inp w-line" id="tt-d-oid" type="text" placeholder="2.16.840.1.113883…" aria-describedby="tt-d-oid-d">
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>Essential guidance moves into the description and persists.</strong> No tooltip at all — the field carries its own format, visible and announced for every user. Where field guidance goes is settled in <a href="form-labelling.html">Descriptions and placeholders</a>.</p>
+          </div>
+        </div>
+
+        <h3 class="mt-lg">An action inside: that makes it a toggletip</h3>
+        <p class="prose">
+          <strong>A tooltip never takes focus, so nothing inside it is clickable.</strong> The moment a bubble wants a link, it wants to be a different component.
+        </p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Data mapping</span></div>
+              <div class="formdemo">
+                <div class="tt-anchor">
+                  <span class="tt-iconbtn">i</span>
+                  <span class="tt-caret"></span>
+                  <div class="tt-bubble">3 source fields are unmapped. <span class="tt-link">View mapping</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>A link a keyboard can never reach.</strong> The bubble never takes focus, so the "link" is pointer-only at best — for a screen-reader user it is announced text with no target.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="appframe">
+              <div class="appbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">Data mapping</span></div>
+              <div class="formdemo">
+                <div class="tt-anchor">
+                  <span class="tt-iconbtn focused">i</span>
+                  <div class="tt-pop">3 source fields are unmapped and will be skipped on the next run. <span class="act">View mapping →</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>An action means it's a toggletip.</strong> It opens on click, takes focus and stays until dismissed, so the link genuinely works. Whatever the bubble looks like, a button or link inside makes it a popover.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 REASONING -->
+      <section>
+        <span class="secnum">03 / The reasoning</span>
+        <h2>Five forces keep the bubble small and inert</h2>
+        <p class="prose">
+          <strong>Every rule above falls out of one fact: the bubble is ephemeral and unfocusable.</strong> Five pressures, one direction.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <div class="n">1</div>
+            <h3>Invisible until asked for</h3>
+            <p><strong>Nothing required to finish a configuration can live only behind a hover.</strong> A surface the user must discover is a surface some users never see.</p>
+          </div>
+          <div class="principle">
+            <div class="n">2</div>
+            <h3>It never takes focus</h3>
+            <p><strong>Focus stays on the trigger; the bubble is only announced.</strong> Any button or link inside is unreachable by keyboard — which is why none is allowed.</p>
+          </div>
+          <div class="principle">
+            <div class="n">3</div>
+            <h3>An ephemeral surface can't carry working content</h3>
+            <p><strong>The bubble lives only as long as the hover.</strong> Reading, comparing or copying from it fails the moment the hand moves.</p>
+          </div>
+          <div class="principle">
+            <div class="n">4</div>
+            <h3>The behaviour floor is fixed</h3>
+            <p><strong>WCAG 1.4.13 makes three behaviours mandatory, not preferences:</strong></p>
+            <ul class="clean">
+              <li>dismissible — Esc closes it without moving the pointer</li>
+              <li>hoverable — the pointer can travel onto the bubble</li>
+              <li>persistent — it stays until dismissed, never on a timer</li>
+            </ul>
+          </div>
+          <div class="principle">
+            <div class="n">5</div>
+            <h3>Disabled controls swallow events</h3>
+            <p><strong>A disabled control fires no hover or focus, so its tooltip never reliably opens.</strong> Say why it's disabled in helper text on the page.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 PRECEDENT + RECO -->
+      <section>
+        <span class="secnum">04 / Precedent and recommendation</span>
+        <h2>The systems agree — the bubble stays small and inert</h2>
+        <p class="prose">
+          <strong>The systems are nearly unanimous, and the one dissent proves the rule.</strong> Brief plain text, no interactive content, behaviour fixed by the accessibility floor. Links are in the references.
+        </p>
+
+        <div class="systems">
+          <div class="syscard lead">
+            <div class="src">IBM · Carbon — closest to our world</div>
+            <h3>Text in a tooltip, actions in a toggletip</h3>
+            <p>Carbon splits the pattern in two. The tooltip carries brief supplementary text on hover or focus — an icon-button tip is one or two words — and never holds interactive content. Anything clickable moves to the toggletip, the click-triggered sibling that takes focus and may carry buttons or links. That is precisely our split, with our own cap on length.</p>
+            <span class="verdict tag v"><span class="dot"></span>tooltip = text · toggletip = actions</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Adobe · Spectrum</div>
+            <h3>A few words, 160px, then escalate</h3>
+            <p>Spectrum caps the bubble at 160px and a few words or one short sentence, and escalates anything heavier to its contextual-help popover. Tighter than our 240px, same instinct: the moment the content grows, the component changes.</p>
+            <span class="verdict tag v"><span class="dot"></span>160px · a short sentence</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Atlassian vs Microsoft Fluent 2 — the disabled-control split</div>
+            <h3>The one real split, and why we side with Atlassian</h3>
+            <p>Atlassian keeps tooltips short and never attaches one to a disabled element — it cannot open for keyboard or touch users, hiding the reason from exactly the people who need it. Fluent 2 goes the other way and allows tooltips on disabled controls to explain why. We side with Atlassian, as Spectrum does: a disabled control swallows events, so the explanation goes in helper text on the page, visible to everyone.</p>
+            <span class="verdict tag h"><span class="dot"></span>never on disabled — helper text instead</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Google · Material 3</div>
+            <h3>Buttons in the bubble make it a dialog</h3>
+            <p>Material alone allows buttons inside its rich persistent tooltips — and then wires the trigger <code>aria-haspopup="dialog"</code>, makes the surface focusable, and dismisses on Esc. That is a popover in all but name. The exception concedes the rule: the moment a bubble holds an action, it stops behaving like a tooltip.</p>
+            <span class="verdict tag h"><span class="dot"></span>actions ⇒ aria-haspopup="dialog"</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">W3C · ARIA APG + WCAG 1.4.13</div>
+            <h3>The accessibility floor</h3>
+            <p>The ARIA APG is flat: tooltip widgets do not receive focus — so no interactive content, ever. WCAG 1.4.13 fixes the behaviour of anything that appears on hover or focus: dismissible, hoverable, persistent. This is the floor every rule above stands on.</p>
+            <span class="verdict tag n"><span class="dot"></span>dismissible · hoverable · persistent</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Synthesis</div>
+            <h3>One line, inert, never essential</h3>
+            <p>For a pointer-first, analyst-facing product the field points one way: the tooltip is one short line of non-essential plain text with fixed behaviour, and anything essential, longer or interactive moves to the page or a toggletip. Our usage should follow it.</p>
+            <span class="verdict tag v"><span class="dot"></span>one line · inert · never essential</span>
+          </div>
+        </div>
+
+        <div class="reco">
+          <h3>The house rule (provisional)</h3>
+          <ul class="clean cool">
+            <li><strong>One plain line, capped.</strong> 1–2 short sentences, ~110 characters, max-width 240px. No bullets, headings or images.</li>
+            <li><strong>Never the sole carrier of essential information.</strong> If the task fails without the tooltip, the content moves to helper text on the page.</li>
+            <li><strong>No buttons, no links.</strong> An action inside makes it a toggletip — click-triggered, focusable, dismissed deliberately.</li>
+            <li><strong>Never on a disabled control.</strong> The reason it's disabled goes in helper text, visible to pointer, keyboard and touch alike.</li>
+            <li><strong>The behaviour is fixed.</strong> Opens on hover and keyboard focus, only on focusable elements; stays while hovered; Esc dismisses it.</li>
+            <li><strong>Never restate a visible label</strong> — except on icon-only buttons, where the tooltip is the label.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 05 REFS -->
+      <section>
+        <span class="secnum">05 / References</span>
+        <h2>Sources</h2>
+        <ul class="clean refs prose">
+          <li><a href="https://carbondesignsystem.com/components/tooltip/usage/">IBM Carbon — Tooltip usage</a> (brief, supplementary text; icon-button tips one or two words; no interactive content).</li>
+          <li><a href="https://carbondesignsystem.com/components/toggletip/usage/">IBM Carbon — Toggletip usage</a> (the click-triggered sibling that takes focus and may hold interactive content).</li>
+          <li><a href="https://spectrum.adobe.com/page/tooltip/">Adobe Spectrum — Tooltip</a> (160px max-width; a few words or a short sentence) and <a href="https://spectrum.adobe.com/page/contextual-help/">Contextual help</a> (the escalation when content outgrows the bubble).</li>
+          <li><a href="https://atlassian.design/components/tooltip/usage">Atlassian — Tooltip usage</a> (keep it short; never on disabled elements).</li>
+          <li><a href="https://fluent2.microsoft.design/components/web/react/tooltip/usage">Microsoft Fluent 2 — Tooltip usage</a> (the dissent: allows tooltips on disabled controls to explain why).</li>
+          <li><a href="https://m3.material.io/components/tooltips/guidelines">Material 3 — Tooltips</a> (rich persistent tooltips may hold actions, wired aria-haspopup="dialog" — a dialog in practice).</li>
+          <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/">ARIA APG — Tooltip pattern</a> (tooltip widgets do not receive focus; no interactive content).</li>
+          <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html">WCAG 1.4.13 — Content on hover or focus</a> (dismissible, hoverable, persistent — the behaviour floor).</li>
+          <li><a href="https://www.nngroup.com/articles/tooltip-guidelines/">Nielsen Norman Group — Tooltip guidelines</a> (non-essential and brief; never redundant with visible text).</li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
