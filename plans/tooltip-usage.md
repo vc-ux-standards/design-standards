@@ -4,7 +4,7 @@
 
 - [x] 1. Add the `.tt-*` schematic demo-tooltip primitive to `css/base.css` (spec in "The `.tt-*` primitive" below — tokens only, normal flow, no positioning)
 - [x] 2. Create `records/tooltip-usage.html` from `records/_template.html` — full record per "The record" below (masthead, §01 ladder table, §02 four demos, §03 principles, §04 precedent + reco, §05 references)
-- [ ] 3. Wire `index.html`: append the Tooltip usage `.regrow` as the fifth row under `#components`, bump the Components homenav count 4→5
+- [x] 3. Wire `index.html`: append the Tooltip usage `.regrow` as the fifth row under `#components`, bump the Components homenav count 4→5
 - [ ] 4. Verification pass: serve locally, check both records' pages render, links relative, badges in sync, `data-l` on every td, no `<script>`/scoped `<style>`, wide + narrow viewport behaviour
 
 ## Context
