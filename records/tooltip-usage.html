@@ -47,10 +47,11 @@
           <ul class="clean">
             <li><strong>1–2 short sentences, ~110 characters, 240px cap.</strong> No bullets, headings or images.</li>
             <li><strong>No buttons, no links.</strong> An action inside makes it a toggletip or popover.</li>
-            <li><strong>Behaviour is fixed:</strong> hover and keyboard focus both open it, it stays while hovered, Esc dismisses it.</li>
+            <li><strong>Behaviour is fixed:</strong> hover and keyboard focus both open it — so it sits only on focusable elements — it stays while hovered, Esc dismisses it.</li>
             <li><strong>Never on a disabled control</strong> — the reason it's disabled goes in helper text on the page.</li>
+            <li><strong>Never a restatement of the visible label</strong> — except icon-only buttons, where the tooltip is the label.</li>
           </ul>
-          <p>The deciding question is: <strong>can the user finish the task if the tooltip never appears?</strong> If not, the content moves down the ladder — helper text on the page, a toggletip, or its own page.</p>
+          <p>The deciding question is: <strong>can the user finish the task if the tooltip never appears?</strong> If not, the content moves out of the tooltip — into helper text on the page, a toggletip, or its own page.</p>
         </div>
       </header>
 
@@ -158,7 +159,7 @@
                 </div>
               </div>
             </div>
-            <p class="note"><strong>One idea, one line, inside the cap.</strong> 240px and ~110 characters reads in a glance and is gone without loss.</p>
+            <p class="note"><strong>One idea, one line, inside the cap.</strong> This bubble only defines the term — the field still works without it. A requirement would move it to the page: the next pair.</p>
           </div>
         </div>
 
