@@ -556,3 +556,37 @@ textarea.inp{ height:auto; min-height:4.6rem; padding:0.5rem 0.65rem; resize:ver
 .viz-legend{ display:flex; flex-wrap:wrap; gap:0.3rem 0.9rem; margin-top:0.7rem; }
 .viz-legend .k{ display:inline-flex; align-items:center; gap:0.42em; font-family:"IBM Plex Mono",monospace; font-size:0.64rem; letter-spacing:0.04em; color:var(--ink-2); }
 .viz-legend .k i{ width:0.72em; height:0.72em; border-radius:var(--radius-1); background:var(--c, var(--ink-3)); flex:none; }
+
+/* ---------- Schematic demo-tooltip kit (tooltip-usage record) ----------
+   Static, permanently-open bubbles for record demos — not a live component.
+   No positioning, no transforms, no z-index, no :hover: trigger, caret and
+   bubble stack as plain in-flow blocks (.appframe clips overflow, so nothing
+   here may escape flow). The caret is the in-flow border-triangle trick. */
+.tt-row{ display:flex; flex-wrap:wrap; gap:var(--space-7) var(--space-8); margin-top:1.6rem; }
+.tt-anchor{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-2); min-width:0; }
+
+/* Triggers. */
+.tt-iconbtn{ display:grid; place-items:center; width:32px; height:32px; font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-2); background:var(--paper); border:1px solid var(--rule-strong); border-radius:var(--radius-2); }
+.tt-iconbtn.focused{ outline:2px solid var(--cool); outline-offset:2px; }
+.tt-help{ display:inline-grid; place-items:center; width:16px; height:16px; margin-left:0.4em; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; color:var(--ink-2); background:var(--paper-3); border-radius:50%; }
+.tt-term{ border-bottom:1px dotted var(--ink-3); }
+
+/* Caret — sits between trigger and bubble, pointing up at the trigger. */
+.tt-caret{ width:0; height:0; margin-left:0.6rem; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--ink); }
+
+/* The bubble — dark, capped, inert. .wide is the anti-pattern (420px). */
+.tt-bubble{ max-width:240px; padding:0.55rem 0.7rem; background:var(--ink); color:var(--paper); border-radius:var(--radius-2); box-shadow:var(--shadow-pop); font-size:0.78rem; line-height:1.45; }
+.tt-bubble.wide{ max-width:420px; }
+.tt-bubble .hd{ display:block; font-weight:600; margin-bottom:0.3rem; }
+.tt-bubble ul{ list-style:disc; margin:0.3rem 0 0; padding-left:1.1rem; }
+.tt-bubble ul li{ margin-bottom:0.15rem; }
+
+/* Shortcut chip, set inside a bubble. */
+.tt-kbd{ display:inline-block; margin-left:0.35em; padding:0.05em 0.4em; font-family:"IBM Plex Mono",monospace; font-size:0.72em; border:1px solid color-mix(in oklch, var(--paper) 45%, transparent); border-radius:var(--radius-1); }
+
+/* Anti-pattern: an inert link faked inside a dark bubble — should be a toggletip. */
+.tt-link{ color:var(--paper); text-decoration:underline; }
+
+/* Toggletip — the light, click-triggered surface that may carry an action. */
+.tt-pop{ max-width:280px; padding:0.7rem 0.85rem; background:var(--paper); border:1px solid var(--rule-strong); border-radius:var(--radius-3); box-shadow:var(--shadow-pop); font-size:0.82rem; line-height:1.5; color:var(--ink-2); }
+.tt-pop .act{ display:inline-block; margin-top:0.5rem; color:var(--cool); font-weight:500; }
