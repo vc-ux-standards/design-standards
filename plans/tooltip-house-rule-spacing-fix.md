@@ -1,5 +1,10 @@
 # Fix: zero gap above "The house rule" box on the tooltip record
 
+**Status: done** (`01f1620`)
+
+- [x] Add `.systems + .reco { margin-top: var(--space-6) }` under Spacing rhythm in `css/base.css`
+- [x] Verify: tooltip gap ~1.5rem wide + narrow; other reco pages unchanged
+
 ## Context
 
 On `records/tooltip-usage.html`, Section 04 ("Precedent and recommendation"),
