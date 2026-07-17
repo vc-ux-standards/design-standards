@@ -313,9 +313,12 @@ footer .meta{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-s
 
 /* Spacing rhythm: contextual rules replace one-off inline margins.
    A second demo/compare in a row wants more air than the default block gap;
-   a "Reject in review"-style paragraph right after a ul.clean wants the same. */
+   a "Reject in review"-style paragraph right after a ul.clean wants the same.
+   Co-located systems→reco (template §04) needs card→card air; h2→reco is
+   already gapped by the heading margin and must not pick up a global reco top. */
 :is(.demo, .compare) + :is(.demo, .compare){ margin-top:var(--space-8); }
 .prose ul.clean + p{ margin-top:var(--space-7); }
+.systems + .reco{ margin-top:var(--space-6); }   /* 1.5rem · card→card */
 .mt-lg{ margin-top:var(--space-8); }
 
 /* ---------- Form demos (Standards · Forms records) ---------- */
