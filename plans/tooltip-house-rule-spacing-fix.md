@@ -11,50 +11,60 @@ from a heading on every other record.
 
 ## Root cause
 
-The "house rule" box is a `<div class="reco">` (tooltip-usage.html:335), a
-sibling that immediately follows the `<div class="systems">` grid (closes at
-tooltip-usage.html:333).
+The "house rule" box is a `<div class="reco">` on the tooltip record, a sibling
+that immediately follows the `<div class="systems">` grid.
 
 In `css/base.css`:
 
-- `.systems` (line 175) has `margin-top:1.5rem` but **no `margin-bottom`**.
-- `.reco` (line 184) has **no `margin-top`**.
+- `.systems` has `margin-top:1.5rem` but **no `margin-bottom`**.
+- `.reco` has **no `margin-top`**.
 
 So nothing separates the grid from the box below it.
 
-This is unique to the tooltip record. In the five other records that use
-`.reco` (stepper-orientation, form-layout, form-labelling, breakpoints,
-modal-vs-page), `.reco` always follows an `<h2>` or a `<p>`, whose bottom
-margin supplies the gap. Only here does `.reco` follow `.systems`.
+**Today** only the tooltip record has this adjacency. The five other records
+that use `.reco` (stepper-orientation, form-layout, form-labelling,
+breakpoints, modal-vs-page) put reco in a **separate section** after an
+`<h2>` or a `<p>`, whose bottom margin supplies the gap.
+
+That is not a permanent one-off. `_template.html` already tells authors to put
+systems **then** reco in one "Precedent and recommendation" section. Future
+records from the template will hit the same flush gap. This is a **missing
+shared spacing rule for the co-located pattern**, not a tooltip-only band-aid.
 
 ## The fix — one scoped CSS rule
 
-Add an adjacent-sibling rule to `css/base.css`, next to the existing `.reco`
-block (after line 186):
+Add an adjacent-sibling rule to `css/base.css` under the existing **Spacing
+rhythm** block (the home for other `A + B` rules such as
+`:is(.demo, .compare) + :is(.demo, .compare)`), not next to the `.reco`
+component styles:
 
 ```css
-.systems + .reco{ margin-top: var(--space-6); }   /* 1.5rem */
+.systems + .reco{ margin-top: var(--space-6); }   /* 1.5rem · card→card */
 ```
 
-Why this selector and value:
+Why this selector, value, and placement:
 
 - **`.systems + .reco` is surgical.** It matches only when `.reco` directly
-  follows `.systems` — which happens on the tooltip record alone. The five
-  other records are untouched, so the existing 0.5rem h2→reco gap there does
-  not change. A global `.reco{ margin-top }` would wrongly widen that gap
-  everywhere via margin-collapse, so it is rejected.
-- **`--space-6` (1.5rem)** mirrors `.systems`'s own `margin-top:1.5rem`,
-  giving the box symmetric breathing room above and below the grid. The token
-  is already defined in `css/tokens.css:43` ("card padding, card→card"), so no
-  hard-coded measure and no new token.
+  follows `.systems`. Records that put reco after an `h2`/`p` are untouched,
+  so the existing 0.5rem h2→reco gap there does not change. A global
+  `.reco{ margin-top }` would wrongly widen that gap everywhere via
+  margin-collapse, so it is rejected.
+- **`--space-6` (1.5rem)** mirrors `.systems`'s own top margin, giving the box
+  symmetric breathing room above and below the grid. The token is already in
+  `css/tokens.css` ("card padding, card→card") — no hard-coded measure, no new
+  token.
+- **Spacing rhythm block** is the established home for contextual adjacent-
+  sibling air. Putting the rule next to `.reco`'s component block would work
+  but ignore the house convention.
 
-No HTML change, no new component, no inline style — a single token-driven line,
-consistent with the "reuse tokens, adding a record changes content not CSS"
-constraint (this is a bug fix to shared CSS, the sanctioned kind of change).
+No HTML change, no new component, no inline style — a single token-driven line.
+Shared-CSS bug fix of the sanctioned kind (template co-location needs this
+rule; content pages stay as they are).
 
 ## Files
 
-- `css/base.css` — add one line after line 186 (`.reco ul.clean{...}`).
+- `css/base.css` — one line under the Spacing rhythm block (near the other
+  `+` sibling rules).
 
 ## Verification
 
@@ -70,6 +80,5 @@ No tests / no CI — visual inspection from disk per project convention.
    confirm the gap holds and the box still reads as separated from the last
    card.
 4. **Regression check** — open one other `.reco` record, e.g.
-   `records/breakpoints.html` (§ near line 395) or
-   `records/modal-vs-page.html`, and confirm the h2→"house rule" spacing is
-   unchanged (still the original tight 0.5rem).
+   `records/breakpoints.html` or `records/modal-vs-page.html`, and confirm
+   the h2→"house rule" spacing is unchanged (still the original tight 0.5rem).
