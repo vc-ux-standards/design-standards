@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrolling in charts · Design Standards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="../index.html">
+      <span class="wm">VC</span>
+      <span class="sub">Design Standards</span>
+    </a>
+    <a class="eyebrow" href="../index.html#dv-presentation">Data visualization · Presentation and scale</a>
+  </div>
+</header>
+
+<main id="main">
+  <article id="scrolling-in-charts" class="record">
+    <div class="recordwrap">
+
+      <header class="masthead">
+        <div class="rechead"><span class="status adopted"><span class="d"></span>Adopted</span> <a class="eyebrow" href="../index.html#dv-presentation">Data visualization · Presentation and scale</a></div>
+        <h1>Scrolling in charts</h1>
+        <p class="lead prose" style="margin-top:1.5rem;">
+          A dashboard tile never scrolls. The full list lives on the detail page, where the page scrolls and the chart takes the height it needs. On every surface, the mouse wheel scrolls the page and never zooms a chart.
+        </p>
+
+        <div class="context">
+          <span class="k">Our context</span>
+          <p>VC dashboards are the overview an analyst or care manager scans on a large monitor before opening anything. <strong>The lists behind them are long: 40 or more providers, practices or measures in one ranking.</strong> That length is what tempts a team to put a scrollbar in the tile.</p>
+        </div>
+
+        <div class="rulecard">
+          <span class="k">The rule</span>
+          <p><strong>A dashboard tile never scrolls.</strong> It shows the top 5–8 rows, states how many are left, and links to the detail page.</p>
+          <ul class="clean">
+            <li><strong>Detail page</strong>: the chart takes its full height and the page scrolls.</li>
+            <li><strong>Fixed-height panel that must stay in view</strong>: vertical inner scroll, with a sticky header, a row count and keyboard focus.</li>
+            <li><strong>Zoom and pan</strong>: explicit controls on every surface. The plain mouse wheel always scrolls the page.</li>
+          </ul>
+          <p>The deciding question is whether the reader needs the shape or every row. Shape → tile. Every row → detail page.</p>
+        </div>
+        <nav class="oncontents" aria-label="Sections of this record">
+          <span class="k">On this page</span>
+          <ol>
+            <li><a href="#s01">Where the chart sits decides the scroll</a></li>
+            <li><a href="#s02">The tile, the detail page, and the wheel</a></li>
+            <li><a href="#s03">Why the tile never scrolls</a></li>
+            <li><a href="#s04">Where to draw the line in review</a></li>
+            <li><a href="#s05">Tools scroll by default, and the guidance pushes back</a></li>
+            <li><a href="#s06">Sources</a></li>
+          </ol>
+        </nav>
+      </header>
+
+      <!-- 01 QUICK REFERENCE -->
+      <section id="s01">
+        <span class="secnum">01 / Quick reference</span>
+        <h2>Where the chart sits decides the scroll</h2>
+        <p class="prose"><strong>Find the surface, then read across.</strong> Only one row allows a scroll region inside the page, and it comes with conditions.</p>
+
+        <table class="tbl tri">
+          <thead>
+            <tr>
+              <th>Surface</th>
+              <th>Scroll</th>
+              <th>Instead, or with</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Dashboard tile</th>
+              <td data-l="Scroll">Never.</td>
+              <td data-l="Instead, or with">Top 5–8 rows, a count of what's left, and "View all 40 →" to the detail page.</td>
+            </tr>
+            <tr>
+              <th scope="row">Detail page, chart owns the canvas</th>
+              <td data-l="Scroll">The page scrolls. No inner box.</td>
+              <td data-l="Instead, or with">The chart takes its full height. Values sit at the bar ends, so no axis has to stay in view.</td>
+            </tr>
+            <tr>
+              <th scope="row">Detail page, fixed-height panel beside other content</th>
+              <td data-l="Scroll">Vertical inner scroll.</td>
+              <td data-l="Instead, or with">Sticky header, "Showing 8 of 40", keyboard focus, and scroll chaining left on.</td>
+            </tr>
+            <tr>
+              <th scope="row">Horizontal overflow, any surface</th>
+              <td data-l="Scroll">Never.</td>
+              <td data-l="Instead, or with">Turn columns into horizontal bars, aggregate the time grain, or add a brush.</td>
+            </tr>
+            <tr>
+              <th scope="row">Zoom and pan, any surface</th>
+              <td data-l="Scroll">Never on the plain wheel.</td>
+              <td data-l="Instead, or with">Buttons or a brush. Ctrl/⌘ + wheel only with a visible hint.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 02 IN PRACTICE -->
+      <section id="s02">
+        <span class="secnum">02 / The pattern in practice</span>
+        <h2>The tile, the detail page, and the wheel</h2>
+        <p class="prose"><strong>The same 40-provider ranking, placed three ways.</strong> First on the dashboard, then on its detail page, then in the one layout where an inner scroll is allowed. The last pair covers zoom. The scroll chrome in each demo is drawn, so nothing on this page traps your own scroll.</p>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Network overview · dashboard</em></div>
+              <div class="viz-grid c2">
+                <div class="viz-tile">
+                  <div class="h">Attributed lives</div>
+                  <div class="big">18,402</div>
+                  <div class="delta up">▲ 2.1%</div>
+                </div>
+                <div class="viz-tile">
+                  <div class="h">Open care gaps</div>
+                  <div class="big">1,284</div>
+                  <div class="delta down">▲ 4.0%</div>
+                </div>
+                <div class="viz-tile wide">
+                  <div class="h">Care gaps by provider</div>
+                  <svg viewBox="0 0 280 108" role="img" aria-label="A ranking tile clipped mid-row with a small scroll thumb at the right edge and no count of the hidden rows.">
+                    <g class="viz-bars">
+                      <rect x="78" y="4" width="170" height="11"/>
+                      <rect x="78" y="20" width="160" height="11"/>
+                      <rect x="78" y="36" width="153.3" height="11"/>
+                      <rect x="78" y="52" width="146.7" height="11"/>
+                      <rect x="78" y="68" width="136.7" height="11"/>
+                      <rect x="78" y="84" width="130" height="11"/>
+                      <rect x="78" y="100" width="123.3" height="11"/>
+                    </g>
+                    <rect x="275" y="0" width="3" height="108" rx="1.5" fill="var(--rule)"/>
+                    <rect x="275" y="0" width="3" height="16" rx="1.5" fill="var(--rule-strong)"/>
+                    <g class="viz-label" font-size="8.5">
+                      <text x="4" y="13">Provider A</text>
+                      <text x="4" y="29">Provider B</text>
+                      <text x="4" y="45">Provider C</text>
+                      <text x="4" y="61">Provider D</text>
+                      <text x="4" y="77">Provider E</text>
+                      <text x="4" y="93">Provider F</text>
+                      <text x="4" y="109">Provider G</text>
+                    </g>
+                    <g class="viz-label ink" font-size="8.5">
+                      <text x="252" y="13">51</text>
+                      <text x="242" y="29">48</text>
+                      <text x="235.3" y="45">46</text>
+                      <text x="228.7" y="61">44</text>
+                      <text x="218.7" y="77">41</text>
+                      <text x="212" y="93">39</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>The tile is cut mid-row and the only sign of 33 more providers is a 3px thumb.</strong> A reader scrolling the dashboard lands on it, the page stops, and the tile scrolls instead.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Network overview · dashboard</em></div>
+              <div class="viz-grid c2">
+                <div class="viz-tile">
+                  <div class="h">Attributed lives</div>
+                  <div class="big">18,402</div>
+                  <div class="delta up">▲ 2.1%</div>
+                </div>
+                <div class="viz-tile">
+                  <div class="h">Open care gaps</div>
+                  <div class="big">1,284</div>
+                  <div class="delta down">▲ 4.0%</div>
+                </div>
+                <div class="viz-tile wide">
+                  <div class="h">Care gaps by provider · top 5 of 40</div>
+                  <svg viewBox="0 0 280 82" role="img" aria-label="The top five providers as sorted horizontal bars with values at the bar ends.">
+                    <g class="viz-bars">
+                      <rect x="78" y="4" width="170" height="11"/>
+                      <rect x="78" y="20" width="160" height="11"/>
+                      <rect x="78" y="36" width="153.3" height="11"/>
+                      <rect x="78" y="52" width="146.7" height="11"/>
+                      <rect x="78" y="68" width="136.7" height="11"/>
+                    </g>
+                    <g class="viz-label" font-size="8.5">
+                      <text x="4" y="13">Provider A</text>
+                      <text x="4" y="29">Provider B</text>
+                      <text x="4" y="45">Provider C</text>
+                      <text x="4" y="61">Provider D</text>
+                      <text x="4" y="77">Provider E</text>
+                    </g>
+                    <g class="viz-label ink" font-size="8.5">
+                      <text x="252" y="13">51</text>
+                      <text x="242" y="29">48</text>
+                      <text x="235.3" y="45">46</text>
+                      <text x="228.7" y="61">44</text>
+                      <text x="218.7" y="77">41</text>
+                    </g>
+                  </svg>
+                  <div class="delta mute">35 more providers · View all 40 →</div>
+                </div>
+              </div>
+            </div>
+            <p class="note"><strong>Five rows, a count of what's left, and one link out.</strong> The tile answers "who leads" at a glance, and the page keeps the wheel.</p>
+          </div>
+        </div>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Care gaps · provider detail page</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 300 190" role="img" aria-label="A detail page where the ranking sits in a short boxed scroll region with its own scroll thumb, empty page space below it, and a second scrollbar for the page.">
+                  <text class="viz-label ink" font-size="9" x="8" y="14">Care gaps by provider</text>
+                  <rect x="8" y="24" width="276" height="74" rx="3" fill="none" stroke="var(--rule-strong)"/>
+                  <g class="viz-bars">
+                    <rect x="80" y="31" width="180" height="11"/>
+                    <rect x="80" y="47" width="169.4" height="11"/>
+                    <rect x="80" y="63" width="162.4" height="11"/>
+                    <rect x="80" y="79" width="155.3" height="11"/>
+                  </g>
+                  <g class="viz-label" font-size="8.5">
+                    <text x="14" y="40">Provider A</text>
+                    <text x="14" y="56">Provider B</text>
+                    <text x="14" y="72">Provider C</text>
+                    <text x="14" y="88">Provider D</text>
+                  </g>
+                  <rect x="278" y="28" width="3" height="14" rx="1.5" fill="var(--rule-strong)"/>
+                  <text class="viz-label" font-size="7.5" x="146" y="148" text-anchor="middle">unused page height</text>
+                  <rect x="294" y="0" width="3" height="190" rx="1.5" fill="var(--rule)"/>
+                  <rect x="294" y="0" width="3" height="70" rx="1.5" fill="var(--rule-strong)"/>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>Two scrollbars, four rows visible, and half the page empty.</strong> The chart owns this canvas, so boxing it rebuilds the dashboard's scroll trap on the page meant to escape it.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Care gaps · provider detail page</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 300 190" role="img" aria-label="The same detail page with the ranking at full height, ten rows visible, the tenth fading at the page edge, and a single page scrollbar.">
+                  <text class="viz-label ink" font-size="9" x="8" y="14">40 providers · sorted by gap count</text>
+                  <g class="viz-bars">
+                    <rect x="80" y="24" width="180" height="11"/>
+                    <rect x="80" y="40" width="169.4" height="11"/>
+                    <rect x="80" y="56" width="162.4" height="11"/>
+                    <rect x="80" y="72" width="155.3" height="11"/>
+                    <rect x="80" y="88" width="144.7" height="11"/>
+                    <rect x="80" y="104" width="137.6" height="11"/>
+                    <rect x="80" y="120" width="130.6" height="11"/>
+                    <rect x="80" y="136" width="120" height="11"/>
+                    <rect x="80" y="152" width="112.9" height="11"/>
+                    <rect class="viz-mute" x="80" y="168" width="105.9" height="11" opacity="0.4"/>
+                  </g>
+                  <g class="viz-label" font-size="8.5">
+                    <text x="8" y="33">Provider A</text>
+                    <text x="8" y="49">Provider B</text>
+                    <text x="8" y="65">Provider C</text>
+                    <text x="8" y="81">Provider D</text>
+                    <text x="8" y="97">Provider E</text>
+                    <text x="8" y="113">Provider F</text>
+                    <text x="8" y="129">Provider G</text>
+                    <text x="8" y="145">Provider H</text>
+                    <text x="8" y="161">Provider I</text>
+                    <text x="8" y="177" opacity="0.4">Provider J</text>
+                  </g>
+                  <g class="viz-label ink" font-size="8.5">
+                    <text x="264" y="33">51</text>
+                    <text x="253.4" y="49">48</text>
+                    <text x="246.4" y="65">46</text>
+                    <text x="239.3" y="81">44</text>
+                    <text x="228.7" y="97">41</text>
+                    <text x="221.6" y="113">39</text>
+                    <text x="214.6" y="129">37</text>
+                    <text x="204" y="145">34</text>
+                    <text x="196.9" y="161">32</text>
+                  </g>
+                  <rect x="294" y="0" width="3" height="190" rx="1.5" fill="var(--rule)"/>
+                  <rect x="294" y="0" width="3" height="40" rx="1.5" fill="var(--rule-strong)"/>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>One scroll, the page's own.</strong> The ranking runs to its 40th row, values sit at the bar ends, and the reader scrolls the way they scroll everything else.</p>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="cap">
+            <span class="name">The one exception · a fixed-height panel beside a detail view</span>
+            <span class="tag v"><span class="dot"></span>Inner scroll allowed</span>
+          </div>
+          <div class="viz-board">
+            <div class="bbar"><i></i><i></i><i></i><em>Care gaps · split view</em></div>
+            <div class="chart viz-plot">
+              <svg viewBox="0 0 600 200" role="img" aria-label="Split view. Left, a fixed-height ranking panel with a sticky header row, the selected provider highlighted, lower rows fading, a row count in the footer and a scroll thumb. Right, a detail panel for the selected provider.">
+                <rect x="8" y="8" width="330" height="184" rx="3" fill="var(--paper)" stroke="var(--rule-strong)"/>
+                <rect x="8" y="8" width="330" height="20" rx="3" fill="var(--paper-3)"/>
+                <g class="viz-label ink" font-size="8">
+                  <text x="16" y="21">Provider</text>
+                  <text x="320" y="21" text-anchor="end">Gap count</text>
+                </g>
+                <rect x="9" y="65" width="320" height="17" fill="var(--paper-2)"/>
+                <g class="viz-bars">
+                  <rect x="100" y="34" width="190" height="11"/>
+                  <rect x="100" y="52" width="178.8" height="11"/>
+                  <rect class="hi" x="100" y="70" width="171.4" height="11"/>
+                  <rect x="100" y="88" width="163.9" height="11"/>
+                  <rect x="100" y="106" width="152.7" height="11"/>
+                  <rect x="100" y="124" width="145.3" height="11"/>
+                  <rect x="100" y="142" width="137.8" height="11" opacity="0.6"/>
+                  <rect x="100" y="160" width="126.7" height="11" opacity="0.3"/>
+                </g>
+                <g class="viz-label" font-size="8.5">
+                  <text x="16" y="43">Provider A</text>
+                  <text x="16" y="61">Provider B</text>
+                  <text x="16" y="79" class="viz-label ink">Provider C</text>
+                  <text x="16" y="97">Provider D</text>
+                  <text x="16" y="115">Provider E</text>
+                  <text x="16" y="133">Provider F</text>
+                  <text x="16" y="151" opacity="0.6">Provider G</text>
+                  <text x="16" y="169" opacity="0.3">Provider H</text>
+                </g>
+                <g class="viz-label ink" font-size="8.5">
+                  <text x="294" y="43">51</text>
+                  <text x="282.8" y="61">48</text>
+                  <text x="275.4" y="79">46</text>
+                  <text x="267.9" y="97">44</text>
+                  <text x="256.7" y="115">41</text>
+                  <text x="249.3" y="133">39</text>
+                </g>
+                <text class="viz-label" font-size="7.5" x="16" y="186">Showing 8 of 40 · scroll for more</text>
+                <rect x="332" y="32" width="3" height="40" rx="1.5" fill="var(--rule-strong)"/>
+                <rect x="350" y="8" width="242" height="184" rx="3" fill="var(--paper-2)" stroke="var(--rule)"/>
+                <text class="viz-label ink" font-size="10" x="362" y="30">Provider C</text>
+                <text class="viz-label ink" font-size="18" x="362" y="60">46</text>
+                <text class="viz-label" font-size="8" x="392" y="60">open gaps</text>
+                <rect x="362" y="78" width="200" height="6" rx="2" fill="var(--rule)"/>
+                <rect x="362" y="92" width="160" height="6" rx="2" fill="var(--rule)"/>
+                <rect x="362" y="106" width="180" height="6" rx="2" fill="var(--rule)"/>
+                <polyline class="viz-line thin" points="362,170 384,164 406,166 428,156 450,158 472,150 494,152 516,142 538,146 560,136"/>
+              </svg>
+            </div>
+          </div>
+          <p class="note"><strong>The list scrolls inside its panel because the detail beside it must stay in view.</strong> The header stays put, the footer says "8 of 40", the fade marks the cut, and at the last row the wheel hands back to the page.</p>
+        </div>
+
+        <div class="compare">
+          <div class="stage avoid">
+            <span class="judge"><span class="d"></span>Avoid</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Readmissions by month · wheel zoom</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 300 156" role="img" aria-label="A line chart with a pointer over it, a zoom badge reading 140 percent, and the page scrollbar stuck partway down.">
+                  <rect x="226" y="6" width="56" height="15" rx="3" fill="var(--paper-3)"/>
+                  <text class="viz-label ink" font-size="7.5" x="254" y="16.5" text-anchor="middle">zoom 140%</text>
+                  <polyline class="viz-line" points="20,96 52,84 84,100 116,72 148,80 180,56 212,68 244,44 276,52"/>
+                  <line class="viz-baseline" x1="14" y1="126" x2="284" y2="126"/>
+                  <path d="M150 62 l0 16 l4.5 -4.5 l3.5 8 l2.4 -1 l-3.5 -8 l6 0 z" fill="var(--ink)" stroke="var(--paper)" stroke-width="1"/>
+                  <text class="viz-label" font-size="7.5" x="150" y="146" text-anchor="middle">wheel over the chart zooms it · the page stops</text>
+                  <rect x="294" y="0" width="3" height="156" rx="1.5" fill="var(--rule)"/>
+                  <rect x="294" y="50" width="3" height="36" rx="1.5" fill="var(--rule-strong)"/>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>Wheel-zoom takes every scroll event and never passes one back.</strong> The reader trying to move down the page zooms the chart instead and cannot get past it.</p>
+          </div>
+          <div class="stage use">
+            <span class="judge"><span class="d"></span>Use</span>
+            <div class="viz-board">
+              <div class="bbar"><i></i><i></i><i></i><em>Readmissions by month · explicit zoom</em></div>
+              <div class="chart viz-plot">
+                <svg viewBox="0 0 300 156" role="img" aria-label="The same line chart with minus, plus and reset buttons at the top right, a brush strip below the chart with a selected window, and a hint reading Ctrl plus scroll to zoom.">
+                  <g fill="var(--paper)" stroke="var(--rule-strong)">
+                    <rect x="200" y="5" width="18" height="16" rx="3"/>
+                    <rect x="222" y="5" width="18" height="16" rx="3"/>
+                    <rect x="244" y="5" width="38" height="16" rx="3"/>
+                  </g>
+                  <g class="viz-label ink" font-size="9" text-anchor="middle">
+                    <text x="209" y="16.5">−</text>
+                    <text x="231" y="16.5">+</text>
+                    <text x="263" y="16" font-size="7.5">Reset</text>
+                  </g>
+                  <polyline class="viz-line" points="20,90 52,78 84,94 116,66 148,74 180,50 212,62 244,38 276,46"/>
+                  <line class="viz-baseline" x1="14" y1="108" x2="284" y2="108"/>
+                  <rect x="14" y="118" width="270" height="20" rx="2" fill="var(--paper-3)"/>
+                  <rect x="128" y="118" width="96" height="20" rx="2" fill="var(--cool-soft)" stroke="var(--cool)"/>
+                  <polyline class="viz-line thin" points="16,132 50,129 84,133 118,126 152,128 186,123 220,126 254,121 282,123"/>
+                  <text class="viz-label" font-size="7.5" x="14" y="151">Ctrl/⌘ + scroll to zoom</text>
+                </svg>
+              </div>
+            </div>
+            <p class="note"><strong>Zoom sits on controls the reader chooses to touch.</strong> Buttons and a brush do the zooming, and the plain wheel keeps scrolling the page past the chart.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 WHY -->
+      <section id="s03">
+        <span class="secnum">03 / The reasoning</span>
+        <h2>Why the tile never scrolls</h2>
+        <p class="prose"><strong>A dashboard exists to be read in one pass, and a scroll region breaks that pass.</strong></p>
+
+        <div class="principles">
+          <div class="principle">
+            <div class="n">1</div>
+            <h3>A dashboard is read at a glance, on one screen</h3>
+            <p>Few defines it as information "arranged on a single screen so the information can be monitored at a glance". A tile that scrolls hides part of its own answer.</p>
+          </div>
+          <div class="principle">
+            <div class="n">2</div>
+            <h3>A clipped tile reads as complete</h3>
+            <p>Rows below the cut go unseen, and a 3px thumb is easy to miss. The care manager ranks providers from the seven they can see.</p>
+          </div>
+          <div class="principle">
+            <div class="n">3</div>
+            <h3>Nested scroll takes the page away</h3>
+            <p>A wheel pass over a scrolling tile stops the page and moves the tile. A grid with several such tiles becomes hard to scroll at all.</p>
+          </div>
+          <div class="principle">
+            <div class="n">4</div>
+            <h3>The detail page has room for every row</h3>
+            <p>It is one page with one scroll. The chart grows to fit its data, so the box, the second scrollbar and the trap all go away.</p>
+          </div>
+          <div class="principle">
+            <div class="n">5</div>
+            <h3>Wheel-zoom never hands the page back</h3>
+            <p>Plain inner scroll passes to the page at its end. Wheel-zoom consumes every event, so the reader cannot scroll past the chart.</p>
+          </div>
+          <div class="principle">
+            <div class="n">6</div>
+            <h3>Every scroll region costs keyboard users</h3>
+            <p>A region a keyboard can't focus hides its rows from keyboard users (WCAG 2.1.1). Horizontal scroll adds the second axis the <a href="breakpoints.html">breakpoints</a> record rules out.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 REVIEW -->
+      <section id="s04">
+        <span class="secnum">04 / In review</span>
+        <h2>Where to draw the line in review</h2>
+        <div class="prose">
+          <p><strong>Scroll is fine when</strong></p>
+          <ul class="clean cool">
+            <li>The page itself scrolls on a detail page whose chart has taken its full height.</li>
+            <li>A fixed-height panel scrolls vertically beside content that must stay in view, with a sticky header, a visible row count, keyboard focus and an accessible name.</li>
+          </ul>
+
+          <p><strong>Reject in review</strong></p>
+          <ul class="clean anti">
+            <li>A scrollbar inside any dashboard tile. Cut to the top 5–8, state the remainder, and link to the detail page.</li>
+            <li>A tile cut off with no count of what's hidden. The reader takes the visible rows for the whole list.</li>
+            <li>An inner scroll box on a detail page where the chart owns the canvas. Let the chart grow and the page scroll.</li>
+            <li>Horizontal scroll in any chart region. Turn columns into horizontal bars, aggregate, or add a brush.</li>
+            <li>Zoom or pan on the plain mouse wheel, including a library default left switched on.</li>
+            <li><code>overscroll-behavior: contain</code> on a chart region. It stops the page taking over at the region's end.</li>
+            <li>Two scrolling panels side by side. The reader can't tell which one the wheel will move.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 05 PRECEDENT -->
+      <section id="s05">
+        <span class="secnum">05 / Precedent</span>
+        <h2>Tools scroll by default, and the guidance pushes back</h2>
+        <p class="prose"><strong>BI tools and chart libraries add scroll and wheel-zoom on their own.</strong> Dashboard theory, map platforms and usability research all keep the wheel for the page. Links are in the sources.</p>
+
+        <div class="systems">
+          <div class="syscard lead">
+            <div class="src">Stephen Few · Information Dashboard Design</div>
+            <h3>One screen, monitored at a glance</h3>
+            <p>Few's definition of a dashboard is the most important information "consolidated and arranged on a single screen so the information can be monitored at a glance". Content past the edge of the screen, or of a tile, falls outside that glance. VC's dashboard tiles follow this definition, and the detail page carries the rest.</p>
+            <span class="verdict tag v"><span class="dot"></span>one screen, one glance</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Google · Maps Platform</div>
+            <h3>Cooperative gestures keep the wheel for the page</h3>
+            <p>In "cooperative" mode the user scrolls the page normally, without zooming or panning the map, and zooms with the controls. It is the default for a map inside an iframe.</p>
+            <span class="verdict tag v"><span class="dot"></span>wheel scrolls the page</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Microsoft · Power BI</div>
+            <h3>A scrollbar appears when categories overflow</h3>
+            <p>When a categorical axis has more categories than fit in the visual, Power BI adds a scrollbar inside it. VC dashboards override that default with a top-N tile and a link.</p>
+            <span class="verdict tag h"><span class="dot"></span>default we override</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Apache · ECharts</div>
+            <h3>Wheel-zoom ships switched on</h3>
+            <p>The inside data-zoom component sets <code>zoomOnMouseWheel</code> to true by default. Any VC chart built on it turns that off and adds explicit controls.</p>
+            <span class="verdict tag h"><span class="dot"></span>default we switch off</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">NN/g · Scrolljacking</div>
+            <h3>Changing how the page scrolls frustrates users</h3>
+            <p>NN/g defines scrolljacking as changing the speed or direction of page scrolling, and finds it causes more frustration than benefit. Their advice is to avoid it.</p>
+            <span class="verdict tag n"><span class="dot"></span>avoid scrolljacking</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">W3C · WCAG, with Deque axe</div>
+            <h3>A scroll region must be reachable by keyboard</h3>
+            <p>Axe's scrollable-region rule maps to WCAG 2.1.1: keyboard users must be able to focus the region or something inside it. Every scroll region we allow carries that cost.</p>
+            <span class="verdict tag n"><span class="dot"></span>focusable or unreachable</span>
+          </div>
+
+          <div class="syscard">
+            <div class="src">Synthesis</div>
+            <h3>The pattern for tools like ours</h3>
+            <p>For a VC dashboard on a large monitor, the tile shows the top of the list and links to the rest. The detail page scrolls as a page. The wheel never zooms. Where a library or BI tool defaults otherwise, we change the default.</p>
+            <span class="verdict tag v"><span class="dot"></span>tile summarises, page scrolls</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 REFS -->
+      <section id="s06">
+        <span class="secnum">06 / References</span>
+        <h2>Sources</h2>
+        <ul class="clean refs prose">
+          <li><a href="https://www.perceptualedge.com/library.php">Stephen Few — Information Dashboard Design</a> (a dashboard is "consolidated and arranged on a single screen so the information can be monitored at a glance").</li>
+          <li><a href="https://developers.google.com/maps/documentation/javascript/interaction">Google Maps Platform — Control zoom and pan</a> (cooperative gesture handling lets the user scroll the page without zooming the map; the default inside an iframe).</li>
+          <li><a href="https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-customize-x-axis-and-y-axis">Microsoft Power BI — Customize X-axis and Y-axis properties</a> (a scrollbar appears when a categorical axis has more categories than fit).</li>
+          <li><a href="https://echarts.apache.org/en/option.html#dataZoom-inside.zoomOnMouseWheel">Apache ECharts — dataZoom-inside.zoomOnMouseWheel</a> (defaults to true).</li>
+          <li><a href="https://www.nngroup.com/articles/scrolljacking-101/">NN/g — Scrolljacking 101</a> (changing scroll speed or direction frustrates users; avoid it).</li>
+          <li><a href="https://dequeuniversity.com/rules/axe/4.10/scrollable-region-focusable">Deque axe — Scrollable region must have keyboard access</a> (WCAG 2.1.1).</li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior">MDN — overscroll-behavior</a> (scroll chaining hands scroll to the page at a region's boundary; <code>contain</code> stops it).</li>
+        </ul>
+      </section>
+
+      <nav class="related" aria-label="Related records">
+        <div class="relnav">
+          <a class="relprev" href="charts-at-tile-scale.html">
+            <span class="k">Previous</span>
+            <span class="rt">Charts at tile scale</span>
+          </a>
+          <a class="relnext" href="colour-for-data.html">
+            <span class="k">Next</span>
+            <span class="rt">Colour for data</span>
+          </a>
+        </div>
+        <div class="relsee">
+          <span class="k">See also</span>
+          <a class="relrow" href="bar-and-column.html">
+            <span class="rt">Bars and columns</span>
+            <span class="rd">Sets when a long ranking cuts to top-N and when it keeps every row.</span>
+          </a>
+          <a class="relrow" href="breakpoints.html">
+            <span class="rt">Breakpoints</span>
+            <span class="rd">Data canvases spread to fill, and the page keeps a single scroll axis.</span>
+          </a>
+          <a class="relrow" href="modal-vs-page.html">
+            <span class="rt">Modal, full page, or side panel</span>
+            <span class="rd">The same signal for containers: the first scrollbar means promote to a page.</span>
+          </a>
+        </div>
+      </nav>
+
+    </div>
+  </article>
+
+  <footer class="globalfoot">
+    <p class="meta">VC · UX decision records · Internal · Verify against the live component library before build.</p>
+  </footer>
+</main>
+
+</body>
+</html>
