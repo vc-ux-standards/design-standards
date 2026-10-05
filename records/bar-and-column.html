@@ -44,7 +44,7 @@
     <div class="rulecard">
       <span class="k">The rule</span>
       <p>
-        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, the split is <strong>the question asked, not the entity</strong>: when the question is <strong>which are the top</strong>, show the top-N and roll the tail into a labelled "Other"; when the reader must <strong>find or compare every entity</strong>, drop nothing — sort, go horizontal, filter and scroll, then a sortable table. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
+        Use a <strong>column</strong> (vertical) for a short, ordered series like a monthly trend; a <strong>horizontal bar</strong> for ranking and for long category labels. <strong>Sort by value</strong> unless a natural order is the point, and <strong>start the axis at zero</strong> — always, for bars. Past ~12 categories, the split is <strong>the question asked, not the entity</strong>: when the question is <strong>which are the top</strong>, show the top-N and roll the tail into a labelled "Other"; when the reader must <strong>find or compare every entity</strong>, drop nothing — the tile shows the sorted top rows and a count, and links to the full sortable list on the detail page. When a column axis crowds, <strong>thin the ticks — VC does not rotate the labels</strong>.
       </p>
     </div>
     <nav class="oncontents" aria-label="Sections of this record">
@@ -80,7 +80,7 @@
         <tr>
           <th scope="row">Category count</th>
           <td data-l="Column">Up to ~8 that fit without crowding.</td>
-          <td data-l="Horizontal bar">Many — rows stack downward and scroll.</td>
+          <td data-l="Horizontal bar">Many — rows stack downward; a tile caps them and links to the rest.</td>
         </tr>
         <tr>
           <th scope="row">Labels</th>
@@ -336,7 +336,7 @@
     </div>
 
     <p class="prose" style="margin-top:2rem;">
-      <strong>An entity axis can't be thinned — a dropped tick is a dropped provider, so the fix is set by the question, not by the entity.</strong> Ask <em>which are the top performers</em> and the tail is disposable: show the top-N and roll the rest into a labelled "Other", the <a href="#s02">§02</a> move. Ask <em>where does this provider sit, or compare them all</em> and identity is required — nothing may be dropped or merged. Sort by value, go horizontal, let the reader filter and scroll, then hand the full set to a sortable table. The same forty providers go either way; the question decides.
+      <strong>An entity axis can't be thinned — a dropped tick is a dropped provider, so the fix is set by the question, not by the entity.</strong> Ask <em>which are the top performers</em> and the tail is disposable: show the top-N and roll the rest into a labelled "Other", the <a href="#s02">§02</a> move. Ask <em>where does this provider sit, or compare them all</em> and identity is required — nothing may be dropped or merged. Sort by value and go horizontal; the tile shows the top rows, counts the rest, and links to the full sortable list on the detail page — a tile never scrolls (<a href="scrolling-in-charts.html">Scrolling in charts</a>). The same forty providers go either way; the question decides.
     </p>
 
     <div class="compare">
@@ -378,9 +378,9 @@
       <div class="stage use">
         <span class="judge"><span class="d"></span>Use</span>
         <div class="viz-board">
-          <div class="bbar"><i></i><i></i><i></i><em>Gap count · sorted, scrollable</em></div>
+          <div class="bbar"><i></i><i></i><i></i><em>Gap count · top 8 of 40</em></div>
           <div class="chart viz-plot">
-            <svg viewBox="0 0 300 152" role="img" aria-label="The same providers as sorted horizontal bars, each named in full with its value at the bar end, a faded ninth row and a scroll thumb signalling more rows below.">
+            <svg viewBox="0 0 300 152" role="img" aria-label="The same providers as sorted horizontal bars, the top eight named in full with values at the bar ends, then a line reading '+32 more · View all 40' linking to the detail page.">
               <g class="viz-bars">
                 <rect x="118" y="6" width="138.0" height="12"/>
                 <rect x="118" y="22" width="129.9" height="12"/>
@@ -390,8 +390,6 @@
                 <rect x="118" y="86" width="105.5" height="12"/>
                 <rect x="118" y="102" width="100.1" height="12"/>
                 <rect x="118" y="118" width="92.0" height="12"/>
-                <rect class="viz-mute" x="118" y="134" width="86.6" height="12" opacity="0.4"/>
-                <rect class="viz-mute" x="292" y="6" width="3" height="44" rx="1.5"/>
               </g>
               <g class="viz-label" font-size="8.5">
                 <text x="6" y="15">Provider A</text>
@@ -402,7 +400,6 @@
                 <text x="6" y="95">Provider F</text>
                 <text x="6" y="111">Provider G</text>
                 <text x="6" y="127">Provider H</text>
-                <text x="6" y="143" opacity="0.4">Provider I</text>
               </g>
               <g class="viz-label ink" font-size="8.5">
                 <text x="261.0" y="15">51</text>
@@ -413,11 +410,12 @@
                 <text x="228.5" y="95">39</text>
                 <text x="223.1" y="111">37</text>
                 <text x="215.0" y="127">34</text>
+                <text x="6" y="146">+32 more · View all 40 →</text>
               </g>
             </svg>
           </div>
         </div>
-        <p class="note"><strong>Sorted by value, horizontal, every provider named in full — scroll for the rest.</strong> No entity is dropped or merged; the reader scrolls the ranking and, past a screenful, hands the full set to a sortable table. The scroll chrome here is schematic — the rule is the sorted, complete, horizontal list.</p>
+        <p class="note"><strong>Sorted, horizontal, every row named in full — and the tile states what it left out.</strong> The top 8 carry the ranking; "+32 more · View all 40" hands every provider to the detail page, where the page scrolls and nothing is dropped. The tile itself never scrolls.</p>
       </div>
     </div>
 
@@ -450,8 +448,8 @@
         </tr>
         <tr>
           <th scope="row">Entities, and the question needs every one</th>
-          <td data-l="What it allows">Sort by value, go horizontal, filter and scroll.</td>
-          <td data-l="When it still won't fit">A sortable table with inline bars.</td>
+          <td data-l="What it allows">Sort by value, go horizontal; the tile shows the top rows and a count.</td>
+          <td data-l="When it still won't fit">"View all" to the detail page: a sortable table with inline bars.</td>
         </tr>
       </tbody>
     </table>
@@ -482,12 +480,12 @@
       <div class="principle">
         <div class="n">3</div>
         <h3>Horizontal when labels or counts grow</h3>
-        <p><strong>Columns divide the width by the category count and truncate the labels.</strong> Horizontal bars stack downward, scroll, and give each domain name the full measure — which is why VC's rankings are almost always horizontal.</p>
+        <p><strong>Columns divide the width by the category count and truncate the labels.</strong> Horizontal bars stack downward and give each domain name the full measure — which is why VC's rankings are almost always horizontal.</p>
       </div>
       <div class="principle">
         <div class="n">4</div>
         <h3>Cap the count, group the tail — when identity is disposable</h3>
-        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> When the tail is disposable, show the top-N and roll the rest into a labelled "Other". When the reader must find or compare every one, drop nothing — sort, scroll, then a sortable table. Forty providers cannot become "Other".</p>
+        <p><strong>Past ~12 categories a bar chart stops comparing.</strong> When the tail is disposable, show the top-N and roll the rest into a labelled "Other". When the reader must find or compare every one, drop nothing — the tile shows the top rows and a count, the detail page lists them all. Forty providers cannot become "Other".</p>
       </div>
       <div class="principle">
         <div class="n">5</div>
